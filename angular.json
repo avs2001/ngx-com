@@ -72,7 +72,7 @@
     "com": {
       "projectType": "library",
       "root": "projects/com",
-      "sourceRoot": "projects/com/src",
+      "sourceRoot": "projects/com",
       "prefix": "com",
       "architect": {
         "build": {
@@ -90,7 +90,12 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/com/tsconfig.spec.json"
+            "tsConfig": "projects/com/tsconfig.spec.json",
+            "include": [
+              "components/**/*.spec.ts",
+              "tokens/**/*.spec.ts",
+              "utils/**/*.spec.ts"
+            ]
           }
         }
       }

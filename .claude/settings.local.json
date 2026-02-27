@@ -15,7 +15,67 @@
       "Bash(gh pr diff:*)",
       "Bash(git fetch:*)",
       "Bash(git rebase:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(gh project item-list:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue create:*)",
+      "Bash(gh project item-add:*)",
+      "Bash(npm run build:lib:*)",
+      "Bash(npm run test:ci:*)",
+      "Bash(curl:*)",
+      "Bash(pkill:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh issue comment:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(gh issue close:*)",
+      "Bash(git pull:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(npx ng test:*)",
+      "Bash(npx vitest:*)",
+      "Bash(lsof:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run build:com:*)",
+      "Bash(tree:*)",
+      "Bash(npm run build:integration:*)",
+      "Bash(npm run:*)",
+      "Bash(ng build:*)",
+      "Bash(git merge:*)",
+      "Bash(npm test:*)",
+      "Bash(git status:*)",
+      "Bash(gh issue view:*)",
+      "WebFetch(domain:angular.dev)",
+      "Bash(npm show:*)",
+      "Bash(npx playwright install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx playwright test:*)",
+      "mcp__angular-cli__search_documentation",
+      "mcp__angular-cli__find_examples",
+      "WebSearch",
+      "Bash(npm view:*)",
+      "Bash(git branch:*)",
+      "Bash(ng test:*)",
+      "Bash(npm ls:*)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(gh api:*)",
+      "mcp__angular-cli__list_projects"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "angular-cli"
+  ],
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-summary.sh",
+            "timeout": 120
+          }
+        ]
+      }
     ]
   }
 }
