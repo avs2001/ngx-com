@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  ElementRef,
   input,
   output,
+  viewChild,
 } from '@angular/core';
 import type { Signal, InputSignal, OutputEmitterRef, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
@@ -38,6 +40,7 @@ export interface CalendarCellKeyNavEvent<D> {
   template: `
     <div [class]="wrapperClasses()">
       <button
+        #cellButton
         type="button"
         [class]="cellClasses()"
         [attr.aria-label]="cell().ariaLabel"
@@ -69,6 +72,9 @@ export interface CalendarCellKeyNavEvent<D> {
   },
 })
 export class ComCalendarCell<D> {
+  /** Reference to the button element for focus management */
+  private readonly buttonRef = viewChild<ElementRef<HTMLButtonElement>>('cellButton');
+
   /** The cell data to render */
   readonly cell: InputSignal<CalendarCell<D>> = input.required<CalendarCell<D>>();
 
@@ -182,5 +188,10 @@ export class ComCalendarCell<D> {
 
   protected onFocus(): void {
     this.focused.emit(this.cell());
+  }
+
+  /** Focuses the button element within this cell */
+  focusButton(): void {
+    this.buttonRef()?.nativeElement.focus();
   }
 }

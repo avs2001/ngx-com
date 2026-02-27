@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   input,
+  viewChildren,
   type InputSignal,
   type Signal,
 } from '@angular/core';
@@ -82,6 +83,9 @@ const TOTAL_CELLS = DAYS_PER_WEEK * WEEKS_PER_MONTH;
 })
 export class ComCalendarMonthView<D> extends CalendarViewBase<D> {
   protected readonly view: CalendarView = 'month';
+
+  /** Cell components for focus management */
+  protected readonly cellComponents: Signal<readonly ComCalendarCell<D>[]> = viewChildren(ComCalendarCell<D>);
 
   /** Override first day of week (0=Sun, 1=Mon, ..., 6=Sat) */
   readonly firstDayOfWeek: InputSignal<number> = input<number>(0);

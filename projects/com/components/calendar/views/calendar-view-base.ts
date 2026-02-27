@@ -1,6 +1,5 @@
 import {
   Directive,
-  ElementRef,
   afterEveryRender,
   inject,
   input,
@@ -13,6 +12,7 @@ import {
   type WritableSignal,
   type TemplateRef,
 } from '@angular/core';
+import type { ComCalendarCell } from '../calendar-cell';
 import type {
   CalendarCell,
   CalendarView,
@@ -30,9 +30,6 @@ import { DateAdapter, DATE_ADAPTER } from '../date-adapter';
 export abstract class CalendarViewBase<D> {
   /** Date adapter for date operations */
   protected readonly dateAdapter: DateAdapter<D> = inject(DATE_ADAPTER) as DateAdapter<D>;
-
-  /** Element reference for focus management */
-  protected readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
   /** The date to display and navigate from */
   readonly activeDate: InputSignal<D> = input.required<D>();
@@ -75,6 +72,9 @@ export abstract class CalendarViewBase<D> {
   /** The calendar view type for this component */
   protected abstract readonly view: CalendarView;
 
+  /** Cell components for focus management. Must be implemented by each view using viewChildren. */
+  protected abstract readonly cellComponents: Signal<readonly ComCalendarCell<D>[]>;
+
   /** Internal signal for tracking the focused cell's compare value */
   protected readonly focusedCellValue: WritableSignal<number | null> = signal<number | null>(null);
 
@@ -86,10 +86,10 @@ export abstract class CalendarViewBase<D> {
     afterEveryRender(() => {
       const pending = this.focusPending();
       if (pending !== null) {
-        const cell = this.elementRef.nativeElement.querySelector(
-          `[data-compare-value="${pending}"] button`
-        ) as HTMLElement;
-        cell?.focus();
+        const cellComponent = this.cellComponents().find(
+          c => c.cell().compareValue === pending
+        );
+        cellComponent?.focusButton();
         this.focusPending.set(null);
       }
     });

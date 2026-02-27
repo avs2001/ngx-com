@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  viewChildren,
   type Signal,
 } from '@angular/core';
 import { ComCalendarCell, type CalendarCellKeyNavEvent } from '../calendar-cell';
@@ -59,6 +60,9 @@ import { CalendarViewBase } from './calendar-view-base';
 })
 export class ComCalendarMultiYearView<D> extends CalendarViewBase<D> {
   protected readonly view: CalendarView = 'multi-year';
+
+  /** Cell components for focus management */
+  protected readonly cellComponents: Signal<readonly ComCalendarCell<D>[]> = viewChildren(ComCalendarCell<D>);
 
   /** The first year in the displayed range */
   readonly startYear: Signal<number> = computed(() => {
