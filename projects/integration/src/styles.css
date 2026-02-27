@@ -305,9 +305,12 @@
 }
 
 /* ─── Theme Transition ─── */
+/* Only apply transitions to key layout elements for performance */
 
-* {
-  transition-property: background-color, border-color, color;
-  transition-duration: 150ms;
-  transition-timing-function: ease-out;
+body,
+header,
+aside,
+main,
+nav {
+  transition: background-color 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out;
 }
