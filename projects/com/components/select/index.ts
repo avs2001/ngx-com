@@ -25,10 +25,6 @@ export type {
   ComSelectLoadingContext,
 } from './select.tokens';
 
-// Variants
-export { triggerVariants, optionVariants, dialogVariants } from './select.variants';
-export type { TriggerVariants, OptionVariants, DialogVariants } from './select.variants';
-
 // Components
 export { ComSelectOption } from './select-option';
 export { ComSelect } from './select';

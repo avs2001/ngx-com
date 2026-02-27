@@ -41,13 +41,13 @@ export type TriggerVariants = VariantProps<typeof triggerVariants>;
  * CVA variants for select option items.
  */
 export const optionVariants: (props?: { state?: OptionState }) => string = cva(
-  'flex items-center px-3 min-h-9 rounded-md cursor-pointer transition-colors',
+  'flex items-center px-3 min-h-9 rounded-md cursor-pointer transition-colors truncate',
   {
     variants: {
       state: {
-        default: 'text-surface-900',
+        default: 'text-surface-900 hover:bg-surface-100',
         active: 'bg-surface-100 ring-2 ring-primary-500 ring-offset-[-2px]',
-        selected: 'bg-primary-50 text-primary-700',
+        selected: 'bg-primary-50 text-primary-700 hover:bg-primary-100',
         disabled: 'text-surface-400 opacity-50 cursor-not-allowed',
       },
     },

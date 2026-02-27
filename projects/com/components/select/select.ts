@@ -19,7 +19,7 @@ import {
   type WritableSignal,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { Combobox, ComboboxInput, ComboboxDialog, ComboboxPopupContainer } from '@angular/aria/combobox';
 import { Listbox } from '@angular/aria/listbox';
 import { triggerVariants, dialogVariants } from './select.variants';
@@ -45,24 +45,154 @@ const defaultSearchPredicate = <T>(_option: T, query: string, label: string): bo
 
 /**
  * Single-select component using Angular Aria dialog popup pattern.
- * Implements ControlValueAccessor for forms integration.
+ * Implements ControlValueAccessor for reactive and template-driven forms.
  *
+ * ## Features
+ * - Keyboard navigation and ARIA attributes (via Angular Aria)
+ * - Form validation states (ng-invalid, ng-touched, ng-dirty, ng-pristine)
+ * - Local and server-side search
+ * - Customizable templates for options, value display, loading, and more
+ * - Responsive dialog positioning with viewport edge handling
+ * - Three size variants (sm, md, lg)
+ * - Theme support (light, dark, forest)
+ *
+ * ## Basic Usage (Reactive Forms)
  * @example
  * ```html
  * <com-select formControlName="country" placeholder="Select country">
- *   <com-select-option *ngFor="let c of countries" [value]="c" [label]="c.name">
- *     {{ c.name }}
- *   </com-select-option>
+ *   @for (country of countries; track country.id) {
+ *     <com-select-option [value]="country" [label]="country.name">
+ *       {{ country.name }}
+ *     </com-select-option>
+ *   }
  * </com-select>
  * ```
  *
- * @example Searchable select
+ * ## Searchable with Local Predicate
+ * @example
  * ```html
- * <com-select [searchable]="true" placeholder="Search countries...">
- *   <com-select-option *ngFor="let c of countries" [value]="c" [label]="c.name">
- *     {{ c.name }}
- *   </com-select-option>
+ * <com-select
+ *   formControlName="country"
+ *   [searchable]="true"
+ *   [searchPredicate]="filterCountry"
+ *   placeholder="Search countries..."
+ * >
+ *   @for (country of countries; track country.id) {
+ *     <com-select-option [value]="country" [label]="country.name">
+ *       {{ country.name }}
+ *     </com-select-option>
+ *   }
  * </com-select>
+ * ```
+ * ```ts
+ * filterCountry = (country: Country, query: string, label: string) =>
+ *   label.toLowerCase().includes(query.toLowerCase()) ||
+ *   country.code.toLowerCase().includes(query.toLowerCase());
+ * ```
+ *
+ * ## Server-Side Search with Loading
+ * @example
+ * ```html
+ * <com-select
+ *   formControlName="user"
+ *   [searchable]="true"
+ *   [loading]="isLoading()"
+ *   (searchChange)="onSearch($event)"
+ *   placeholder="Search users..."
+ * >
+ *   @for (user of searchResults(); track user.id) {
+ *     <com-select-option [value]="user" [label]="user.name">
+ *       {{ user.name }}
+ *     </com-select-option>
+ *   }
+ * </com-select>
+ * ```
+ * ```ts
+ * isLoading = signal(false);
+ * searchResults = signal<User[]>([]);
+ *
+ * onSearch(query: string) {
+ *   this.isLoading.set(true);
+ *   this.userService.search(query).subscribe(results => {
+ *     this.searchResults.set(results);
+ *     this.isLoading.set(false);
+ *   });
+ * }
+ * ```
+ *
+ * ## Custom Option Template
+ * @example
+ * ```html
+ * <com-select formControlName="user" placeholder="Select user">
+ *   <ng-template comSelectOptionTpl let-user let-selected="selected">
+ *     <img [src]="user.avatar" class="w-6 h-6 rounded-full" />
+ *     <span [class.font-semibold]="selected">{{ user.name }}</span>
+ *     <span class="text-surface-400 text-sm ml-auto">{{ user.role }}</span>
+ *   </ng-template>
+ *   @for (user of users; track user.id) {
+ *     <com-select-option [value]="user" [label]="user.name" />
+ *   }
+ * </com-select>
+ * ```
+ *
+ * ## Custom Value Template
+ * @example
+ * ```html
+ * <com-select formControlName="user" placeholder="Select user">
+ *   <ng-template comSelectValueTpl let-user let-placeholder="placeholder">
+ *     @if (user) {
+ *       <img [src]="user.avatar" class="w-5 h-5 rounded-full" />
+ *       <span>{{ user.name }}</span>
+ *     } @else {
+ *       <span class="text-surface-400">{{ placeholder }}</span>
+ *     }
+ *   </ng-template>
+ *   <!-- options... -->
+ * </com-select>
+ * ```
+ *
+ * ## Panel Header and Footer
+ * @example
+ * ```html
+ * <com-select formControlName="category" placeholder="Select category">
+ *   <ng-template comSelectPanelHeaderTpl>
+ *     <div class="px-3 py-2 text-sm font-medium border-b border-surface-200">
+ *       Categories
+ *     </div>
+ *   </ng-template>
+ *   <ng-template comSelectPanelFooterTpl>
+ *     <div class="px-3 py-2 border-t border-surface-200">
+ *       <button type="button" class="text-primary-500 text-sm">
+ *         + Add category
+ *       </button>
+ *     </div>
+ *   </ng-template>
+ *   <!-- options... -->
+ * </com-select>
+ * ```
+ *
+ * ## Size Variants
+ * @example
+ * ```html
+ * <com-select size="sm" placeholder="Small" />
+ * <com-select size="md" placeholder="Medium (default)" />
+ * <com-select size="lg" placeholder="Large" />
+ * ```
+ *
+ * ## With Object Comparison
+ * @example
+ * ```html
+ * <com-select
+ *   formControlName="country"
+ *   [compareWith]="compareById"
+ *   [displayWith]="displayCountry"
+ * >
+ *   <!-- options... -->
+ * </com-select>
+ * ```
+ * ```ts
+ * compareById = (a: Country, b: Country) => a?.id === b?.id;
+ * displayCountry = (country: Country) => country?.name ?? '';
  * ```
  */
 @Component({
@@ -127,7 +257,9 @@ const defaultSearchPredicate = <T>(_option: T, query: string, label: string): bo
           ngComboboxDialog
           #dialogRef
           [class]="dialogClasses()"
-          [class.hidden]="!isOpen()"
+          [class.hidden]="!dialogVisible()"
+          [class.animate-scale-in]="isOpen()"
+          [class.dialog-closing]="isClosing()"
         >
           <!-- Inner combobox for options -->
           <div
@@ -245,6 +377,19 @@ const defaultSearchPredicate = <T>(_option: T, query: string, label: string): bo
     .hidden {
       display: none !important;
     }
+    .dialog-closing {
+      animation: fade-out 0.15s ease-out forwards;
+    }
+    @keyframes fade-out {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+    }
   `,
   imports: [
     Combobox,
@@ -267,12 +412,19 @@ const defaultSearchPredicate = <T>(_option: T, query: string, label: string): bo
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'com-select',
+    'class': 'com-select',
+    '[class.ng-invalid]': 'isInvalid()',
+    '[class.ng-valid]': 'isValid()',
+    '[class.ng-touched]': 'isTouched()',
+    '[class.ng-untouched]': 'isUntouched()',
+    '[class.ng-dirty]': 'isDirty()',
+    '[class.ng-pristine]': 'isPristine()',
   },
 })
 export class ComSelect<T> implements ControlValueAccessor {
   private readonly renderer = inject(Renderer2);
   private readonly optionTplProvider = inject<ComSelectOptionTplProvider<T>>(COM_SELECT_OPTION_TPL_TOKEN);
+  private readonly ngControl = inject(NgControl, { optional: true, self: true });
 
   // View queries
   private readonly outerCombobox = viewChild<Combobox<T>>('outerCombobox');
@@ -361,6 +513,13 @@ export class ComSelect<T> implements ControlValueAccessor {
   private readonly isFocused: WritableSignal<boolean> = signal(false);
   private readonly _searchQuery: WritableSignal<string> = signal('');
   private searchDebounceTimeout: ReturnType<typeof setTimeout> | null = null;
+  private closeAnimationTimeout: ReturnType<typeof setTimeout> | null = null;
+  /** Counter to trigger re-evaluation of control state computed signals */
+  private readonly controlStateVersion: WritableSignal<number> = signal(0);
+  /** Whether the dialog close animation is playing */
+  readonly isClosing: WritableSignal<boolean> = signal(false);
+  /** Previous open state for detecting close transitions */
+  private wasOpen = false;
 
   /** Current search query */
   readonly searchQuery: Signal<string> = this._searchQuery.asReadonly();
@@ -371,6 +530,9 @@ export class ComSelect<T> implements ControlValueAccessor {
     return combobox?.expanded() ?? false;
   });
 
+  /** Whether the dialog should be visible (open or closing) */
+  readonly dialogVisible: Signal<boolean> = computed(() => this.isOpen() || this.isClosing());
+
   /** Whether there is a selected value */
   readonly hasValue: Signal<boolean> = computed(() => this.internalValue() !== null);
 
@@ -380,14 +542,23 @@ export class ComSelect<T> implements ControlValueAccessor {
     return opts.filter(opt => !opt.isHidden()).length;
   });
 
+  /** Total count of options (regardless of visibility) */
+  readonly totalOptionsCount: Signal<number> = computed(() => this.options().length);
+
   /** Whether to show the no-results state */
   readonly showNoResults: Signal<boolean> = computed(() => {
-    // Only show no results when searchable, has query, and no visible options
-    if (!this.searchable()) return false;
     if (this.loading()) return false;
-    const query = this._searchQuery();
-    if (!query) return false;
-    return this.visibleOptionsCount() === 0;
+
+    const visibleCount = this.visibleOptionsCount();
+    const totalCount = this.totalOptionsCount();
+
+    // Show no results when:
+    // 1. There are no options at all (empty list)
+    // 2. Search is active and no options match
+    if (totalCount === 0) return true;
+    if (this.searchable() && this._searchQuery() && visibleCount === 0) return true;
+
+    return false;
   });
 
   /** Display value for the trigger */
@@ -413,6 +584,8 @@ export class ComSelect<T> implements ControlValueAccessor {
       state = 'open';
     } else if (this.isFocused()) {
       state = 'focused';
+    } else if (this.showInvalidState()) {
+      state = 'invalid';
     }
 
     return triggerVariants({ state, size: this.size() });
@@ -448,6 +621,34 @@ export class ComSelect<T> implements ControlValueAccessor {
     query: this._searchQuery(),
   }));
 
+  // Form control state signals (depend on controlStateVersion to ensure reactivity)
+  /** Whether the form control is invalid */
+  readonly isInvalid: Signal<boolean> = computed(() => {
+    this.controlStateVersion(); // Trigger re-evaluation
+    return this.ngControl?.control?.invalid ?? false;
+  });
+  /** Whether the form control is valid */
+  readonly isValid: Signal<boolean> = computed(() => {
+    this.controlStateVersion();
+    return this.ngControl?.control?.valid ?? true;
+  });
+  /** Whether the form control has been touched */
+  readonly isTouched: Signal<boolean> = computed(() => {
+    this.controlStateVersion();
+    return this.ngControl?.control?.touched ?? false;
+  });
+  /** Whether the form control has not been touched */
+  readonly isUntouched: Signal<boolean> = computed(() => !this.isTouched());
+  /** Whether the form control has been modified */
+  readonly isDirty: Signal<boolean> = computed(() => {
+    this.controlStateVersion();
+    return this.ngControl?.control?.dirty ?? false;
+  });
+  /** Whether the form control has not been modified */
+  readonly isPristine: Signal<boolean> = computed(() => this.ngControl?.control?.pristine ?? true);
+  /** Whether to show invalid state (invalid + touched) */
+  readonly showInvalidState: Signal<boolean> = computed(() => this.isInvalid() && this.isTouched());
+
   // CVA callbacks
   private onChange: (value: T | null) => void = () => {};
   private onTouched: () => void = () => {};
@@ -478,6 +679,8 @@ export class ComSelect<T> implements ControlValueAccessor {
             this.internalValue.set(newValue);
             this.onChange(newValue);
             this.valueChange.emit(newValue);
+            // Trigger re-evaluation of form state (dirty state changed)
+            this.bumpControlState();
             // Close dialog after selection
             this.outerCombobox()?.close();
           }
@@ -489,6 +692,12 @@ export class ComSelect<T> implements ControlValueAccessor {
     effect(() => {
       const open = this.isOpen();
       if (open) {
+        // Clear any pending close animation
+        if (this.closeAnimationTimeout) {
+          clearTimeout(this.closeAnimationTimeout);
+          this.closeAnimationTimeout = null;
+        }
+        this.isClosing.set(false);
         this.opened.emit();
         this.positionDialog();
         // Focus search input when opening if searchable
@@ -497,11 +706,21 @@ export class ComSelect<T> implements ControlValueAccessor {
             this.searchInputElement()?.nativeElement?.focus();
           });
         }
-      } else {
+        this.wasOpen = true;
+      } else if (this.wasOpen) {
+        // Dialog is closing - trigger close animation
+        this.isClosing.set(true);
+        this.closeAnimationTimeout = setTimeout(() => {
+          this.isClosing.set(false);
+          this.closeAnimationTimeout = null;
+        }, 150); // Match the fade-out animation duration
         this.closed.emit();
         this.onTouched();
         // Reset search query when closing
         this.resetSearch();
+        // Trigger re-evaluation of form state (touched state changed)
+        this.bumpControlState();
+        this.wasOpen = false;
       }
     });
 
@@ -545,6 +764,12 @@ export class ComSelect<T> implements ControlValueAccessor {
     this.onChange(null);
     this.valueChange.emit(null);
     this.cleared.emit();
+    this.bumpControlState();
+  }
+
+  /** Bump control state version to trigger re-evaluation of form state signals */
+  private bumpControlState(): void {
+    this.controlStateVersion.update(v => v + 1);
   }
 
   /** Handle search input */
@@ -582,7 +807,7 @@ export class ComSelect<T> implements ControlValueAccessor {
     }
   }
 
-  /** Position the dialog below the trigger */
+  /** Position the dialog relative to the trigger, handling viewport edges */
   private positionDialog(): void {
     const dialog = this.dialogElement();
     if (!dialog) return;
@@ -590,14 +815,61 @@ export class ComSelect<T> implements ControlValueAccessor {
     // Use requestAnimationFrame to ensure dialog is visible
     requestAnimationFrame(() => {
       const dialogEl = dialog.nativeElement;
-      const triggerRect = (dialogEl.parentElement as HTMLElement)?.getBoundingClientRect();
+      const triggerEl = dialogEl.parentElement as HTMLElement | null;
+      if (!triggerEl) return;
 
-      if (triggerRect) {
-        this.renderer.setStyle(dialogEl, 'top', `${triggerRect.height + 4}px`);
-        this.renderer.setStyle(dialogEl, 'left', '0');
-        this.renderer.setStyle(dialogEl, 'width', `${triggerRect.width}px`);
+      const triggerRect = triggerEl.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const gap = 4; // Gap between trigger and dialog
+
+      // Set the dialog width to match trigger
+      this.renderer.setStyle(dialogEl, 'width', `${triggerRect.width}px`);
+      this.renderer.setStyle(dialogEl, 'left', '0');
+
+      // Get the max dialog height from the CVA size variant
+      const maxHeight = this.getMaxDialogHeight();
+
+      // Calculate available space below and above the trigger
+      const spaceBelow = viewportHeight - triggerRect.bottom - gap;
+      const spaceAbove = triggerRect.top - gap;
+
+      // Determine if dialog should open above or below
+      const openBelow = spaceBelow >= maxHeight || spaceBelow >= spaceAbove;
+
+      if (openBelow) {
+        // Position below trigger
+        this.renderer.setStyle(dialogEl, 'top', `${triggerRect.height + gap}px`);
+        this.renderer.setStyle(dialogEl, 'bottom', 'auto');
+        // Constrain height if needed
+        if (spaceBelow < maxHeight) {
+          this.renderer.setStyle(dialogEl, 'maxHeight', `${spaceBelow}px`);
+        } else {
+          this.renderer.removeStyle(dialogEl, 'maxHeight');
+        }
+      } else {
+        // Position above trigger
+        this.renderer.setStyle(dialogEl, 'bottom', `${triggerRect.height + gap}px`);
+        this.renderer.setStyle(dialogEl, 'top', 'auto');
+        // Constrain height if needed
+        if (spaceAbove < maxHeight) {
+          this.renderer.setStyle(dialogEl, 'maxHeight', `${spaceAbove}px`);
+        } else {
+          this.renderer.removeStyle(dialogEl, 'maxHeight');
+        }
       }
     });
+  }
+
+  /** Get maximum dialog height in pixels based on size variant */
+  private getMaxDialogHeight(): number {
+    switch (this.size()) {
+      case 'sm':
+        return 224; // 14rem
+      case 'lg':
+        return 384; // 24rem
+      default:
+        return 288; // 18rem (md)
+    }
   }
 
   /** Compare two values for equality */
