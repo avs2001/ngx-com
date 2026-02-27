@@ -59,23 +59,11 @@
       "WebFetch(domain:www.npmjs.com)",
       "WebFetch(domain:github.com)",
       "Bash(gh api:*)",
-      "mcp__angular-cli__list_projects"
+      "mcp__angular-cli__list_projects",
+      "Bash(chmod:*)"
     ]
   },
   "enabledMcpjsonServers": [
     "angular-cli"
-  ],
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-summary.sh",
-            "timeout": 120
-          }
-        ]
-      }
-    ]
-  }
+  ]
 }
