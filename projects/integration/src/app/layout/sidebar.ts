@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -20,7 +20,7 @@ interface NavSection {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterLinkActive],
   template: `
-    <aside class="flex h-full w-64 flex-col border-r border-surface-200 bg-white">
+    <aside class="flex h-full w-64 flex-col border-r border-surface-200 bg-surface-50">
       <!-- Logo -->
       <div class="flex h-16 items-center gap-2 border-b border-surface-200 px-4">
         <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-500">
@@ -66,7 +66,7 @@ interface NavSection {
                           <li>
                             <a
                               [routerLink]="child.path"
-                              routerLinkActive="bg-primary-50 text-primary-700 font-medium"
+                              routerLinkActive="bg-primary-100 text-primary-700 font-medium"
                               class="block rounded-lg px-3 py-1.5 text-sm text-surface-600 transition hover:bg-surface-100 hover:text-surface-900"
                             >
                               {{ child.label }}
@@ -80,7 +80,7 @@ interface NavSection {
                   <li>
                     <a
                       [routerLink]="item.path"
-                      routerLinkActive="bg-primary-50 text-primary-700 font-medium"
+                      routerLinkActive="bg-primary-100 text-primary-700 font-medium"
                       [routerLinkActiveOptions]="{ exact: item.path === '/' }"
                       class="block rounded-lg px-3 py-2 text-sm text-surface-700 transition hover:bg-surface-100"
                     >

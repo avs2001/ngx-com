@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Sidebar } from './sidebar';
 import { Header } from './header';
+import { ThemeService } from '../shared/theme.service';
 
 @Component({
   selector: 'int-shell',
@@ -29,7 +30,7 @@ import { Header } from './header';
       <div class="flex flex-1 flex-col overflow-hidden">
         <int-header (menuToggle)="mobileMenuOpen.set(!mobileMenuOpen())" />
 
-        <main class="flex-1 overflow-y-auto bg-surface-50">
+        <main class="flex-1 overflow-y-auto bg-surface-100">
           <router-outlet />
         </main>
       </div>
@@ -40,5 +41,7 @@ import { Header } from './header';
   },
 })
 export class Shell {
+  // Inject ThemeService to ensure it initializes on app load
+  private readonly themeService = inject(ThemeService);
   protected readonly mobileMenuOpen = signal(false);
 }

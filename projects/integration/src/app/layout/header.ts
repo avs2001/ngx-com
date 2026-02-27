@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import { ThemeSwitcher } from '../shared/theme-switcher';
 
 @Component({
   selector: 'int-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ThemeSwitcher],
   template: `
-    <header class="flex h-16 items-center justify-between border-b border-surface-200 bg-white px-6">
+    <header class="flex h-16 items-center justify-between border-b border-surface-200 bg-surface-50 px-6">
       <div class="flex items-center gap-4">
         <!-- Mobile menu button -->
         <button
@@ -19,7 +21,10 @@ import { ChangeDetectionStrategy, Component, output } from '@angular/core';
         </button>
       </div>
 
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <!-- Theme switcher -->
+        <int-theme-switcher />
+
         <!-- Version badge -->
         <span class="rounded-full bg-surface-100 px-3 py-1 text-xs font-medium text-surface-600">
           v0.0.1
