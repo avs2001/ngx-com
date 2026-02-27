@@ -5,7 +5,12 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
     "isolatedDeclarations": false,
-    "types": []
+    "types": [],
+    "baseUrl": ".",
+    "paths": {
+      "ngx-com": ["../../dist/com"],
+      "ngx-com/*": ["../../dist/com/*"]
+    }
   },
   "include": [
     "src/**/*.ts"

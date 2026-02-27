@@ -78,3 +78,12 @@ export {
   WeekSelectionStrategy,
 } from './selection';
 export type { SelectionResult } from './selection';
+
+// Provider Functions
+export {
+  provideNativeDateAdapter,
+  provideSingleSelectionStrategy,
+  provideRangeSelectionStrategy,
+  provideMultiSelectionStrategy,
+  provideWeekSelectionStrategy,
+} from './providers';
