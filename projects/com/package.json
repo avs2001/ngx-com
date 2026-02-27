@@ -1,6 +1,10 @@
 {
   "name": "ngx-com",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avs2001/ngx-com"
+  },
   "peerDependencies": {
     "@angular/common": "^21.0.0",
     "@angular/core": "^21.0.0"
