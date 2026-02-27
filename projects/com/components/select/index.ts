@@ -7,12 +7,23 @@
 export type { ComSelectSize, CompareFn, DisplayFn, SearchPredicateFn } from './select.types';
 export { DEFAULT_SEARCH_DEBOUNCE } from './select.types';
 
-// Tokens
+// Template directives
 export {
-  COM_SELECT_OPTION_TPL,
-  COM_SELECT_VALUE_TPL,
+  ComSelectOptionTpl,
+  ComSelectValueTpl,
+  ComSelectPanelHeaderTpl,
+  ComSelectPanelFooterTpl,
+  ComSelectNoResultsTpl,
+  ComSelectLoadingTpl,
 } from './select.tokens';
-export type { ComSelectOptionContext, ComSelectValueContext } from './select.tokens';
+export type {
+  ComSelectOptionContext,
+  ComSelectValueContext,
+  ComSelectPanelHeaderContext,
+  ComSelectPanelFooterContext,
+  ComSelectNoResultsContext,
+  ComSelectLoadingContext,
+} from './select.tokens';
 
 // Variants
 export { triggerVariants, optionVariants, dialogVariants } from './select.variants';

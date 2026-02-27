@@ -9,8 +9,14 @@ import {
   type Signal,
   type WritableSignal,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { Option } from '@angular/aria/listbox';
 import { optionVariants } from './select.variants';
+import {
+  COM_SELECT_OPTION_TPL_TOKEN,
+  type ComSelectOptionContext,
+  type ComSelectOptionTplProvider,
+} from './select.tokens';
 
 /**
  * Option component for com-select.
@@ -25,8 +31,14 @@ import { optionVariants } from './select.variants';
  */
 @Component({
   selector: 'com-select-option',
-  template: `<ng-content />`,
-  imports: [Option],
+  template: `
+    @if (optionTplProvider?.optionTpl; as tpl) {
+      <ng-container *ngTemplateOutlet="tpl.templateRef; context: templateContext()" />
+    } @else {
+      <ng-content />
+    }
+  `,
+  imports: [Option, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   hostDirectives: [
     {
@@ -51,6 +63,9 @@ export class ComSelectOption<T> {
 
   /** Reference to the underlying Angular Aria Option */
   private readonly option = inject(Option<T>);
+
+  /** Optional custom option template provider from parent com-select */
+  readonly optionTplProvider: ComSelectOptionTplProvider<T> | null = inject<ComSelectOptionTplProvider<T>>(COM_SELECT_OPTION_TPL_TOKEN, { optional: true });
 
   /** Whether this option is hidden (filtered out by search) */
   private readonly _hidden: WritableSignal<boolean> = signal(false);
@@ -82,4 +97,12 @@ export class ComSelectOption<T> {
   setHidden(hidden: boolean): void {
     this._hidden.set(hidden);
   }
+
+  /** Context for custom option template */
+  readonly templateContext: Signal<ComSelectOptionContext<T>> = computed(() => ({
+    $implicit: this.value(),
+    label: this.label(),
+    selected: this.isSelected(),
+    active: this.isActive(),
+  }));
 }

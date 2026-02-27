@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  contentChild,
   contentChildren,
   effect,
   forwardRef,
@@ -17,6 +18,7 @@ import {
   type Signal,
   type WritableSignal,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Combobox, ComboboxInput, ComboboxDialog, ComboboxPopupContainer } from '@angular/aria/combobox';
 import { Listbox } from '@angular/aria/listbox';
@@ -24,6 +26,18 @@ import { triggerVariants, dialogVariants } from './select.variants';
 import { ComSelectOption } from './select-option';
 import type { ComSelectSize, CompareFn, DisplayFn, SearchPredicateFn } from './select.types';
 import { DEFAULT_SEARCH_DEBOUNCE } from './select.types';
+import {
+  ComSelectOptionTpl,
+  ComSelectValueTpl,
+  ComSelectPanelHeaderTpl,
+  ComSelectPanelFooterTpl,
+  ComSelectNoResultsTpl,
+  ComSelectLoadingTpl,
+  ComSelectOptionTplProvider,
+  COM_SELECT_OPTION_TPL_TOKEN,
+  type ComSelectValueContext,
+  type ComSelectNoResultsContext,
+} from './select.tokens';
 
 /** Default search predicate - case-insensitive label match */
 const defaultSearchPredicate = <T>(_option: T, query: string, label: string): boolean =>
@@ -62,9 +76,15 @@ const defaultSearchPredicate = <T>(_option: T, query: string, label: string): bo
       (click)="onTriggerClick()"
     >
       <!-- Trigger content -->
-      <span class="flex-1 truncate" [class.text-surface-400]="!hasValue()">
-        {{ displayValue() }}
-      </span>
+      @if (valueTpl()) {
+        <span class="flex-1 truncate">
+          <ng-container *ngTemplateOutlet="valueTpl()!.templateRef; context: valueContext()" />
+        </span>
+      } @else {
+        <span class="flex-1 truncate" [class.text-surface-400]="!hasValue()">
+          {{ displayValue() }}
+        </span>
+      }
 
       <!-- Hidden input for ARIA -->
       <input
@@ -149,20 +169,33 @@ const defaultSearchPredicate = <T>(_option: T, query: string, label: string): bo
               <input ngComboboxInput class="sr-only" readonly />
             }
 
+            <!-- Panel header -->
+            @if (panelHeaderTpl()) {
+              <ng-container *ngTemplateOutlet="panelHeaderTpl()!.templateRef" />
+            }
+
             <!-- Loading state -->
             @if (loading()) {
-              <div class="flex items-center justify-center py-8 text-surface-400">
-                <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                <span class="ml-2 text-sm">Loading...</span>
-              </div>
+              @if (loadingTpl()) {
+                <ng-container *ngTemplateOutlet="loadingTpl()!.templateRef" />
+              } @else {
+                <div class="flex items-center justify-center py-8 text-surface-400">
+                  <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span class="ml-2 text-sm">Loading...</span>
+                </div>
+              }
             } @else if (showNoResults()) {
               <!-- No results state -->
-              <div class="flex items-center justify-center py-8 text-surface-400">
-                <span class="text-sm">No results found</span>
-              </div>
+              @if (noResultsTpl()) {
+                <ng-container *ngTemplateOutlet="noResultsTpl()!.templateRef; context: noResultsContext()" />
+              } @else {
+                <div class="flex items-center justify-center py-8 text-surface-400">
+                  <span class="text-sm">No results found</span>
+                </div>
+              }
             } @else {
               <!-- Listbox with options -->
               <div
@@ -173,6 +206,11 @@ const defaultSearchPredicate = <T>(_option: T, query: string, label: string): bo
               >
                 <ng-content select="com-select-option" />
               </div>
+            }
+
+            <!-- Panel footer -->
+            @if (panelFooterTpl()) {
+              <ng-container *ngTemplateOutlet="panelFooterTpl()!.templateRef" />
             }
           </div>
         </dialog>
@@ -214,12 +252,17 @@ const defaultSearchPredicate = <T>(_option: T, query: string, label: string): bo
     ComboboxDialog,
     ComboboxPopupContainer,
     Listbox,
+    NgTemplateOutlet,
   ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ComSelect),
       multi: true,
+    },
+    {
+      provide: COM_SELECT_OPTION_TPL_TOKEN,
+      useFactory: () => new ComSelectOptionTplProvider<unknown>(),
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -229,6 +272,7 @@ const defaultSearchPredicate = <T>(_option: T, query: string, label: string): bo
 })
 export class ComSelect<T> implements ControlValueAccessor {
   private readonly renderer = inject(Renderer2);
+  private readonly optionTplProvider = inject<ComSelectOptionTplProvider<T>>(COM_SELECT_OPTION_TPL_TOKEN);
 
   // View queries
   private readonly outerCombobox = viewChild<Combobox<T>>('outerCombobox');
@@ -236,6 +280,20 @@ export class ComSelect<T> implements ControlValueAccessor {
   private readonly dialogElement = viewChild<ElementRef<HTMLDialogElement>>('dialogRef');
   private readonly searchInputElement = viewChild<ElementRef<HTMLInputElement>>('searchInputRef');
   private readonly options = contentChildren(ComSelectOption<T>);
+
+  // Template directives
+  /** Custom option template */
+  readonly optionTpl: Signal<ComSelectOptionTpl<T> | undefined> = contentChild(ComSelectOptionTpl<T>);
+  /** Custom value display template */
+  readonly valueTpl: Signal<ComSelectValueTpl<T> | undefined> = contentChild(ComSelectValueTpl<T>);
+  /** Custom panel header template */
+  readonly panelHeaderTpl: Signal<ComSelectPanelHeaderTpl | undefined> = contentChild(ComSelectPanelHeaderTpl);
+  /** Custom panel footer template */
+  readonly panelFooterTpl: Signal<ComSelectPanelFooterTpl | undefined> = contentChild(ComSelectPanelFooterTpl);
+  /** Custom no-results template */
+  readonly noResultsTpl: Signal<ComSelectNoResultsTpl | undefined> = contentChild(ComSelectNoResultsTpl);
+  /** Custom loading template */
+  readonly loadingTpl: Signal<ComSelectLoadingTpl | undefined> = contentChild(ComSelectLoadingTpl);
 
   // Inputs
   /** Current selected value */
@@ -379,11 +437,28 @@ export class ComSelect<T> implements ControlValueAccessor {
     }
   });
 
+  /** Context for custom value template */
+  readonly valueContext: Signal<ComSelectValueContext<T>> = computed(() => ({
+    $implicit: this.internalValue(),
+    placeholder: this.placeholder(),
+  }));
+
+  /** Context for custom no-results template */
+  readonly noResultsContext: Signal<ComSelectNoResultsContext> = computed(() => ({
+    query: this._searchQuery(),
+  }));
+
   // CVA callbacks
   private onChange: (value: T | null) => void = () => {};
   private onTouched: () => void = () => {};
 
   constructor() {
+    // Sync option template to provider for child options
+    effect(() => {
+      const tpl = this.optionTpl();
+      this.optionTplProvider.optionTpl = tpl ?? null;
+    });
+
     // Sync external value input with internal state
     effect(() => {
       const externalValue = this.value();
