@@ -31,7 +31,21 @@ export const routes: Routes = [
       {
         path: 'components/calendar/api',
         loadComponent: () => import('./pages/calendar/calendar-api').then(m => m.CalendarApi),
-      }
+      },
+      {
+        path: 'components/dropdown',
+        loadComponent: () =>
+          import('./pages/dropdown/dropdown-overview').then(m => m.DropdownOverview),
+      },
+      {
+        path: 'components/dropdown/examples',
+        loadComponent: () =>
+          import('./pages/dropdown/dropdown-examples').then(m => m.DropdownExamples),
+      },
+      {
+        path: 'components/dropdown/api',
+        loadComponent: () => import('./pages/dropdown/dropdown-api').then(m => m.DropdownApi),
+      },
     ],
   },
 ];

@@ -116,7 +116,7 @@ interface NavSection {
 })
 export class Sidebar {
   private readonly router = inject(Router);
-  private readonly expandedSections = signal<Set<string>>(new Set(['components']));
+  private readonly expandedSections = signal<Set<string>>(new Set(['components/calendar', 'components/dropdown']));
 
   private readonly navigationEnd = toSignal(
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
@@ -141,6 +141,15 @@ export class Sidebar {
             { label: 'Overview', path: '/components/calendar' },
             { label: 'Examples', path: '/components/calendar/examples' },
             { label: 'API', path: '/components/calendar/api' },
+          ],
+        },
+        {
+          label: 'Dropdown',
+          path: 'components/dropdown',
+          children: [
+            { label: 'Overview', path: '/components/dropdown' },
+            { label: 'Examples', path: '/components/dropdown/examples' },
+            { label: 'API', path: '/components/dropdown/api' },
           ],
         },
       ],
