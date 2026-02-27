@@ -30,6 +30,10 @@ import {
   ComCalendarMultiYearView,
 } from './views';
 import { getMultiYearStartingYear, isMonthDisabled, isYearDisabled } from './calendar.utils';
+import {
+  CalendarSelectionStrategy,
+  CALENDAR_SELECTION_STRATEGY,
+} from './selection';
 
 /**
  * Main calendar orchestrator component.
@@ -88,8 +92,11 @@ import { getMultiYearStartingYear, isMonthDisabled, isYearDisabled } from './cal
             [dateFilter]="dateFilter()"
             [dateClass]="dateClass()"
             [cellTemplate]="cellTemplate()"
+            [previewStart]="previewRange()?.start ?? null"
+            [previewEnd]="previewRange()?.end ?? null"
             (selectedChange)="onDateSelected($event)"
             (activeDateChange)="onActiveDateChange($event)"
+            (previewChange)="onPreviewChange($event)"
           />
         }
         @case ('year') {
@@ -100,8 +107,11 @@ import { getMultiYearStartingYear, isMonthDisabled, isYearDisabled } from './cal
             [maxDate]="maxDate()"
             [dateClass]="dateClass()"
             [cellTemplate]="cellTemplate()"
+            [previewStart]="previewRange()?.start ?? null"
+            [previewEnd]="previewRange()?.end ?? null"
             (selectedChange)="onMonthSelected($event)"
             (activeDateChange)="onActiveDateChange($event)"
+            (previewChange)="onPreviewChange($event)"
           />
         }
         @case ('multi-year') {
@@ -112,8 +122,11 @@ import { getMultiYearStartingYear, isMonthDisabled, isYearDisabled } from './cal
             [maxDate]="maxDate()"
             [dateClass]="dateClass()"
             [cellTemplate]="cellTemplate()"
+            [previewStart]="previewRange()?.start ?? null"
+            [previewEnd]="previewRange()?.end ?? null"
             (selectedChange)="onYearSelected($event)"
             (activeDateChange)="onActiveDateChange($event)"
+            (previewChange)="onPreviewChange($event)"
           />
         }
       }
@@ -146,6 +159,11 @@ import { getMultiYearStartingYear, isMonthDisabled, isYearDisabled } from './cal
 export class ComCalendar<D> {
   /** Date adapter for date operations */
   private readonly dateAdapter: DateAdapter<D> = inject(DATE_ADAPTER) as DateAdapter<D>;
+
+  /** Optional selection strategy for custom selection behaviors */
+  private readonly selectionStrategy = inject(CALENDAR_SELECTION_STRATEGY, {
+    optional: true,
+  }) as CalendarSelectionStrategy<D, unknown> | null;
 
   /** The date to display and navigate from */
   readonly activeDate: InputSignal<D | undefined> = input<D>();
@@ -190,6 +208,21 @@ export class ComCalendar<D> {
 
   /** Live announcement for screen readers */
   readonly liveAnnouncement: WritableSignal<string> = signal<string>('');
+
+  /** Internal selection state managed by strategy */
+  readonly internalSelection: WritableSignal<unknown> = signal<unknown>(null);
+
+  /** Currently hovered/previewed date */
+  readonly previewDate: WritableSignal<D | null> = signal<D | null>(null);
+
+  /** Computed preview range from strategy */
+  readonly previewRange: Signal<DateRange<D> | null> = computed(() => {
+    if (!this.selectionStrategy) return null;
+    return this.selectionStrategy.createPreview(
+      this.previewDate(),
+      this.internalSelection()
+    );
+  });
 
   /** Calendar container classes */
   readonly calendarClasses: Signal<string> = computed(() => calendarVariants());
@@ -334,6 +367,14 @@ export class ComCalendar<D> {
         this.internalActiveDate.set(inputDate);
       }
     }, { allowSignalWrites: true });
+
+    // Sync external selected input with internal selection state (for strategy use)
+    effect(() => {
+      const external = this.selected();
+      if (external !== undefined) {
+        this.internalSelection.set(external);
+      }
+    }, { allowSignalWrites: true });
   }
 
   /**
@@ -406,10 +447,29 @@ export class ComCalendar<D> {
 
   /**
    * Handles date selection from month view.
-   * Emits the selected date.
+   * Uses selection strategy if available, otherwise emits directly.
    */
   onDateSelected(date: D): void {
-    this.selectedChange.emit(date);
+    if (this.selectionStrategy) {
+      const result = this.selectionStrategy.select(date, this.internalSelection());
+      this.internalSelection.set(result.selection);
+
+      if (result.isComplete) {
+        // Cast to D for the output - the strategy determines the actual type
+        this.selectedChange.emit(result.selection as D);
+      }
+    } else {
+      // Fallback: default single selection behavior
+      this.selectedChange.emit(date);
+    }
+  }
+
+  /**
+   * Handles preview change from views (mouse hover).
+   * Updates the preview date for strategy to compute preview range.
+   */
+  onPreviewChange(date: D | null): void {
+    this.previewDate.set(date);
   }
 
   /**

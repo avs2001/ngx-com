@@ -67,3 +67,14 @@ export {
   ComCalendarYearView,
   ComCalendarMultiYearView,
 } from './views';
+
+// Selection Strategies
+export {
+  CalendarSelectionStrategy,
+  CALENDAR_SELECTION_STRATEGY,
+  SingleSelectionStrategy,
+  RangeSelectionStrategy,
+  MultiSelectionStrategy,
+  WeekSelectionStrategy,
+} from './selection';
+export type { SelectionResult } from './selection';
