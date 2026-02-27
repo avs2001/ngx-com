@@ -6,5 +6,94 @@
   },
   "newProjectRoot": "projects",
   "projects": {
+    "integration": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/integration",
+      "sourceRoot": "projects/integration/src",
+      "prefix": "int",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/integration/src/main.ts",
+            "tsConfig": "projects/integration/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/integration/public"
+              }
+            ],
+            "styles": [
+              "projects/integration/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "integration:build:production"
+            },
+            "development": {
+              "buildTarget": "integration:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    },
+    "com": {
+      "projectType": "library",
+      "root": "projects/com",
+      "sourceRoot": "projects/com/src",
+      "prefix": "com",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/com/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/com/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/com/tsconfig.spec.json"
+          }
+        }
+      }
+    }
   }
 }
