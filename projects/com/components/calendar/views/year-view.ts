@@ -36,7 +36,7 @@ const MONTHS_PER_YEAR = 12;
       (mouseleave)="onGridMouseLeave()"
     >
       @for (row of cells(); track $index) {
-        <div role="row" class="com-calendar-year-view__row">
+        <div role="row" class="com-calendar-year-view__row grid grid-cols-4 gap-1">
           @for (cell of row; track cell.compareValue) {
             <com-calendar-cell
               [cell]="cell"

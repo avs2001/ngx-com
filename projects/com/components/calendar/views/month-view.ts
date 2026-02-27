@@ -42,11 +42,11 @@ const TOTAL_CELLS = DAYS_PER_WEEK * WEEKS_PER_MONTH;
       (mouseleave)="onGridMouseLeave()"
     >
       <!-- Weekday headers -->
-      <div role="row" class="com-calendar-month-view__header">
+      <div role="row" class="com-calendar-month-view__header grid grid-cols-7 gap-0">
         @for (header of weekdayHeaders(); track $index) {
           <div
             role="columnheader"
-            class="com-calendar-month-view__header-cell"
+            class="com-calendar-month-view__header-cell flex items-center justify-center h-9 text-xs font-medium text-gray-500 dark:text-gray-400"
             [attr.aria-label]="header.label"
           >
             {{ header.narrow }}
@@ -56,7 +56,7 @@ const TOTAL_CELLS = DAYS_PER_WEEK * WEEKS_PER_MONTH;
 
       <!-- Day cells -->
       @for (row of cells(); track $index) {
-        <div role="row" class="com-calendar-month-view__row">
+        <div role="row" class="com-calendar-month-view__row grid grid-cols-7 gap-0">
           @for (cell of row; track cell.compareValue) {
             <com-calendar-cell
               [cell]="cell"
