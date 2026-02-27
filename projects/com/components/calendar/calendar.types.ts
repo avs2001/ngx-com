@@ -96,6 +96,12 @@ export function createCalendarCell<D>(config: CalendarCellConfig<D>): CalendarCe
 /** Style format for month and day names */
 export type NameStyle = 'long' | 'short' | 'narrow';
 
+/** Number of days in a week */
+export const DAYS_PER_WEEK = 7;
+
+/** Number of weeks displayed in month view */
+export const WEEKS_PER_MONTH = 6;
+
 /** Number of years displayed in multi-year view */
 export const YEARS_PER_PAGE = 24;
 
@@ -104,3 +110,9 @@ export const YEARS_PER_ROW = 4;
 
 /** Number of months per row in year view */
 export const MONTHS_PER_ROW = 4;
+
+/** Function type for custom date filtering */
+export type DateFilterFn<D> = (date: D) => boolean;
+
+/** Function type for applying custom CSS classes to dates */
+export type DateClassFn<D> = (date: D, view: CalendarView) => string;
