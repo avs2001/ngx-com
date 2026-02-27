@@ -90,6 +90,9 @@ export class ComCalendarMonthView<D> extends CalendarViewBase<D> {
   /** Override first day of week (0=Sun, 1=Mon, ..., 6=Sat) */
   readonly firstDayOfWeek: InputSignal<number> = input<number>(0);
 
+  /** Grid index for dual-month display (0=left, 1=right) */
+  readonly gridIndex: InputSignal<number> = input<number>(0);
+
   /** Weekday header labels */
   readonly weekdayHeaders: Signal<WeekdayHeader[]> = computed(() => {
     return getWeekdayHeaders(this.dateAdapter, 'long', this.firstDayOfWeek());

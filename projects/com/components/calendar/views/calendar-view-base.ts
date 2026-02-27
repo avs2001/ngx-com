@@ -242,8 +242,9 @@ export abstract class CalendarViewBase<D> {
   /**
    * Focuses the cell with the given compare value.
    * Uses afterRender to ensure DOM is updated before focusing.
+   * Public to allow parent components to manage cross-grid focus in dual-month mode.
    */
-  protected focusCell(compareValue: number): void {
+  focusCell(compareValue: number): void {
     this.focusedCellValue.set(compareValue);
     this.focusPending.set(compareValue);
   }

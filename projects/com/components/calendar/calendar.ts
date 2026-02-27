@@ -7,6 +7,7 @@ import {
   input,
   output,
   signal,
+  viewChildren,
   type InputSignal,
   type OutputEmitterRef,
   type Signal,
@@ -14,7 +15,7 @@ import {
   type WritableSignal,
 } from '@angular/core';
 import { ComCalendarHeader } from './calendar-header';
-import { calendarVariants } from './calendar.variants';
+import { calendarVariants, monthsContainerVariants } from './calendar.variants';
 import type {
   CalendarCell,
   CalendarView,
@@ -33,6 +34,7 @@ import { getMultiYearStartingYear, isMonthDisabled, isYearDisabled } from './cal
 import {
   CalendarSelectionStrategy,
   CALENDAR_SELECTION_STRATEGY,
+  RangeSelectionStrategy,
 } from './selection';
 
 /**
@@ -84,21 +86,43 @@ import {
 
       @switch (currentView()) {
         @case ('month') {
-          <com-calendar-month-view
-            [activeDate]="internalActiveDate()"
-            [selected]="selected()"
-            [minDate]="minDate()"
-            [maxDate]="maxDate()"
-            [dateFilter]="dateFilter()"
-            [dateClass]="dateClass()"
-            [cellTemplate]="cellTemplate()"
-            [firstDayOfWeek]="computedFirstDayOfWeek()"
-            [previewStart]="previewRange()?.start ?? null"
-            [previewEnd]="previewRange()?.end ?? null"
-            (selectedChange)="onDateSelected($event)"
-            (activeDateChange)="onActiveDateChange($event)"
-            (previewChange)="onPreviewChange($event)"
-          />
+          <div [class]="monthsContainerClasses()">
+            <com-calendar-month-view
+              [activeDate]="internalActiveDate()"
+              [selected]="selected()"
+              [minDate]="minDate()"
+              [maxDate]="maxDate()"
+              [dateFilter]="dateFilter()"
+              [dateClass]="dateClass()"
+              [cellTemplate]="cellTemplate()"
+              [firstDayOfWeek]="computedFirstDayOfWeek()"
+              [previewStart]="previewRange()?.start ?? null"
+              [previewEnd]="previewRange()?.end ?? null"
+              [gridIndex]="0"
+              (selectedChange)="onDateSelected($event)"
+              (activeDateChange)="onActiveDateChange($event, 0)"
+              (previewChange)="onPreviewChange($event)"
+            />
+
+            @if (effectiveMonthColumns() >= 2 && secondaryActiveDate()) {
+              <com-calendar-month-view
+                [activeDate]="secondaryActiveDate()!"
+                [selected]="selected()"
+                [minDate]="minDate()"
+                [maxDate]="maxDate()"
+                [dateFilter]="dateFilter()"
+                [dateClass]="dateClass()"
+                [cellTemplate]="cellTemplate()"
+                [firstDayOfWeek]="computedFirstDayOfWeek()"
+                [previewStart]="previewRange()?.start ?? null"
+                [previewEnd]="previewRange()?.end ?? null"
+                [gridIndex]="1"
+                (selectedChange)="onDateSelected($event)"
+                (activeDateChange)="onActiveDateChange($event, 1)"
+                (previewChange)="onPreviewChange($event)"
+              />
+            }
+          </div>
         }
         @case ('year') {
           <com-calendar-year-view
@@ -166,6 +190,9 @@ export class ComCalendar<D> {
     optional: true,
   }) as CalendarSelectionStrategy<D, unknown> | null;
 
+  /** Query for month views for cross-grid focus management */
+  private readonly monthViews = viewChildren(ComCalendarMonthView<D>);
+
   /** The date to display and navigate from */
   readonly activeDate: InputSignal<D | undefined> = input<D>();
 
@@ -190,6 +217,9 @@ export class ComCalendar<D> {
   /** Override first day of week (0=Sun, 1=Mon, ..., 6=Sat). Uses locale default if null. */
   readonly firstDayOfWeek: InputSignal<number | null> = input<number | null>(null);
 
+  /** Number of months to display side-by-side (1 or 2). Defaults to 2 when RangeSelectionStrategy is used. */
+  readonly monthColumns: InputSignal<number> = input<number>(1);
+
   /** Computed first day of week (input override or adapter default) */
   readonly computedFirstDayOfWeek: Signal<number> = computed(() => {
     const override = this.firstDayOfWeek();
@@ -197,6 +227,22 @@ export class ComCalendar<D> {
       return override;
     }
     return this.dateAdapter.getFirstDayOfWeek();
+  });
+
+  /** Effective number of month columns (auto-defaults to 2 for RangeSelectionStrategy) */
+  readonly effectiveMonthColumns: Signal<number> = computed(() => {
+    const explicit = this.monthColumns();
+    if (explicit !== 1) return explicit; // User override
+
+    // Auto-default to 2 when RangeSelectionStrategy is injected
+    if (this.selectionStrategy instanceof RangeSelectionStrategy) return 2;
+    return 1;
+  });
+
+  /** Secondary active date for dual-month display (+1 month from primary) */
+  readonly secondaryActiveDate: Signal<D | null> = computed(() => {
+    if (this.effectiveMonthColumns() < 2) return null;
+    return this.dateAdapter.addMonths(this.internalActiveDate(), 1);
   });
 
   /** Custom template for cell content */
@@ -240,12 +286,17 @@ export class ComCalendar<D> {
   /** Calendar container classes */
   readonly calendarClasses: Signal<string> = computed(() => calendarVariants());
 
+  /** Months container classes for single/dual-month layout */
+  readonly monthsContainerClasses: Signal<string> = computed(() =>
+    monthsContainerVariants({ columns: this.effectiveMonthColumns() as 1 | 2 })
+  );
+
   /** Month names for formatting */
   private readonly monthNames: Signal<string[]> = computed(() =>
     this.dateAdapter.getMonthNames('long')
   );
 
-  /** Period label for the header (e.g., "January 2024", "2024", "2000 – 2023") */
+  /** Period label for the header (e.g., "January 2024", "January – February 2024", "2024", "2000 – 2023") */
   readonly periodLabel: Signal<string> = computed(() => {
     const date = this.internalActiveDate();
     const view = this.currentView();
@@ -253,8 +304,23 @@ export class ComCalendar<D> {
     const month = this.dateAdapter.getMonth(date);
 
     switch (view) {
-      case 'month':
-        return `${this.monthNames()[month]} ${year}`;
+      case 'month': {
+        const monthName = this.monthNames()[month];
+
+        // Multi-month: "January – February 2026" or "December 2025 – January 2026"
+        if (this.effectiveMonthColumns() >= 2) {
+          const secondDate = this.secondaryActiveDate()!;
+          const secondMonth = this.dateAdapter.getMonth(secondDate);
+          const secondYear = this.dateAdapter.getYear(secondDate);
+          const secondMonthName = this.monthNames()[secondMonth];
+
+          if (year === secondYear) {
+            return `${monthName} – ${secondMonthName} ${year}`;
+          }
+          return `${monthName} ${year} – ${secondMonthName} ${secondYear}`;
+        }
+        return `${monthName} ${year}`;
+      }
       case 'year':
         return `${year}`;
       case 'multi-year': {
@@ -511,10 +577,51 @@ export class ComCalendar<D> {
 
   /**
    * Handles active date change from child views (keyboard navigation).
+   * In dual-month mode, handles cross-grid focus transitions.
    */
-  onActiveDateChange(date: D): void {
+  onActiveDateChange(date: D, gridIndex?: number): void {
+    const views = this.monthViews();
+
+    // In dual-month mode, check if we should focus the other grid
+    if (this.effectiveMonthColumns() >= 2 && views.length === 2 && gridIndex !== undefined) {
+      const primaryMonth = this.dateAdapter.getMonth(this.internalActiveDate());
+      const secondaryMonth = this.dateAdapter.getMonth(this.secondaryActiveDate()!);
+      const targetMonth = this.dateAdapter.getMonth(date);
+
+      // Determine which grid the target date belongs to
+      if (gridIndex === 0 && targetMonth === secondaryMonth) {
+        // Navigated from left grid into right grid - focus right grid
+        const rightView = views[1];
+        if (rightView) {
+          const compareValue = this.computeCompareValue(date);
+          rightView.focusCell(compareValue);
+          return;
+        }
+      }
+      if (gridIndex === 1 && targetMonth === primaryMonth) {
+        // Navigated from right grid into left grid - focus left grid
+        const leftView = views[0];
+        if (leftView) {
+          const compareValue = this.computeCompareValue(date);
+          leftView.focusCell(compareValue);
+          return;
+        }
+      }
+    }
+
+    // Default: update active date and let normal navigation occur
     this.internalActiveDate.set(date);
     this.activeDateChange.emit(date);
+  }
+
+  /**
+   * Computes a unique compare value from a date for focus management.
+   */
+  private computeCompareValue(date: D): number {
+    const year = this.dateAdapter.getYear(date);
+    const month = this.dateAdapter.getMonth(date);
+    const day = this.dateAdapter.getDate(date);
+    return year * 10000 + month * 100 + day;
   }
 
   /**
