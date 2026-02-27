@@ -32,6 +32,12 @@ export { DateAdapter, DATE_ADAPTER, NativeDateAdapter } from './date-adapter';
 export { calendarCellVariants, calendarCellWrapperVariants } from './calendar-cell.variants';
 export type { CalendarCellVariants, CalendarCellWrapperVariants } from './calendar-cell.variants';
 
+export { calendarHeaderVariants, calendarHeaderButtonVariants } from './calendar-header.variants';
+export type { CalendarHeaderVariants, CalendarHeaderButtonVariants } from './calendar-header.variants';
+
+export { calendarVariants } from './calendar.variants';
+export type { CalendarVariants } from './calendar.variants';
+
 // Utilities
 export {
   createGrid,
@@ -47,6 +53,12 @@ export type { WeekdayHeader } from './calendar.utils';
 // Components
 export { ComCalendarCell } from './calendar-cell';
 export type { CalendarCellKeyNavEvent } from './calendar-cell';
+
+// Header Component
+export { ComCalendarHeader } from './calendar-header';
+
+// Calendar Orchestrator
+export { ComCalendar } from './calendar';
 
 // View Components
 export {
