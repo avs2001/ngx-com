@@ -136,13 +136,14 @@ export class Sidebar {
       items: [
         {
           label: 'Calendar',
-          path: 'components',
+          path: 'components/calendar',
           children: [
             { label: 'Overview', path: '/components/calendar' },
             { label: 'Examples', path: '/components/calendar/examples' },
             { label: 'API', path: '/components/calendar/api' },
           ],
         },
+        { label: 'Select', path: '/components/select' },
       ],
     },
   ];
