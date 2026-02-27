@@ -598,7 +598,7 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
   /** Computed panel classes. */
   readonly panelClasses: Signal<string> = computed(() => {
     return mergeClasses(
-      'z-50 overflow-hidden rounded-md border border-surface-200 bg-surface-50 text-surface-900 shadow-lg outline-none',
+      'w-full z-50 overflow-hidden rounded-md border border-surface-200 bg-surface-50 text-surface-900 shadow-lg outline-none',
       'dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100',
       this.panelClass()
     );
@@ -902,29 +902,29 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
       return;
     }
 
-    const triggerEl = this.triggerRef().nativeElement;
+    const hostEl = this.elementRef.nativeElement;
     const positionStrategy = this.overlay
       .position()
-      .flexibleConnectedTo(triggerEl)
+      .flexibleConnectedTo(hostEl)
       .withPositions(DEFAULT_POSITIONS)
       .withFlexibleDimensions(false)
       .withPush(true);
 
-    // Determine panel width
-    let width: string | number;
+    // Determine panel width - use host element width for 'trigger' mode
     const panelWidthConfig = this.panelWidth();
-    if (panelWidthConfig === 'trigger') {
-      width = triggerEl.getBoundingClientRect().width;
-    } else if (panelWidthConfig === 'auto') {
-      width = 'auto';
-    } else {
-      width = panelWidthConfig;
-    }
+    const hostWidth = hostEl.getBoundingClientRect().width;
 
     this.overlayRef = this.overlay.create({
       positionStrategy,
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      width,
+      // 'trigger': min-width equals host, can grow wider
+      // 'auto': no width constraint
+      // specific value: exact width
+      ...(panelWidthConfig === 'trigger'
+        ? { minWidth: hostWidth }
+        : panelWidthConfig !== 'auto'
+          ? { width: panelWidthConfig }
+          : {}),
       hasBackdrop: true,
       backdropClass: 'cdk-overlay-transparent-backdrop',
     });
