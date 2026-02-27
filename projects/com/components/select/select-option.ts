@@ -4,9 +4,10 @@ import {
   computed,
   inject,
   input,
+  signal,
   type InputSignal,
-  type InputSignalWithTransform,
   type Signal,
+  type WritableSignal,
 } from '@angular/core';
 import { Option } from '@angular/aria/listbox';
 import { optionVariants } from './select.variants';
@@ -35,6 +36,7 @@ import { optionVariants } from './select.variants';
   ],
   host: {
     '[class]': 'optionClasses()',
+    '[class.hidden]': 'isHidden()',
   },
 })
 export class ComSelectOption<T> {
@@ -49,6 +51,12 @@ export class ComSelectOption<T> {
 
   /** Reference to the underlying Angular Aria Option */
   private readonly option = inject(Option<T>);
+
+  /** Whether this option is hidden (filtered out by search) */
+  private readonly _hidden: WritableSignal<boolean> = signal(false);
+
+  /** Whether this option is hidden (for search filtering) */
+  readonly isHidden: Signal<boolean> = this._hidden.asReadonly();
 
   /** Whether this option is currently active (keyboard focused) */
   readonly isActive: Signal<boolean> = computed(() => this.option.active() ?? false);
@@ -69,4 +77,9 @@ export class ComSelectOption<T> {
     }
     return optionVariants({ state: 'default' });
   });
+
+  /** Set the hidden state (used by parent for search filtering) */
+  setHidden(hidden: boolean): void {
+    this._hidden.set(hidden);
+  }
 }

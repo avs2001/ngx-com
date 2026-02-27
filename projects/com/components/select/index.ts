@@ -4,7 +4,8 @@
  */
 
 // Types
-export type { ComSelectSize, CompareFn, DisplayFn } from './select.types';
+export type { ComSelectSize, CompareFn, DisplayFn, SearchPredicateFn } from './select.types';
+export { DEFAULT_SEARCH_DEBOUNCE } from './select.types';
 
 // Tokens
 export {

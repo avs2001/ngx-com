@@ -22,7 +22,12 @@ import { Combobox, ComboboxInput, ComboboxDialog, ComboboxPopupContainer } from 
 import { Listbox } from '@angular/aria/listbox';
 import { triggerVariants, dialogVariants } from './select.variants';
 import { ComSelectOption } from './select-option';
-import type { ComSelectSize, CompareFn, DisplayFn } from './select.types';
+import type { ComSelectSize, CompareFn, DisplayFn, SearchPredicateFn } from './select.types';
+import { DEFAULT_SEARCH_DEBOUNCE } from './select.types';
+
+/** Default search predicate - case-insensitive label match */
+const defaultSearchPredicate = <T>(_option: T, query: string, label: string): boolean =>
+  label.toLowerCase().includes(query.toLowerCase());
 
 /**
  * Single-select component using Angular Aria dialog popup pattern.
@@ -31,6 +36,15 @@ import type { ComSelectSize, CompareFn, DisplayFn } from './select.types';
  * @example
  * ```html
  * <com-select formControlName="country" placeholder="Select country">
+ *   <com-select-option *ngFor="let c of countries" [value]="c" [label]="c.name">
+ *     {{ c.name }}
+ *   </com-select-option>
+ * </com-select>
+ * ```
+ *
+ * @example Searchable select
+ * ```html
+ * <com-select [searchable]="true" placeholder="Search countries...">
  *   <com-select-option *ngFor="let c of countries" [value]="c" [label]="c.name">
  *     {{ c.name }}
  *   </com-select-option>
@@ -102,18 +116,64 @@ import type { ComSelectSize, CompareFn, DisplayFn } from './select.types';
             alwaysExpanded
             #innerCombobox="ngCombobox"
           >
-            <!-- Hidden input for inner combobox ARIA -->
-            <input ngComboboxInput class="sr-only" readonly />
+            <!-- Search input (visible when searchable) -->
+            @if (searchable()) {
+              <div class="flex items-center gap-2 px-3 py-2 border-b border-surface-200 bg-surface-50">
+                <svg class="w-4 h-4 text-surface-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  ngComboboxInput
+                  #searchInputRef
+                  type="text"
+                  class="flex-1 bg-transparent text-surface-900 placeholder-surface-400 outline-none text-sm"
+                  [placeholder]="searchPlaceholder()"
+                  [value]="searchQuery()"
+                  (input)="onSearchInput($event)"
+                />
+                @if (searchQuery()) {
+                  <button
+                    type="button"
+                    class="flex items-center justify-center w-4 h-4 rounded-full text-surface-400 hover:text-surface-600 transition-colors"
+                    aria-label="Clear search"
+                    (click)="clearSearch()"
+                  >
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                }
+              </div>
+            } @else {
+              <!-- Hidden input for inner combobox ARIA when not searchable -->
+              <input ngComboboxInput class="sr-only" readonly />
+            }
 
-            <!-- Listbox with options -->
-            <div
-              ngListbox
-              #listboxRef
-              class="overflow-y-auto"
-              [style.max-height]="maxListboxHeight()"
-            >
-              <ng-content select="com-select-option" />
-            </div>
+            <!-- Loading state -->
+            @if (loading()) {
+              <div class="flex items-center justify-center py-8 text-surface-400">
+                <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span class="ml-2 text-sm">Loading...</span>
+              </div>
+            } @else if (showNoResults()) {
+              <!-- No results state -->
+              <div class="flex items-center justify-center py-8 text-surface-400">
+                <span class="text-sm">No results found</span>
+              </div>
+            } @else {
+              <!-- Listbox with options -->
+              <div
+                ngListbox
+                #listboxRef
+                class="overflow-y-auto"
+                [style.max-height]="maxListboxHeight()"
+              >
+                <ng-content select="com-select-option" />
+              </div>
+            }
           </div>
         </dialog>
       </ng-template>
@@ -144,6 +204,9 @@ import type { ComSelectSize, CompareFn, DisplayFn } from './select.types';
     dialog::backdrop {
       background: transparent;
     }
+    .hidden {
+      display: none !important;
+    }
   `,
   imports: [
     Combobox,
@@ -171,6 +234,7 @@ export class ComSelect<T> implements ControlValueAccessor {
   private readonly outerCombobox = viewChild<Combobox<T>>('outerCombobox');
   private readonly listbox = viewChild<Listbox<T>>('listboxRef');
   private readonly dialogElement = viewChild<ElementRef<HTMLDialogElement>>('dialogRef');
+  private readonly searchInputElement = viewChild<ElementRef<HTMLInputElement>>('searchInputRef');
   private readonly options = contentChildren(ComSelectOption<T>);
 
   // Inputs
@@ -201,6 +265,23 @@ export class ComSelect<T> implements ControlValueAccessor {
   /** Additional CSS class for the dialog panel */
   readonly panelClass: InputSignal<string> = input('');
 
+  /** Whether to show a search input in the dialog */
+  readonly searchable: InputSignal<boolean> = input(false);
+
+  /** Placeholder text for the search input */
+  readonly searchPlaceholder: InputSignal<string> = input('Search...');
+
+  /** Custom search predicate for local filtering */
+  readonly searchPredicate: InputSignal<SearchPredicateFn<T>> = input<SearchPredicateFn<T>>(
+    defaultSearchPredicate
+  );
+
+  /** Whether the select is in loading state */
+  readonly loading: InputSignal<boolean> = input(false);
+
+  /** Debounce time for search output in milliseconds */
+  readonly searchDebounce: InputSignal<number> = input(DEFAULT_SEARCH_DEBOUNCE);
+
   // Outputs
   /** Emits when the value changes */
   readonly valueChange: OutputEmitterRef<T | null> = output<T | null>();
@@ -214,9 +295,17 @@ export class ComSelect<T> implements ControlValueAccessor {
   /** Emits when the value is cleared */
   readonly cleared: OutputEmitterRef<void> = output<void>();
 
+  /** Emits the search query (debounced) for server-side search */
+  readonly searchChange: OutputEmitterRef<string> = output<string>();
+
   // Internal state
   private readonly internalValue: WritableSignal<T | null> = signal(null);
   private readonly isFocused: WritableSignal<boolean> = signal(false);
+  private readonly _searchQuery: WritableSignal<string> = signal('');
+  private searchDebounceTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  /** Current search query */
+  readonly searchQuery: Signal<string> = this._searchQuery.asReadonly();
 
   /** Whether the dialog is currently open */
   readonly isOpen: Signal<boolean> = computed(() => {
@@ -226,6 +315,22 @@ export class ComSelect<T> implements ControlValueAccessor {
 
   /** Whether there is a selected value */
   readonly hasValue: Signal<boolean> = computed(() => this.internalValue() !== null);
+
+  /** Count of visible options (not hidden by search) */
+  readonly visibleOptionsCount: Signal<number> = computed(() => {
+    const opts = this.options();
+    return opts.filter(opt => !opt.isHidden()).length;
+  });
+
+  /** Whether to show the no-results state */
+  readonly showNoResults: Signal<boolean> = computed(() => {
+    // Only show no results when searchable, has query, and no visible options
+    if (!this.searchable()) return false;
+    if (this.loading()) return false;
+    const query = this._searchQuery();
+    if (!query) return false;
+    return this.visibleOptionsCount() === 0;
+  });
 
   /** Display value for the trigger */
   readonly displayValue: Signal<string> = computed(() => {
@@ -311,10 +416,37 @@ export class ComSelect<T> implements ControlValueAccessor {
       if (open) {
         this.opened.emit();
         this.positionDialog();
+        // Focus search input when opening if searchable
+        if (this.searchable()) {
+          requestAnimationFrame(() => {
+            this.searchInputElement()?.nativeElement?.focus();
+          });
+        }
       } else {
         this.closed.emit();
         this.onTouched();
+        // Reset search query when closing
+        this.resetSearch();
       }
+    });
+
+    // Apply local search filtering when query changes
+    effect(() => {
+      const query = this._searchQuery();
+      const opts = this.options();
+      const predicate = this.searchPredicate();
+
+      if (!this.searchable() || !query) {
+        // Show all options when not searching
+        opts.forEach(opt => opt.setHidden(false));
+        return;
+      }
+
+      // Filter options based on predicate
+      opts.forEach(opt => {
+        const matches = predicate(opt.value(), query, opt.label());
+        opt.setHidden(!matches);
+      });
     });
   }
 
@@ -338,6 +470,41 @@ export class ComSelect<T> implements ControlValueAccessor {
     this.onChange(null);
     this.valueChange.emit(null);
     this.cleared.emit();
+  }
+
+  /** Handle search input */
+  onSearchInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const query = input.value;
+    this._searchQuery.set(query);
+
+    // Debounce the searchChange output
+    if (this.searchDebounceTimeout) {
+      clearTimeout(this.searchDebounceTimeout);
+    }
+    this.searchDebounceTimeout = setTimeout(() => {
+      this.searchChange.emit(query);
+    }, this.searchDebounce());
+  }
+
+  /** Clear the search query */
+  clearSearch(): void {
+    this._searchQuery.set('');
+    this.searchChange.emit('');
+    // Re-focus search input
+    this.searchInputElement()?.nativeElement?.focus();
+  }
+
+  /** Reset search query (called on dialog close) */
+  private resetSearch(): void {
+    if (this._searchQuery() !== '') {
+      this._searchQuery.set('');
+      // Clear any pending debounce
+      if (this.searchDebounceTimeout) {
+        clearTimeout(this.searchDebounceTimeout);
+        this.searchDebounceTimeout = null;
+      }
+    }
   }
 
   /** Position the dialog below the trigger */
