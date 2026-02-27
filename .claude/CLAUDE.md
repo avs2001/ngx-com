@@ -49,6 +49,7 @@ gh issue list --state closed --limit 10
 - Implement lazy loading for feature routes
 - Do NOT use `@HostBinding`/`@HostListener` — use the `host` object in `@Component`/`@Directive` instead
 - Use `NgOptimizedImage` for all static images (does not work for inline base64)
+- 'allowSignalWrites' flag is deprecated and no longer impacts effect() (writes are always allowed)
 
 ## Components
 - Single responsibility, keep small and focused
