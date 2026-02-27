@@ -84,11 +84,33 @@ export class NativeDateAdapter extends DateAdapter<Date> {
   }
 
   override getFirstDayOfWeek(): number {
-    // Most locales start on Monday (1), but US and others start on Sunday (0)
-    // This can be enhanced to use Intl.Locale.prototype.weekInfo when widely supported
+    try {
+      // Modern browsers: use Intl.Locale API (Chrome 99+, Firefox 104+, Safari 17+)
+      const locale = new Intl.Locale(this.locale);
+      if ('weekInfo' in locale && locale.weekInfo) {
+        // weekInfo.firstDay is 1=Mon, 7=Sun; convert to 0=Sun, 1=Mon...
+        const firstDay = (locale.weekInfo as { firstDay: number }).firstDay;
+        return firstDay === 7 ? 0 : firstDay;
+      }
+    } catch {
+      // Fallback silently for older browsers
+    }
+
+    // Legacy fallback for browsers without weekInfo support
     const sundayLocales = ['en', 'ja', 'ko', 'zh'];
     const localePrefix = this.locale.split('-')[0] ?? this.locale;
     return sundayLocales.includes(localePrefix) ? 0 : 1;
+  }
+
+  override setLocale(locale: string): void {
+    try {
+      // Validate locale string using Intl.DateTimeFormat
+      new Intl.DateTimeFormat(locale);
+      this.locale = locale;
+    } catch {
+      console.warn(`Invalid locale: ${locale}. Falling back to en-US.`);
+      this.locale = 'en-US';
+    }
   }
 
   override getMonthNames(style: NameStyle): string[] {

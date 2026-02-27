@@ -2,6 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  input,
+  type InputSignal,
   type Signal,
 } from '@angular/core';
 import { ComCalendarCell, type CalendarCellKeyNavEvent } from '../calendar-cell';
@@ -81,9 +83,12 @@ const TOTAL_CELLS = DAYS_PER_WEEK * WEEKS_PER_MONTH;
 export class ComCalendarMonthView<D> extends CalendarViewBase<D> {
   protected readonly view: CalendarView = 'month';
 
+  /** Override first day of week (0=Sun, 1=Mon, ..., 6=Sat) */
+  readonly firstDayOfWeek: InputSignal<number> = input<number>(0);
+
   /** Weekday header labels */
   readonly weekdayHeaders: Signal<WeekdayHeader[]> = computed(() => {
-    return getWeekdayHeaders(this.dateAdapter, 'long');
+    return getWeekdayHeaders(this.dateAdapter, 'long', this.firstDayOfWeek());
   });
 
   /** The month being displayed (0-indexed) */
@@ -102,7 +107,7 @@ export class ComCalendarMonthView<D> extends CalendarViewBase<D> {
     const year = this.dateAdapter.getYear(activeDate);
     const month = this.dateAdapter.getMonth(activeDate);
     const firstOfMonth = this.dateAdapter.getFirstDayOfMonth(activeDate);
-    const firstDayOfWeek = this.dateAdapter.getFirstDayOfWeek();
+    const firstDayOfWeek = this.firstDayOfWeek();
 
     // Calculate the offset to start the grid
     // How many days from the previous month should we show?
@@ -217,8 +222,8 @@ export class ComCalendarMonthView<D> extends CalendarViewBase<D> {
       case 'home': {
         // Go to first day of the week
         const dayOfWeek = this.dateAdapter.getDayOfWeek(currentDate);
-        const firstDayOfWeek = this.dateAdapter.getFirstDayOfWeek();
-        const diff = (dayOfWeek - firstDayOfWeek + DAYS_PER_WEEK) % DAYS_PER_WEEK;
+        const firstDay = this.firstDayOfWeek();
+        const diff = (dayOfWeek - firstDay + DAYS_PER_WEEK) % DAYS_PER_WEEK;
         newDate = this.dateAdapter.addDays(currentDate, -diff);
         break;
       }
@@ -226,8 +231,8 @@ export class ComCalendarMonthView<D> extends CalendarViewBase<D> {
       case 'end': {
         // Go to last day of the week
         const dayOfWeek = this.dateAdapter.getDayOfWeek(currentDate);
-        const firstDayOfWeek = this.dateAdapter.getFirstDayOfWeek();
-        const daysUntilEnd = (6 - dayOfWeek + firstDayOfWeek + DAYS_PER_WEEK) % DAYS_PER_WEEK;
+        const firstDay = this.firstDayOfWeek();
+        const daysUntilEnd = (6 - dayOfWeek + firstDay + DAYS_PER_WEEK) % DAYS_PER_WEEK;
         newDate = this.dateAdapter.addDays(currentDate, daysUntilEnd);
         break;
       }

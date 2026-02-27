@@ -1,5 +1,7 @@
 import {
   Directive,
+  ElementRef,
+  afterEveryRender,
   inject,
   input,
   output,
@@ -28,6 +30,9 @@ import { DateAdapter, DATE_ADAPTER } from '../date-adapter';
 export abstract class CalendarViewBase<D> {
   /** Date adapter for date operations */
   protected readonly dateAdapter: DateAdapter<D> = inject(DATE_ADAPTER) as DateAdapter<D>;
+
+  /** Element reference for focus management */
+  protected readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
   /** The date to display and navigate from */
   readonly activeDate: InputSignal<D> = input.required<D>();
@@ -72,6 +77,23 @@ export abstract class CalendarViewBase<D> {
 
   /** Internal signal for tracking the focused cell's compare value */
   protected readonly focusedCellValue: WritableSignal<number | null> = signal<number | null>(null);
+
+  /** Signal for pending focus operation (set by focusCell, consumed by afterRender) */
+  protected readonly focusPending: WritableSignal<number | null> = signal<number | null>(null);
+
+  constructor() {
+    // Handle focus after render to ensure DOM is updated
+    afterEveryRender(() => {
+      const pending = this.focusPending();
+      if (pending !== null) {
+        const cell = this.elementRef.nativeElement.querySelector(
+          `[data-compare-value="${pending}"] button`
+        ) as HTMLElement;
+        cell?.focus();
+        this.focusPending.set(null);
+      }
+    });
+  }
 
   /**
    * The grid of cells to display.
@@ -219,13 +241,10 @@ export abstract class CalendarViewBase<D> {
 
   /**
    * Focuses the cell with the given compare value.
+   * Uses afterRender to ensure DOM is updated before focusing.
    */
   protected focusCell(compareValue: number): void {
     this.focusedCellValue.set(compareValue);
-    // Use setTimeout to allow DOM to update
-    setTimeout(() => {
-      const cell = document.querySelector(`[data-compare-value="${compareValue}"] button`) as HTMLElement;
-      cell?.focus();
-    });
+    this.focusPending.set(compareValue);
   }
 }

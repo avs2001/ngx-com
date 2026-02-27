@@ -92,6 +92,7 @@ import {
             [dateFilter]="dateFilter()"
             [dateClass]="dateClass()"
             [cellTemplate]="cellTemplate()"
+            [firstDayOfWeek]="computedFirstDayOfWeek()"
             [previewStart]="previewRange()?.start ?? null"
             [previewEnd]="previewRange()?.end ?? null"
             (selectedChange)="onDateSelected($event)"
@@ -185,6 +186,18 @@ export class ComCalendar<D> {
 
   /** Initial view to display */
   readonly startView: InputSignal<CalendarView> = input<CalendarView>('month');
+
+  /** Override first day of week (0=Sun, 1=Mon, ..., 6=Sat). Uses locale default if null. */
+  readonly firstDayOfWeek: InputSignal<number | null> = input<number | null>(null);
+
+  /** Computed first day of week (input override or adapter default) */
+  readonly computedFirstDayOfWeek: Signal<number> = computed(() => {
+    const override = this.firstDayOfWeek();
+    if (override !== null && override >= 0 && override <= 6) {
+      return override;
+    }
+    return this.dateAdapter.getFirstDayOfWeek();
+  });
 
   /** Custom template for cell content */
   readonly cellTemplate: InputSignal<TemplateRef<{ $implicit: CalendarCell<D> }> | null> = input<

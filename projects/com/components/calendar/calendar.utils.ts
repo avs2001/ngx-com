@@ -73,19 +73,21 @@ export interface WeekdayHeader {
  *
  * @param adapter Date adapter to use for getting weekday names
  * @param style Style for the full label ('long' | 'short' | 'narrow')
+ * @param firstDayOfWeek Optional override for first day of week (0=Sun, 1=Mon, ..., 6=Sat)
  * @returns Array of weekday headers starting from first day of week
  */
 export function getWeekdayHeaders<D>(
   adapter: DateAdapter<D>,
-  style: NameStyle = 'long'
+  style: NameStyle = 'long',
+  firstDayOfWeek?: number
 ): WeekdayHeader[] {
-  const firstDayOfWeek = adapter.getFirstDayOfWeek();
+  const startDay = firstDayOfWeek ?? adapter.getFirstDayOfWeek();
   const longNames = adapter.getDayOfWeekNames(style);
   const narrowNames = adapter.getDayOfWeekNames('narrow');
 
   const headers: WeekdayHeader[] = [];
   for (let i = 0; i < 7; i++) {
-    const dayIndex = (firstDayOfWeek + i) % 7;
+    const dayIndex = (startDay + i) % 7;
     headers.push({
       label: longNames[dayIndex] ?? '',
       narrow: narrowNames[dayIndex] ?? '',
