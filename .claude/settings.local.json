@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(source:*)",
+      "Bash(node --version:*)",
+      "Bash(npm --version:*)",
+      "Bash(npx ng build:*)",
+      "Bash(git add:*)",
+      "Bash(ls:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr create --title \"feat: add Tailwind CSS v4 theme for integration app\" --body \"$\\(cat <<''EOF''\n## Summary\n- Install Tailwind CSS v4, `@tailwindcss/postcss`, and PostCSS as dependencies\n- Create the integration app project structure with Angular 21 standalone components, signals, and OnPush change detection\n- Add a comprehensive Tailwind v4 theme using the CSS-native `@theme` directive with oklch color scales \\(primary, accent, warn, surface, success\\), typography tokens \\(Inter, Inter Tight, JetBrains Mono\\), border radii, shadows, and animations\n- Configure PostCSS and `angular.json` build pipeline for the integration app\n\n## Test plan\n- [ ] Run `ng build integration` and verify successful compilation\n- [ ] Run `ng serve integration` and verify the theme color swatches and sample buttons render correctly\n- [ ] Verify Tailwind utility classes resolve against the custom theme tokens\n- [ ] Check that oklch colors display correctly across browsers\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\nEOF\n\\)\")",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(git fetch:*)",
+      "Bash(git rebase:*)",
+      "Bash(git checkout:*)"
+    ]
+  }
+}
