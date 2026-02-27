@@ -3,4 +3,4 @@
  * Utility function exports for ngx-com library
  */
 
-export const UTILS_PLACEHOLDER = true;
+export { mergeClasses } from './merge-classes';

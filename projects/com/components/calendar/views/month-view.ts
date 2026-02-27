@@ -46,7 +46,7 @@ const TOTAL_CELLS = DAYS_PER_WEEK * WEEKS_PER_MONTH;
         @for (header of weekdayHeaders(); track $index) {
           <div
             role="columnheader"
-            class="com-calendar-month-view__header-cell flex items-center justify-center h-9 text-xs font-medium text-gray-500 dark:text-gray-400"
+            class="com-calendar-month-view__header-cell flex items-center justify-center h-9 text-xs font-medium text-surface-500 dark:text-surface-400"
             [attr.aria-label]="header.label"
           >
             {{ header.narrow }}

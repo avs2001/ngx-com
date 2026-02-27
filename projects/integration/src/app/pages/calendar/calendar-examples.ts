@@ -1,20 +1,38 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, output, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   ComCalendar,
   provideNativeDateAdapter,
-  provideSingleSelectionStrategy,
   provideRangeSelectionStrategy,
-  provideMultiSelectionStrategy,
-  provideWeekSelectionStrategy,
   type DateRange,
 } from 'ngx-com/components/calendar';
 import { CodeBlock } from '../../shared/code-block';
 
+/**
+ * Wrapper component for range selection calendar.
+ * Provides the range selection strategy scoped to this component.
+ */
+@Component({
+  selector: 'int-range-calendar',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ComCalendar],
+  providers: [provideNativeDateAdapter(), provideRangeSelectionStrategy()],
+  template: `
+    <com-calendar
+      [selected]="selected()"
+      (selectedChange)="selectedChange.emit($event)"
+    />
+  `,
+})
+export class RangeCalendarWrapper {
+  readonly selected = input<DateRange<Date> | null>(null);
+  readonly selectedChange = output<DateRange<Date>>();
+}
+
 @Component({
   selector: 'int-calendar-examples',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComCalendar, CodeBlock, RouterLink],
+  imports: [ComCalendar, CodeBlock, RouterLink, RangeCalendarWrapper],
   providers: [provideNativeDateAdapter()],
   template: `
     <div class="mx-auto max-w-4xl px-6 py-12">
@@ -64,7 +82,7 @@ import { CodeBlock } from '../../shared/code-block';
         </p>
         <div class="mb-4 rounded-xl border border-surface-200 bg-white p-8">
           <div class="flex flex-col items-center gap-4">
-            <com-calendar
+            <int-range-calendar
               [selected]="rangeValue()"
               (selectedChange)="onRangeChange($event)"
             />
