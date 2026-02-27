@@ -1,222 +1,81 @@
-import { cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
+import type { ComSelectSize } from './select.types';
 
-type TriggerVariant = 'default' | 'ghost' | 'bordered';
-type TriggerState = 'default' | 'focused' | 'disabled' | 'error';
-type TriggerSize = 'sm' | 'md' | 'lg';
+/** Trigger variant state */
+type TriggerState = 'default' | 'focused' | 'open' | 'disabled' | 'invalid';
+
+/** Option variant state */
 type OptionState = 'default' | 'active' | 'selected' | 'disabled';
-type PanelSize = 'sm' | 'md' | 'lg';
 
 /**
- * CVA variants for the select trigger button.
+ * CVA variants for the select trigger element.
  */
-export const selectTriggerVariants: (props?: {
-  variant?: TriggerVariant;
-  state?: TriggerState;
-  size?: TriggerSize;
-}) => string = cva(
-  [
-    'relative',
-    'inline-flex',
-    'items-center',
-    'justify-between',
-    'w-full',
-    'cursor-pointer',
-    'select-none',
-    'rounded-lg',
-    'border',
-    'text-left',
-    'transition-colors',
-    'duration-150',
-    'outline-none',
-    'focus-visible:ring-2',
-    'focus-visible:ring-offset-2',
-    'focus-visible:ring-primary-500',
-  ],
-  {
-    variants: {
-      variant: {
-        default: [
-          'bg-white',
-          'border-surface-300',
-          'hover:border-surface-400',
-          'dark:bg-surface-900',
-          'dark:border-surface-700',
-          'dark:hover:border-surface-600',
-        ],
-        ghost: [
-          'bg-transparent',
-          'border-transparent',
-          'hover:bg-surface-100',
-          'dark:hover:bg-surface-800',
-        ],
-        bordered: [
-          'bg-transparent',
-          'border-surface-300',
-          'hover:border-primary-500',
-          'dark:border-surface-600',
-          'dark:hover:border-primary-400',
-        ],
+export const triggerVariants: (props?: { state?: TriggerState; size?: ComSelectSize }) => string =
+  cva(
+    'flex items-center gap-2 w-full rounded-md border bg-surface-50 text-surface-900 font-sans cursor-pointer transition-colors',
+    {
+      variants: {
+        state: {
+          default: 'border-surface-300 hover:border-surface-400',
+          focused: 'border-primary-500 ring-2 ring-primary-500/20',
+          open: 'border-primary-500 ring-2 ring-primary-500/20',
+          disabled: 'bg-surface-100 text-surface-400 cursor-not-allowed',
+          invalid: 'border-warn-500 hover:border-warn-600',
+        },
+        size: {
+          sm: 'h-8 px-2.5 text-sm',
+          md: 'h-10 px-3 text-base',
+          lg: 'h-12 px-4 text-lg',
+        },
       },
-      state: {
-        default: ['text-surface-900', 'dark:text-surface-100'],
-        focused: [
-          'border-primary-500',
-          'ring-2',
-          'ring-primary-500',
-          'ring-offset-2',
-          'dark:border-primary-400',
-          'dark:ring-primary-400',
-        ],
-        disabled: [
-          'cursor-not-allowed',
-          'opacity-50',
-          'pointer-events-none',
-          'bg-surface-100',
-          'dark:bg-surface-800',
-        ],
-        error: [
-          'border-warn-500',
-          'focus-visible:ring-warn-500',
-          'dark:border-warn-400',
-          'dark:focus-visible:ring-warn-400',
-        ],
+      defaultVariants: {
+        state: 'default',
+        size: 'md',
       },
-      size: {
-        sm: ['h-8', 'px-2.5', 'py-1', 'text-sm', 'gap-1.5'],
-        md: ['h-9', 'px-3', 'py-1.5', 'text-sm', 'gap-2'],
-        lg: ['h-10', 'px-3.5', 'py-2', 'text-base', 'gap-2.5'],
-      },
-    },
-    compoundVariants: [
-      {
-        state: 'disabled',
-        variant: 'default',
-        class: ['bg-surface-100', 'border-surface-200', 'dark:bg-surface-800', 'dark:border-surface-700'],
-      },
-    ],
-    defaultVariants: {
-      variant: 'default',
-      state: 'default',
-      size: 'md',
-    },
-  }
-);
+    }
+  );
 
-export type SelectTriggerVariants = {
-  variant?: TriggerVariant;
-  state?: TriggerState;
-  size?: TriggerSize;
-};
+export type TriggerVariants = VariantProps<typeof triggerVariants>;
 
 /**
- * CVA variants for the select panel/dropdown.
+ * CVA variants for select option items.
  */
-export const selectPanelVariants: (props?: { size?: PanelSize }) => string = cva(
-  [
-    'rounded-lg',
-    'border',
-    'border-surface-200',
-    'bg-white',
-    'shadow-lg',
-    'outline-none',
-    'overflow-hidden',
-    'dark:bg-surface-900',
-    'dark:border-surface-700',
-    // Animation
-    'animate-in',
-    'fade-in-0',
-    'zoom-in-95',
-    'duration-150',
-  ],
-  {
-    variants: {
-      size: {
-        sm: ['text-sm'],
-        md: ['text-sm'],
-        lg: ['text-base'],
-      },
-    },
-    defaultVariants: {
-      size: 'md',
-    },
-  }
-);
-
-export type SelectPanelVariants = {
-  size?: PanelSize;
-};
-
-/**
- * CVA variants for individual select options.
- */
-export const selectOptionVariants: (props?: {
-  state?: OptionState;
-  size?: PanelSize;
-}) => string = cva(
-  [
-    'relative',
-    'flex',
-    'items-center',
-    'w-full',
-    'cursor-pointer',
-    'select-none',
-    'transition-colors',
-    'duration-100',
-    'outline-none',
-  ],
+export const optionVariants: (props?: { state?: OptionState }) => string = cva(
+  'flex items-center px-3 min-h-9 rounded-md cursor-pointer transition-colors truncate',
   {
     variants: {
       state: {
-        default: [
-          'text-surface-900',
-          'hover:bg-surface-100',
-          'dark:text-surface-100',
-          'dark:hover:bg-surface-800',
-        ],
-        active: [
-          'bg-surface-100',
-          'text-surface-900',
-          'dark:bg-surface-800',
-          'dark:text-surface-100',
-        ],
-        selected: [
-          'bg-primary-50',
-          'text-primary-900',
-          'font-medium',
-          'dark:bg-primary-950',
-          'dark:text-primary-100',
-        ],
-        disabled: [
-          'text-surface-400',
-          'cursor-not-allowed',
-          'pointer-events-none',
-          'dark:text-surface-600',
-        ],
-      },
-      size: {
-        sm: ['px-2.5', 'py-1.5', 'text-sm'],
-        md: ['px-3', 'py-2', 'text-sm'],
-        lg: ['px-3.5', 'py-2.5', 'text-base'],
+        default: 'text-surface-900 hover:bg-surface-100',
+        active: 'bg-surface-100 ring-2 ring-primary-500 ring-offset-[-2px]',
+        selected: 'bg-primary-50 text-primary-700 hover:bg-primary-100',
+        disabled: 'text-surface-400 opacity-50 cursor-not-allowed',
       },
     },
-    compoundVariants: [
-      {
-        state: 'active',
-        class: ['bg-surface-100', 'dark:bg-surface-800'],
-      },
-      {
-        state: 'selected',
-        class: ['bg-primary-50', 'dark:bg-primary-950'],
-      },
-    ],
     defaultVariants: {
       state: 'default',
+    },
+  }
+);
+
+export type OptionVariants = VariantProps<typeof optionVariants>;
+
+/**
+ * CVA variants for the select dialog panel.
+ */
+export const dialogVariants: (props?: { size?: ComSelectSize }) => string = cva(
+  'rounded-lg border border-surface-200 bg-surface-50 shadow-lg overflow-hidden p-1',
+  {
+    variants: {
+      size: {
+        sm: 'max-h-56',
+        md: 'max-h-72',
+        lg: 'max-h-96',
+      },
+    },
+    defaultVariants: {
       size: 'md',
     },
   }
 );
 
-export type SelectOptionVariants = {
-  state?: OptionState;
-  size?: PanelSize;
-};
+export type DialogVariants = VariantProps<typeof dialogVariants>;

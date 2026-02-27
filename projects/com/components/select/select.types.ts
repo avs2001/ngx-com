@@ -1,42 +1,18 @@
 /**
- * Types and interfaces for the Select component.
+ * Select component shared types
  */
 
-/** Visual state of an option within the select panel */
-export type SelectOptionState = 'default' | 'active' | 'selected' | 'disabled';
+/** Available sizes for the select component */
+export type ComSelectSize = 'sm' | 'md' | 'lg';
 
-/** Visual state of the select trigger button */
-export type SelectTriggerState = 'default' | 'focused' | 'disabled' | 'error';
+/** Comparison function for determining value equality */
+export type CompareFn<T> = (a: T, b: T) => boolean;
 
-/** Size variants for the select component */
-export type SelectSize = 'sm' | 'md' | 'lg';
+/** Display function for formatting selected value */
+export type DisplayFn<T> = (value: T) => string;
 
-/** Visual variants for the select trigger */
-export type SelectVariant = 'default' | 'ghost' | 'bordered';
+/** Search predicate function for local filtering */
+export type SearchPredicateFn<T> = (option: T, query: string, label: string) => boolean;
 
-/**
- * Comparison function to determine if two values are equal.
- * Used for matching selected value to options.
- */
-export type CompareFn<T> = (o1: T, o2: T) => boolean;
-
-/**
- * Default comparison function using strict equality.
- */
-export function defaultCompareFn<T>(o1: T, o2: T): boolean {
-  return o1 === o2;
-}
-
-/**
- * Registered option metadata for parent-child communication.
- */
-export interface RegisteredOption<T> {
-  /** Unique identifier for the option */
-  id: string;
-  /** The option's value */
-  value: T;
-  /** Display label for the option */
-  label: string;
-  /** Whether the option is disabled */
-  disabled: boolean;
-}
+/** Default search debounce time in milliseconds */
+export const DEFAULT_SEARCH_DEBOUNCE = 300;

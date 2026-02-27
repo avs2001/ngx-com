@@ -143,7 +143,6 @@ export class Sidebar {
             { label: 'API', path: '/components/calendar/api' },
           ],
         },
-        { label: 'Select', path: '/components/select' },
       ],
     },
   ];

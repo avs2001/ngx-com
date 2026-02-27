@@ -4,29 +4,27 @@
  */
 
 // Types
+export type { ComSelectSize, CompareFn, DisplayFn, SearchPredicateFn } from './select.types';
+export { DEFAULT_SEARCH_DEBOUNCE } from './select.types';
+
+// Template directives
+export {
+  ComSelectOptionTpl,
+  ComSelectValueTpl,
+  ComSelectPanelHeaderTpl,
+  ComSelectPanelFooterTpl,
+  ComSelectNoResultsTpl,
+  ComSelectLoadingTpl,
+} from './select.tokens';
 export type {
-  SelectOptionState,
-  SelectTriggerState,
-  SelectSize,
-  SelectVariant,
-  CompareFn,
-  RegisteredOption,
-} from './select.types';
-
-export { defaultCompareFn } from './select.types';
-
-// Tokens
-export { SELECT_PARENT } from './select.tokens';
-export type { SelectParent } from './select.tokens';
-
-// Variants
-export { selectTriggerVariants, selectPanelVariants, selectOptionVariants } from './select.variants';
-export type {
-  SelectTriggerVariants,
-  SelectPanelVariants,
-  SelectOptionVariants,
-} from './select.variants';
+  ComSelectOptionContext,
+  ComSelectValueContext,
+  ComSelectPanelHeaderContext,
+  ComSelectPanelFooterContext,
+  ComSelectNoResultsContext,
+  ComSelectLoadingContext,
+} from './select.tokens';
 
 // Components
-export { ComSelect } from './select';
 export { ComSelectOption } from './select-option';
+export { ComSelect } from './select';

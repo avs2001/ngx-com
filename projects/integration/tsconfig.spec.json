@@ -7,10 +7,16 @@
     "isolatedDeclarations": false,
     "types": [
       "vitest/globals"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "ngx-com": ["../../dist/com"],
+      "ngx-com/*": ["../../dist/com/*"]
+    }
   },
   "include": [
     "src/**/*.d.ts",
-    "src/**/*.spec.ts"
+    "src/**/*.spec.ts",
+    "src/**/*.browser.spec.ts"
   ]
 }
