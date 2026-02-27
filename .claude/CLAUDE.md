@@ -2,6 +2,17 @@
 
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
+## Coding Principles
+
+**Think Before Coding:** State assumptions explicitly. If uncertain or multiple interpretations exist, you MUST ask — do NOT pick silently. Push back if a simpler approach exists.
+
+**Simplicity First:** Minimum code that solves the problem. No speculative features, unnecessary abstractions, or error handling for impossible scenarios. If 200 lines could be 50, rewrite it.
+
+**Surgical Changes:** Touch only what you must. Do NOT "improve" adjacent code or refactor what isn't broken. Match existing style. Remove only what YOUR changes made unused. Mention (don't delete) unrelated dead code. Every changed line MUST trace to the request.
+
+**Goal-Driven Execution:** Transform tasks into verifiable goals ("Fix bug" → "Write reproducing test, then fix"). For multi-step tasks, state a plan with verify steps before implementing.
+
+
 ## Memory Bank: GitHub Project #3
 
 **Project:** https://github.com/users/avs2001/projects/3 | **Owner:** avs2001
@@ -43,6 +54,7 @@ gh issue list --state closed --limit 10
 - Single responsibility, keep small and focused
 - Use `input()` and `output()` functions instead of decorators
 - Use `computed()` for derived state
+- Prefer computed() and linkedSignal() over effect() — use effect() only as a last resort for side effects that cannot be expressed declaratively.
 - Set `changeDetection: ChangeDetectionStrategy.OnPush`
 - Prefer inline templates for small components
 - Prefer Reactive forms over Template-driven
@@ -65,6 +77,10 @@ gh issue list --state closed --limit 10
 - Single responsibility per service
 - Use `providedIn: 'root'` for singletons
 - Use `inject()` instead of constructor injection
+
+## DOM Access
+- **IMPORTANT:** Never access the DOM directly — always use `Renderer2`
+- **IMPORTANT:** Never use `document` directly — inject `DOCUMENT` from `@angular/core` instead
 
 ## Accessibility
 - **IMPORTANT:** Must pass all AXE checks
