@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import type { Signal, InputSignal, OutputEmitterRef, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import type { Highlightable } from '@angular/cdk/a11y';
 import { dropdownOptionVariants } from './dropdown.variants';
 import type { DropdownSize } from './dropdown.variants';
 import type { ComDropdownOptionContext } from './dropdown.models';
@@ -146,23 +145,6 @@ export class ComDropdownOption<T> {
     active: this.active(),
     disabled: this.disabled(),
   }));
-
-  /** Required by Highlightable interface - makes this item active. */
-  setActiveStyles(): void {
-    // Active state is handled via the active() input from parent
-    // This is called by FocusKeyManager
-  }
-
-  /** Required by Highlightable interface - removes active styling. */
-  setInactiveStyles(): void {
-    // Inactive state is handled via the active() input from parent
-    // This is called by FocusKeyManager
-  }
-
-  /** Returns the native element. */
-  getLabel(): string {
-    return this.displayText();
-  }
 
   protected onOptionClick(event: MouseEvent): void {
     if (this.disabled()) {

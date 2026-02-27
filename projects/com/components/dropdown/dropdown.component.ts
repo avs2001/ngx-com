@@ -4,10 +4,10 @@ import {
   computed,
   contentChild,
   DestroyRef,
-  effect,
   ElementRef,
   inject,
   input,
+  linkedSignal,
   output,
   signal,
   viewChild,
@@ -24,7 +24,7 @@ import type {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgTemplateOutlet } from '@angular/common';
-import { NgControl, FormsModule } from '@angular/forms';
+import { NgControl } from '@angular/forms';
 import type { ControlValueAccessor } from '@angular/forms';
 import {
   Overlay,
@@ -312,7 +312,6 @@ const VIRTUAL_SCROLL_THRESHOLD = 50;
   `,
   imports: [
     NgTemplateOutlet,
-    FormsModule,
     OverlayModule,
     ComDropdownOption,
     ComDropdownSearch,
@@ -466,7 +465,7 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
   readonly activeOptionId: WritableSignal<string | null> = signal(null);
 
   /** Internal value state (managed by CVA or input). */
-  readonly internalValue: WritableSignal<T | T[] | null> = signal(null);
+  readonly internalValue: WritableSignal<T | T[] | null> = linkedSignal<T | T[] | null>(() => this.value() ?? null);
 
   /** Live announcements for screen readers. */
   readonly liveAnnouncement: WritableSignal<string> = signal('');
@@ -627,14 +626,6 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
-
-    // Sync external value input to internal state
-    effect(() => {
-      const externalValue = this.value();
-      if (externalValue !== undefined) {
-        this.internalValue.set(externalValue);
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -787,6 +778,14 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
         }
         break;
 
+      case 'Tab':
+        // Close panel when tabbing away from trigger
+        if (this.isOpen()) {
+          this.close();
+        }
+        // Don't prevent default - let Tab naturally move focus
+        break;
+
       default:
         // Type-ahead search
         if (event.key.length === 1 && !event.ctrlKey && !event.metaKey) {
@@ -877,9 +876,9 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
     this.announce(`${this.displayWith()(value)} removed`);
   }
 
-  protected trackByValue = (item: T, index: number): unknown => {
+  protected trackByValue(item: T, _index: number): unknown {
     return item;
-  };
+  }
 
   protected getGlobalIndex(groupKey: string, localIndex: number): number {
     const groups = this.groupedOptions();
@@ -910,21 +909,12 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
       .withFlexibleDimensions(false)
       .withPush(true);
 
-    // Determine panel width - use host element width for 'trigger' mode
-    const panelWidthConfig = this.panelWidth();
     const hostWidth = hostEl.getBoundingClientRect().width;
 
     this.overlayRef = this.overlay.create({
       positionStrategy,
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      // 'trigger': min-width equals host, can grow wider
-      // 'auto': no width constraint
-      // specific value: exact width
-      ...(panelWidthConfig === 'trigger'
-        ? { minWidth: hostWidth }
-        : panelWidthConfig !== 'auto'
-          ? { width: panelWidthConfig }
-          : {}),
+      ...this.getPanelWidthConfig(hostWidth),
       hasBackdrop: true,
       backdropClass: 'cdk-overlay-transparent-backdrop',
     });
@@ -951,6 +941,23 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
       this.overlayRef.dispose();
       this.overlayRef = null;
     }
+  }
+
+  /**
+   * Returns overlay width configuration based on panelWidth setting.
+   * - 'trigger': min-width equals host, can grow wider
+   * - 'auto': no width constraint
+   * - specific value: exact width
+   */
+  private getPanelWidthConfig(hostWidth: number): { minWidth?: number; width?: string } {
+    const config = this.panelWidth();
+    if (config === 'trigger') {
+      return { minWidth: hostWidth };
+    }
+    if (config === 'auto') {
+      return {};
+    }
+    return { width: config };
   }
 
   private updateValue(value: T | T[] | null): void {

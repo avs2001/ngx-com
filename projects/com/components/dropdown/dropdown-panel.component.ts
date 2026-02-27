@@ -174,9 +174,9 @@ export class ComDropdownPanel<T> {
   }));
 
   /** Track function for options. */
-  protected readonly trackByFn = (index: number, option: ComDropdownProcessedOption<T>): string => {
+  protected trackByFn(_index: number, option: ComDropdownProcessedOption<T>): string {
     return option.id;
-  };
+  }
 
   /** Gets the host element. */
   getHostElement(): HTMLElement {
