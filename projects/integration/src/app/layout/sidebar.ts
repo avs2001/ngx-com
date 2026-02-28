@@ -116,7 +116,7 @@ interface NavSection {
 })
 export class Sidebar {
   private readonly router = inject(Router);
-  private readonly expandedSections = signal<Set<string>>(new Set(['components/badge', 'components/calendar', 'components/checkbox', 'components/collapsible', 'components/dropdown']));
+  private readonly expandedSections = signal<Set<string>>(new Set(['components/badge', 'components/button', 'components/calendar', 'components/card', 'components/checkbox', 'components/collapsible', 'components/dropdown']));
 
   private readonly navigationEnd = toSignal(
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
@@ -144,12 +144,30 @@ export class Sidebar {
           ],
         },
         {
+          label: 'Button',
+          path: 'components/button',
+          children: [
+            { label: 'Overview', path: '/components/button/overview' },
+            { label: 'Examples', path: '/components/button/examples' },
+            { label: 'API', path: '/components/button/api' },
+          ],
+        },
+        {
           label: 'Calendar',
           path: 'components/calendar',
           children: [
             { label: 'Overview', path: '/components/calendar/overview' },
             { label: 'Examples', path: '/components/calendar/examples' },
             { label: 'API', path: '/components/calendar/api' },
+          ],
+        },
+        {
+          label: 'Card',
+          path: 'components/card',
+          children: [
+            { label: 'Overview', path: '/components/card/overview' },
+            { label: 'Examples', path: '/components/card/examples' },
+            { label: 'API', path: '/components/card/api' },
           ],
         },
         {

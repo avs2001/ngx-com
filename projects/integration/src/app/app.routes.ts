@@ -23,8 +23,16 @@ export const routes: Routes = [
         loadChildren: () => import('./routes/badge/badge.routes').then(m => m.BADGE_ROUTES),
       },
       {
+        path: 'components/button',
+        loadChildren: () => import('./routes/button/button.routes').then(m => m.BUTTON_ROUTES),
+      },
+      {
         path: 'components/calendar',
         loadChildren: () => import('./routes/calendar/calendar.routes').then(m => m.CALENDAR_ROUTES),
+      },
+      {
+        path: 'components/card',
+        loadChildren: () => import('./routes/card/card.routes').then(m => m.CARD_ROUTES),
       },
       {
         path: 'components/checkbox',
