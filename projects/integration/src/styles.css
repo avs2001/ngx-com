@@ -61,6 +61,66 @@
   --color-success-500: oklch(0.62 0.19 145);
   --color-success-600: oklch(0.52 0.17 145);
 
+  /* ═══════════════════════════════════════════════════════════
+     Semantic tokens — component-level contracts
+     ═══════════════════════════════════════════════════════════ */
+
+  /* ─── Global ─── */
+  --color-background: var(--color-surface-50);
+  --color-foreground: var(--color-surface-900);
+
+  /* ─── Primary ─── */
+  --color-primary: var(--color-primary-500);
+  --color-primary-foreground: var(--color-primary-50);
+  --color-primary-hover: var(--color-primary-600);
+  --color-primary-subtle: var(--color-primary-100);
+  --color-primary-subtle-foreground: var(--color-primary-800);
+
+  /* ─── Accent ─── */
+  --color-accent: var(--color-accent-500);
+  --color-accent-foreground: var(--color-accent-50);
+  --color-accent-hover: var(--color-accent-600);
+  --color-accent-subtle: var(--color-accent-100);
+  --color-accent-subtle-foreground: var(--color-accent-800);
+
+  /* ─── Warn ─── */
+  --color-warn: var(--color-warn-500);
+  --color-warn-foreground: var(--color-warn-50);
+  --color-warn-hover: var(--color-warn-600);
+  --color-warn-subtle: var(--color-warn-100);
+  --color-warn-subtle-foreground: var(--color-warn-800);
+
+  /* ─── Success ─── */
+  --color-success: var(--color-success-500);
+  --color-success-foreground: var(--color-surface-50);
+  --color-success-hover: var(--color-success-600);
+
+  /* ─── Muted (for subdued UI elements) ─── */
+  --color-muted: var(--color-surface-200);
+  --color-muted-foreground: var(--color-surface-600);
+  --color-muted-hover: var(--color-surface-300);
+
+  /* ─── Border & Ring ─── */
+  --color-border: var(--color-surface-300);
+  --color-border-subtle: var(--color-surface-200);
+  --color-ring: var(--color-primary-500);
+
+  /* ─── Overlay / Popover ─── */
+  --color-popover: var(--color-surface-50);
+  --color-popover-foreground: var(--color-surface-900);
+
+  /* ─── Input ─── */
+  --color-input-border: var(--color-surface-300);
+  --color-input-background: var(--color-surface-50);
+  --color-input-foreground: var(--color-surface-900);
+  --color-input-placeholder: var(--color-surface-400);
+  --color-input-disabled: var(--color-surface-100);
+
+  /* ─── Placeholder / Disabled ─── */
+  --color-placeholder: var(--color-surface-400);
+  --color-disabled: var(--color-surface-300);
+  --color-disabled-foreground: var(--color-surface-500);
+
   /* ─── Typography ─── */
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
@@ -167,7 +227,7 @@
   }
 
   body {
-    @apply bg-surface-50 text-surface-900 font-sans;
+    @apply bg-background text-foreground font-sans;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
@@ -179,7 +239,7 @@
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary-500;
+    @apply outline-2 outline-offset-2 outline-ring;
   }
 }
 
@@ -246,6 +306,53 @@
   --shadow-md: 0 4px 6px oklch(0 0 0 / 0.4), 0 2px 4px oklch(0 0 0 / 0.3);
   --shadow-lg: 0 10px 15px oklch(0 0 0 / 0.4), 0 4px 6px oklch(0 0 0 / 0.3);
   --shadow-xl: 0 20px 25px oklch(0 0 0 / 0.4), 0 8px 10px oklch(0 0 0 / 0.3);
+
+  /* ═══ Semantic overrides ═══ */
+  --color-background: var(--color-surface-50);
+  --color-foreground: var(--color-surface-900);
+
+  --color-primary: var(--color-primary-500);
+  --color-primary-foreground: var(--color-primary-50);
+  --color-primary-hover: var(--color-primary-400);
+  --color-primary-subtle: var(--color-primary-100);
+  --color-primary-subtle-foreground: var(--color-primary-800);
+
+  --color-accent: var(--color-accent-500);
+  --color-accent-foreground: var(--color-accent-50);
+  --color-accent-hover: var(--color-accent-400);
+  --color-accent-subtle: var(--color-accent-100);
+  --color-accent-subtle-foreground: var(--color-accent-800);
+
+  --color-warn: var(--color-warn-500);
+  --color-warn-foreground: var(--color-warn-50);
+  --color-warn-hover: var(--color-warn-400);
+  --color-warn-subtle: var(--color-warn-100);
+  --color-warn-subtle-foreground: var(--color-warn-800);
+
+  --color-success: var(--color-success-500);
+  --color-success-foreground: var(--color-surface-50);
+  --color-success-hover: var(--color-success-600);
+
+  --color-muted: var(--color-surface-200);
+  --color-muted-foreground: var(--color-surface-600);
+  --color-muted-hover: var(--color-surface-300);
+
+  --color-border: var(--color-surface-300);
+  --color-border-subtle: var(--color-surface-200);
+  --color-ring: var(--color-primary-500);
+
+  --color-popover: var(--color-surface-100);
+  --color-popover-foreground: var(--color-surface-900);
+
+  --color-input-border: var(--color-surface-300);
+  --color-input-background: var(--color-surface-100);
+  --color-input-foreground: var(--color-surface-900);
+  --color-input-placeholder: var(--color-surface-500);
+  --color-input-disabled: var(--color-surface-200);
+
+  --color-placeholder: var(--color-surface-500);
+  --color-disabled: var(--color-surface-300);
+  --color-disabled-foreground: var(--color-surface-500);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -308,6 +415,53 @@
   /* Success - Same green family */
   --color-success-500: oklch(0.58 0.18 145);
   --color-success-600: oklch(0.48 0.16 145);
+
+  /* ═══ Semantic overrides ═══ */
+  --color-background: var(--color-surface-50);
+  --color-foreground: var(--color-surface-900);
+
+  --color-primary: var(--color-primary-500);
+  --color-primary-foreground: var(--color-primary-50);
+  --color-primary-hover: var(--color-primary-600);
+  --color-primary-subtle: var(--color-primary-100);
+  --color-primary-subtle-foreground: var(--color-primary-800);
+
+  --color-accent: var(--color-accent-500);
+  --color-accent-foreground: var(--color-accent-50);
+  --color-accent-hover: var(--color-accent-600);
+  --color-accent-subtle: var(--color-accent-100);
+  --color-accent-subtle-foreground: var(--color-accent-800);
+
+  --color-warn: var(--color-warn-500);
+  --color-warn-foreground: var(--color-warn-50);
+  --color-warn-hover: var(--color-warn-600);
+  --color-warn-subtle: var(--color-warn-100);
+  --color-warn-subtle-foreground: var(--color-warn-800);
+
+  --color-success: var(--color-success-500);
+  --color-success-foreground: var(--color-surface-50);
+  --color-success-hover: var(--color-success-600);
+
+  --color-muted: var(--color-surface-200);
+  --color-muted-foreground: var(--color-surface-600);
+  --color-muted-hover: var(--color-surface-300);
+
+  --color-border: var(--color-surface-300);
+  --color-border-subtle: var(--color-surface-200);
+  --color-ring: var(--color-primary-500);
+
+  --color-popover: var(--color-surface-50);
+  --color-popover-foreground: var(--color-surface-900);
+
+  --color-input-border: var(--color-surface-300);
+  --color-input-background: var(--color-surface-50);
+  --color-input-foreground: var(--color-surface-900);
+  --color-input-placeholder: var(--color-surface-400);
+  --color-input-disabled: var(--color-surface-100);
+
+  --color-placeholder: var(--color-surface-400);
+  --color-disabled: var(--color-surface-300);
+  --color-disabled-foreground: var(--color-surface-500);
 }
 
 /* ─── Theme Transition ─── */
