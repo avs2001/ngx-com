@@ -24,6 +24,9 @@ export type CalendarHeaderVariants = Record<string, never>;
 
 /**
  * CVA variants for the calendar header buttons.
+ *
+ * @tokens `--color-foreground`, `--color-ring`, `--color-muted`,
+ *         `--color-disabled-foreground`
  */
 export const calendarHeaderButtonVariants: (props?: { type?: ButtonType }) => string = cva(
   [
@@ -34,13 +37,12 @@ export const calendarHeaderButtonVariants: (props?: { type?: ButtonType }) => st
     'transition-colors',
     'duration-150',
     'outline-none',
-    'text-surface-700',
-    'dark:text-surface-200',
+    'text-foreground',
     'focus-visible:ring-2',
     'focus-visible:ring-offset-2',
-    'focus-visible:ring-primary-500',
+    'focus-visible:ring-ring',
     'disabled:cursor-not-allowed',
-    'disabled:opacity-50',
+    'disabled:text-disabled-foreground',
   ],
   {
     variants: {
@@ -49,8 +51,7 @@ export const calendarHeaderButtonVariants: (props?: { type?: ButtonType }) => st
           'h-9',
           'w-9',
           'rounded-full',
-          'hover:bg-surface-100',
-          'dark:hover:bg-surface-800',
+          'hover:bg-muted',
         ],
         period: [
           'px-3',
@@ -58,8 +59,7 @@ export const calendarHeaderButtonVariants: (props?: { type?: ButtonType }) => st
           'text-sm',
           'font-semibold',
           'rounded-lg',
-          'hover:bg-surface-100',
-          'dark:hover:bg-surface-800',
+          'hover:bg-muted',
         ],
       },
     },

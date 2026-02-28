@@ -86,3 +86,44 @@ gh issue list --state closed --limit 10
 ## Accessibility
 - **IMPORTANT:** Must pass all AXE checks
 - **IMPORTANT:** Must follow all WCAG AA minimums — focus management, color contrast, ARIA attributes
+
+
+## CSS Theme Token Rules
+
+Library components use **semantic tokens only**. Application code may use both semantic and scale tokens.
+
+### Token Pairing
+
+Every `bg-*` MUST have a matching `text-*-foreground`. Never rely on inherited text color.
+
+| Background | Text | Hover | Subtle bg | Subtle text |
+|------------|------|-------|-----------|-------------|
+| `bg-primary` | `text-primary-foreground` | `hover:bg-primary-hover` | `bg-primary-subtle` | `text-primary-subtle-foreground` |
+| `bg-accent` | `text-accent-foreground` | `hover:bg-accent-hover` | `bg-accent-subtle` | `text-accent-subtle-foreground` |
+| `bg-warn` | `text-warn-foreground` | `hover:bg-warn-hover` | `bg-warn-subtle` | `text-warn-subtle-foreground` |
+| `bg-success` | `text-success-foreground` | `hover:bg-success-hover` | — | — |
+| `bg-muted` | `text-muted-foreground` | `hover:bg-muted-hover` | — | — |
+| `bg-popover` | `text-popover-foreground` | — | — | — |
+| `bg-background` | `text-foreground` | — | — | — |
+| `bg-disabled` | `text-disabled-foreground` | — | — | — |
+
+Borders: `border-border` (structural), `border-border-subtle` (light). Focus: `ring-ring`.
+Inputs: `border-input-border`, `bg-input-background`, `text-input-foreground`, `placeholder:text-input-placeholder`.
+
+### Forbidden in Library Components
+
+- ❌ Scale tokens (`bg-primary-500`, `text-surface-700`) — use semantic equivalents
+- ❌ Hardcoded colors (`bg-blue-500`, `#6366f1`, `oklch(...)`)
+- ❌ Opacity hover hacks (`hover:bg-primary/90`) — use `hover:bg-primary-hover`
+- ❌ Opacity disabled (`opacity-50`) — use `bg-disabled text-disabled-foreground`
+- ❌ `[data-theme]` selectors — if theming breaks, fix the token, not the component
+
+### Required Per Component
+
+Every component MUST list its required tokens in JSDoc:
+
+```typescript
+/**
+ * @tokens `--color-primary`, `--color-primary-foreground`, `--color-primary-hover`, `--color-border`
+ */
+```

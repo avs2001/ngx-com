@@ -92,6 +92,13 @@ const VIRTUAL_SCROLL_THRESHOLD = 50;
  * Reusable dropdown/select component with full accessibility support.
  * Implements ControlValueAccessor for Reactive Forms integration.
  *
+ * @tokens `--color-input-background`, `--color-input-foreground`, `--color-input-border`,
+ *         `--color-input-placeholder`, `--color-ring`, `--color-muted`, `--color-muted-foreground`,
+ *         `--color-popover`, `--color-popover-foreground`, `--color-border-subtle`,
+ *         `--color-primary`, `--color-primary-subtle`, `--color-primary-subtle-foreground`,
+ *         `--color-warn`, `--color-success`, `--color-disabled`, `--color-disabled-foreground`,
+ *         `--color-placeholder`
+ *
  * @example
  * ```html
  * <com-dropdown
@@ -158,13 +165,13 @@ const VIRTUAL_SCROLL_THRESHOLD = 50;
               }
             </span>
           } @else {
-            <span class="text-surface-400 dark:text-surface-500">{{ placeholder() }}</span>
+            <span class="text-placeholder">{{ placeholder() }}</span>
           }
         } @else {
           @if (selectedValue() !== null && selectedValue() !== undefined) {
             {{ displayWith()(selectedValue()!) }}
           } @else {
-            <span class="text-surface-400 dark:text-surface-500">{{ placeholder() }}</span>
+            <span class="text-placeholder">{{ placeholder() }}</span>
           }
         }
       </span>
@@ -285,7 +292,7 @@ const VIRTUAL_SCROLL_THRESHOLD = 50;
                 [ngTemplateOutletContext]="emptyContext()"
               />
             } @else {
-              <div class="flex items-center justify-center px-3 py-6 text-surface-500 dark:text-surface-400">
+              <div class="flex items-center justify-center px-3 py-6 text-muted-foreground">
                 @if (searchQuery()) {
                   No results for "{{ searchQuery() }}"
                 } @else {
@@ -626,8 +633,7 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
   /** Computed panel classes. */
   readonly panelClasses: Signal<string> = computed(() => {
     return mergeClasses(
-      'w-full z-50 overflow-hidden rounded-md border border-surface-200 bg-surface-50 text-surface-900 shadow-lg outline-none',
-      'dark:border-surface-700 dark:bg-surface-900 dark:text-surface-100',
+      'w-full z-50 overflow-hidden rounded-md border border-border-subtle bg-popover text-popover-foreground shadow-lg outline-none',
       this.panelClass()
     );
   });

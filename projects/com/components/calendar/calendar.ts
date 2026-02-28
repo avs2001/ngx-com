@@ -42,6 +42,12 @@ import {
  * Composes the calendar header and view components (month, year, multi-year)
  * with view switching, navigation, and enhanced accessibility.
  *
+ * @tokens `--color-background`, `--color-foreground`, `--color-border-subtle`,
+ *         `--color-ring`, `--color-muted`, `--color-muted-foreground`,
+ *         `--color-primary`, `--color-primary-foreground`, `--color-primary-hover`,
+ *         `--color-primary-subtle`, `--color-primary-subtle-foreground`,
+ *         `--color-disabled-foreground`
+ *
  * @example
  * ```html
  * <com-calendar

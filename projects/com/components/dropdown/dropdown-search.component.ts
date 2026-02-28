@@ -38,7 +38,7 @@ import { mergeClasses } from './dropdown.utils';
     <div class="relative flex items-center">
       <!-- Search icon -->
       <svg
-        class="pointer-events-none absolute left-3 h-4 w-4 text-surface-400 dark:text-surface-500"
+        class="pointer-events-none absolute left-3 h-4 w-4 text-placeholder"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -70,7 +70,7 @@ import { mergeClasses } from './dropdown.utils';
       @if (showClear()) {
         <button
           type="button"
-          class="absolute right-3 flex h-4 w-4 items-center justify-center rounded-sm text-surface-400 opacity-70 hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:text-surface-500"
+          class="absolute right-3 flex h-4 w-4 items-center justify-center rounded-sm text-placeholder opacity-70 hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-ring"
           [attr.aria-label]="'Clear search'"
           (click)="clearSearch()"
         >

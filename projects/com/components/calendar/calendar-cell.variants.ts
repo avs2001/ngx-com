@@ -17,7 +17,12 @@ type WrapperRange = 'none' | 'start' | 'middle' | 'end' | 'single';
 
 /**
  * CVA variants for calendar cell styling.
- * Uses Tailwind CSS v4 classes for consistent, accessible styling.
+ * Uses semantic theme tokens for consistent cross-theme styling.
+ *
+ * @tokens `--color-ring`, `--color-foreground`, `--color-muted`,
+ *         `--color-primary`, `--color-primary-foreground`, `--color-primary-hover`,
+ *         `--color-primary-subtle`, `--color-primary-subtle-foreground`,
+ *         `--color-disabled-foreground`
  */
 export const calendarCellVariants: (props?: {
   view?: CellView;
@@ -37,7 +42,7 @@ export const calendarCellVariants: (props?: {
     'outline-none',
     'focus-visible:ring-2',
     'focus-visible:ring-offset-2',
-    'focus-visible:ring-primary-500',
+    'focus-visible:ring-ring',
   ],
   {
     variants: {
@@ -47,82 +52,70 @@ export const calendarCellVariants: (props?: {
         'multi-year': ['h-10', 'w-14', 'text-sm', 'rounded-lg'],
       },
       state: {
-        default: ['text-surface-900', 'hover:bg-surface-100', 'dark:text-surface-100', 'dark:hover:bg-surface-800'],
+        default: ['text-foreground', 'hover:bg-muted'],
         today: [
-          'text-primary-600',
+          'text-primary',
           'font-semibold',
           'ring-1',
-          'ring-primary-500',
-          'hover:bg-primary-50',
-          'dark:text-primary-400',
-          'dark:ring-primary-400',
-          'dark:hover:bg-primary-950',
+          'ring-ring',
+          'hover:bg-primary-subtle',
         ],
         selected: [
-          'bg-primary-600',
-          'text-white',
+          'bg-primary',
+          'text-primary-foreground',
           'font-semibold',
-          'hover:bg-primary-700',
-          'dark:bg-primary-500',
-          'dark:hover:bg-primary-600',
+          'hover:bg-primary-hover',
         ],
         'range-start': [
-          'bg-primary-600',
-          'text-white',
+          'bg-primary',
+          'text-primary-foreground',
           'font-semibold',
           'rounded-l-full',
           'rounded-r-none',
-          'hover:bg-primary-700',
-          'dark:bg-primary-500',
+          'hover:bg-primary-hover',
         ],
         'range-middle': [
-          'bg-primary-100',
-          'text-primary-900',
+          'bg-primary-subtle',
+          'text-primary-subtle-foreground',
           'rounded-none',
-          'hover:bg-primary-200',
-          'dark:bg-primary-900',
-          'dark:text-primary-100',
+          'hover:brightness-95',
         ],
         'range-end': [
-          'bg-primary-600',
-          'text-white',
+          'bg-primary',
+          'text-primary-foreground',
           'font-semibold',
           'rounded-r-full',
           'rounded-l-none',
-          'hover:bg-primary-700',
-          'dark:bg-primary-500',
+          'hover:bg-primary-hover',
         ],
         'preview-start': [
-          'bg-primary-50',
-          'text-primary-700',
+          'bg-primary-subtle',
+          'text-primary-subtle-foreground',
           'rounded-l-full',
           'rounded-r-none',
           'ring-1',
-          'ring-primary-300',
-          'dark:bg-primary-950',
-          'dark:text-primary-300',
+          'ring-ring',
+          'opacity-70',
         ],
         'preview-middle': [
-          'bg-primary-50',
-          'text-primary-700',
+          'bg-primary-subtle',
+          'text-primary-subtle-foreground',
           'rounded-none',
-          'dark:bg-primary-950',
-          'dark:text-primary-300',
+          'opacity-70',
         ],
         'preview-end': [
-          'bg-primary-50',
-          'text-primary-700',
+          'bg-primary-subtle',
+          'text-primary-subtle-foreground',
           'rounded-r-full',
           'rounded-l-none',
           'ring-1',
-          'ring-primary-300',
-          'dark:bg-primary-950',
-          'dark:text-primary-300',
+          'ring-ring',
+          'opacity-70',
         ],
-        disabled: ['text-surface-400', 'cursor-not-allowed', 'hover:bg-transparent', 'dark:text-surface-600'],
+        disabled: ['text-disabled-foreground', 'cursor-not-allowed', 'hover:bg-transparent'],
       },
       outside: {
-        true: ['text-surface-400', 'dark:text-surface-600'],
+        true: ['text-muted-foreground'],
         false: [],
       },
     },
@@ -130,7 +123,7 @@ export const calendarCellVariants: (props?: {
       {
         state: 'disabled',
         outside: true,
-        class: ['text-surface-300', 'dark:text-surface-700'],
+        class: ['text-disabled-foreground', 'opacity-50'],
       },
       {
         state: 'selected',
@@ -153,6 +146,8 @@ export type CalendarCellVariants = {
 
 /**
  * CVA variants for the calendar cell wrapper (used for range backgrounds)
+ *
+ * @tokens `--color-primary-subtle`
  */
 export const calendarCellWrapperVariants: (props?: { range?: WrapperRange | undefined }) => string = cva(
   ['relative', 'flex', 'items-center', 'justify-center'],
@@ -160,9 +155,9 @@ export const calendarCellWrapperVariants: (props?: { range?: WrapperRange | unde
     variants: {
       range: {
         none: [],
-        start: ['bg-primary-100', 'rounded-l-full', 'dark:bg-primary-900/50'],
-        middle: ['bg-primary-100', 'dark:bg-primary-900/50'],
-        end: ['bg-primary-100', 'rounded-r-full', 'dark:bg-primary-900/50'],
+        start: ['bg-primary-subtle', 'rounded-l-full'],
+        middle: ['bg-primary-subtle'],
+        end: ['bg-primary-subtle', 'rounded-r-full'],
         single: [],
       },
     },

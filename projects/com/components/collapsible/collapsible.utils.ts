@@ -17,3 +17,13 @@ import { twMerge } from 'tailwind-merge';
 export function mergeClasses(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }
+
+let collapsibleIdCounter = 0;
+
+/**
+ * Generates a unique ID for collapsible components.
+ * @returns A unique string ID
+ */
+export function generateCollapsibleId(): string {
+  return `com-collapsible-${++collapsibleIdCounter}`;
+}

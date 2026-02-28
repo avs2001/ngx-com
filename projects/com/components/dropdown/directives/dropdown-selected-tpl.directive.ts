@@ -14,7 +14,7 @@ import type { ComDropdownSelectedContext } from '../dropdown.models';
  *         {{ user.name }}
  *       </div>
  *     } @else {
- *       <span class="text-surface-400">Select user...</span>
+ *       <span class="text-input-placeholder">Select user...</span>
  *     }
  *   </ng-template>
  * </com-dropdown>

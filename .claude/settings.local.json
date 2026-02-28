@@ -60,7 +60,9 @@
       "WebFetch(domain:github.com)",
       "Bash(gh api:*)",
       "mcp__angular-cli__list_projects",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(npm start)",
+      "Bash(npx ng generate config vitest:*)"
     ]
   },
   "enabledMcpjsonServers": [

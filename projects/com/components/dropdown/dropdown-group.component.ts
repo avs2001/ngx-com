@@ -35,7 +35,7 @@ import { mergeClasses } from './dropdown.utils';
       <div [class]="groupClasses()">
         <span>{{ label() }}</span>
         @if (showCount()) {
-          <span class="ml-auto text-xs text-surface-400 dark:text-surface-500">
+          <span class="ml-auto text-xs text-muted-foreground">
             ({{ count() }})
           </span>
         }

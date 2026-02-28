@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve integration --port 5000",
+    "start": "ng serve integration --port 4500",
     "build": "ng build",
     "build:lib": "ng build com --configuration production",
     "watch": "ng build --watch --configuration development",

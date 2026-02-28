@@ -8,7 +8,7 @@ import type { ComDropdownTagContext } from '../dropdown.models';
  * ```html
  * <com-dropdown [options]="users()" [multiple]="true">
  *   <ng-template comDropdownTag let-user let-remove="remove">
- *     <div class="flex items-center gap-1 rounded bg-primary-100 px-2 py-0.5">
+ *     <div class="flex items-center gap-1 rounded bg-primary-subtle px-2 py-0.5 text-primary-subtle-foreground">
  *       <img [src]="user.avatar" class="h-4 w-4 rounded-full" />
  *       <span>{{ user.name }}</span>
  *       <button type="button" (click)="remove()" class="ml-1">

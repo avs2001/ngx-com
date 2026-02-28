@@ -28,7 +28,11 @@ type TagVariant = 'default' | 'primary';
 
 /**
  * CVA variants for the dropdown trigger button.
- * Uses Tailwind 4 theme tokens for consistent theming.
+ * Uses semantic theme tokens for consistent cross-theme styling.
+ *
+ * @tokens `--color-input-background`, `--color-input-foreground`, `--color-input-border`,
+ *         `--color-input-placeholder`, `--color-ring`, `--color-muted`, `--color-muted-hover`,
+ *         `--color-warn`, `--color-success`, `--color-primary`, `--color-border`
  */
 export const dropdownTriggerVariants: (props?: {
   variant?: DropdownVariant;
@@ -43,51 +47,41 @@ export const dropdownTriggerVariants: (props?: {
     'w-full',
     'rounded-md',
     'border',
-    'bg-surface-50',
-    'text-surface-900',
-    'ring-offset-surface-50',
+    'bg-input-background',
+    'text-input-foreground',
+    'ring-offset-background',
     'transition-colors',
     'duration-150',
-    'placeholder:text-surface-400',
+    'placeholder:text-input-placeholder',
     'focus:outline-none',
     'focus:ring-2',
     'focus:ring-offset-2',
-    'focus:ring-primary-500',
+    'focus:ring-ring',
     'disabled:cursor-not-allowed',
-    'disabled:opacity-50',
-    'dark:bg-surface-900',
-    'dark:text-surface-100',
-    'dark:ring-offset-surface-900',
-    'dark:placeholder:text-surface-500',
+    'disabled:bg-disabled',
+    'disabled:text-disabled-foreground',
   ],
   {
     variants: {
       variant: {
         default: [
-          'border-surface-300',
-          'hover:border-surface-400',
-          'dark:border-surface-600',
-          'dark:hover:border-surface-500',
+          'border-input-border',
+          'hover:border-border',
         ],
         outline: [
           'border-2',
-          'border-surface-300',
-          'hover:border-surface-900',
-          'dark:border-surface-600',
-          'dark:hover:border-surface-100',
+          'border-input-border',
+          'hover:border-foreground',
         ],
         ghost: [
           'border-transparent',
           'bg-transparent',
-          'hover:bg-surface-100',
-          'dark:hover:bg-surface-800',
+          'hover:bg-muted',
         ],
         filled: [
           'border-transparent',
-          'bg-surface-100',
-          'hover:bg-surface-200',
-          'dark:bg-surface-800',
-          'dark:hover:bg-surface-700',
+          'bg-muted',
+          'hover:bg-muted-hover',
         ],
       },
       size: {
@@ -98,20 +92,16 @@ export const dropdownTriggerVariants: (props?: {
       state: {
         default: [],
         error: [
-          'border-warn-500',
-          'focus:ring-warn-500',
-          'dark:border-warn-400',
-          'dark:focus:ring-warn-400',
+          'border-warn',
+          'focus:ring-warn',
         ],
         success: [
-          'border-success-500',
-          'focus:ring-success-500',
-          'dark:border-success-400',
-          'dark:focus:ring-success-400',
+          'border-success',
+          'focus:ring-success',
         ],
       },
       open: {
-        true: ['ring-2', 'ring-primary-500', 'border-primary-500'],
+        true: ['ring-2', 'ring-ring', 'border-primary'],
         false: [],
       },
     },
@@ -119,12 +109,12 @@ export const dropdownTriggerVariants: (props?: {
       {
         open: true,
         variant: 'default',
-        class: ['border-primary-500', 'dark:border-primary-400'],
+        class: ['border-primary'],
       },
       {
         open: true,
         variant: 'outline',
-        class: ['border-primary-500', 'dark:border-primary-400'],
+        class: ['border-primary'],
       },
     ],
     defaultVariants: {
@@ -140,6 +130,8 @@ export type DropdownTriggerVariants = VariantProps<typeof dropdownTriggerVariant
 
 /**
  * CVA variants for the dropdown panel (overlay).
+ *
+ * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border-subtle`
  */
 export const dropdownPanelVariants: (props?: {
   size?: DropdownSize;
@@ -149,14 +141,11 @@ export const dropdownPanelVariants: (props?: {
     'overflow-hidden',
     'rounded-md',
     'border',
-    'border-surface-200',
-    'bg-surface-50',
-    'text-surface-900',
+    'border-border-subtle',
+    'bg-popover',
+    'text-popover-foreground',
     'shadow-lg',
     'outline-none',
-    'dark:border-surface-700',
-    'dark:bg-surface-900',
-    'dark:text-surface-100',
   ],
   {
     variants: {
@@ -176,6 +165,9 @@ export type DropdownPanelVariants = VariantProps<typeof dropdownPanelVariants>;
 
 /**
  * CVA variants for individual dropdown options.
+ *
+ * @tokens `--color-popover-foreground`, `--color-muted`, `--color-primary-subtle`,
+ *         `--color-primary-subtle-foreground`, `--color-disabled-foreground`
  */
 export const dropdownOptionVariants: (props?: {
   size?: DropdownSize;
@@ -201,33 +193,25 @@ export const dropdownOptionVariants: (props?: {
       },
       state: {
         default: [
-          'text-surface-900',
-          'hover:bg-surface-100',
-          'dark:text-surface-100',
-          'dark:hover:bg-surface-800',
+          'text-popover-foreground',
+          'hover:bg-muted',
         ],
         active: [
-          'bg-surface-100',
-          'text-surface-900',
-          'dark:bg-surface-800',
-          'dark:text-surface-100',
+          'bg-muted',
+          'text-popover-foreground',
         ],
         selected: [
-          'bg-primary-100',
-          'text-primary-900',
-          'dark:bg-primary-900',
-          'dark:text-primary-100',
+          'bg-primary-subtle',
+          'text-primary-subtle-foreground',
         ],
         'selected-active': [
-          'bg-primary-200',
-          'text-primary-900',
-          'dark:bg-primary-800',
-          'dark:text-primary-100',
+          'bg-primary-subtle',
+          'text-primary-subtle-foreground',
+          'brightness-95',
         ],
         disabled: [
           'cursor-not-allowed',
-          'opacity-50',
-          'text-surface-400',
+          'text-disabled-foreground',
           'hover:bg-transparent',
         ],
       },
@@ -243,6 +227,8 @@ export type DropdownOptionVariants = VariantProps<typeof dropdownOptionVariants>
 
 /**
  * CVA variants for the search input.
+ *
+ * @tokens `--color-border-subtle`, `--color-input-placeholder`, `--color-disabled-foreground`
  */
 export const dropdownSearchVariants: (props?: {
   size?: DropdownSize;
@@ -252,17 +238,15 @@ export const dropdownSearchVariants: (props?: {
     'h-10',
     'w-full',
     'border-b',
-    'border-surface-200',
+    'border-border-subtle',
     'bg-transparent',
     'px-3',
     'py-2',
     'text-sm',
-    'placeholder:text-surface-400',
+    'placeholder:text-input-placeholder',
     'outline-none',
     'disabled:cursor-not-allowed',
-    'disabled:opacity-50',
-    'dark:border-surface-700',
-    'dark:placeholder:text-surface-500',
+    'disabled:text-disabled-foreground',
   ],
   {
     variants: {
@@ -282,6 +266,9 @@ export type DropdownSearchVariants = VariantProps<typeof dropdownSearchVariants>
 
 /**
  * CVA variants for multi-select tags.
+ *
+ * @tokens `--color-muted`, `--color-muted-foreground`, `--color-muted-hover`,
+ *         `--color-primary-subtle`, `--color-primary-subtle-foreground`
  */
 export const dropdownTagVariants: (props?: {
   size?: DropdownSize;
@@ -305,20 +292,14 @@ export const dropdownTagVariants: (props?: {
       },
       variant: {
         default: [
-          'bg-surface-200',
-          'text-surface-700',
-          'hover:bg-surface-300',
-          'dark:bg-surface-700',
-          'dark:text-surface-200',
-          'dark:hover:bg-surface-600',
+          'bg-muted',
+          'text-muted-foreground',
+          'hover:bg-muted-hover',
         ],
         primary: [
-          'bg-primary-100',
-          'text-primary-700',
-          'hover:bg-primary-200',
-          'dark:bg-primary-900',
-          'dark:text-primary-200',
-          'dark:hover:bg-primary-800',
+          'bg-primary-subtle',
+          'text-primary-subtle-foreground',
+          'hover:brightness-95',
         ],
       },
     },
@@ -333,6 +314,8 @@ export type DropdownTagVariants = VariantProps<typeof dropdownTagVariants>;
 
 /**
  * CVA variants for the tag remove button.
+ *
+ * @tokens `--color-ring`
  */
 export const dropdownTagRemoveVariants: (props?: {
   size?: DropdownSize;
@@ -347,7 +330,7 @@ export const dropdownTagRemoveVariants: (props?: {
     'hover:opacity-100',
     'focus:outline-none',
     'focus:ring-1',
-    'focus:ring-primary-500',
+    'focus:ring-ring',
   ],
   {
     variants: {
@@ -367,6 +350,8 @@ export type DropdownTagRemoveVariants = VariantProps<typeof dropdownTagRemoveVar
 
 /**
  * CVA variants for the overflow badge (+N indicator).
+ *
+ * @tokens `--color-muted`, `--color-muted-foreground`
  */
 export const dropdownOverflowBadgeVariants: (props?: {
   size?: DropdownSize;
@@ -377,10 +362,8 @@ export const dropdownOverflowBadgeVariants: (props?: {
     'justify-center',
     'rounded',
     'font-medium',
-    'text-surface-600',
-    'bg-surface-200',
-    'dark:text-surface-400',
-    'dark:bg-surface-700',
+    'text-muted-foreground',
+    'bg-muted',
   ],
   {
     variants: {
@@ -400,6 +383,8 @@ export type DropdownOverflowBadgeVariants = VariantProps<typeof dropdownOverflow
 
 /**
  * CVA variants for group headers.
+ *
+ * @tokens `--color-muted-foreground`
  */
 export const dropdownGroupVariants: (props?: {
   size?: DropdownSize;
@@ -413,8 +398,7 @@ export const dropdownGroupVariants: (props?: {
     'font-semibold',
     'uppercase',
     'tracking-wider',
-    'text-surface-500',
-    'dark:text-surface-400',
+    'text-muted-foreground',
   ],
   {
     variants: {
@@ -434,6 +418,8 @@ export type DropdownGroupVariants = VariantProps<typeof dropdownGroupVariants>;
 
 /**
  * CVA variants for the empty state.
+ *
+ * @tokens `--color-muted-foreground`
  */
 export const dropdownEmptyVariants: (props?: {
   size?: DropdownSize;
@@ -444,8 +430,7 @@ export const dropdownEmptyVariants: (props?: {
     'justify-center',
     'px-3',
     'py-6',
-    'text-surface-500',
-    'dark:text-surface-400',
+    'text-muted-foreground',
   ],
   {
     variants: {
@@ -465,6 +450,8 @@ export type DropdownEmptyVariants = VariantProps<typeof dropdownEmptyVariants>;
 
 /**
  * CVA variants for the clear button.
+ *
+ * @tokens `--color-ring`
  */
 export const dropdownClearVariants: (props?: {
   size?: DropdownSize;
@@ -479,7 +466,7 @@ export const dropdownClearVariants: (props?: {
     'hover:opacity-100',
     'focus:outline-none',
     'focus:ring-1',
-    'focus:ring-primary-500',
+    'focus:ring-ring',
   ],
   {
     variants: {

@@ -10,7 +10,7 @@ import type { ComDropdownGroupContext } from '../dropdown.models';
  *   <ng-template comDropdownGroup let-group let-count="count">
  *     <div class="flex items-center justify-between">
  *       <span class="font-semibold">{{ group }}</span>
- *       <span class="text-xs text-surface-400">({{ count }})</span>
+ *       <span class="text-xs text-muted-foreground">({{ count }})</span>
  *     </div>
  *   </ng-template>
  * </com-dropdown>

@@ -9,7 +9,7 @@ import type { ComDropdownEmptyContext } from '../dropdown.models';
  * <com-dropdown [options]="users()" [searchable]="true">
  *   <ng-template comDropdownEmpty let-query>
  *     <div class="flex flex-col items-center gap-2 py-6">
- *       <svg class="h-8 w-8 text-surface-400"><!-- search icon --></svg>
+ *       <svg class="h-8 w-8 text-muted-foreground"><!-- search icon --></svg>
  *       <span>No results for "{{ query }}"</span>
  *     </div>
  *   </ng-template>

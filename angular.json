@@ -65,7 +65,10 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "providersFile": "projects/integration/test-providers.ts"
+          }
         }
       }
     },
@@ -91,11 +94,13 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/com/tsconfig.spec.json",
+            "providersFile": "projects/com/test-providers.ts",
             "include": [
               "components/**/*.spec.ts",
               "tokens/**/*.spec.ts",
               "utils/**/*.spec.ts"
-            ]
+            ],
+            "runnerConfig": true
           }
         }
       }
