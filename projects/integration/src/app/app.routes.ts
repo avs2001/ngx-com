@@ -46,6 +46,33 @@ export const routes: Routes = [
         path: 'components/dropdown/api',
         loadComponent: () => import('./pages/dropdown/dropdown-api').then(m => m.DropdownApi),
       },
+      {
+        path: 'components/badge',
+        loadComponent: () => import('./pages/badge/badge-overview').then(m => m.BadgeOverview),
+      },
+      {
+        path: 'components/badge/examples',
+        loadComponent: () => import('./pages/badge/badge-examples').then(m => m.BadgeExamples),
+      },
+      {
+        path: 'components/badge/api',
+        loadComponent: () => import('./pages/badge/badge-api').then(m => m.BadgeApi),
+      },
+      {
+        path: 'components/collapsible',
+        loadComponent: () =>
+          import('./pages/collapsible/collapsible-overview').then(m => m.CollapsibleOverview),
+      },
+      {
+        path: 'components/collapsible/examples',
+        loadComponent: () =>
+          import('./pages/collapsible/collapsible-examples').then(m => m.CollapsibleExamples),
+      },
+      {
+        path: 'components/collapsible/api',
+        loadComponent: () =>
+          import('./pages/collapsible/collapsible-api').then(m => m.CollapsibleApi),
+      },
     ],
   },
 ];
