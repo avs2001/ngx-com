@@ -48,6 +48,7 @@ import {
   dropdownTriggerVariants,
   dropdownChevronVariants,
   dropdownClearVariants,
+  dropdownOverflowBadgeVariants,
 } from './dropdown.variants';
 import type {
   DropdownVariant,
@@ -139,7 +140,7 @@ const VIRTUAL_SCROLL_THRESHOLD = 50;
         } @else if (multiple()) {
           @if (selectedValues().length > 0) {
             <span class="flex flex-wrap gap-1">
-              @for (item of selectedValues(); track trackByValue(item, $index); let i = $index) {
+              @for (item of visibleTags(); track trackByValue(item, $index); let i = $index) {
                 <com-dropdown-tag
                   [value]="item"
                   [displayText]="displayWith()(item)"
@@ -149,6 +150,11 @@ const VIRTUAL_SCROLL_THRESHOLD = 50;
                   [tagTemplate]="tagTemplate()?.templateRef ?? null"
                   (remove)="removeValue($event)"
                 />
+              }
+              @if (hiddenTagsCount() > 0) {
+                <span [class]="overflowBadgeClasses()">
+                  +{{ hiddenTagsCount() }}
+                </span>
               }
             </span>
           } @else {
@@ -439,6 +445,9 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
   /** Virtual scroll threshold. */
   readonly virtualScrollThreshold: InputSignal<number> = input<number>(VIRTUAL_SCROLL_THRESHOLD);
 
+  /** Maximum number of tags to display in multi-select mode. Set to null for no limit. */
+  readonly maxVisibleTags: InputSignal<number | null> = input<number | null>(2);
+
   // ============ OUTPUTS ============
 
   /** Emitted when the value changes. */
@@ -508,6 +517,26 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
       return [];
     }
     return Array.isArray(val) ? val : val !== null ? [val] : [];
+  });
+
+  /** Tags visible in the trigger (limited by maxVisibleTags). */
+  readonly visibleTags: Signal<T[]> = computed(() => {
+    const all = this.selectedValues();
+    const max = this.maxVisibleTags();
+    if (max === null || all.length <= max) {
+      return all;
+    }
+    return all.slice(0, max);
+  });
+
+  /** Count of hidden tags (for +N badge). */
+  readonly hiddenTagsCount: Signal<number> = computed(() => {
+    const all = this.selectedValues();
+    const max = this.maxVisibleTags();
+    if (max === null || all.length <= max) {
+      return 0;
+    }
+    return all.length - max;
   });
 
   /** Processed options with display text and IDs. */
@@ -614,6 +643,11 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
   /** Computed clear button classes. */
   readonly clearClasses: Signal<string> = computed(() => {
     return dropdownClearVariants({ size: this.size() });
+  });
+
+  /** Computed overflow badge classes. */
+  readonly overflowBadgeClasses: Signal<string> = computed(() => {
+    return dropdownOverflowBadgeVariants({ size: this.size() });
   });
 
   // ============ CVA CALLBACKS ============

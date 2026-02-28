@@ -366,6 +366,39 @@ export const dropdownTagRemoveVariants: (props?: {
 export type DropdownTagRemoveVariants = VariantProps<typeof dropdownTagRemoveVariants>;
 
 /**
+ * CVA variants for the overflow badge (+N indicator).
+ */
+export const dropdownOverflowBadgeVariants: (props?: {
+  size?: DropdownSize;
+}) => string = cva(
+  [
+    'inline-flex',
+    'items-center',
+    'justify-center',
+    'rounded',
+    'font-medium',
+    'text-surface-600',
+    'bg-surface-200',
+    'dark:text-surface-400',
+    'dark:bg-surface-700',
+  ],
+  {
+    variants: {
+      size: {
+        sm: ['h-5', 'px-1.5', 'text-xs'],
+        default: ['h-6', 'px-2', 'text-xs'],
+        lg: ['h-7', 'px-2.5', 'text-sm'],
+      },
+    },
+    defaultVariants: {
+      size: 'default',
+    },
+  }
+);
+
+export type DropdownOverflowBadgeVariants = VariantProps<typeof dropdownOverflowBadgeVariants>;
+
+/**
  * CVA variants for group headers.
  */
 export const dropdownGroupVariants: (props?: {
