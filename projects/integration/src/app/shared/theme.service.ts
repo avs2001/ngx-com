@@ -1,7 +1,7 @@
 import { Injectable, signal, effect, inject, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
-export type Theme = 'light' | 'dark' | 'forest';
+export type Theme = 'light' | 'dark' | 'forest' | 'ocean' | 'candy';
 
 export interface ThemeOption {
   id: Theme;
@@ -13,6 +13,8 @@ export const THEME_OPTIONS: ThemeOption[] = [
   { id: 'light', name: 'Light', icon: 'sun' },
   { id: 'dark', name: 'Dark', icon: 'moon' },
   { id: 'forest', name: 'Forest', icon: 'tree' },
+  { id: 'ocean', name: 'Ocean', icon: 'waves' },
+  { id: 'candy', name: 'Candy', icon: 'candy' },
 ];
 
 const STORAGE_KEY = 'ngx-com-theme';
@@ -56,7 +58,7 @@ export class ThemeService {
   }
 
   private isValidTheme(value: string): value is Theme {
-    return ['light', 'dark', 'forest'].includes(value);
+    return ['light', 'dark', 'forest', 'ocean', 'candy'].includes(value);
   }
 
   private applyTheme(theme: Theme): void {

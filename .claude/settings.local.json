@@ -62,7 +62,8 @@
       "mcp__angular-cli__list_projects",
       "Bash(chmod:*)",
       "Bash(npm start)",
-      "Bash(npx ng generate config vitest:*)"
+      "Bash(npx ng generate config vitest:*)",
+      "mcp__angular-cli__get_best_practices"
     ]
   },
   "enabledMcpjsonServers": [

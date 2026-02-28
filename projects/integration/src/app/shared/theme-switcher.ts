@@ -40,6 +40,21 @@ import type { Theme } from './theme.service';
             <path d="M12 2L7 9h10L12 2zM5 16l7-7 7 7H5zM7 16v6M17 16v6M12 16v6"/>
           </svg>
         }
+        @case ('ocean') {
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+            <path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+            <path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+          </svg>
+        }
+        @case ('candy') {
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="6"/>
+            <path d="M12 14v8"/>
+            <path d="M8 5c1-1 3-1 4 0s3 1 4 0"/>
+            <path d="M8 8c1 1 3 1 4 0s3-1 4 0"/>
+          </svg>
+        }
       }
       <span class="hidden sm:inline">{{ currentOptionName() }}</span>
       <svg class="h-4 w-4 transition-transform" [class.rotate-180]="isOpen()" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -88,6 +103,21 @@ import type { Theme } from './theme.service';
               @case ('forest') {
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M12 2L7 9h10L12 2zM5 16l7-7 7 7H5zM7 16v6M17 16v6M12 16v6"/>
+                </svg>
+              }
+              @case ('ocean') {
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+                  <path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+                  <path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+                </svg>
+              }
+              @case ('candy') {
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="8" r="6"/>
+                  <path d="M12 14v8"/>
+                  <path d="M8 5c1-1 3-1 4 0s3 1 4 0"/>
+                  <path d="M8 8c1 1 3 1 4 0s3-1 4 0"/>
                 </svg>
               }
             }

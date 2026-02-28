@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { CodeBlock } from '../../shared/code-block';
+import { CodeBlock } from '../../../shared/code-block';
 
 interface ApiProperty {
   name: string;
@@ -12,159 +11,141 @@ interface ApiProperty {
 @Component({
   selector: 'int-dropdown-api',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CodeBlock, RouterLink],
+  imports: [CodeBlock],
   template: `
-    <div class="mx-auto max-w-4xl px-6 py-12">
-      <!-- Breadcrumb -->
-      <nav class="mb-6 text-sm">
-        <ol class="flex items-center gap-2 text-surface-500">
-          <li><a routerLink="/" class="hover:text-primary-600">Home</a></li>
-          <li>/</li>
-          <li><a routerLink="/components/dropdown" class="hover:text-primary-600">Dropdown</a></li>
-          <li>/</li>
-          <li><span class="text-surface-900">API</span></li>
-        </ol>
-      </nav>
+    <!-- Import -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Import</h2>
+      <int-code-block
+        language="typescript"
+        [code]="importCode"
+      />
+    </section>
 
-      <h1 class="mb-4 text-4xl font-bold text-surface-900">Dropdown API</h1>
-      <p class="mb-8 text-lg text-surface-600">
-        Complete API reference for the Dropdown component.
+    <!-- Selector -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Selector</h2>
+      <div class="rounded-lg border border-surface-200 bg-white p-4">
+        <code class="font-mono text-primary-600">com-dropdown</code>
+      </div>
+    </section>
+
+    <!-- Inputs -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Inputs</h2>
+      <div class="overflow-x-auto rounded-lg border border-surface-200 bg-white">
+        <table class="w-full text-sm">
+          <thead class="bg-surface-50">
+            <tr class="border-b border-surface-200 text-left">
+              <th class="px-4 py-3 font-semibold text-surface-700">Name</th>
+              <th class="px-4 py-3 font-semibold text-surface-700">Type</th>
+              <th class="px-4 py-3 font-semibold text-surface-700">Default</th>
+              <th class="px-4 py-3 font-semibold text-surface-700">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (prop of inputs; track prop.name) {
+              <tr class="border-b border-surface-100 last:border-0">
+                <td class="px-4 py-3">
+                  <code class="font-mono text-primary-600">{{ prop.name }}</code>
+                </td>
+                <td class="px-4 py-3">
+                  <code class="rounded bg-surface-100 px-1.5 py-0.5 font-mono text-xs text-surface-700">{{ prop.type }}</code>
+                </td>
+                <td class="px-4 py-3 text-surface-500">{{ prop.default || '—' }}</td>
+                <td class="px-4 py-3 text-surface-600">{{ prop.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Outputs -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Outputs</h2>
+      <div class="overflow-x-auto rounded-lg border border-surface-200 bg-white">
+        <table class="w-full text-sm">
+          <thead class="bg-surface-50">
+            <tr class="border-b border-surface-200 text-left">
+              <th class="px-4 py-3 font-semibold text-surface-700">Name</th>
+              <th class="px-4 py-3 font-semibold text-surface-700">Type</th>
+              <th class="px-4 py-3 font-semibold text-surface-700">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (prop of outputs; track prop.name) {
+              <tr class="border-b border-surface-100 last:border-0">
+                <td class="px-4 py-3">
+                  <code class="font-mono text-primary-600">{{ prop.name }}</code>
+                </td>
+                <td class="px-4 py-3">
+                  <code class="rounded bg-surface-100 px-1.5 py-0.5 font-mono text-xs text-surface-700">{{ prop.type }}</code>
+                </td>
+                <td class="px-4 py-3 text-surface-600">{{ prop.description }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Template Directives -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Template Directives</h2>
+      <p class="mb-4 text-surface-600">
+        Use these directives to customize rendering of different parts of the dropdown:
       </p>
+      <div class="space-y-4">
+        @for (directive of templateDirectives; track directive.name) {
+          <div class="rounded-lg border border-surface-200 bg-white p-4">
+            <h3 class="mb-2 font-semibold text-surface-900">{{ directive.name }}</h3>
+            <p class="mb-3 text-sm text-surface-600">{{ directive.description }}</p>
+            <int-code-block language="html" [code]="directive.code" />
+          </div>
+        }
+      </div>
+    </section>
 
-      <!-- Import -->
-      <section class="mb-12">
-        <h2 class="mb-4 text-2xl font-semibold text-surface-900">Import</h2>
-        <int-code-block
-          language="typescript"
-          [code]="importCode"
-        />
-      </section>
-
-      <!-- Selector -->
-      <section class="mb-12">
-        <h2 class="mb-4 text-2xl font-semibold text-surface-900">Selector</h2>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
-          <code class="font-mono text-primary-600">com-dropdown</code>
-        </div>
-      </section>
-
-      <!-- Inputs -->
-      <section class="mb-12">
-        <h2 class="mb-4 text-2xl font-semibold text-surface-900">Inputs</h2>
-        <div class="overflow-x-auto rounded-lg border border-surface-200 bg-white">
-          <table class="w-full text-sm">
-            <thead class="bg-surface-50">
-              <tr class="border-b border-surface-200 text-left">
-                <th class="px-4 py-3 font-semibold text-surface-700">Name</th>
-                <th class="px-4 py-3 font-semibold text-surface-700">Type</th>
-                <th class="px-4 py-3 font-semibold text-surface-700">Default</th>
-                <th class="px-4 py-3 font-semibold text-surface-700">Description</th>
+    <!-- Methods -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Methods</h2>
+      <div class="overflow-x-auto rounded-lg border border-surface-200 bg-white">
+        <table class="w-full text-sm">
+          <thead class="bg-surface-50">
+            <tr class="border-b border-surface-200 text-left">
+              <th class="px-4 py-3 font-semibold text-surface-700">Name</th>
+              <th class="px-4 py-3 font-semibold text-surface-700">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (method of methods; track method.name) {
+              <tr class="border-b border-surface-100 last:border-0">
+                <td class="px-4 py-3">
+                  <code class="font-mono text-primary-600">{{ method.name }}</code>
+                </td>
+                <td class="px-4 py-3 text-surface-600">{{ method.description }}</td>
               </tr>
-            </thead>
-            <tbody>
-              @for (prop of inputs; track prop.name) {
-                <tr class="border-b border-surface-100 last:border-0">
-                  <td class="px-4 py-3">
-                    <code class="font-mono text-primary-600">{{ prop.name }}</code>
-                  </td>
-                  <td class="px-4 py-3">
-                    <code class="rounded bg-surface-100 px-1.5 py-0.5 font-mono text-xs text-surface-700">{{ prop.type }}</code>
-                  </td>
-                  <td class="px-4 py-3 text-surface-500">{{ prop.default || '—' }}</td>
-                  <td class="px-4 py-3 text-surface-600">{{ prop.description }}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </section>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-      <!-- Outputs -->
-      <section class="mb-12">
-        <h2 class="mb-4 text-2xl font-semibold text-surface-900">Outputs</h2>
-        <div class="overflow-x-auto rounded-lg border border-surface-200 bg-white">
-          <table class="w-full text-sm">
-            <thead class="bg-surface-50">
-              <tr class="border-b border-surface-200 text-left">
-                <th class="px-4 py-3 font-semibold text-surface-700">Name</th>
-                <th class="px-4 py-3 font-semibold text-surface-700">Type</th>
-                <th class="px-4 py-3 font-semibold text-surface-700">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (prop of outputs; track prop.name) {
-                <tr class="border-b border-surface-100 last:border-0">
-                  <td class="px-4 py-3">
-                    <code class="font-mono text-primary-600">{{ prop.name }}</code>
-                  </td>
-                  <td class="px-4 py-3">
-                    <code class="rounded bg-surface-100 px-1.5 py-0.5 font-mono text-xs text-surface-700">{{ prop.type }}</code>
-                  </td>
-                  <td class="px-4 py-3 text-surface-600">{{ prop.description }}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </section>
+    <!-- Helper Functions -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Helper Functions</h2>
+      <p class="mb-4 text-surface-600">
+        Exported helper functions for common operations:
+      </p>
+      <int-code-block language="typescript" [code]="helperCode" />
+    </section>
 
-      <!-- Template Directives -->
-      <section class="mb-12">
-        <h2 class="mb-4 text-2xl font-semibold text-surface-900">Template Directives</h2>
-        <p class="mb-4 text-surface-600">
-          Use these directives to customize rendering of different parts of the dropdown:
-        </p>
-        <div class="space-y-4">
-          @for (directive of templateDirectives; track directive.name) {
-            <div class="rounded-lg border border-surface-200 bg-white p-4">
-              <h3 class="mb-2 font-semibold text-surface-900">{{ directive.name }}</h3>
-              <p class="mb-3 text-sm text-surface-600">{{ directive.description }}</p>
-              <int-code-block language="html" [code]="directive.code" />
-            </div>
-          }
-        </div>
-      </section>
-
-      <!-- Methods -->
-      <section class="mb-12">
-        <h2 class="mb-4 text-2xl font-semibold text-surface-900">Methods</h2>
-        <div class="overflow-x-auto rounded-lg border border-surface-200 bg-white">
-          <table class="w-full text-sm">
-            <thead class="bg-surface-50">
-              <tr class="border-b border-surface-200 text-left">
-                <th class="px-4 py-3 font-semibold text-surface-700">Name</th>
-                <th class="px-4 py-3 font-semibold text-surface-700">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (method of methods; track method.name) {
-                <tr class="border-b border-surface-100 last:border-0">
-                  <td class="px-4 py-3">
-                    <code class="font-mono text-primary-600">{{ method.name }}</code>
-                  </td>
-                  <td class="px-4 py-3 text-surface-600">{{ method.description }}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Helper Functions -->
-      <section class="mb-12">
-        <h2 class="mb-4 text-2xl font-semibold text-surface-900">Helper Functions</h2>
-        <p class="mb-4 text-surface-600">
-          Exported helper functions for common operations:
-        </p>
-        <int-code-block language="typescript" [code]="helperCode" />
-      </section>
-
-      <!-- Types -->
-      <section class="mb-12">
-        <h2 class="mb-4 text-2xl font-semibold text-surface-900">Types</h2>
-        <int-code-block language="typescript" [code]="typesCode" />
-      </section>
-    </div>
+    <!-- Types -->
+    <section>
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Types</h2>
+      <int-code-block language="typescript" [code]="typesCode" />
+    </section>
   `,
 })
 export class DropdownApi {

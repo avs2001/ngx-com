@@ -11,7 +11,7 @@ import { ThemeService } from '../shared/theme.service';
   template: `
     <div class="flex h-dvh">
       <!-- Sidebar (desktop) -->
-      <div class="hidden lg:block">
+      <div class="hidden h-full lg:block">
         <int-sidebar />
       </div>
 

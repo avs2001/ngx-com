@@ -6,6 +6,7 @@
     "start": "ng serve integration --port 4500",
     "build": "ng build",
     "build:lib": "ng build com --configuration production",
+    "watch:lib": "ng build --watch --project com",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test com --watch=false",

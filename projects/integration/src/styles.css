@@ -58,6 +58,7 @@
   --color-surface-950: oklch(0.14 0.004 280);
 
   /* Success */
+  --color-success-400: oklch(0.72 0.20 145);
   --color-success-500: oklch(0.62 0.19 145);
   --color-success-600: oklch(0.52 0.17 145);
 
@@ -462,6 +463,244 @@
   --color-placeholder: var(--color-surface-400);
   --color-disabled: var(--color-surface-300);
   --color-disabled-foreground: var(--color-surface-500);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   OCEAN THEME
+   ───────────────────────────────────────────────────────────────────────────── */
+
+[data-theme='ocean'] {
+  /* Primary - Deep Ocean Blue (hue ~230) */
+  --color-primary-50: oklch(0.97 0.02 230);
+  --color-primary-100: oklch(0.93 0.05 230);
+  --color-primary-200: oklch(0.86 0.10 230);
+  --color-primary-300: oklch(0.76 0.16 230);
+  --color-primary-400: oklch(0.66 0.20 230);
+  --color-primary-500: oklch(0.52 0.20 230);
+  --color-primary-600: oklch(0.45 0.18 230);
+  --color-primary-700: oklch(0.38 0.15 230);
+  --color-primary-800: oklch(0.32 0.12 230);
+  --color-primary-900: oklch(0.26 0.08 230);
+  --color-primary-950: oklch(0.18 0.05 230);
+
+  /* Accent - Coastal Teal/Cyan (hue ~175) */
+  --color-accent-50: oklch(0.98 0.02 175);
+  --color-accent-100: oklch(0.94 0.05 175);
+  --color-accent-200: oklch(0.88 0.10 175);
+  --color-accent-300: oklch(0.80 0.16 175);
+  --color-accent-400: oklch(0.72 0.18 175);
+  --color-accent-500: oklch(0.62 0.16 175);
+  --color-accent-600: oklch(0.52 0.15 175);
+  --color-accent-700: oklch(0.44 0.13 175);
+  --color-accent-800: oklch(0.36 0.10 175);
+  --color-accent-900: oklch(0.28 0.06 175);
+  --color-accent-950: oklch(0.20 0.03 175);
+
+  /* Warn - Sandy Gold/Amber (hue ~60) */
+  --color-warn-50: oklch(0.97 0.02 60);
+  --color-warn-100: oklch(0.93 0.05 60);
+  --color-warn-200: oklch(0.86 0.10 60);
+  --color-warn-300: oklch(0.76 0.16 60);
+  --color-warn-400: oklch(0.66 0.20 60);
+  --color-warn-500: oklch(0.55 0.18 60);
+  --color-warn-600: oklch(0.48 0.16 60);
+  --color-warn-700: oklch(0.40 0.14 60);
+  --color-warn-800: oklch(0.33 0.10 60);
+  --color-warn-900: oklch(0.27 0.07 60);
+  --color-warn-950: oklch(0.20 0.04 60);
+
+  /* Surface - Cool blue-grey neutrals (hue ~220 for subtle blue tint) */
+  --color-surface-50: oklch(0.98 0.006 220);
+  --color-surface-100: oklch(0.96 0.010 220);
+  --color-surface-200: oklch(0.92 0.014 220);
+  --color-surface-300: oklch(0.86 0.016 220);
+  --color-surface-400: oklch(0.70 0.014 220);
+  --color-surface-500: oklch(0.54 0.012 220);
+  --color-surface-600: oklch(0.44 0.012 220);
+  --color-surface-700: oklch(0.36 0.010 220);
+  --color-surface-800: oklch(0.26 0.008 220);
+  --color-surface-900: oklch(0.20 0.006 220);
+  --color-surface-950: oklch(0.14 0.004 220);
+
+  /* Success - Default green (hue 145) works well with ocean palette */
+  --color-success-500: oklch(0.62 0.19 145);
+  --color-success-600: oklch(0.52 0.17 145);
+
+  /* ═══ Semantic overrides ═══ */
+  --color-background: var(--color-surface-50);
+  --color-foreground: var(--color-surface-900);
+
+  --color-primary: var(--color-primary-500);
+  --color-primary-foreground: var(--color-primary-50);
+  --color-primary-hover: var(--color-primary-600);
+  --color-primary-subtle: var(--color-primary-100);
+  --color-primary-subtle-foreground: var(--color-primary-800);
+
+  --color-accent: var(--color-accent-500);
+  --color-accent-foreground: var(--color-accent-50);
+  --color-accent-hover: var(--color-accent-600);
+  --color-accent-subtle: var(--color-accent-100);
+  --color-accent-subtle-foreground: var(--color-accent-800);
+
+  --color-warn: var(--color-warn-500);
+  --color-warn-foreground: var(--color-warn-50);
+  --color-warn-hover: var(--color-warn-600);
+  --color-warn-subtle: var(--color-warn-100);
+  --color-warn-subtle-foreground: var(--color-warn-800);
+
+  --color-success: var(--color-success-500);
+  --color-success-foreground: var(--color-surface-50);
+  --color-success-hover: var(--color-success-600);
+
+  --color-muted: var(--color-surface-200);
+  --color-muted-foreground: var(--color-surface-600);
+  --color-muted-hover: var(--color-surface-300);
+
+  --color-border: var(--color-surface-300);
+  --color-border-subtle: var(--color-surface-200);
+  --color-ring: var(--color-primary-500);
+
+  --color-popover: var(--color-surface-50);
+  --color-popover-foreground: var(--color-surface-900);
+
+  --color-input-border: var(--color-surface-300);
+  --color-input-background: var(--color-surface-50);
+  --color-input-foreground: var(--color-surface-900);
+  --color-input-placeholder: var(--color-surface-400);
+  --color-input-disabled: var(--color-surface-100);
+
+  --color-placeholder: var(--color-surface-400);
+  --color-disabled: var(--color-surface-300);
+  --color-disabled-foreground: var(--color-surface-500);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CANDY THEME
+   ───────────────────────────────────────────────────────────────────────────── */
+
+[data-theme='candy'] {
+  /* Primary - Bubblegum Pink (hue ~350) */
+  --color-primary-50: oklch(0.97 0.02 350);
+  --color-primary-100: oklch(0.93 0.06 350);
+  --color-primary-200: oklch(0.86 0.12 350);
+  --color-primary-300: oklch(0.76 0.18 350);
+  --color-primary-400: oklch(0.66 0.22 350);
+  --color-primary-500: oklch(0.58 0.22 350);
+  --color-primary-600: oklch(0.50 0.20 350);
+  --color-primary-700: oklch(0.42 0.17 350);
+  --color-primary-800: oklch(0.35 0.13 350);
+  --color-primary-900: oklch(0.28 0.09 350);
+  --color-primary-950: oklch(0.20 0.06 350);
+
+  /* Accent - Grape Purple (hue ~290) */
+  --color-accent-50: oklch(0.97 0.02 290);
+  --color-accent-100: oklch(0.93 0.05 290);
+  --color-accent-200: oklch(0.86 0.10 290);
+  --color-accent-300: oklch(0.76 0.16 290);
+  --color-accent-400: oklch(0.66 0.20 290);
+  --color-accent-500: oklch(0.55 0.18 290);
+  --color-accent-600: oklch(0.47 0.16 290);
+  --color-accent-700: oklch(0.40 0.14 290);
+  --color-accent-800: oklch(0.33 0.11 290);
+  --color-accent-900: oklch(0.27 0.08 290);
+  --color-accent-950: oklch(0.20 0.05 290);
+
+  /* Warn - Sour Lemon Yellow-Green (hue ~85) */
+  --color-warn-50: oklch(0.98 0.03 85);
+  --color-warn-100: oklch(0.94 0.06 85);
+  --color-warn-200: oklch(0.88 0.12 85);
+  --color-warn-300: oklch(0.80 0.18 85);
+  --color-warn-400: oklch(0.72 0.20 85);
+  --color-warn-500: oklch(0.65 0.18 85);
+  --color-warn-600: oklch(0.55 0.16 85);
+  --color-warn-700: oklch(0.45 0.14 85);
+  --color-warn-800: oklch(0.36 0.10 85);
+  --color-warn-900: oklch(0.28 0.06 85);
+  --color-warn-950: oklch(0.20 0.03 85);
+
+  /* Surface - Warm pink-tinted neutrals (hue ~350 for faint blush) */
+  --color-surface-50: oklch(0.98 0.006 350);
+  --color-surface-100: oklch(0.96 0.010 350);
+  --color-surface-200: oklch(0.92 0.012 350);
+  --color-surface-300: oklch(0.86 0.014 350);
+  --color-surface-400: oklch(0.70 0.012 350);
+  --color-surface-500: oklch(0.54 0.010 350);
+  --color-surface-600: oklch(0.44 0.010 350);
+  --color-surface-700: oklch(0.36 0.008 350);
+  --color-surface-800: oklch(0.26 0.006 350);
+  --color-surface-900: oklch(0.20 0.005 350);
+  --color-surface-950: oklch(0.14 0.004 350);
+
+  /* Success - Mint green (hue 160) to separate from lemon warn */
+  --color-success-500: oklch(0.62 0.19 160);
+  --color-success-600: oklch(0.52 0.17 160);
+
+  /* ═══ Semantic overrides ═══ */
+  --color-background: var(--color-surface-50);
+  --color-foreground: var(--color-surface-900);
+
+  --color-primary: var(--color-primary-500);
+  --color-primary-foreground: var(--color-primary-50);
+  --color-primary-hover: var(--color-primary-600);
+  --color-primary-subtle: var(--color-primary-100);
+  --color-primary-subtle-foreground: var(--color-primary-800);
+
+  --color-accent: var(--color-accent-500);
+  --color-accent-foreground: var(--color-accent-50);
+  --color-accent-hover: var(--color-accent-600);
+  --color-accent-subtle: var(--color-accent-100);
+  --color-accent-subtle-foreground: var(--color-accent-800);
+
+  --color-warn: var(--color-warn-500);
+  --color-warn-foreground: var(--color-warn-50);
+  --color-warn-hover: var(--color-warn-600);
+  --color-warn-subtle: var(--color-warn-100);
+  --color-warn-subtle-foreground: var(--color-warn-800);
+
+  --color-success: var(--color-success-500);
+  --color-success-foreground: var(--color-surface-50);
+  --color-success-hover: var(--color-success-600);
+
+  --color-muted: var(--color-surface-200);
+  --color-muted-foreground: var(--color-surface-600);
+  --color-muted-hover: var(--color-surface-300);
+
+  --color-border: var(--color-surface-300);
+  --color-border-subtle: var(--color-surface-200);
+  --color-ring: var(--color-primary-500);
+
+  --color-popover: var(--color-surface-50);
+  --color-popover-foreground: var(--color-surface-900);
+
+  --color-input-border: var(--color-surface-300);
+  --color-input-background: var(--color-surface-50);
+  --color-input-foreground: var(--color-surface-900);
+  --color-input-placeholder: var(--color-surface-400);
+  --color-input-disabled: var(--color-surface-100);
+
+  --color-placeholder: var(--color-surface-400);
+  --color-disabled: var(--color-surface-300);
+  --color-disabled-foreground: var(--color-surface-500);
+}
+
+/* ─── Standalone Text Color Overrides ─── */
+/* text-success and text-warn need darker shades for text contrast on bg-background */
+
+@layer utilities {
+  .text-success {
+    color: var(--color-success-600);
+  }
+  .text-warn {
+    color: var(--color-warn-600);
+  }
+}
+
+[data-theme='dark'] .text-success {
+  color: var(--color-success-400);
+}
+
+[data-theme='dark'] .text-warn {
+  color: var(--color-warn-400);
 }
 
 /* ─── Theme Transition ─── */

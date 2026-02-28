@@ -111,12 +111,12 @@ interface NavSection {
     </aside>
   `,
   host: {
-    class: 'block',
+    class: 'block h-full',
   },
 })
 export class Sidebar {
   private readonly router = inject(Router);
-  private readonly expandedSections = signal<Set<string>>(new Set(['components/badge', 'components/calendar', 'components/collapsible', 'components/dropdown']));
+  private readonly expandedSections = signal<Set<string>>(new Set(['components/badge', 'components/calendar', 'components/checkbox', 'components/collapsible', 'components/dropdown']));
 
   private readonly navigationEnd = toSignal(
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
@@ -138,7 +138,7 @@ export class Sidebar {
           label: 'Badge',
           path: 'components/badge',
           children: [
-            { label: 'Overview', path: '/components/badge' },
+            { label: 'Overview', path: '/components/badge/overview' },
             { label: 'Examples', path: '/components/badge/examples' },
             { label: 'API', path: '/components/badge/api' },
           ],
@@ -147,16 +147,25 @@ export class Sidebar {
           label: 'Calendar',
           path: 'components/calendar',
           children: [
-            { label: 'Overview', path: '/components/calendar' },
+            { label: 'Overview', path: '/components/calendar/overview' },
             { label: 'Examples', path: '/components/calendar/examples' },
             { label: 'API', path: '/components/calendar/api' },
+          ],
+        },
+        {
+          label: 'Checkbox',
+          path: 'components/checkbox',
+          children: [
+            { label: 'Overview', path: '/components/checkbox/overview' },
+            { label: 'Examples', path: '/components/checkbox/examples' },
+            { label: 'API', path: '/components/checkbox/api' },
           ],
         },
         {
           label: 'Collapsible',
           path: 'components/collapsible',
           children: [
-            { label: 'Overview', path: '/components/collapsible' },
+            { label: 'Overview', path: '/components/collapsible/overview' },
             { label: 'Examples', path: '/components/collapsible/examples' },
             { label: 'API', path: '/components/collapsible/api' },
           ],
@@ -165,7 +174,7 @@ export class Sidebar {
           label: 'Dropdown',
           path: 'components/dropdown',
           children: [
-            { label: 'Overview', path: '/components/dropdown' },
+            { label: 'Overview', path: '/components/dropdown/overview' },
             { label: 'Examples', path: '/components/dropdown/examples' },
             { label: 'API', path: '/components/dropdown/api' },
           ],
