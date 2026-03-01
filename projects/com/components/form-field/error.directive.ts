@@ -1,7 +1,7 @@
-import { computed, Directive, inject, input } from '@angular/core';
-import type { InputSignal, Signal } from '@angular/core';
+import { computed, Directive, input, signal } from '@angular/core';
+import type { AbstractControl } from '@angular/forms';
+import type { InputSignal, Signal, WritableSignal } from '@angular/core';
 import { errorVariants } from './form-field.variants';
-import { FormFieldControl } from './form-field-control';
 
 /** Auto-incrementing ID counter. */
 let nextId = 0;
@@ -41,14 +41,16 @@ let nextId = 0;
   host: {
     '[id]': 'id',
     '[class]': 'errorVariants()',
+    '[class.hidden]': '!shouldShow()',
     'role': 'alert',
     'aria-live': 'polite',
   },
 })
 export class ComError {
-  private readonly control = inject(FormFieldControl, { optional: true });
-
   readonly id: string = `com-error-${nextId++}`;
+
+  /** Reference to the form control, set by the parent form field. */
+  private readonly _control: WritableSignal<AbstractControl | null> = signal(null);
 
   /**
    * Show this error only when a specific validation error key is present.
@@ -66,7 +68,15 @@ export class ComError {
     const matchKey = this.match();
     if (!matchKey) return true;
 
-    const errors = this.control?.ngControl?.control?.errors;
+    const errors = this._control()?.errors;
     return errors ? matchKey in errors : false;
   });
+
+  /**
+   * Sets the form control reference.
+   * Called by the parent form field component.
+   */
+  setControl(control: AbstractControl | null): void {
+    this._control.set(control);
+  }
 }

@@ -30,7 +30,6 @@ import {
   formFieldContainerVariants,
   formFieldLabelVariants,
   formFieldSubscriptVariants,
-  inputVariants,
 } from './form-field.variants';
 import { mergeClasses } from './form-field.utils';
 
@@ -81,20 +80,19 @@ import { mergeClasses } from './form-field.utils';
   exportAs: 'comFormField',
   template: `
     <div [class]="containerClasses()" (click)="onContainerClick($event)">
-      @if (labelChild()) {
-        <span [class]="labelClasses()">
-          <ng-content select="[comLabel]" />
-          @if (showRequiredMarker()) {
-            <span class="text-warn" aria-hidden="true">&thinsp;*</span>
-          }
-        </span>
-      }
-
       <div class="flex items-center w-full">
         @if (hasPrefix()) {
           <ng-content select="[comPrefix]" />
         }
-        <div class="flex-1 min-w-0" [class]="inputWrapperClasses()">
+        @if (labelChild()) {
+          <span [class]="labelClasses()">
+            <ng-content select="[comLabel]" />
+            @if (showRequiredMarker()) {
+              <span class="text-warn" aria-hidden="true">&thinsp;*</span>
+            }
+          </span>
+        }
+        <div class="flex-1 min-w-0">
           <ng-content />
         </div>
         @if (hasSuffix()) {
@@ -104,27 +102,32 @@ import { mergeClasses } from './form-field.utils';
     </div>
 
     <div [class]="subscriptClasses()">
-      @if (showErrors()) {
-        @for (error of visibleErrors(); track error.id) {
-          <ng-content select="[comError]" />
-        }
-      } @else {
-        <div class="flex justify-between w-full gap-2">
-          <ng-content select="[comHint]:not([align='end'])" />
-          <ng-content select="[comHint][align='end']" />
-        </div>
-      }
+      <div [class.hidden]="!showErrors()">
+        <ng-content select="[comError]" />
+      </div>
+      <div [class.hidden]="showErrors()" class="flex justify-between w-full gap-2">
+        <ng-content select="[comHint]:not([align='end'])" />
+        <ng-content select="[comHint][align='end']" />
+      </div>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [],
+  styles: `
+    /* Hide placeholder when label exists and is not floating (label acts as placeholder) */
+    com-form-field.com-form-field--has-label:not(.com-form-field--floating) input::placeholder,
+    com-form-field.com-form-field--has-label:not(.com-form-field--floating) textarea::placeholder {
+      color: transparent;
+    }
+  `,
   host: {
     '[class]': 'hostClasses()',
     '[class.com-form-field--focused]': 'isFocused()',
     '[class.com-form-field--disabled]': 'isDisabled()',
     '[class.com-form-field--error]': 'hasError()',
     '[class.com-form-field--floating]': 'shouldLabelFloat()',
+    '[class.com-form-field--has-label]': '!!labelChild()',
   },
 })
 export class ComFormField {
@@ -175,10 +178,6 @@ export class ComFormField {
 
   readonly showErrors: Signal<boolean> = computed(() => this.hasError() && this.errorChildren().length > 0);
 
-  readonly visibleErrors: Signal<readonly ComError[]> = computed(() =>
-    this.errorChildren().filter((e) => e.shouldShow())
-  );
-
   // Computed classes
   protected readonly hostClasses: Signal<string> = computed(() =>
     mergeClasses(formFieldVariants({ disabled: this.isDisabled() }), this.userClass())
@@ -205,14 +204,6 @@ export class ComFormField {
     })
   );
 
-  protected readonly inputWrapperClasses: Signal<string> = computed(() =>
-    inputVariants({
-      appearance: this.appearance(),
-      hasPrefix: this.hasPrefix(),
-      hasSuffix: this.hasSuffix(),
-    })
-  );
-
   protected readonly subscriptClasses: Signal<string> = computed(() =>
     formFieldSubscriptVariants({ sizing: this.subscriptSizing() })
   );
@@ -232,13 +223,26 @@ export class ComFormField {
       const inputEl = this.inputDirective();
       if (!inputEl) return;
 
-      const ids: string[] = [];
-      if (this.showErrors()) {
-        this.visibleErrors().forEach((e) => ids.push(e.id));
-      } else {
-        this.hintChildren().forEach((h) => ids.push(h.id));
-      }
+      const ids = this.showErrors()
+        ? this.errorChildren().filter((e) => e.shouldShow()).map((e) => e.id)
+        : this.hintChildren().map((h) => h.id);
       inputEl.setDescribedByIds(ids.join(' '));
+    });
+
+    // Wire up appearance to input for proper styling
+    effect(() => {
+      const inputEl = this.inputDirective();
+      if (inputEl) {
+        inputEl.setAppearance(this.appearance());
+      }
+    });
+
+    // Wire up control reference to error directives (re-runs on error state change)
+    effect(() => {
+      // Read hasError to trigger re-evaluation when validation state changes
+      this.hasError();
+      const control = this.inputDirective()?.ngControl?.control ?? null;
+      this.errorChildren().forEach((error) => error.setControl(control));
     });
   }
 

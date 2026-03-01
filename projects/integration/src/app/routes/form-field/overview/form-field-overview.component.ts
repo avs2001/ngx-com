@@ -33,7 +33,7 @@ import { CodeBlock } from '../../../shared/code-block';
         <div class="mx-auto max-w-md space-y-6">
           <com-form-field>
             <label comLabel>Email</label>
-            <input comInput [formControl]="emailControl" placeholder="you@example.com" />
+            <input comInput [formControl]="emailControl" />
             <span comHint>We'll never share your email.</span>
             <span comError match="required">Email is required.</span>
             <span comError match="email">Please enter a valid email.</span>
@@ -41,14 +41,14 @@ import { CodeBlock } from '../../../shared/code-block';
 
           <com-form-field appearance="fill">
             <label comLabel>Username</label>
-            <input comInput placeholder="johndoe" />
+            <input comInput />
             <span comHint>Choose a unique username.</span>
           </com-form-field>
 
           <com-form-field>
             <label comLabel>Amount</label>
             <span comPrefix>$</span>
-            <input comInput type="number" placeholder="0.00" />
+            <input comInput type="number" />
             <span comSuffix>USD</span>
           </com-form-field>
         </div>

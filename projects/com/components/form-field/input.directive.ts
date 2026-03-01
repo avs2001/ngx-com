@@ -9,11 +9,12 @@ import {
   input,
   signal,
 } from '@angular/core';
-import type { InputSignal, InputSignalWithTransform, OnInit, Signal } from '@angular/core';
+import type { InputSignal, InputSignalWithTransform, OnInit, Signal, WritableSignal } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { FormFieldControl } from './form-field-control';
 import { ErrorStateMatcher } from './error-state-matcher';
+import type { FormFieldAppearance } from './form-field-defaults';
 
 /** Auto-incrementing ID counter. */
 let nextId = 0;
@@ -66,7 +67,7 @@ let nextId = 0;
     '[attr.aria-invalid]': 'errorState() || null',
     '[attr.aria-required]': 'required() || null',
     '[attr.aria-describedby]': 'ariaDescribedBy() || null',
-    'class': 'peer',
+    '[class]': 'hostClasses()',
     '(focus)': 'onFocus()',
     '(blur)': 'onBlur()',
     '(input)': 'onInput()',
@@ -101,6 +102,7 @@ export class ComInput implements FormFieldControl<string>, OnInit {
   private readonly _autofilled = signal(false);
   private readonly _empty = signal(true);
   private readonly _uniqueId: string = `com-input-${nextId++}`;
+  private readonly _appearance: WritableSignal<FormFieldAppearance> = signal<FormFieldAppearance>('outline');
 
   // Public signals implementing FormFieldControl
   readonly focused: Signal<boolean> = this._focused.asReadonly();
@@ -108,8 +110,7 @@ export class ComInput implements FormFieldControl<string>, OnInit {
   readonly id: Signal<string> = computed(() => this.inputId() ?? this._uniqueId);
 
   readonly shouldLabelFloat: Signal<boolean> = computed(() => {
-    const el = this.elementRef.nativeElement;
-    return this._focused() || !this._empty() || this._autofilled() || !!el.placeholder;
+    return this._focused() || !this._empty() || this._autofilled();
   });
 
   readonly disabled: Signal<boolean> = computed(() => {
@@ -128,6 +129,10 @@ export class ComInput implements FormFieldControl<string>, OnInit {
   });
 
   readonly errorState: Signal<boolean> = computed(() => {
+    // Read _focused to trigger re-evaluation on blur (when touched changes)
+    // Read _empty to trigger re-evaluation on input (when validity changes)
+    this._focused();
+    this._empty();
     const matcher = this.errorStateMatcher() ?? this.defaultErrorStateMatcher;
     const form = this.parentFormGroup ?? this.parentForm;
     return matcher.isErrorState(this.ngControl?.control ?? null, form);
@@ -140,6 +145,14 @@ export class ComInput implements FormFieldControl<string>, OnInit {
     const userIds = this.userAriaDescribedBy();
     const fieldIds = this._describedByIds();
     return [userIds, fieldIds].filter(Boolean).join(' ');
+  });
+
+  /** Computed host classes including appearance-based padding. */
+  protected readonly hostClasses: Signal<string> = computed(() => {
+    const base =
+      'peer w-full bg-transparent text-foreground placeholder:text-input-placeholder outline-none border-none disabled:cursor-not-allowed disabled:text-disabled-foreground px-3';
+    const padding = this._appearance() === 'fill' ? 'pt-5 pb-1.5' : 'py-2.5';
+    return `${base} ${padding}`;
   });
 
   ngOnInit(): void {
@@ -168,8 +181,7 @@ export class ComInput implements FormFieldControl<string>, OnInit {
   }
 
   private updateEmpty(): void {
-    const value = this.elementRef.nativeElement.value;
-    this._empty.set(value == null || value === '');
+    this._empty.set(!this.elementRef.nativeElement.value);
   }
 
   // FormFieldControl methods
@@ -185,6 +197,14 @@ export class ComInput implements FormFieldControl<string>, OnInit {
    */
   setDescribedByIds(ids: string): void {
     this._describedByIds.set(ids);
+  }
+
+  /**
+   * Sets the appearance for styling.
+   * Called by the parent form field component.
+   */
+  setAppearance(appearance: FormFieldAppearance): void {
+    this._appearance.set(appearance);
   }
 
   /** Focus the native element. */

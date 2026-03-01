@@ -124,20 +124,22 @@ export const formFieldLabelVariants: (props?: {
 }) => string = cva(
   [
     'com-form-field__label',
-    'absolute left-3 pointer-events-none',
+    'pointer-events-none',
     'text-muted-foreground text-sm',
     'origin-top-left',
-    'transition-all duration-150 ease-out',
+    'transition-all duration-200 ease-in-out',
   ],
   {
     variants: {
       appearance: {
-        outline: 'top-1/2 -translate-y-1/2',
-        fill: 'top-1/2 -translate-y-1/2',
+        outline: '',
+        fill: '',
       },
       floating: {
-        true: '',
-        false: '',
+        // Floating: absolute positioning relative to container
+        true: 'absolute',
+        // Not floating: static positioning in flex flow (after prefix)
+        false: 'relative flex-shrink-0 pl-3',
       },
       color: {
         primary: '',
@@ -158,17 +160,17 @@ export const formFieldLabelVariants: (props?: {
       },
     },
     compoundVariants: [
-      // Outline floating
+      // Outline floating (label above border)
       {
         appearance: 'outline',
         floating: true,
-        class: 'top-0 -translate-y-1/2 scale-75 bg-background px-1 left-2',
+        class: 'left-2 -top-2.5 scale-75 bg-background px-1',
       },
       // Fill floating
       {
         appearance: 'fill',
         floating: true,
-        class: 'top-1 translate-y-0 scale-75 text-xs',
+        class: 'left-3 top-1 scale-75 text-xs',
       },
       // Focused + floating colors (no error)
       { floating: true, focused: true, error: false, color: 'primary', class: 'text-primary' },
@@ -189,48 +191,6 @@ export const formFieldLabelVariants: (props?: {
 );
 
 export type FormFieldLabelVariants = VariantProps<typeof formFieldLabelVariants>;
-
-/**
- * CVA variants for the native input/textarea styling.
- *
- * @tokens `--color-foreground`, `--color-input-placeholder`, `--color-disabled-foreground`
- */
-export const inputVariants: (props?: {
-  appearance?: FormFieldAppearance | null | undefined;
-  hasPrefix?: boolean | null | undefined;
-  hasSuffix?: boolean | null | undefined;
-}) => string = cva(
-  [
-    'com-input',
-    'w-full bg-transparent',
-    'text-foreground placeholder:text-input-placeholder',
-    'outline-none border-none',
-    'disabled:cursor-not-allowed disabled:text-disabled-foreground',
-  ],
-  {
-    variants: {
-      appearance: {
-        outline: 'px-3 py-2.5',
-        fill: 'px-3 pt-5 pb-1.5',
-      },
-      hasPrefix: {
-        true: 'pl-0',
-        false: '',
-      },
-      hasSuffix: {
-        true: 'pr-0',
-        false: '',
-      },
-    },
-    defaultVariants: {
-      appearance: 'outline',
-      hasPrefix: false,
-      hasSuffix: false,
-    },
-  }
-);
-
-export type InputVariants = VariantProps<typeof inputVariants>;
 
 /**
  * CVA variants for the subscript area (hints/errors).

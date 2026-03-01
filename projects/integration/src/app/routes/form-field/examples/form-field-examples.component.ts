@@ -26,6 +26,29 @@ import { CodeBlock } from '../../../shared/code-block';
     CodeBlock,
   ],
   template: `
+    <!-- Label Modes -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Label Modes</h2>
+      <p class="mb-4 text-surface-600">
+        Two approaches: floating label (Material Design style) or simple placeholder.
+      </p>
+      <div class="rounded-xl border border-surface-200 bg-white p-8">
+        <div class="mx-auto max-w-md space-y-6">
+          <com-form-field>
+            <label comLabel>Floating Label</label>
+            <input comInput />
+            <span comHint>Label floats up on focus or when filled.</span>
+          </com-form-field>
+
+          <com-form-field>
+            <input comInput placeholder="Simple placeholder (no label)" />
+            <span comHint>Just a placeholder, no floating label.</span>
+          </com-form-field>
+        </div>
+      </div>
+      <int-code-block class="mt-4" language="html" [code]="labelModesCode" />
+    </section>
+
     <!-- Appearances -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Appearances</h2>
@@ -36,12 +59,12 @@ import { CodeBlock } from '../../../shared/code-block';
         <div class="mx-auto max-w-md space-y-6">
           <com-form-field appearance="outline">
             <label comLabel>Outline</label>
-            <input comInput placeholder="Default appearance" />
+            <input comInput />
           </com-form-field>
 
           <com-form-field appearance="fill">
             <label comLabel>Fill</label>
-            <input comInput placeholder="Fill appearance" />
+            <input comInput />
           </com-form-field>
         </div>
       </div>
@@ -58,17 +81,17 @@ import { CodeBlock } from '../../../shared/code-block';
         <div class="mx-auto max-w-md space-y-6">
           <com-form-field color="primary">
             <label comLabel>Primary</label>
-            <input comInput placeholder="Click to see focus color" />
+            <input comInput />
           </com-form-field>
 
           <com-form-field color="accent">
             <label comLabel>Accent</label>
-            <input comInput placeholder="Click to see focus color" />
+            <input comInput />
           </com-form-field>
 
           <com-form-field color="warn">
             <label comLabel>Warn</label>
-            <input comInput placeholder="Click to see focus color" />
+            <input comInput />
           </com-form-field>
         </div>
       </div>
@@ -86,18 +109,17 @@ import { CodeBlock } from '../../../shared/code-block';
           <com-form-field>
             <label comLabel>Price</label>
             <span comPrefix>$</span>
-            <input comInput type="number" placeholder="0.00" />
+            <input comInput type="number" />
             <span comSuffix>.00</span>
           </com-form-field>
 
           <com-form-field>
             <label comLabel>Website</label>
             <span comPrefix>https://</span>
-            <input comInput placeholder="example.com" />
+            <input comInput />
           </com-form-field>
 
           <com-form-field>
-            <label comLabel>Search</label>
             <svg comPrefix class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8"/>
               <path d="m21 21-4.35-4.35"/>
@@ -124,13 +146,13 @@ import { CodeBlock } from '../../../shared/code-block';
         <div class="mx-auto max-w-md space-y-6">
           <com-form-field>
             <label comLabel>Username</label>
-            <input comInput placeholder="johndoe" />
+            <input comInput />
             <span comHint>Letters, numbers, and underscores only.</span>
           </com-form-field>
 
           <com-form-field>
             <label comLabel>Bio</label>
-            <textarea comInput placeholder="Tell us about yourself..." rows="3"></textarea>
+            <textarea comInput rows="3"></textarea>
             <span comHint>Keep it brief.</span>
             <span comHint align="end">{{ bioLength() }}/150</span>
           </com-form-field>
@@ -150,7 +172,7 @@ import { CodeBlock } from '../../../shared/code-block';
         <div class="mx-auto max-w-md space-y-6">
           <com-form-field>
             <label comLabel>Email</label>
-            <input comInput [formControl]="emailControl" placeholder="you@example.com" />
+            <input comInput [formControl]="emailControl" />
             <span comHint>Enter your email address.</span>
             <span comError match="required">Email is required.</span>
             <span comError match="email">Please enter a valid email address.</span>
@@ -158,7 +180,7 @@ import { CodeBlock } from '../../../shared/code-block';
 
           <com-form-field>
             <label comLabel>Password</label>
-            <input comInput [formControl]="passwordControl" type="password" placeholder="Enter password" />
+            <input comInput [formControl]="passwordControl" type="password" />
             <span comHint>At least 8 characters.</span>
             <span comError match="required">Password is required.</span>
             <span comError match="minlength">Password must be at least 8 characters.</span>
@@ -182,12 +204,14 @@ import { CodeBlock } from '../../../shared/code-block';
         <div class="mx-auto max-w-md space-y-6">
           <com-form-field floatLabel="auto">
             <label comLabel>Auto (default)</label>
-            <input comInput placeholder="Label floats on focus or when filled" />
+            <input comInput />
+            <span comHint>Label floats on focus or when filled.</span>
           </com-form-field>
 
           <com-form-field floatLabel="always">
-            <label comLabel>Always</label>
-            <input comInput placeholder="Label always floats" />
+            <label comLabel>Always Floating</label>
+            <input comInput />
+            <span comHint>Label is always in floating position.</span>
           </com-form-field>
         </div>
       </div>
@@ -204,13 +228,13 @@ import { CodeBlock } from '../../../shared/code-block';
         <div class="mx-auto max-w-md space-y-6">
           <com-form-field>
             <label comLabel>Description</label>
-            <textarea comInput placeholder="Enter a description..." rows="4"></textarea>
+            <textarea comInput rows="4"></textarea>
             <span comHint>Markdown is supported.</span>
           </com-form-field>
 
           <com-form-field appearance="fill">
             <label comLabel>Notes</label>
-            <textarea comInput placeholder="Add your notes..." rows="3"></textarea>
+            <textarea comInput rows="3"></textarea>
           </com-form-field>
         </div>
       </div>
@@ -297,14 +321,25 @@ export class FormFieldExamples {
   });
 
   // Code examples
+  protected readonly labelModesCode = `<!-- Floating label: label acts as placeholder, floats up on focus/fill -->
+<com-form-field>
+  <label comLabel>Floating Label</label>
+  <input comInput />
+</com-form-field>
+
+<!-- Simple placeholder: no floating label, just placeholder text -->
+<com-form-field>
+  <input comInput placeholder="Simple placeholder" />
+</com-form-field>`;
+
   protected readonly appearancesCode = `<com-form-field appearance="outline">
   <label comLabel>Outline</label>
-  <input comInput placeholder="Default appearance" />
+  <input comInput />
 </com-form-field>
 
 <com-form-field appearance="fill">
   <label comLabel>Fill</label>
-  <input comInput placeholder="Fill appearance" />
+  <input comInput />
 </com-form-field>`;
 
   protected readonly colorsCode = `<com-form-field color="primary">

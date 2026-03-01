@@ -32,7 +32,6 @@ export {
   formFieldVariants,
   formFieldContainerVariants,
   formFieldLabelVariants,
-  inputVariants,
   formFieldSubscriptVariants,
   hintVariants,
   errorVariants,
@@ -41,6 +40,5 @@ export {
   type FormFieldVariants,
   type FormFieldContainerVariants,
   type FormFieldLabelVariants,
-  type InputVariants,
   type FormFieldSubscriptVariants,
 } from './form-field.variants';
