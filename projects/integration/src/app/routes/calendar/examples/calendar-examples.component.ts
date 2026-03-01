@@ -5,6 +5,7 @@ import {
   provideRangeSelectionStrategy,
   type DateRange,
 } from 'ngx-com/components/calendar';
+import { ComCard } from 'ngx-com/components/card';
 import { CodeBlock } from '../../../shared/code-block';
 
 /**
@@ -31,7 +32,7 @@ export class RangeCalendarWrapper {
 @Component({
   selector: 'int-calendar-examples',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComCalendar, CodeBlock, RangeCalendarWrapper],
+  imports: [ComCalendar, ComCard, CodeBlock, RangeCalendarWrapper],
   providers: [provideNativeDateAdapter()],
   template: `
     <!-- Single Selection -->
@@ -40,7 +41,7 @@ export class RangeCalendarWrapper {
       <p class="mb-4 text-surface-600">
         The default selection mode. Click a date to select it.
       </p>
-      <div class="mb-4 rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="mb-4 p-8">
         <div class="flex flex-col items-center gap-4">
           <com-calendar
             [selected]="singleDate()"
@@ -52,7 +53,7 @@ export class RangeCalendarWrapper {
             </p>
           }
         </div>
-      </div>
+      </com-card>
       <int-code-block language="typescript" [code]="singleCode" />
     </section>
 
@@ -62,7 +63,7 @@ export class RangeCalendarWrapper {
       <p class="mb-4 text-surface-600">
         Select a start and end date to create a range. Provide the range selection strategy.
       </p>
-      <div class="mb-4 rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="mb-4 p-8">
         <div class="flex flex-col items-center gap-4">
           <int-range-calendar
             [selected]="rangeValue()"
@@ -77,7 +78,7 @@ export class RangeCalendarWrapper {
             </p>
           }
         </div>
-      </div>
+      </com-card>
       <int-code-block language="typescript" [code]="rangeCode" />
     </section>
 
@@ -87,7 +88,7 @@ export class RangeCalendarWrapper {
       <p class="mb-4 text-surface-600">
         Use minDate and maxDate to restrict the selectable date range.
       </p>
-      <div class="mb-4 rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="mb-4 p-8">
         <div class="flex flex-col items-center gap-4">
           <com-calendar
             [selected]="constrainedDate()"
@@ -99,7 +100,7 @@ export class RangeCalendarWrapper {
             Only dates between {{ formatDate(minDate) }} and {{ formatDate(maxDate) }} can be selected.
           </p>
         </div>
-      </div>
+      </com-card>
       <int-code-block language="typescript" [code]="constraintsCode" />
     </section>
 
@@ -109,7 +110,7 @@ export class RangeCalendarWrapper {
       <p class="mb-4 text-surface-600">
         Use dateFilter to disable specific dates based on custom logic (e.g., no weekends).
       </p>
-      <div class="mb-4 rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="mb-4 p-8">
         <div class="flex flex-col items-center gap-4">
           <com-calendar
             [selected]="filteredDate()"
@@ -120,7 +121,7 @@ export class RangeCalendarWrapper {
             Weekends are disabled.
           </p>
         </div>
-      </div>
+      </com-card>
       <int-code-block language="typescript" [code]="filterCode" />
     </section>
 
@@ -130,7 +131,7 @@ export class RangeCalendarWrapper {
       <p class="mb-4 text-surface-600">
         Open the calendar in year or multi-year view for quick navigation.
       </p>
-      <div class="mb-4 rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="mb-4 p-8">
         <div class="flex flex-col items-center gap-4">
           <com-calendar
             [selected]="yearViewDate()"
@@ -138,7 +139,7 @@ export class RangeCalendarWrapper {
             (selectedChange)="yearViewDate.set($event)"
           />
         </div>
-      </div>
+      </com-card>
       <int-code-block language="html" [code]="startViewCode" />
     </section>
   `,

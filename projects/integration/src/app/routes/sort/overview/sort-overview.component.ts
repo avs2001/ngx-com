@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ComCard } from 'ngx-com/components/card';
 import { SortDirective, SortHeaderComponent, type SortEvent } from 'ngx-com/components/sort';
 import { CodeBlock } from '../../../shared/code-block';
 
@@ -13,12 +14,12 @@ interface User {
 @Component({
   selector: 'int-sort-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SortDirective, SortHeaderComponent, CodeBlock],
+  imports: [SortDirective, SortHeaderComponent, ComCard, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="mb-4 text-sm text-surface-600">
           Click on column headers to sort. Click again to reverse. Click a third time to clear.
         </div>
@@ -70,7 +71,7 @@ interface User {
         <div class="mt-4 text-sm text-surface-500">
           Current: {{ sortActive() || 'none' }} ({{ sortDirection() || 'unsorted' }})
         </div>
-      </div>
+      </com-card>
     </section>
 
     <!-- Basic Usage -->
@@ -83,42 +84,42 @@ interface User {
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
       <div class="grid gap-4 md:grid-cols-2">
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Three-State Cycle</h3>
           <p class="text-sm text-surface-600">
             Click cycles through ascending, descending, and unsorted states.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Two-Way Binding</h3>
           <p class="text-sm text-surface-600">
             Use [(sortActive)] and [(sortDirection)] for external state control.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Customizable Cycle</h3>
           <p class="text-sm text-surface-600">
             Configure [sortCycle] to skip unsorted state or change order.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Keyboard Navigation</h3>
           <p class="text-sm text-surface-600">
             Full accessibility with Enter/Space activation and proper ARIA.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Disabled Support</h3>
           <p class="text-sm text-surface-600">
             Disable all sorting or individual columns with boolean inputs.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Visual Indicators</h3>
           <p class="text-sm text-surface-600">
             Animated arrow icons show sort direction with smooth transitions.
           </p>
-        </div>
+        </com-card>
       </div>
     </section>
 
@@ -128,7 +129,7 @@ interface User {
       <p class="mb-4 text-surface-600">
         Use [sortShowIndicator]="true" to show muted arrows on unsorted columns.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="overflow-hidden rounded-lg border border-surface-200">
           <table class="w-full text-sm">
             <thead>
@@ -158,7 +159,7 @@ interface User {
             </tbody>
           </table>
         </div>
-      </div>
+      </com-card>
     </section>
 
     <!-- Non-Table Usage -->
@@ -167,7 +168,7 @@ interface User {
       <p class="mb-4 text-surface-600">
         The sort directive works with any container, not just tables.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div comSort class="mb-4 flex gap-2">
           <button
             comSortHeader="name"
@@ -189,7 +190,7 @@ interface User {
           </button>
         </div>
         <p class="text-sm text-surface-500">Click buttons above to sort.</p>
-      </div>
+      </com-card>
     </section>
   `,
 })

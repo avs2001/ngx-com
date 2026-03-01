@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ComCard } from 'ngx-com/components/card';
 import { CodeBlock } from '../../../shared/code-block';
 
 interface ApiProperty {
@@ -11,7 +12,7 @@ interface ApiProperty {
 @Component({
   selector: 'int-calendar-api',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CodeBlock],
+  imports: [ComCard, CodeBlock],
   template: `
     <!-- Import -->
     <section class="mb-12">
@@ -25,15 +26,15 @@ interface ApiProperty {
     <!-- Selector -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Selector</h2>
-      <div class="rounded-lg border border-surface-200 bg-white p-4">
+      <com-card variant="outlined" class="p-4">
         <code class="font-mono text-primary-600">com-calendar</code>
-      </div>
+      </com-card>
     </section>
 
     <!-- Inputs -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Inputs</h2>
-      <div class="overflow-x-auto rounded-lg border border-surface-200 bg-white">
+      <com-card variant="outlined" class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead class="bg-surface-50">
             <tr class="border-b border-surface-200 text-left">
@@ -58,13 +59,13 @@ interface ApiProperty {
             }
           </tbody>
         </table>
-      </div>
+      </com-card>
     </section>
 
     <!-- Outputs -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Outputs</h2>
-      <div class="overflow-x-auto rounded-lg border border-surface-200 bg-white">
+      <com-card variant="outlined" class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead class="bg-surface-50">
             <tr class="border-b border-surface-200 text-left">
@@ -87,7 +88,7 @@ interface ApiProperty {
             }
           </tbody>
         </table>
-      </div>
+      </com-card>
     </section>
 
     <!-- Selection Strategies -->
@@ -98,11 +99,11 @@ interface ApiProperty {
       </p>
       <div class="space-y-4">
         @for (strategy of strategies; track strategy.name) {
-          <div class="rounded-lg border border-surface-200 bg-white p-4">
+          <com-card variant="outlined" class="p-4">
             <h3 class="mb-2 font-semibold text-surface-900">{{ strategy.name }}</h3>
             <p class="mb-3 text-sm text-surface-600">{{ strategy.description }}</p>
             <int-code-block language="typescript" [code]="strategy.code" />
-          </div>
+          </com-card>
         }
       </div>
     </section>

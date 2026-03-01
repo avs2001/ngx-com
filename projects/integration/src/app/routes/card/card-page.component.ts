@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ComponentTabs } from '../../shared/component-tabs';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { TabNavBarComponent, TabLinkDirective } from 'ngx-com/components/tabs';
 
 @Component({
   selector: 'int-card-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, ComponentTabs],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective],
   template: `
     <div class="mx-auto max-w-4xl px-6 py-12">
       <h1 class="mb-4 text-4xl font-bold text-surface-900">Card</h1>
@@ -13,7 +13,11 @@ import { ComponentTabs } from '../../shared/component-tabs';
         A composable card system with flexible primitives for headers, content, actions, media, and more.
       </p>
 
-      <int-component-tabs componentName="Card" />
+      <nav com-tab-nav-bar class="mb-8" aria-label="Card documentation tabs">
+        <a comTabLink routerLink="overview" routerLinkActive>Overview</a>
+        <a comTabLink routerLink="examples" routerLinkActive>Examples</a>
+        <a comTabLink routerLink="api" routerLinkActive>API</a>
+      </nav>
 
       <router-outlet />
     </div>

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComButton } from 'ngx-com/components/button';
+import { ComCard } from 'ngx-com/components/card';
 import {
   MenuTriggerDirective,
   MenuComponent,
@@ -13,6 +14,7 @@ import { CodeBlock } from '../../../shared/code-block';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ComButton,
+    ComCard,
     MenuTriggerDirective,
     MenuComponent,
     MenuItemDirective,
@@ -35,7 +37,7 @@ import { CodeBlock } from '../../../shared/code-block';
         Apply the <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">comMenuTrigger</code>
         directive to a button and provide a template containing the menu.
       </p>
-      <div class="flex gap-4 rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="flex gap-4 p-8">
         <button comButton variant="outline" [comMenuTrigger]="basicMenu">Options</button>
         <ng-template #basicMenu>
           <com-menu>
@@ -46,7 +48,7 @@ import { CodeBlock } from '../../../shared/code-block';
             <button comMenuItem destructive (menuItemSelect)="onAction('Delete')">Delete</button>
           </com-menu>
         </ng-template>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="basicCode" />
     </section>
 

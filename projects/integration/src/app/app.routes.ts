@@ -63,6 +63,10 @@ export const routes: Routes = [
         loadChildren: () => import('./routes/popover/popover.routes').then(m => m.POPOVER_ROUTES),
       },
       {
+        path: 'components/radio',
+        loadChildren: () => import('./routes/radio/radio.routes').then(m => m.RADIO_ROUTES),
+      },
+      {
         path: 'components/sort',
         loadChildren: () => import('./routes/sort/sort.routes').then(m => m.SORT_ROUTES),
       },

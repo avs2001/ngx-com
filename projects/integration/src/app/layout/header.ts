@@ -1,17 +1,23 @@
 import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import { ComBadge } from 'ngx-com/components/badge';
+import { ComButton } from 'ngx-com/components/button';
 import { ThemeSwitcher } from '../shared/theme-switcher';
 
 @Component({
   selector: 'int-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ThemeSwitcher],
+  imports: [ThemeSwitcher, ComButton, ComBadge],
   template: `
     <header class="flex h-16 items-center justify-between border-b border-surface-200 bg-surface-50 px-6">
       <div class="flex items-center gap-4">
         <!-- Mobile menu button -->
         <button
+          comButton
+          variant="ghost"
+          color="muted"
+          size="icon"
           type="button"
-          class="rounded-lg p-2 text-surface-600 transition hover:bg-surface-100 lg:hidden"
+          class="lg:hidden"
           aria-label="Toggle menu"
           (click)="menuToggle.emit()"
         >
@@ -26,16 +32,17 @@ import { ThemeSwitcher } from '../shared/theme-switcher';
         <int-theme-switcher />
 
         <!-- Version badge -->
-        <span class="rounded-full bg-surface-100 px-3 py-1 text-xs font-medium text-surface-600">
-          v0.0.1
-        </span>
+        <span comBadge variant="muted" pill>v0.0.1</span>
 
         <!-- GitHub link -->
         <a
+          comButton
+          variant="ghost"
+          color="muted"
+          size="icon"
           href="https://github.com/avs2001/ngx-com"
           target="_blank"
           rel="noopener noreferrer"
-          class="rounded-lg p-2 text-surface-600 transition hover:bg-surface-100 hover:text-surface-900"
           aria-label="View on GitHub"
         >
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">

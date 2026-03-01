@@ -1,17 +1,18 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComCalendar, provideNativeDateAdapter } from 'ngx-com/components/calendar';
+import { ComCard } from 'ngx-com/components/card';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-calendar-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComCalendar, CodeBlock],
+  imports: [ComCalendar, ComCard, CodeBlock],
   providers: [provideNativeDateAdapter()],
   template: `
     <!-- Demo -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-col items-center gap-6">
           <com-calendar
             [selected]="selectedDate()"
@@ -23,7 +24,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </p>
           }
         </div>
-      </div>
+      </com-card>
     </section>
 
     <!-- Basic Usage -->
@@ -39,37 +40,37 @@ import { CodeBlock } from '../../../shared/code-block';
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
       <div class="grid gap-4 md:grid-cols-2">
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Multiple Views</h3>
           <p class="text-sm text-surface-600">
             Month, year, and multi-year views with smooth transitions and keyboard navigation.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Selection Strategies</h3>
           <p class="text-sm text-surface-600">
             Built-in single, range, multi-select, and week selection modes via dependency injection.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Date Constraints</h3>
           <p class="text-sm text-surface-600">
             Min/max dates, custom filter functions, and disabled date styling.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Accessibility</h3>
           <p class="text-sm text-surface-600">
             WCAG AA compliant with keyboard navigation, ARIA labels, and live announcements.
           </p>
-        </div>
+        </com-card>
       </div>
     </section>
 
     <!-- Accessibility -->
     <section>
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Accessibility</h2>
-      <div class="rounded-lg border border-surface-200 bg-white p-6">
+      <com-card variant="outlined" class="p-6">
         <h3 class="mb-3 font-semibold text-surface-900">Keyboard Navigation</h3>
         <table class="w-full text-sm">
           <thead>
@@ -109,7 +110,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </tr>
           </tbody>
         </table>
-      </div>
+      </com-card>
     </section>
   `,
 })

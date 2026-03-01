@@ -224,6 +224,12 @@ import { CodeBlock } from '../../../shared/code-block';
           <tbody class="divide-y divide-surface-100">
             <tr>
               <td class="px-4 py-3">
+                <code class="rounded bg-surface-100 px-1.5 py-0.5 text-xs">focus()</code>
+              </td>
+              <td class="px-4 py-3 text-surface-600">Programmatically focuses the checkbox input element</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">
                 <code class="rounded bg-surface-100 px-1.5 py-0.5 text-xs">toggle()</code>
               </td>
               <td class="px-4 py-3 text-surface-600">Toggles the checkbox state programmatically</td>
@@ -254,6 +260,15 @@ import { CodeBlock } from '../../../shared/code-block';
                 <code class="text-xs">NgControl | null</code>
               </td>
               <td class="px-4 py-3 text-surface-600">Access to parent form control for validation state</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">
+                <code class="rounded bg-surface-100 px-1.5 py-0.5 text-xs">inputRef</code>
+              </td>
+              <td class="px-4 py-3 text-surface-600">
+                <code class="text-xs">Signal&lt;ElementRef | undefined&gt;</code>
+              </td>
+              <td class="px-4 py-3 text-surface-600">Reference to the native input element</td>
             </tr>
             <tr>
               <td class="px-4 py-3">

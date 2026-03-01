@@ -70,47 +70,16 @@ export const checkboxBoxVariants: (props?: {
   }
 );
 
-/** CVA variants for the checkmark SVG icon. */
-export const checkboxIconVariants: (props?: {
-  size?: CheckboxSize;
-}) => string = cva(
-  [
-    'com-checkbox__icon',
-    'pointer-events-none',
-  ],
-  {
-    variants: {
-      size: {
-        sm: 'size-3',
-        md: 'size-3.5',
-        lg: 'size-4',
-      },
-    },
-    defaultVariants: {
-      size: 'md',
-    },
-  }
-);
+/** Size-based classes for the checkmark SVG icon. */
+export const CHECKBOX_ICON_SIZES: Record<CheckboxSize, string> = {
+  sm: 'size-3',
+  md: 'size-3.5',
+  lg: 'size-4',
+};
 
-/** CVA variants for the label content. */
-export const checkboxLabelVariants: (props?: {
-  size?: CheckboxSize;
-}) => string = cva(
-  [
-    'com-checkbox__label',
-    'select-none',
-    'peer-disabled:cursor-not-allowed peer-disabled:text-disabled-foreground',
-  ],
-  {
-    variants: {
-      size: {
-        sm: 'text-sm ml-2',
-        md: 'text-base ml-2.5',
-        lg: 'text-lg ml-3',
-      },
-    },
-    defaultVariants: {
-      size: 'md',
-    },
-  }
-);
+/** Size-based classes for the label content. */
+export const CHECKBOX_LABEL_SIZES: Record<CheckboxSize, string> = {
+  sm: 'text-sm ms-2',
+  md: 'text-base ms-2.5',
+  lg: 'text-lg ms-3',
+};

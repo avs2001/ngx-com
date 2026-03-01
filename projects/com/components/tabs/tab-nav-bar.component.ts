@@ -36,12 +36,8 @@ interface NavTabItem {
  * @example Basic usage
  * ```html
  * <nav com-tab-nav-bar>
- *   <a comTabLink routerLink="overview" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
- *     Overview
- *   </a>
- *   <a comTabLink routerLink="settings" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
- *     Settings
- *   </a>
+ *   <a comTabLink routerLink="overview" routerLinkActive>Overview</a>
+ *   <a comTabLink routerLink="settings" routerLinkActive>Settings</a>
  * </nav>
  * <router-outlet />
  * ```
@@ -49,8 +45,8 @@ interface NavTabItem {
  * @example With variants
  * ```html
  * <nav com-tab-nav-bar variant="pill" color="accent" size="sm">
- *   <a comTabLink routerLink="grid">Grid</a>
- *   <a comTabLink routerLink="list">List</a>
+ *   <a comTabLink routerLink="grid" routerLinkActive>Grid</a>
+ *   <a comTabLink routerLink="list" routerLinkActive>List</a>
  * </nav>
  * ```
  */

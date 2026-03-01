@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { ComBadge, type BadgeVariant } from 'ngx-com/components/badge';
+import { ComButton, type ButtonColor } from 'ngx-com/components/button';
+import { ComCard } from 'ngx-com/components/card';
 import { CodeBlock } from '../../../shared/code-block';
 
 type Status = 'active' | 'pending' | 'error' | 'inactive';
@@ -7,7 +9,7 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
 @Component({
   selector: 'int-badge-examples',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComBadge, CodeBlock],
+  imports: [ComBadge, ComButton, ComCard, CodeBlock],
   template: `
     <!-- Variants -->
     <section class="mb-12">
@@ -15,7 +17,7 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
       <p class="mb-4 text-surface-600">
         Six semantic variants for different use cases. Each uses proper foreground/background token pairings.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <span comBadge>Primary</span>
           <span comBadge variant="accent">Accent</span>
@@ -24,7 +26,7 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
           <span comBadge variant="muted">Muted</span>
           <span comBadge variant="outline">Outline</span>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="variantsCode" />
     </section>
 
@@ -34,13 +36,13 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
       <p class="mb-4 text-surface-600">
         Three sizes with proportional spacing, typography, and icon sizing.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <span comBadge size="sm">Small</span>
           <span comBadge>Default</span>
           <span comBadge size="lg">Large</span>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="sizesCode" />
     </section>
 
@@ -50,14 +52,14 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
       <p class="mb-4 text-surface-600">
         Add the <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">pill</code> attribute for fully rounded corners.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <span comBadge pill>New</span>
           <span comBadge variant="success" pill>Online</span>
           <span comBadge variant="warn" pill>3</span>
           <span comBadge variant="accent" pill>Beta</span>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="pillCode" />
     </section>
 
@@ -67,7 +69,7 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
       <p class="mb-4 text-surface-600">
         SVG icons inside badges are automatically sized based on the badge size.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <span comBadge variant="success">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -92,7 +94,7 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
             Info
           </span>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="iconsCode" />
     </section>
 
@@ -102,14 +104,14 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
       <p class="mb-4 text-surface-600">
         When applied to anchor elements, hover styles are automatically activated.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <a href="#" comBadge>View All</a>
           <a href="#" comBadge variant="accent">3 New</a>
           <a href="#" comBadge variant="warn">5 Alerts</a>
           <a href="#" comBadge variant="outline">v2.1.0</a>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="linksCode" />
     </section>
 
@@ -119,19 +121,16 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
       <p class="mb-4 text-surface-600">
         Bind the variant dynamically based on application state.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-col items-center gap-6">
           <div class="flex gap-2">
             @for (s of statuses; track s) {
               <button
+                comButton
                 type="button"
-                class="rounded-lg border px-3 py-1.5 text-sm transition"
-                [class.border-primary-500]="status() === s"
-                [class.bg-primary-50]="status() === s"
-                [class.text-primary-700]="status() === s"
-                [class.border-surface-200]="status() !== s"
-                [class.text-surface-700]="status() !== s"
-                [class.hover:border-surface-300]="status() !== s"
+                variant="outline"
+                size="sm"
+                [color]="statusButtonColor(s)"
                 (click)="status.set(s)"
               >
                 {{ s }}
@@ -140,7 +139,7 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
           </div>
           <span comBadge [variant]="statusVariant()">{{ status() }}</span>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="typescript" [code]="dynamicCode" />
     </section>
 
@@ -151,20 +150,20 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
         Override or extend styling with the <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">class</code> attribute.
         Classes are merged intelligently using tailwind-merge.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <span comBadge class="uppercase tracking-wider">Uppercase</span>
           <span comBadge variant="accent" class="shadow-md">Shadow</span>
           <span comBadge variant="success" class="ring-2 ring-success ring-offset-2">Ring</span>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="customClassesCode" />
     </section>
 
     <!-- Use Cases -->
     <section>
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Common Use Cases</h2>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="space-y-6">
           <!-- Status indicator -->
           <div class="flex items-center justify-between border-b border-surface-100 pb-4">
@@ -207,13 +206,17 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
             <span comBadge variant="accent" pill>Beta</span>
           </div>
         </div>
-      </div>
+      </com-card>
     </section>
   `,
 })
 export class BadgeExamples {
   protected readonly statuses: Status[] = ['active', 'pending', 'error', 'inactive'];
   protected readonly status = signal<Status>('active');
+
+  protected statusButtonColor(s: Status): ButtonColor {
+    return this.status() === s ? 'primary' : 'muted';
+  }
 
   protected readonly statusVariant = computed((): BadgeVariant => {
     switch (this.status()) {

@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ComButton } from 'ngx-com/components/button';
 
 @Component({
   selector: 'int-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [RouterLink, ComButton],
   template: `
     <div class="mx-auto max-w-4xl px-6 py-12">
       <!-- Hero -->
@@ -14,19 +15,13 @@ import { RouterLink } from '@angular/router';
           A modern Angular component library built with signals, Tailwind CSS, and accessibility-first design.
         </p>
         <div class="mt-8 flex justify-center gap-4">
-          <a
-            routerLink="/getting-started/installation"
-            class="inline-flex items-center gap-2 rounded-lg bg-primary-500 px-6 py-3 font-medium text-white transition hover:bg-primary-600"
-          >
+          <a comButton size="lg" routerLink="/getting-started/installation">
             Get Started
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <a
-            routerLink="/components/calendar"
-            class="inline-flex items-center gap-2 rounded-lg border border-surface-300 bg-white px-6 py-3 font-medium text-surface-700 transition hover:bg-surface-50"
-          >
+          <a comButton variant="outline" color="muted" size="lg" routerLink="/components/calendar">
             Browse Components
           </a>
         </div>

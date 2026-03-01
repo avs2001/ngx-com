@@ -7,7 +7,9 @@ import {
   input,
 } from '@angular/core';
 import type { InputSignal, InputSignalWithTransform, Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLinkActive } from '@angular/router';
+import { startWith } from 'rxjs';
 import { tabItemVariants } from './tabs.variants';
 import type { TabVariant, TabSize, TabColor } from './tabs.variants';
 import { mergeClasses } from './tabs.utils';
@@ -15,19 +17,20 @@ import { mergeClasses } from './tabs.utils';
 /**
  * Tab link directive for route-driven navigation tabs.
  *
- * Applied to anchor or button elements inside `ui-tab-nav-bar`.
+ * Applied to anchor or button elements inside `com-tab-nav-bar`.
  * Automatically detects active state from `routerLinkActive` if present.
  *
  * @example Basic usage with router
  * ```html
  * <nav com-tab-nav-bar>
- *   <a comTabLink routerLink="overview" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
- *     Overview
- *   </a>
- *   <a comTabLink routerLink="settings" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
- *     Settings
- *   </a>
+ *   <a comTabLink routerLink="overview" routerLinkActive>Overview</a>
+ *   <a comTabLink routerLink="settings" routerLinkActive>Settings</a>
  * </nav>
+ * ```
+ *
+ * @example Manual active state control
+ * ```html
+ * <a comTabLink [active]="isOverviewActive">Overview</a>
  * ```
  *
  * @example Disabled link
@@ -74,14 +77,27 @@ export class TabLinkDirective {
   /** Additional CSS classes. */
   readonly userClass: InputSignal<string> = input<string>('', { alias: 'class' });
 
+  // ─── Private ───
+
+  /**
+   * Reactive signal from RouterLinkActive.isActiveChange.
+   * Converts the EventEmitter to a signal for proper reactivity.
+   */
+  private readonly routerLinkActiveState: Signal<boolean> | null = this.routerLinkActive
+    ? toSignal(
+        this.routerLinkActive.isActiveChange.pipe(startWith(this.routerLinkActive.isActive)),
+        { initialValue: this.routerLinkActive.isActive }
+      )
+    : null;
+
   // ─── Computed ───
 
   /**
    * Resolved active state — uses routerLinkActive if available, otherwise input.
    */
   readonly isActive: Signal<boolean> = computed(() => {
-    if (this.routerLinkActive) {
-      return this.routerLinkActive.isActive;
+    if (this.routerLinkActiveState) {
+      return this.routerLinkActiveState();
     }
     return this.active();
   });

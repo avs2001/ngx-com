@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ComCard } from 'ngx-com/components/card';
 import { ComDropdown } from 'ngx-com/components/dropdown';
 import { CodeBlock } from '../../../shared/code-block';
 
@@ -10,12 +11,12 @@ interface User {
 @Component({
   selector: 'int-dropdown-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComDropdown, CodeBlock],
+  imports: [ComDropdown, ComCard, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-col items-center gap-6">
           <com-dropdown
             [options]="users()"
@@ -32,7 +33,7 @@ interface User {
             </p>
           }
         </div>
-      </div>
+      </com-card>
     </section>
 
     <!-- Basic Usage -->
@@ -48,49 +49,49 @@ interface User {
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
       <div class="grid gap-4 md:grid-cols-2">
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Search & Filter</h3>
           <p class="text-sm text-surface-600">
             Built-in search input with customizable filtering and debounce support.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Multi-Select</h3>
           <p class="text-sm text-surface-600">
             Select multiple values with tag display and individual removal.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Grouping</h3>
           <p class="text-sm text-surface-600">
             Group options with custom groupBy function and collapsible headers.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Custom Templates</h3>
           <p class="text-sm text-surface-600">
             Full control over option, selected, empty, group, and tag rendering.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Forms Integration</h3>
           <p class="text-sm text-surface-600">
             ControlValueAccessor implementation for seamless Reactive Forms support.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Accessibility</h3>
           <p class="text-sm text-surface-600">
             WCAG AA compliant with full keyboard navigation and ARIA support.
           </p>
-        </div>
+        </com-card>
       </div>
     </section>
 
     <!-- Accessibility -->
     <section>
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Accessibility</h2>
-      <div class="rounded-lg border border-surface-200 bg-white p-6">
+      <com-card variant="outlined" class="p-6">
         <h3 class="mb-3 font-semibold text-surface-900">Keyboard Navigation</h3>
         <table class="w-full text-sm">
           <thead>
@@ -126,7 +127,7 @@ interface User {
             </tr>
           </tbody>
         </table>
-      </div>
+      </com-card>
     </section>
   `,
 })

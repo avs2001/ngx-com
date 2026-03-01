@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ComButton } from 'ngx-com/components/button';
+import { ComCard } from 'ngx-com/components/card';
 import {
   ComCollapsible,
   ComCollapsibleTrigger,
@@ -15,13 +17,15 @@ import { CodeBlock } from '../../../shared/code-block';
     ComCollapsibleTrigger,
     ComCollapsibleContent,
     ComCollapsibleIconTpl,
+    ComCard,
+    ComButton,
     CodeBlock,
   ],
   template: `
     <!-- Demo -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
-      <div class="space-y-4 rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="space-y-4 p-8">
         <!-- Card variant -->
         <div comCollapsible variant="card" [(open)]="cardOpen">
           <button comCollapsibleTrigger variant="ghost" size="default">
@@ -58,7 +62,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </p>
           </com-collapsible-content>
         </div>
-      </div>
+      </com-card>
     </section>
 
     <!-- Basic Usage -->
@@ -74,66 +78,57 @@ import { CodeBlock } from '../../../shared/code-block';
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
       <div class="grid gap-4 md:grid-cols-2">
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">5 Shell Variants</h3>
           <p class="text-sm text-surface-600">
             Card, bordered, flush, ghost, and unstyled variants for different use cases.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">4 Trigger Variants</h3>
           <p class="text-sm text-surface-600">
             Ghost, filled, header, and unstyled trigger styles with 3 size options.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">CSS Grid Animation</h3>
           <p class="text-sm text-surface-600">
             Smooth height animation using CSS grid technique — no JavaScript measurement needed.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Template Overrides</h3>
           <p class="text-sm text-surface-600">
             Override trigger layout, content chrome, or just the icon with template directives.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Lazy Content</h3>
           <p class="text-sm text-surface-600">
             Content can be lazily rendered on first expand for better performance.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Full Accessibility</h3>
           <p class="text-sm text-surface-600">
             WAI-ARIA disclosure pattern with proper roles, states, and keyboard support.
           </p>
-        </div>
+        </com-card>
       </div>
     </section>
 
     <!-- Two-way Binding Demo -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">External Control</h2>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="mb-4 flex gap-2">
-          <button
-            class="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground hover:bg-primary-hover"
-            (click)="controlledSection.toggle()"
-          >
+          <button comButton size="sm" (click)="controlledSection.toggle()">
             Toggle Section
           </button>
-          <button
-            class="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground hover:bg-muted"
-            (click)="controlledSection.expand()"
-          >
+          <button comButton variant="outline" color="muted" size="sm" (click)="controlledSection.expand()">
             Expand
           </button>
-          <button
-            class="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground hover:bg-muted"
-            (click)="controlledSection.collapse()"
-          >
+          <button comButton variant="outline" color="muted" size="sm" (click)="controlledSection.collapse()">
             Collapse
           </button>
           <span class="ml-4 flex items-center text-sm text-surface-600">
@@ -148,13 +143,13 @@ import { CodeBlock } from '../../../shared/code-block';
             </div>
           </com-collapsible-content>
         </div>
-      </div>
+      </com-card>
     </section>
 
     <!-- Custom Icon Demo -->
     <section>
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Custom Icon</h2>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div comCollapsible variant="card">
           <button comCollapsibleTrigger>
             Custom Toggle Icon
@@ -168,7 +163,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </div>
           </com-collapsible-content>
         </div>
-      </div>
+      </com-card>
     </section>
   `,
 })

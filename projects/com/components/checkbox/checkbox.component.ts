@@ -21,11 +21,10 @@ import { NgControl } from '@angular/forms';
 import type { ControlValueAccessor } from '@angular/forms';
 import {
   checkboxBoxVariants,
-  checkboxIconVariants,
-  checkboxLabelVariants,
+  CHECKBOX_ICON_SIZES,
+  CHECKBOX_LABEL_SIZES,
 } from './checkbox.variants';
 import type { CheckboxSize, CheckboxVariant } from './checkbox.variants';
-import { mergeClasses } from './checkbox.utils';
 
 /** Event emitted when checkbox state changes. */
 export interface CheckboxChange {
@@ -79,11 +78,15 @@ let nextId = 0;
   selector: 'com-checkbox',
   exportAs: 'comCheckbox',
   template: `
-    <label [class]="containerClasses()" class="group">
+    <label
+      class="group relative inline-flex items-center"
+      [class.cursor-pointer]="!disabled()"
+      [class.cursor-not-allowed]="disabled()"
+    >
       <span><input
         #inputElement
         type="checkbox"
-        class="peer inline sr-only"
+        class="peer sr-only"
         [id]="inputId()"
         [checked]="checked()"
         [disabled]="disabled()"
@@ -97,9 +100,9 @@ let nextId = 0;
       /></span>
       <span [class]="boxClasses()">
         @if (checked() && !indeterminate()) {
-          <!-- Checkmark icon -->
           <svg
-            [class]="iconClasses()"
+            class="pointer-events-none"
+            [class]="iconSizeClass()"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -113,9 +116,9 @@ let nextId = 0;
           </svg>
         }
         @if (indeterminate()) {
-          <!-- Indeterminate icon (dash) -->
           <svg
-            [class]="iconClasses()"
+            class="pointer-events-none"
+            [class]="iconSizeClass()"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -128,7 +131,10 @@ let nextId = 0;
           </svg>
         }
       </span>
-      <span [class]="labelClasses()">
+      <span
+        class="com-checkbox__label select-none peer-disabled:cursor-not-allowed peer-disabled:text-disabled-foreground"
+        [class]="labelSizeClass()"
+      >
         <ng-content />
       </span>
     </label>
@@ -160,7 +166,7 @@ export class ComCheckbox implements ControlValueAccessor {
   readonly ngControl: NgControl | null = inject(NgControl, { optional: true, self: true });
 
   /** Reference to the native input element. */
-  private readonly inputRef: Signal<ElementRef<HTMLInputElement> | undefined> =
+  readonly inputRef: Signal<ElementRef<HTMLInputElement> | undefined> =
     viewChild<ElementRef<HTMLInputElement>>('inputElement');
 
   /** Unique ID for this checkbox instance. */
@@ -178,7 +184,6 @@ export class ComCheckbox implements ControlValueAccessor {
   readonly ariaLabel: InputSignal<string | null> = input<string | null>(null, { alias: 'aria-label' });
   readonly ariaLabelledby: InputSignal<string | null> = input<string | null>(null, { alias: 'aria-labelledby' });
   readonly ariaDescribedby: InputSignal<string | null> = input<string | null>(null, { alias: 'aria-describedby' });
-  readonly userClass: InputSignal<string> = input<string>('', { alias: 'class' });
 
   // Outputs
   readonly changed: OutputEmitterRef<CheckboxChange> = output<CheckboxChange>();
@@ -186,28 +191,12 @@ export class ComCheckbox implements ControlValueAccessor {
   // Computed state
   readonly inputId: Signal<string> = computed(() => this.id() ?? this.uniqueId);
 
-  protected readonly containerClasses: Signal<string> = computed(() =>
-    mergeClasses(
-      'relative inline-flex cursor-pointer items-center',
-      this.disabled() && 'cursor-not-allowed',
-      this.userClass()
-    )
-  );
-
   protected readonly boxClasses: Signal<string> = computed(() =>
-    checkboxBoxVariants({
-      variant: this.variant(),
-      size: this.size(),
-    })
+    checkboxBoxVariants({ variant: this.variant(), size: this.size() })
   );
 
-  protected readonly iconClasses: Signal<string> = computed(() =>
-    checkboxIconVariants({ size: this.size() })
-  );
-
-  protected readonly labelClasses: Signal<string> = computed(() =>
-    checkboxLabelVariants({ size: this.size() })
-  );
+  protected readonly iconSizeClass: Signal<string> = computed(() => CHECKBOX_ICON_SIZES[this.size()]);
+  protected readonly labelSizeClass: Signal<string> = computed(() => CHECKBOX_LABEL_SIZES[this.size()]);
 
   // CVA callbacks
   private onChange: (value: boolean) => void = () => {};
@@ -262,6 +251,11 @@ export class ComCheckbox implements ControlValueAccessor {
   }
 
   // Public API
+  /** Focuses this checkbox's input element. */
+  focus(): void {
+    this.inputRef()?.nativeElement.focus();
+  }
+
   /** Toggles the checkbox state programmatically. */
   toggle(): void {
     if (this.disabled()) {

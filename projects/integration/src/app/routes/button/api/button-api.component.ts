@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ComCard } from 'ngx-com/components/card';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-button-api',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CodeBlock],
+  imports: [ComCard, CodeBlock],
   template: `
     <!-- Import -->
     <section class="mb-12">
@@ -15,30 +16,30 @@ import { CodeBlock } from '../../../shared/code-block';
     <!-- Selector -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Selector</h2>
-      <div class="rounded-lg border border-surface-200 bg-white p-6">
+      <com-card variant="outlined" class="p-6">
         <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">button[comButton], a[comButton]</code>
         <p class="mt-3 text-surface-600">
           Attribute selector that applies to native button and anchor elements.
         </p>
-      </div>
+      </com-card>
     </section>
 
     <!-- Export As -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Export As</h2>
-      <div class="rounded-lg border border-surface-200 bg-white p-6">
+      <com-card variant="outlined" class="p-6">
         <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">comButton</code>
         <p class="mt-3 text-surface-600">
           Template reference name for accessing the directive instance.
         </p>
         <int-code-block class="mt-4" language="html" [code]="exportAsCode" />
-      </div>
+      </com-card>
     </section>
 
     <!-- Inputs -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Inputs</h2>
-      <div class="overflow-hidden rounded-lg border border-surface-200 bg-white">
+      <com-card variant="outlined" class="overflow-hidden">
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-surface-200 bg-surface-50 text-left">
@@ -123,7 +124,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </tr>
           </tbody>
         </table>
-      </div>
+      </com-card>
     </section>
 
     <!-- CSS Tokens -->
@@ -132,7 +133,7 @@ import { CodeBlock } from '../../../shared/code-block';
       <p class="mb-4 text-surface-600">
         The button directive requires the following semantic CSS custom properties to be defined:
       </p>
-      <div class="overflow-hidden rounded-lg border border-surface-200 bg-white">
+      <com-card variant="outlined" class="overflow-hidden">
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-surface-200 bg-surface-50 text-left">
@@ -171,7 +172,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </tr>
           </tbody>
         </table>
-      </div>
+      </com-card>
     </section>
 
     <!-- Variant Types -->

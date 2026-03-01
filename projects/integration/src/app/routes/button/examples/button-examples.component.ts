@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComButton } from 'ngx-com/components/button';
+import { ComCard } from 'ngx-com/components/card';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-button-examples',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComButton, CodeBlock],
+  imports: [ComButton, ComCard, CodeBlock],
   template: `
     <!-- Variants -->
     <section class="mb-12">
@@ -13,14 +14,14 @@ import { CodeBlock } from '../../../shared/code-block';
       <p class="mb-4 text-surface-600">
         Four visual treatments for different contexts and emphasis levels.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <button comButton>Solid</button>
           <button comButton variant="outline">Outline</button>
           <button comButton variant="ghost">Ghost</button>
           <a comButton variant="link" href="#">Link</a>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="variantsCode" />
     </section>
 
@@ -30,7 +31,7 @@ import { CodeBlock } from '../../../shared/code-block';
       <p class="mb-4 text-surface-600">
         Four semantic colors that work with all variants.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="space-y-4">
           <!-- Solid row -->
           <div class="flex flex-wrap items-center justify-center gap-4">
@@ -47,7 +48,7 @@ import { CodeBlock } from '../../../shared/code-block';
             <button comButton variant="outline" color="muted">Muted</button>
           </div>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="colorsCode" />
     </section>
 
@@ -57,7 +58,7 @@ import { CodeBlock } from '../../../shared/code-block';
       <p class="mb-4 text-surface-600">
         Four sizes with proportional padding and typography.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <button comButton size="sm">Small</button>
           <button comButton size="md">Medium</button>
@@ -69,7 +70,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </svg>
           </button>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="sizesCode" />
     </section>
 
@@ -79,7 +80,7 @@ import { CodeBlock } from '../../../shared/code-block';
       <p class="mb-4 text-surface-600">
         Use <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">size="icon"</code> for square icon-only buttons.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <button comButton size="icon" aria-label="Edit">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -107,7 +108,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </svg>
           </button>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="iconButtonsCode" />
     </section>
 
@@ -117,7 +118,7 @@ import { CodeBlock } from '../../../shared/code-block';
       <p class="mb-4 text-surface-600">
         Combine text with icons. The gap between elements is handled by the button styles.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <button comButton>
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -142,7 +143,7 @@ import { CodeBlock } from '../../../shared/code-block';
             Favorite
           </button>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="withIconsCode" />
     </section>
 
@@ -155,14 +156,14 @@ import { CodeBlock } from '../../../shared/code-block';
         <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">href</code>, and
         <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">target</code> work naturally.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <a comButton href="#">Button Link</a>
           <a comButton variant="outline" href="#">Outline Link</a>
           <a comButton variant="ghost" href="#">Ghost Link</a>
           <a comButton variant="link" href="#">Text Link</a>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="asLinksCode" />
     </section>
 
@@ -172,12 +173,12 @@ import { CodeBlock } from '../../../shared/code-block';
       <p class="mb-4 text-surface-600">
         Use <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">fullWidth</code> for block-level buttons.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex max-w-sm flex-col gap-4">
           <button comButton fullWidth>Submit Application</button>
           <button comButton variant="outline" fullWidth>Cancel</button>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="fullWidthCode" />
     </section>
 
@@ -188,13 +189,13 @@ import { CodeBlock } from '../../../shared/code-block';
         Native <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">disabled</code> attribute for buttons,
         <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[disabled]</code> input for anchors.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <button comButton disabled>Disabled Button</button>
           <button comButton variant="outline" disabled>Disabled Outline</button>
           <a comButton [disabled]="true" href="#">Disabled Link</a>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="disabledCode" />
     </section>
 
@@ -204,7 +205,7 @@ import { CodeBlock } from '../../../shared/code-block';
       <p class="mb-4 text-surface-600">
         Combine disabled state with a spinner for loading feedback.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <button comButton disabled>
             <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -223,14 +224,14 @@ import { CodeBlock } from '../../../shared/code-block';
             }
           </button>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="typescript" [code]="loadingCode" />
     </section>
 
     <!-- Use Cases -->
     <section>
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Common Use Cases</h2>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="space-y-6">
           <!-- Form actions -->
           <div class="border-b border-surface-100 pb-6">
@@ -285,7 +286,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </div>
           </div>
         </div>
-      </div>
+      </com-card>
     </section>
   `,
 })

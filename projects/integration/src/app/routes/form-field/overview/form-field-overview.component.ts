@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
+import { ComCard } from 'ngx-com/components/card';
 import {
   ComFormField,
   ComInput,
@@ -23,13 +24,14 @@ import { CodeBlock } from '../../../shared/code-block';
     ComError,
     ComPrefix,
     ComSuffix,
+    ComCard,
     CodeBlock,
   ],
   template: `
     <!-- Demo -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="mx-auto max-w-md space-y-6">
           <com-form-field>
             <label comLabel>Email</label>
@@ -52,7 +54,7 @@ import { CodeBlock } from '../../../shared/code-block';
             <span comSuffix>USD</span>
           </com-form-field>
         </div>
-      </div>
+      </com-card>
     </section>
 
     <!-- Basic Usage -->
@@ -68,49 +70,49 @@ import { CodeBlock } from '../../../shared/code-block';
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
       <div class="grid gap-4 md:grid-cols-2">
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Floating Labels</h3>
           <p class="text-sm text-surface-600">
             Labels float above the input when focused or filled, with smooth CSS transitions.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">2 Appearances</h3>
           <p class="text-sm text-surface-600">
             Outline (default) and fill appearances for different design contexts.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Hints & Errors</h3>
           <p class="text-sm text-surface-600">
             Subscript area shows hints or errors with automatic aria-describedby wiring.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Prefix & Suffix</h3>
           <p class="text-sm text-surface-600">
             Content slots for icons, currency symbols, or action buttons.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Reactive Forms</h3>
           <p class="text-sm text-surface-600">
             Works with Angular reactive forms via the comInput directive.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Accessible</h3>
           <p class="text-sm text-surface-600">
             Automatic ARIA attributes, label association, and screen reader support.
           </p>
-        </div>
+        </com-card>
       </div>
     </section>
 
     <!-- Architecture -->
     <section>
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Two-Primitive Architecture</h2>
-      <div class="rounded-lg border border-surface-200 bg-white p-6">
+      <com-card variant="outlined" class="p-6">
         <p class="mb-4 text-surface-600">
           The form field system uses two distinct primitives that compose together:
         </p>
@@ -128,7 +130,7 @@ import { CodeBlock } from '../../../shared/code-block';
           The form field does NOT collect data. The input does NOT render UI.
           Together they form one cohesive unit.
         </p>
-      </div>
+      </com-card>
     </section>
   `,
 })

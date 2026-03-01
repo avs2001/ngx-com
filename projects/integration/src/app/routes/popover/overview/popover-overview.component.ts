@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComButton } from 'ngx-com/components/button';
+import { ComCard } from 'ngx-com/components/card';
 import {
   PopoverTriggerDirective,
   PopoverCloseDirective,
@@ -9,12 +10,12 @@ import { CodeBlock } from '../../../shared/code-block';
 @Component({
   selector: 'int-popover-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComButton, PopoverTriggerDirective, PopoverCloseDirective, CodeBlock],
+  imports: [ComButton, ComCard, PopoverTriggerDirective, PopoverCloseDirective, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
-      <div class="space-y-6 rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="space-y-6 p-8">
         <!-- Basic popover -->
         <div class="flex flex-wrap gap-4">
           <button comButton [comPopoverTrigger]="basicContent">Click me</button>
@@ -63,7 +64,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </div>
           </ng-template>
         </div>
-      </div>
+      </com-card>
     </section>
 
     <!-- Basic Usage -->
@@ -76,42 +77,42 @@ import { CodeBlock } from '../../../shared/code-block';
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
       <div class="grid gap-4 md:grid-cols-2">
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Smart Positioning</h3>
           <p class="text-sm text-surface-600">
             Automatically flips and repositions when hitting viewport edges using CDK Overlay.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Template or Component</h3>
           <p class="text-sm text-surface-600">
             Render content from ng-template or pass a Component class directly.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Optional Arrow</h3>
           <p class="text-sm text-surface-600">
             Connecting arrow that tracks the popover position automatically.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Focus Management</h3>
           <p class="text-sm text-surface-600">
             Optional focus trapping and automatic focus restoration on close.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Trigger Modes</h3>
           <p class="text-sm text-surface-600">
             Open on click, focus, or control programmatically with manual mode.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Full Accessibility</h3>
           <p class="text-sm text-surface-600">
             ARIA attributes, keyboard navigation, and screen reader support.
           </p>
-        </div>
+        </com-card>
       </div>
     </section>
 
@@ -121,7 +122,7 @@ import { CodeBlock } from '../../../shared/code-block';
       <p class="mb-4 text-surface-600">
         Use two-way binding with [(popoverOpen)] for programmatic control.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="mb-4 flex items-center gap-4">
           <button
             comButton
@@ -145,7 +146,7 @@ import { CodeBlock } from '../../../shared/code-block';
         <ng-template #controlledContent>
           <p class="text-sm">This popover is controlled externally.</p>
         </ng-template>
-      </div>
+      </com-card>
     </section>
 
     <!-- Positions Demo -->
@@ -154,7 +155,7 @@ import { CodeBlock } from '../../../shared/code-block';
       <p class="mb-4 text-surface-600">
         Control position with the popoverPosition and popoverAlignment inputs.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
           @for (pos of positions; track pos) {
             <button
@@ -171,7 +172,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </ng-template>
           }
         </div>
-      </div>
+      </com-card>
     </section>
   `,
 })

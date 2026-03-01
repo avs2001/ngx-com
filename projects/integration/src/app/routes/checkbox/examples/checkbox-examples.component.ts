@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ComButton } from 'ngx-com/components/button';
+import { ComCard } from 'ngx-com/components/card';
 import { ComCheckbox } from 'ngx-com/components/checkbox';
 import type { CheckboxChange } from 'ngx-com/components/checkbox';
 import { CodeBlock } from '../../../shared/code-block';
@@ -13,7 +15,7 @@ interface Task {
 @Component({
   selector: 'int-checkbox-examples',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComCheckbox, CodeBlock, ReactiveFormsModule],
+  imports: [ComCheckbox, ComCard, ComButton, CodeBlock, ReactiveFormsModule],
   template: `
     <!-- Variants -->
     <section class="mb-12">
@@ -21,13 +23,13 @@ interface Task {
       <p class="mb-4 text-surface-600">
         Three semantic variants for different use cases.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
-        <div class="flex flex-wrap items-center justify-center gap-6">
+      <com-card variant="outlined" class="p-8">
+        <div class="flex flex-wrap items-start justify-center gap-6">
           <com-checkbox>Primary</com-checkbox>
           <com-checkbox variant="accent">Accent</com-checkbox>
           <com-checkbox variant="warn">Warning</com-checkbox>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="variantsCode" />
     </section>
 
@@ -37,13 +39,13 @@ interface Task {
       <p class="mb-4 text-surface-600">
         Three sizes with proportional checkbox box, checkmark, and label sizing.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
-        <div class="flex flex-wrap items-center justify-center gap-6">
+      <com-card variant="outlined" class="p-8">
+        <div class="flex flex-wrap items-start justify-center gap-6">
           <com-checkbox size="sm">Small</com-checkbox>
           <com-checkbox size="md">Medium</com-checkbox>
           <com-checkbox size="lg">Large</com-checkbox>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="sizesCode" />
     </section>
 
@@ -53,15 +55,15 @@ interface Task {
       <p class="mb-4 text-surface-600">
         Checked, unchecked, indeterminate, and disabled states.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
-        <div class="flex flex-wrap items-center justify-center gap-6">
+      <com-card variant="outlined" class="p-8">
+        <div class="flex flex-wrap items-start justify-center gap-6">
           <com-checkbox>Unchecked</com-checkbox>
           <com-checkbox [checked]="true">Checked</com-checkbox>
           <com-checkbox [indeterminate]="true">Indeterminate</com-checkbox>
           <com-checkbox [disabled]="true">Disabled</com-checkbox>
           <com-checkbox [checked]="true" [disabled]="true">Checked & Disabled</com-checkbox>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="statesCode" />
     </section>
 
@@ -71,20 +73,16 @@ interface Task {
       <p class="mb-4 text-surface-600">
         Use <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[(checked)]</code> for simple two-way binding.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-col items-center gap-4">
           <com-checkbox [(checked)]="isEnabled">
             Feature is {{ isEnabled() ? 'enabled' : 'disabled' }}
           </com-checkbox>
-          <button
-            type="button"
-            class="rounded-lg border border-surface-200 px-3 py-1.5 text-sm transition hover:bg-surface-100"
-            (click)="isEnabled.set(!isEnabled())"
-          >
+          <button comButton variant="outline" color="muted" size="sm" (click)="isEnabled.set(!isEnabled())">
             Toggle externally
           </button>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="typescript" [code]="twoWayCode" />
     </section>
 
@@ -94,7 +92,7 @@ interface Task {
       <p class="mb-4 text-surface-600">
         The indeterminate state is useful for "select all" patterns. It clears automatically on user click.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="space-y-4">
           <com-checkbox
             [checked]="allSelected()"
@@ -114,7 +112,7 @@ interface Task {
             }
           </div>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="typescript" [code]="indeterminateCode" />
     </section>
 
@@ -124,7 +122,7 @@ interface Task {
       <p class="mb-4 text-surface-600">
         Full integration with Angular reactive forms via ControlValueAccessor.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <form [formGroup]="form" class="space-y-4">
           <com-checkbox formControlName="newsletter">
             Subscribe to newsletter
@@ -133,11 +131,7 @@ interface Task {
             I accept the <a href="#" class="text-primary-600 hover:underline">terms and conditions</a>
           </com-checkbox>
           <div class="pt-4">
-            <button
-              type="submit"
-              class="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
-              [disabled]="form.invalid"
-            >
+            <button comButton type="submit" [disabled]="form.invalid">
               Submit
             </button>
             <span class="ml-4 text-sm text-surface-500">
@@ -148,7 +142,7 @@ interface Task {
             </span>
           </div>
         </form>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="typescript" [code]="reactiveFormsCode" />
     </section>
 
@@ -158,7 +152,7 @@ interface Task {
       <p class="mb-4 text-surface-600">
         Labels are projected via ng-content, allowing any content including icons, links, and formatted text.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="space-y-4">
           <com-checkbox>
             <span class="flex items-center gap-2">
@@ -182,7 +176,7 @@ interface Task {
             </span>
           </com-checkbox>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="richLabelCode" />
     </section>
 
@@ -192,8 +186,8 @@ interface Task {
       <p class="mb-4 text-surface-600">
         Add custom classes to the container for additional styling.
       </p>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
-        <div class="flex flex-wrap items-center justify-center gap-6">
+      <com-card variant="outlined" class="p-8">
+        <div class="flex flex-wrap items-start justify-center gap-6">
           <com-checkbox class="rounded-lg border border-surface-200 bg-surface-50 p-4">
             With card styling
           </com-checkbox>
@@ -201,7 +195,7 @@ interface Task {
             Bold primary text
           </com-checkbox>
         </div>
-      </div>
+      </com-card>
       <int-code-block class="mt-4" language="html" [code]="customClassesCode" />
     </section>
   `,

@@ -1,23 +1,24 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComButton } from 'ngx-com/components/button';
+import { ComCard } from 'ngx-com/components/card';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-button-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComButton, CodeBlock],
+  imports: [ComButton, ComCard, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <button comButton>Primary</button>
           <button comButton color="accent">Accent</button>
           <button comButton color="warn">Warn</button>
           <button comButton color="muted">Muted</button>
         </div>
-      </div>
+      </com-card>
     </section>
 
     <!-- Basic Usage -->
@@ -33,49 +34,49 @@ import { CodeBlock } from '../../../shared/code-block';
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
       <div class="grid gap-4 md:grid-cols-2">
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">4 Variants</h3>
           <p class="text-sm text-surface-600">
             Solid, outline, ghost, and link variants for different visual treatments.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">4 Colors</h3>
           <p class="text-sm text-surface-600">
             Primary, accent, warn, and muted colors using semantic tokens.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">4 Sizes</h3>
           <p class="text-sm text-surface-600">
             Small, medium, large, and icon sizes with proportional spacing.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Native Elements</h3>
           <p class="text-sm text-surface-600">
             Works on both button and anchor elements preserving native behavior.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Full Width</h3>
           <p class="text-sm text-surface-600">
             Optional full-width mode for block-level buttons.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Theme Aware</h3>
           <p class="text-sm text-surface-600">
             Uses semantic tokens for automatic dark mode and theme support.
           </p>
-        </div>
+        </com-card>
       </div>
     </section>
 
     <!-- Directive vs Component -->
     <section>
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Why a Directive?</h2>
-      <div class="rounded-lg border border-surface-200 bg-white p-6">
+      <com-card variant="outlined" class="p-6">
         <p class="mb-4 text-surface-600">
           Button is implemented as a directive rather than a component for several reasons:
         </p>
@@ -99,7 +100,7 @@ import { CodeBlock } from '../../../shared/code-block';
             <strong class="text-surface-900">Content Freedom:</strong> Put anything inside — text, icons, spinners — without projection APIs
           </li>
         </ul>
-      </div>
+      </com-card>
     </section>
   `,
 })

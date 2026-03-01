@@ -1,16 +1,17 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComBadge } from 'ngx-com/components/badge';
+import { ComCard } from 'ngx-com/components/card';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-badge-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComBadge, CodeBlock],
+  imports: [ComBadge, ComCard, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
-      <div class="rounded-xl border border-surface-200 bg-white p-8">
+      <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <span comBadge>Primary</span>
           <span comBadge variant="accent">Accent</span>
@@ -19,7 +20,7 @@ import { CodeBlock } from '../../../shared/code-block';
           <span comBadge variant="muted">Muted</span>
           <span comBadge variant="outline">Outline</span>
         </div>
-      </div>
+      </com-card>
     </section>
 
     <!-- Basic Usage -->
@@ -35,49 +36,49 @@ import { CodeBlock } from '../../../shared/code-block';
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
       <div class="grid gap-4 md:grid-cols-2">
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">6 Variants</h3>
           <p class="text-sm text-surface-600">
             Primary, accent, warn, success, muted, and outline variants with semantic color tokens.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">3 Sizes</h3>
           <p class="text-sm text-surface-600">
             Small, default, and large sizes with proportional spacing and typography.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Pill Shape</h3>
           <p class="text-sm text-surface-600">
             Optional fully-rounded pill shape for a softer appearance.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Icon Support</h3>
           <p class="text-sm text-surface-600">
             SVG icons are automatically sized based on the badge size.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Link Support</h3>
           <p class="text-sm text-surface-600">
             Works on anchor elements with automatic hover states.
           </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
+        </com-card>
+        <com-card variant="outlined" class="p-4">
           <h3 class="mb-2 font-semibold text-surface-900">Theme Aware</h3>
           <p class="text-sm text-surface-600">
             Uses semantic tokens for automatic dark mode and theme support.
           </p>
-        </div>
+        </com-card>
       </div>
     </section>
 
     <!-- Directive vs Component -->
     <section>
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Why a Directive?</h2>
-      <div class="rounded-lg border border-surface-200 bg-white p-6">
+      <com-card variant="outlined" class="p-6">
         <p class="mb-4 text-surface-600">
           Badge is implemented as a directive rather than a component for several reasons:
         </p>
@@ -96,7 +97,7 @@ import { CodeBlock } from '../../../shared/code-block';
             (links for navigation, spans for labels)
           </li>
         </ul>
-      </div>
+      </com-card>
     </section>
   `,
 })

@@ -9,8 +9,8 @@ export type { CheckboxChange } from './checkbox.component';
 // Variants (for advanced customization)
 export {
   checkboxBoxVariants,
-  checkboxIconVariants,
-  checkboxLabelVariants,
+  CHECKBOX_ICON_SIZES,
+  CHECKBOX_LABEL_SIZES,
 } from './checkbox.variants';
 
 export type { CheckboxSize, CheckboxVariant } from './checkbox.variants';
