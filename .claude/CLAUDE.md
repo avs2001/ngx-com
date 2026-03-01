@@ -51,6 +51,10 @@ gh issue list --state closed --limit 10
 - Use `NgOptimizedImage` for all static images (does not work for inline base64)
 - 'allowSignalWrites' flag is deprecated and no longer impacts effect() (writes are always allowed)
 
+## Prefix Rule
+
+Library prefix is **`com`**. Prompts may contain wrong prefixes (`ui`, `mat`, `app`, etc.) — always replace with `com`. Applies to: element selectors (`com-menu`), attribute selectors (`[comMenuTrigger]`), input aliases, `exportAs`, CSS classes. Same for import paths — discover from `tsconfig.json` paths, never copy verbatim from prompts.
+
 ## Components
 - Single responsibility, keep small and focused
 - Use `input()` and `output()` functions instead of decorators
