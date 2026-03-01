@@ -40,6 +40,8 @@ gh issue list --state closed --limit 10
 - Use strict type checking
 - Prefer type inference when the type is obvious
 - Avoid `any`; use `unknown` when type is uncertain
+- **IMPORTANT:** `isolatedDeclarations` is enabled — all exported functions, variables, and class members that aren't inferable from initializers MUST have explicit type annotations. This includes `contentChild()`, `contentChildren()`, `viewChild()`, `viewChildren()`, `input()`, `output()`, and `model()` signal queries — always provide the explicit type parameter (e.g., `contentChild<ElementRef>(...)`, `viewChildren<MyComponent>(MyComponent)`).
+
 
 ## Angular
 - **IMPORTANT:** Use https://github.com/angular/components as the quality standard for code structure, patterns, and conventions
