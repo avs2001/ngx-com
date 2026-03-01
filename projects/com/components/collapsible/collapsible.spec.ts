@@ -252,7 +252,7 @@ describe('Collapsible', () => {
       fixture.detectChanges();
 
       const collapsible = fixture.debugElement.query(By.directive(ComCollapsible));
-      expect(collapsible.nativeElement.classList.contains('rounded-md')).toBe(true);
+      expect(collapsible.nativeElement.classList.contains('rounded-collapsible')).toBe(true);
       expect(collapsible.nativeElement.classList.contains('border')).toBe(true);
       expect(collapsible.nativeElement.classList.contains('shadow-xs')).toBe(true);
     });
@@ -262,7 +262,7 @@ describe('Collapsible', () => {
       fixture.detectChanges();
 
       const collapsible = fixture.debugElement.query(By.directive(ComCollapsible));
-      expect(collapsible.nativeElement.classList.contains('rounded-md')).toBe(true);
+      expect(collapsible.nativeElement.classList.contains('rounded-collapsible')).toBe(true);
       expect(collapsible.nativeElement.classList.contains('border')).toBe(true);
     });
 
@@ -316,7 +316,7 @@ describe('Collapsible', () => {
       fixture.detectChanges();
 
       const trigger = fixture.debugElement.query(By.directive(ComCollapsibleTrigger));
-      expect(trigger.nativeElement.classList.contains('rounded-md')).toBe(true);
+      expect(trigger.nativeElement.classList.contains('rounded-collapsible')).toBe(true);
     });
 
     it('should apply filled variant classes', () => {

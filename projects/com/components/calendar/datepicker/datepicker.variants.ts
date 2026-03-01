@@ -13,7 +13,7 @@ import type {
  * @tokens `--color-input-background`, `--color-input-foreground`, `--color-input-border`,
  *         `--color-input-placeholder`, `--color-ring`, `--color-muted`, `--color-muted-hover`,
  *         `--color-warn`, `--color-success`, `--color-primary`, `--color-border`,
- *         `--color-disabled`, `--color-disabled-foreground`
+ *         `--color-disabled`, `--color-disabled-foreground`, `--radius-input`
  */
 export const datepickerTriggerVariants: (props?: {
   variant?: DatepickerVariant;
@@ -26,7 +26,7 @@ export const datepickerTriggerVariants: (props?: {
     'items-center',
     'justify-between',
     'w-full',
-    'rounded-md',
+    'rounded-input',
     'border',
     'bg-input-background',
     'text-input-foreground',
@@ -158,7 +158,7 @@ export type DatepickerInputVariants = VariantProps<typeof datepickerInputVariant
 /**
  * CVA variants for the calendar icon button.
  *
- * @tokens `--color-ring`, `--color-muted-foreground`
+ * @tokens `--color-ring`, `--color-muted-foreground`, `--radius-interactive-sm`
  */
 export const datepickerIconVariants: (props?: {
   size?: DatepickerSize;
@@ -174,7 +174,7 @@ export const datepickerIconVariants: (props?: {
     'focus:outline-none',
     'focus:ring-1',
     'focus:ring-ring',
-    'rounded-sm',
+    'rounded-interactive-sm',
   ],
   {
     variants: {
@@ -195,7 +195,7 @@ export type DatepickerIconVariants = VariantProps<typeof datepickerIconVariants>
 /**
  * CVA variants for the clear button.
  *
- * @tokens `--color-ring`, `--color-muted-foreground`
+ * @tokens `--color-ring`, `--color-muted-foreground`, `--radius-interactive-sm`
  */
 export const datepickerClearVariants: (props?: {
   size?: DatepickerSize;
@@ -204,7 +204,7 @@ export const datepickerClearVariants: (props?: {
     'inline-flex',
     'items-center',
     'justify-center',
-    'rounded-sm',
+    'rounded-interactive-sm',
     'opacity-50',
     'transition-opacity',
     'hover:opacity-100',
@@ -232,7 +232,7 @@ export type DatepickerClearVariants = VariantProps<typeof datepickerClearVariant
 /**
  * CVA variants for the datepicker panel (overlay).
  *
- * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border-subtle`
+ * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border-subtle`, `--radius-overlay`
  */
 export const datepickerPanelVariants: (props?: {
   size?: DatepickerSize;
@@ -240,7 +240,7 @@ export const datepickerPanelVariants: (props?: {
   [
     'z-50',
     'overflow-hidden',
-    'rounded-lg',
+    'rounded-overlay',
     'border',
     'border-border-subtle',
     'bg-popover',
@@ -301,7 +301,7 @@ export type DatepickerFooterVariants = VariantProps<typeof datepickerFooterVaria
  * CVA variants for the footer buttons.
  *
  * @tokens `--color-primary`, `--color-primary-foreground`, `--color-primary-hover`,
- *         `--color-muted`, `--color-muted-foreground`, `--color-muted-hover`
+ *         `--color-muted`, `--color-muted-foreground`, `--color-muted-hover`, `--radius-control-sm`
  */
 export const datepickerFooterButtonVariants: (props?: {
   size?: DatepickerSize;
@@ -311,7 +311,7 @@ export const datepickerFooterButtonVariants: (props?: {
     'inline-flex',
     'items-center',
     'justify-center',
-    'rounded-md',
+    'rounded-control-sm',
     'font-medium',
     'transition-colors',
     'focus:outline-none',

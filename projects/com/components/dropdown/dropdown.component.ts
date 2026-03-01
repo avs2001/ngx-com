@@ -633,7 +633,7 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
   /** Computed panel classes. */
   readonly panelClasses: Signal<string> = computed(() => {
     return mergeClasses(
-      'w-full z-50 overflow-hidden rounded-md border border-border-subtle bg-popover text-popover-foreground shadow-lg outline-none',
+      'w-full z-50 overflow-hidden rounded-overlay border border-border-subtle bg-popover text-popover-foreground shadow-lg outline-none',
       this.panelClass()
     );
   });

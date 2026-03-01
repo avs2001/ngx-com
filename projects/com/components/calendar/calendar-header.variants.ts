@@ -26,7 +26,7 @@ export type CalendarHeaderVariants = Record<string, never>;
  * CVA variants for the calendar header buttons.
  *
  * @tokens `--color-foreground`, `--color-ring`, `--color-muted`,
- *         `--color-disabled-foreground`
+ *         `--color-disabled-foreground`, `--radius-calendar-cell`
  */
 export const calendarHeaderButtonVariants: (props?: { type?: ButtonType }) => string = cva(
   [
@@ -58,7 +58,7 @@ export const calendarHeaderButtonVariants: (props?: { type?: ButtonType }) => st
           'py-1.5',
           'text-sm',
           'font-semibold',
-          'rounded-lg',
+          'rounded-calendar-cell',
           'hover:bg-muted',
         ],
       },

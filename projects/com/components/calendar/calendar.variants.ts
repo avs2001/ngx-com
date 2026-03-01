@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 /**
  * CVA variants for the main calendar container.
  *
- * @tokens `--color-background`, `--color-border-subtle`
+ * @tokens `--color-background`, `--color-border-subtle`, `--radius-calendar`
  */
 export const calendarVariants: (props?: { bordered?: boolean }) => string = cva(
   [
@@ -15,7 +15,7 @@ export const calendarVariants: (props?: { bordered?: boolean }) => string = cva(
   {
     variants: {
       bordered: {
-        true: ['rounded-lg', 'shadow-sm', 'border', 'border-border-subtle'],
+        true: ['rounded-calendar', 'shadow-sm', 'border', 'border-border-subtle'],
         false: [],
       },
     },

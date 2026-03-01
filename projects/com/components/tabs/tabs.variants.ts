@@ -27,8 +27,8 @@ export const tabItemVariants: (props?: {
       variant: {
         underline: 'bg-transparent border-b-2 border-transparent rounded-none',
         pill: 'rounded-pill',
-        outline: 'border border-transparent rounded-md',
-        solid: 'rounded-md',
+        outline: 'border border-transparent rounded-tab',
+        solid: 'rounded-tab',
       },
       size: {
         sm: 'h-8 px-3 text-xs gap-1.5',
@@ -174,9 +174,9 @@ export const tabHeaderVariants: (props?: {
     },
     variant: {
       underline: 'border-b border-border',
-      pill: 'gap-1 p-1 bg-muted rounded-lg',
+      pill: 'gap-1 p-1 bg-muted rounded-tab-list',
       outline: 'gap-1',
-      solid: 'gap-1 p-1 bg-muted rounded-lg',
+      solid: 'gap-1 p-1 bg-muted rounded-tab-list',
     },
   },
   defaultVariants: {
@@ -228,7 +228,7 @@ export const tabCloseButtonVariants: (props?: {
   size?: TabSize;
 }) => string = cva(
   [
-    'inline-flex items-center justify-center rounded-sm',
+    'inline-flex items-center justify-center rounded-interactive-sm',
     'text-current opacity-60 hover:opacity-100',
     'transition-opacity duration-100',
     'focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring',

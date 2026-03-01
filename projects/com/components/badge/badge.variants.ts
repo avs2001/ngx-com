@@ -18,7 +18,7 @@ export type BadgeSize = 'sm' | 'default' | 'lg';
  *         `--color-warn`, `--color-warn-foreground`, `--color-warn-hover`,
  *         `--color-success`, `--color-success-foreground`, `--color-success-hover`,
  *         `--color-muted`, `--color-muted-foreground`, `--color-muted-hover`,
- *         `--color-border`, `--color-foreground`, `--radius-pill`
+ *         `--color-border`, `--color-foreground`, `--radius-badge`, `--radius-badge-sm`, `--radius-pill`
  */
 export const badgeVariants: (props?: {
   variant?: BadgeVariant;
@@ -50,9 +50,9 @@ export const badgeVariants: (props?: {
           'border-border bg-transparent text-foreground [a&]:hover:bg-muted',
       },
       size: {
-        sm: 'px-1.5 py-px text-[10px] rounded-sm gap-0.5 [&>svg]:size-2.5',
-        default: 'px-2 py-0.5 text-xs rounded-md gap-1 [&>svg]:size-3',
-        lg: 'px-2.5 py-1 text-sm rounded-md gap-1.5 [&>svg]:size-3.5',
+        sm: 'px-1.5 py-px text-[10px] rounded-badge-sm gap-0.5 [&>svg]:size-2.5',
+        default: 'px-2 py-0.5 text-xs rounded-badge gap-1 [&>svg]:size-3',
+        lg: 'px-2.5 py-1 text-sm rounded-badge gap-1.5 [&>svg]:size-3.5',
       },
       pill: {
         true: 'rounded-pill',

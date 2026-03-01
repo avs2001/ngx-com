@@ -33,10 +33,10 @@ export const buttonVariants: (props?: {
         muted: '',
       },
       size: {
-        sm: 'h-8 px-3 text-sm rounded-md gap-1.5',
-        md: 'h-10 px-4 text-sm rounded-lg gap-2',
-        lg: 'h-12 px-6 text-base rounded-lg gap-2.5',
-        icon: 'h-10 w-10 rounded-lg',
+        sm: 'h-8 px-3 text-sm rounded-control-sm gap-1.5',
+        md: 'h-10 px-4 text-sm rounded-control gap-2',
+        lg: 'h-12 px-6 text-base rounded-control gap-2.5',
+        icon: 'h-10 w-10 rounded-control',
       },
       fullWidth: {
         true: 'w-full',

@@ -71,7 +71,7 @@ describe('ComBadge', () => {
       expect(badgeEl.classList.contains('px-2')).toBe(true);
       expect(badgeEl.classList.contains('py-0.5')).toBe(true);
       expect(badgeEl.classList.contains('text-xs')).toBe(true);
-      expect(badgeEl.classList.contains('rounded-md')).toBe(true);
+      expect(badgeEl.classList.contains('rounded-badge')).toBe(true);
     });
 
     it('should not apply pill rounding by default', () => {
@@ -126,7 +126,7 @@ describe('ComBadge', () => {
       expect(badgeEl.classList.contains('px-1.5')).toBe(true);
       expect(badgeEl.classList.contains('py-px')).toBe(true);
       expect(badgeEl.classList.contains('text-[10px]')).toBe(true);
-      expect(badgeEl.classList.contains('rounded-sm')).toBe(true);
+      expect(badgeEl.classList.contains('rounded-badge-sm')).toBe(true);
     });
 
     it('should apply default size classes', () => {
@@ -136,7 +136,7 @@ describe('ComBadge', () => {
       expect(badgeEl.classList.contains('px-2')).toBe(true);
       expect(badgeEl.classList.contains('py-0.5')).toBe(true);
       expect(badgeEl.classList.contains('text-xs')).toBe(true);
-      expect(badgeEl.classList.contains('rounded-md')).toBe(true);
+      expect(badgeEl.classList.contains('rounded-badge')).toBe(true);
     });
 
     it('should apply lg size classes', () => {

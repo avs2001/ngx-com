@@ -164,7 +164,7 @@
 
   --spacing: 0.25rem;
 
-  /* ─── Border Radius ─── */
+  /* ─── Border Radius (Primitive) ─── */
 
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
@@ -172,6 +172,42 @@
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
   --radius-pill: 9999px;
+
+  /* ─── Border Radius (Semantic) ─── */
+
+  /* Interactive Controls */
+  --radius-control-sm: var(--radius-md);   /* Small buttons, footer buttons */
+  --radius-control: var(--radius-md);      /* Default/large buttons, icon buttons */
+
+  /* Form Inputs */
+  --radius-input: var(--radius-md);        /* Input fields, triggers, selects */
+
+  /* Containers */
+  --radius-card: var(--radius-lg);         /* Cards, panels */
+  --radius-collapsible: var(--radius-md);  /* Collapsible containers and triggers */
+
+  /* Overlays */
+  --radius-overlay: var(--radius-lg);      /* Dropdown panels, datepicker panels */
+  --radius-popover: var(--radius-xl);      /* Popovers, menus, tooltips */
+
+  /* Indicators */
+  --radius-badge: var(--radius-md);        /* Badges (default/lg sizes) */
+  --radius-badge-sm: var(--radius-sm);     /* Small badges */
+  --radius-tag: var(--radius-sm);          /* Multi-select tags */
+
+  /* Calendar */
+  --radius-calendar: var(--radius-lg);     /* Calendar container */
+  --radius-calendar-cell: var(--radius-lg); /* Year/multi-year cells */
+
+  /* Small Interactive Elements */
+  --radius-interactive-sm: var(--radius-sm); /* Checkboxes, close/clear buttons */
+
+  /* Tabs */
+  --radius-tab-list: var(--radius-lg);     /* Tab header/list container */
+  --radius-tab: var(--radius-md);          /* Individual tab items */
+
+  /* Media */
+  --radius-media: var(--radius-md);        /* Media elements, inset images */
 
   /* ─── Shadows ─── */
 

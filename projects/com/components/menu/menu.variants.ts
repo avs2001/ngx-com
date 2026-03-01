@@ -12,7 +12,7 @@ export type MenuAlignment = 'start' | 'center' | 'end';
 /**
  * Menu panel styling variants.
  *
- * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border`, `--shadow-lg`
+ * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border`, `--shadow-lg`, `--radius-popover`
  */
 export const menuPanelVariants: ReturnType<
   typeof cva<{ size: Record<MenuSize, string>; variant: Record<MenuVariant, string> }>
@@ -20,7 +20,7 @@ export const menuPanelVariants: ReturnType<
   [
     'bg-popover text-popover-foreground',
     'border border-border',
-    'rounded-xl shadow-lg',
+    'rounded-popover shadow-lg',
     'overflow-hidden',
     'py-1',
   ],

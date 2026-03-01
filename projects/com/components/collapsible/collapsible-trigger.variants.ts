@@ -14,7 +14,7 @@ export type CollapsibleTriggerSize = 'sm' | 'default' | 'lg';
  * CVA variants for the collapsible trigger directive.
  *
  * @tokens `--color-foreground`, `--color-muted`, `--color-muted-foreground`, `--color-muted-hover`,
- *         `--color-ring`, `--color-disabled-foreground`
+ *         `--color-ring`, `--color-disabled-foreground`, `--radius-collapsible`
  */
 export const collapsibleTriggerVariants: (props?: {
   variant?: CollapsibleTriggerVariant;
@@ -34,8 +34,8 @@ export const collapsibleTriggerVariants: (props?: {
   {
     variants: {
       variant: {
-        ghost: 'rounded-md text-foreground hover:bg-muted hover:text-muted-foreground',
-        filled: 'rounded-md bg-muted text-muted-foreground hover:bg-muted-hover',
+        ghost: 'rounded-collapsible text-foreground hover:bg-muted hover:text-muted-foreground',
+        filled: 'rounded-collapsible bg-muted text-muted-foreground hover:bg-muted-hover',
         header: 'text-foreground hover:text-muted-foreground',
         unstyled: '',
       },

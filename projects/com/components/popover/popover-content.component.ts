@@ -12,7 +12,7 @@ import { mergeClasses } from './popover.utils';
  *
  * @internal Not exported in public API
  *
- * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border`, `--shadow-lg`, `--radius-xl`, `--radius-lg`
+ * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border`, `--shadow-lg`, `--radius-popover`, `--radius-overlay`
  */
 @Component({
   selector: 'com-popover-content',

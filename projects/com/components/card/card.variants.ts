@@ -49,10 +49,10 @@ export const cardVariants: (props?: {
     },
     radius: {
       none: 'rounded-none',
-      sm: 'rounded-sm',
-      md: 'rounded-md',
-      lg: 'rounded-lg',
-      xl: 'rounded-xl',
+      sm: 'rounded-[var(--radius-sm)]',
+      md: 'rounded-[var(--radius-md)]',
+      lg: 'rounded-card',
+      xl: 'rounded-[var(--radius-xl)]',
     },
     interactive: {
       true: 'cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
@@ -133,7 +133,7 @@ export const cardMediaVariants: (props?: {
     position: {
       top: '',
       bottom: '',
-      inset: 'mx-5 mt-5 rounded-md',
+      inset: 'mx-5 mt-5 rounded-media',
     },
   },
   defaultVariants: {
@@ -178,7 +178,7 @@ export type CardAccentVariants = VariantProps<typeof cardAccentVariants>;
  *
  * @tokens `--color-primary`, `--color-primary-foreground`, `--color-accent`, `--color-accent-foreground`,
  *         `--color-warn`, `--color-warn-foreground`, `--color-success`, `--color-success-foreground`,
- *         `--color-muted`, `--color-muted-foreground`, `--radius-pill`
+ *         `--color-muted`, `--color-muted-foreground`, `--radius-card`, `--radius-media`, `--radius-pill`
  */
 export const cardBadgeVariants: (props?: {
   position?: CardBadgePosition;

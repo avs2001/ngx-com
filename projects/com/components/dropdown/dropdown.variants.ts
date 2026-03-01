@@ -32,7 +32,7 @@ type TagVariant = 'default' | 'primary';
  *
  * @tokens `--color-input-background`, `--color-input-foreground`, `--color-input-border`,
  *         `--color-input-placeholder`, `--color-ring`, `--color-muted`, `--color-muted-hover`,
- *         `--color-warn`, `--color-success`, `--color-primary`, `--color-border`
+ *         `--color-warn`, `--color-success`, `--color-primary`, `--color-border`, `--radius-input`
  */
 export const dropdownTriggerVariants: (props?: {
   variant?: DropdownVariant;
@@ -45,7 +45,7 @@ export const dropdownTriggerVariants: (props?: {
     'items-center',
     'justify-between',
     'w-full',
-    'rounded-md',
+    'rounded-input',
     'border',
     'bg-input-background',
     'text-input-foreground',
@@ -131,7 +131,7 @@ export type DropdownTriggerVariants = VariantProps<typeof dropdownTriggerVariant
 /**
  * CVA variants for the dropdown panel (overlay).
  *
- * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border-subtle`
+ * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border-subtle`, `--radius-overlay`
  */
 export const dropdownPanelVariants: (props?: {
   size?: DropdownSize;
@@ -139,7 +139,7 @@ export const dropdownPanelVariants: (props?: {
   [
     'z-50',
     'overflow-hidden',
-    'rounded-md',
+    'rounded-overlay',
     'border',
     'border-border-subtle',
     'bg-popover',
@@ -268,7 +268,7 @@ export type DropdownSearchVariants = VariantProps<typeof dropdownSearchVariants>
  * CVA variants for multi-select tags.
  *
  * @tokens `--color-muted`, `--color-muted-foreground`, `--color-muted-hover`,
- *         `--color-primary-subtle`, `--color-primary-subtle-foreground`
+ *         `--color-primary-subtle`, `--color-primary-subtle-foreground`, `--radius-tag`
  */
 export const dropdownTagVariants: (props?: {
   size?: DropdownSize;
@@ -278,7 +278,7 @@ export const dropdownTagVariants: (props?: {
     'inline-flex',
     'items-center',
     'gap-1',
-    'rounded',
+    'rounded-tag',
     'font-medium',
     'transition-colors',
     'duration-100',
@@ -315,7 +315,7 @@ export type DropdownTagVariants = VariantProps<typeof dropdownTagVariants>;
 /**
  * CVA variants for the tag remove button.
  *
- * @tokens `--color-ring`
+ * @tokens `--color-ring`, `--radius-interactive-sm`
  */
 export const dropdownTagRemoveVariants: (props?: {
   size?: DropdownSize;
@@ -324,7 +324,7 @@ export const dropdownTagRemoveVariants: (props?: {
     'inline-flex',
     'items-center',
     'justify-center',
-    'rounded-sm',
+    'rounded-interactive-sm',
     'opacity-70',
     'transition-opacity',
     'hover:opacity-100',
@@ -351,7 +351,7 @@ export type DropdownTagRemoveVariants = VariantProps<typeof dropdownTagRemoveVar
 /**
  * CVA variants for the overflow badge (+N indicator).
  *
- * @tokens `--color-muted`, `--color-muted-foreground`
+ * @tokens `--color-muted`, `--color-muted-foreground`, `--radius-tag`
  */
 export const dropdownOverflowBadgeVariants: (props?: {
   size?: DropdownSize;
@@ -360,7 +360,7 @@ export const dropdownOverflowBadgeVariants: (props?: {
     'inline-flex',
     'items-center',
     'justify-center',
-    'rounded',
+    'rounded-tag',
     'font-medium',
     'text-muted-foreground',
     'bg-muted',
@@ -451,7 +451,7 @@ export type DropdownEmptyVariants = VariantProps<typeof dropdownEmptyVariants>;
 /**
  * CVA variants for the clear button.
  *
- * @tokens `--color-ring`
+ * @tokens `--color-ring`, `--radius-interactive-sm`
  */
 export const dropdownClearVariants: (props?: {
   size?: DropdownSize;
@@ -460,7 +460,7 @@ export const dropdownClearVariants: (props?: {
     'inline-flex',
     'items-center',
     'justify-center',
-    'rounded-sm',
+    'rounded-interactive-sm',
     'opacity-50',
     'transition-opacity',
     'hover:opacity-100',

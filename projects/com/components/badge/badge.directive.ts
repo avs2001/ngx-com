@@ -20,7 +20,7 @@ import type { BadgeVariant, BadgeSize } from './badge.variants';
  *         `--color-warn`, `--color-warn-foreground`, `--color-warn-hover`,
  *         `--color-success`, `--color-success-foreground`, `--color-success-hover`,
  *         `--color-muted`, `--color-muted-foreground`, `--color-muted-hover`,
- *         `--color-border`, `--color-foreground`, `--radius-pill`
+ *         `--color-border`, `--color-foreground`, `--radius-badge`, `--radius-badge-sm`, `--radius-pill`
  *
  * @example Basic usage
  * ```html

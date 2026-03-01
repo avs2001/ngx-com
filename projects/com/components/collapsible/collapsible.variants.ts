@@ -8,7 +8,7 @@ export type CollapsibleVariant = 'card' | 'bordered' | 'flush' | 'ghost' | 'unst
 /**
  * CVA variants for the collapsible shell (root directive).
  *
- * @tokens `--color-border`, `--color-background`, `--color-foreground`, `--shadow-xs`
+ * @tokens `--color-border`, `--color-background`, `--color-foreground`, `--shadow-xs`, `--radius-collapsible`
  */
 export const collapsibleVariants: (props?: {
   variant?: CollapsibleVariant;
@@ -18,8 +18,8 @@ export const collapsibleVariants: (props?: {
   {
     variants: {
       variant: {
-        card: 'rounded-md border border-border bg-background text-foreground shadow-xs',
-        bordered: 'rounded-md border border-border',
+        card: 'rounded-collapsible border border-border bg-background text-foreground shadow-xs',
+        bordered: 'rounded-collapsible border border-border',
         flush: 'border-b border-border',
         ghost: '',
         unstyled: '',

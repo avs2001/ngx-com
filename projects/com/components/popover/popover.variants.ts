@@ -14,7 +14,7 @@ export type PopoverSide = 'top' | 'bottom' | 'left' | 'right';
 /**
  * Popover panel styling variants.
  *
- * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border`, `--shadow-lg`, `--radius-xl`, `--radius-lg`
+ * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border`, `--shadow-lg`, `--radius-popover`, `--radius-overlay`
  */
 export const popoverPanelVariants: ReturnType<
   typeof cva<{ variant: Record<PopoverVariant, string> }>
@@ -23,10 +23,10 @@ export const popoverPanelVariants: ReturnType<
   {
     variants: {
       variant: {
-        default: 'rounded-xl p-4 min-w-48 max-w-sm',
-        compact: 'rounded-lg p-2 min-w-32 max-w-xs',
-        wide: 'rounded-xl p-5 min-w-64 max-w-lg',
-        flush: 'rounded-xl p-0',
+        default: 'rounded-popover p-4 min-w-48 max-w-sm',
+        compact: 'rounded-overlay p-2 min-w-32 max-w-xs',
+        wide: 'rounded-popover p-5 min-w-64 max-w-lg',
+        flush: 'rounded-popover p-0',
       },
     },
     defaultVariants: {

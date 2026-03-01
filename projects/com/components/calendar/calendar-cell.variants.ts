@@ -22,7 +22,7 @@ type WrapperRange = 'none' | 'start' | 'middle' | 'end' | 'single';
  * @tokens `--color-ring`, `--color-foreground`, `--color-muted`,
  *         `--color-primary`, `--color-primary-foreground`, `--color-primary-hover`,
  *         `--color-primary-subtle`, `--color-primary-subtle-foreground`,
- *         `--color-disabled-foreground`
+ *         `--color-disabled-foreground`, `--radius-calendar-cell`
  */
 export const calendarCellVariants: (props?: {
   view?: CellView;
@@ -48,8 +48,8 @@ export const calendarCellVariants: (props?: {
     variants: {
       view: {
         month: ['h-9', 'w-9', 'text-sm', 'rounded-full'],
-        year: ['h-10', 'w-16', 'text-sm', 'rounded-lg'],
-        'multi-year': ['h-10', 'w-14', 'text-sm', 'rounded-lg'],
+        year: ['h-10', 'w-16', 'text-sm', 'rounded-calendar-cell'],
+        'multi-year': ['h-10', 'w-14', 'text-sm', 'rounded-calendar-cell'],
       },
       state: {
         default: ['text-foreground', 'hover:bg-muted'],

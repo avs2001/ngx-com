@@ -18,7 +18,7 @@ export type CheckboxVariant = 'primary' | 'accent' | 'warn';
  * @tokens `--color-border`, `--color-primary`, `--color-primary-foreground`, `--color-primary-hover`,
  *         `--color-accent`, `--color-accent-foreground`, `--color-accent-hover`,
  *         `--color-warn`, `--color-warn-foreground`, `--color-warn-hover`,
- *         `--color-disabled`, `--color-disabled-foreground`, `--color-ring`
+ *         `--color-disabled`, `--color-disabled-foreground`, `--color-ring`, `--radius-interactive-sm`
  */
 export const checkboxBoxVariants: (props?: {
   variant?: CheckboxVariant;
@@ -27,7 +27,7 @@ export const checkboxBoxVariants: (props?: {
   [
     'com-checkbox__box',
     'inline-flex shrink-0 items-center justify-center',
-    'rounded-sm border-2 border-border',
+    'rounded-interactive-sm border-2 border-border',
     'transition-colors duration-150',
     'peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ring',
     'peer-disabled:cursor-not-allowed peer-disabled:border-disabled peer-disabled:bg-disabled peer-disabled:text-disabled-foreground',
