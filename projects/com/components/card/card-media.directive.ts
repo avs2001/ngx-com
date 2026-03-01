@@ -10,17 +10,17 @@ import type { CardMediaPosition } from './card.variants';
  *
  * @example Top media (bleeds to edge)
  * ```html
- * <img uiCardMedia src="/hero.jpg" alt="Hero image" />
+ * <img comCardMedia src="/hero.jpg" alt="Hero image" />
  * ```
  *
  * @example Inset media (padded with rounded corners)
  * ```html
- * <img uiCardMedia position="inset" src="/preview.jpg" alt="Preview" />
+ * <img comCardMedia position="inset" src="/preview.jpg" alt="Preview" />
  * ```
  */
 @Directive({
-  selector: '[uiCardMedia]',
-  exportAs: 'uiCardMedia',
+  selector: '[comCardMedia]',
+  exportAs: 'comCardMedia',
   host: {
     '[class]': 'computedClass()',
   },

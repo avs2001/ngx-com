@@ -46,7 +46,7 @@ interface TabItem {
  * @internal Not exported in public API.
  */
 @Component({
-  selector: 'ui-tab-header',
+  selector: 'com-tab-header',
   template: `
     <!-- Scroll button left -->
     @if (showScrollLeft()) {

@@ -52,7 +52,7 @@ import type {
  *
  * @example Basic usage with template
  * ```html
- * <button uiButton [uiPopoverTrigger]="helpContent">Help</button>
+ * <button comButton [comPopoverTrigger]="helpContent">Help</button>
  * <ng-template #helpContent>
  *   <p>This is help content.</p>
  * </ng-template>
@@ -61,8 +61,8 @@ import type {
  * @example With positioning
  * ```html
  * <button
- *   uiButton
- *   [uiPopoverTrigger]="menuContent"
+ *   comButton
+ *   [comPopoverTrigger]="menuContent"
  *   popoverPosition="below"
  *   popoverAlignment="start"
  *   [popoverShowArrow]="false"
@@ -74,8 +74,8 @@ import type {
  * @example With component content
  * ```html
  * <button
- *   uiButton
- *   [uiPopoverTrigger]="UserProfilePopover"
+ *   comButton
+ *   [comPopoverTrigger]="UserProfilePopover"
  *   [popoverData]="{ userId: user.id }"
  * >
  *   Profile
@@ -85,8 +85,8 @@ import type {
  * @example Manual control
  * ```html
  * <button
- *   uiButton
- *   [uiPopoverTrigger]="content"
+ *   comButton
+ *   [comPopoverTrigger]="content"
  *   popoverTriggerOn="manual"
  *   [(popoverOpen)]="isOpen"
  * >
@@ -95,8 +95,8 @@ import type {
  * ```
  */
 @Directive({
-  selector: '[uiPopoverTrigger]',
-  exportAs: 'uiPopoverTrigger',
+  selector: '[comPopoverTrigger]',
+  exportAs: 'comPopoverTrigger',
   host: {
     '[attr.aria-haspopup]': '"dialog"',
     '[attr.aria-expanded]': 'popoverOpen()',
@@ -124,7 +124,7 @@ export class PopoverTriggerDirective {
   // ─── Inputs ───
 
   /** Content to render: TemplateRef or Component class. */
-  readonly uiPopoverTrigger: InputSignal<TemplateRef<unknown> | Type<unknown>> = input.required();
+  readonly comPopoverTrigger: InputSignal<TemplateRef<unknown> | Type<unknown>> = input.required();
 
   /** Preferred position direction. */
   readonly popoverPosition: InputSignal<PopoverPosition> = input<PopoverPosition>('auto');
@@ -357,7 +357,7 @@ export class PopoverTriggerDirective {
         : this.overlay.scrollStrategies.reposition(),
       hasBackdrop: this.hasBackdrop(),
       backdropClass: this.backdropClass(),
-      panelClass: ['ui-popover-panel', ...this.panelClassArray()],
+      panelClass: ['com-popover-panel', ...this.panelClassArray()],
     });
 
     // Track position changes for arrow placement
@@ -373,7 +373,7 @@ export class PopoverTriggerDirective {
   private attachContent(): void {
     if (!this.overlayRef) return;
 
-    const content = this.uiPopoverTrigger();
+    const content = this.comPopoverTrigger();
 
     // Create the content wrapper component
     const contentInjector = Injector.create({

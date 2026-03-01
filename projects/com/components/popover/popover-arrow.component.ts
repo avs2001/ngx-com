@@ -21,7 +21,7 @@ const ALIGNMENT_OFFSETS: Record<PopoverSide, Record<PopoverAlignment, string>> =
  * @tokens `--color-popover`, `--color-border`
  */
 @Component({
-  selector: 'ui-popover-arrow',
+  selector: 'com-popover-arrow',
   template: `
     <svg
       [class]="arrowClasses()"

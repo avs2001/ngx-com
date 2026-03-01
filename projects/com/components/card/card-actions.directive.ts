@@ -10,23 +10,23 @@ import type { CardAlign, CardActionsDirection } from './card.variants';
  *
  * @example Actions with alignment
  * ```html
- * <div uiCardActions>
- *   <button uiButton variant="ghost" size="sm">Cancel</button>
- *   <button uiButton size="sm">Confirm</button>
+ * <div comCardActions>
+ *   <button comButton variant="ghost" size="sm">Cancel</button>
+ *   <button comButton size="sm">Confirm</button>
  * </div>
  * ```
  *
  * @example Stacked column layout
  * ```html
- * <div uiCardActions direction="column" align="start">
- *   <button uiButton fullWidth>Primary Action</button>
- *   <button uiButton variant="outline" fullWidth>Secondary</button>
+ * <div comCardActions direction="column" align="start">
+ *   <button comButton fullWidth>Primary Action</button>
+ *   <button comButton variant="outline" fullWidth>Secondary</button>
  * </div>
  * ```
  */
 @Directive({
-  selector: '[uiCardActions]',
-  exportAs: 'uiCardActions',
+  selector: '[comCardActions]',
+  exportAs: 'comCardActions',
   host: {
     '[class]': 'computedClass()',
   },

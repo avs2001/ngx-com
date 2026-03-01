@@ -8,25 +8,25 @@ import { Directive } from '@angular/core';
  *
  * @example Header with title
  * ```html
- * <div uiCardHeader>
- *   <h3 uiCardTitle>Card Title</h3>
+ * <div comCardHeader>
+ *   <h3 comCardTitle>Card Title</h3>
  * </div>
  * ```
  *
  * @example Header with title and action
  * ```html
- * <div uiCardHeader>
+ * <div comCardHeader>
  *   <div>
- *     <h3 uiCardTitle>Title</h3>
- *     <p uiCardSubtitle>Subtitle</p>
+ *     <h3 comCardTitle>Title</h3>
+ *     <p comCardSubtitle>Subtitle</p>
  *   </div>
- *   <button uiButton variant="ghost" size="icon" aria-label="More">...</button>
+ *   <button comButton variant="ghost" size="icon" aria-label="More">...</button>
  * </div>
  * ```
  */
 @Directive({
-  selector: '[uiCardHeader]',
-  exportAs: 'uiCardHeader',
+  selector: '[comCardHeader]',
+  exportAs: 'comCardHeader',
   host: {
     class: 'flex items-start justify-between gap-3 px-5 pt-5 pb-0',
   },

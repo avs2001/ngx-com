@@ -35,11 +35,11 @@ interface NavTabItem {
  *
  * @example Basic usage
  * ```html
- * <nav ui-tab-nav-bar>
- *   <a uiTabLink routerLink="overview" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+ * <nav com-tab-nav-bar>
+ *   <a comTabLink routerLink="overview" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
  *     Overview
  *   </a>
- *   <a uiTabLink routerLink="settings" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
+ *   <a comTabLink routerLink="settings" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
  *     Settings
  *   </a>
  * </nav>
@@ -48,14 +48,14 @@ interface NavTabItem {
  *
  * @example With variants
  * ```html
- * <nav ui-tab-nav-bar variant="pill" color="accent" size="sm">
- *   <a uiTabLink routerLink="grid">Grid</a>
- *   <a uiTabLink routerLink="list">List</a>
+ * <nav com-tab-nav-bar variant="pill" color="accent" size="sm">
+ *   <a comTabLink routerLink="grid">Grid</a>
+ *   <a comTabLink routerLink="list">List</a>
  * </nav>
  * ```
  */
 @Component({
-  selector: 'ui-tab-nav-bar, nav[ui-tab-nav-bar]',
+  selector: 'com-tab-nav-bar, nav[com-tab-nav-bar]',
   template: `
     <!-- Scroll button left -->
     @if (showScrollLeft()) {
@@ -141,7 +141,7 @@ interface NavTabItem {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'ui-tab-nav-bar',
+    class: 'com-tab-nav-bar',
   },
 })
 export class TabNavBarComponent {

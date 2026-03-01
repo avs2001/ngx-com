@@ -17,7 +17,7 @@ import { CodeBlock } from '../../../shared/code-block';
       <div class="space-y-6 rounded-xl border border-surface-200 bg-white p-8">
         <!-- Basic popover -->
         <div class="flex flex-wrap gap-4">
-          <button uiButton [uiPopoverTrigger]="basicContent">Click me</button>
+          <button comButton [comPopoverTrigger]="basicContent">Click me</button>
           <ng-template #basicContent>
             <p class="text-sm text-popover-foreground">
               This is a basic popover with some helpful information.
@@ -25,7 +25,7 @@ import { CodeBlock } from '../../../shared/code-block';
           </ng-template>
 
           <!-- Positioned above -->
-          <button uiButton variant="outline" [uiPopoverTrigger]="aboveContent" popoverPosition="above">
+          <button comButton variant="outline" [comPopoverTrigger]="aboveContent" popoverPosition="above">
             Opens Above
           </button>
           <ng-template #aboveContent>
@@ -34,9 +34,9 @@ import { CodeBlock } from '../../../shared/code-block';
 
           <!-- No arrow -->
           <button
-            uiButton
+            comButton
             variant="ghost"
-            [uiPopoverTrigger]="noArrowContent"
+            [comPopoverTrigger]="noArrowContent"
             [popoverShowArrow]="false"
           >
             No Arrow
@@ -49,7 +49,7 @@ import { CodeBlock } from '../../../shared/code-block';
         <!-- With close button -->
         <div>
           <p class="mb-3 text-sm font-medium text-surface-600">With close button</p>
-          <button uiButton color="accent" [uiPopoverTrigger]="closeContent">
+          <button comButton color="accent" [comPopoverTrigger]="closeContent">
             Confirmation
           </button>
           <ng-template #closeContent>
@@ -57,8 +57,8 @@ import { CodeBlock } from '../../../shared/code-block';
               <p class="text-sm font-medium">Are you sure?</p>
               <p class="text-xs text-muted-foreground">This action cannot be undone.</p>
               <div class="flex justify-end gap-2">
-                <button uiButton variant="ghost" size="sm" uiPopoverClose>Cancel</button>
-                <button uiButton size="sm" uiPopoverClose>Confirm</button>
+                <button comButton variant="ghost" size="sm" comPopoverClose>Cancel</button>
+                <button comButton size="sm" comPopoverClose>Confirm</button>
               </div>
             </div>
           </ng-template>
@@ -124,7 +124,7 @@ import { CodeBlock } from '../../../shared/code-block';
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <div class="mb-4 flex items-center gap-4">
           <button
-            uiButton
+            comButton
             variant="outline"
             (click)="isControlledOpen.set(!isControlledOpen())"
           >
@@ -136,7 +136,7 @@ import { CodeBlock } from '../../../shared/code-block';
         </div>
         <span
           class="inline-flex items-center rounded-lg border border-border px-4 py-2 text-sm"
-          [uiPopoverTrigger]="controlledContent"
+          [comPopoverTrigger]="controlledContent"
           popoverTriggerOn="manual"
           [(popoverOpen)]="isControlledOpen"
         >
@@ -158,10 +158,10 @@ import { CodeBlock } from '../../../shared/code-block';
         <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
           @for (pos of positions; track pos) {
             <button
-              uiButton
+              comButton
               variant="outline"
               size="sm"
-              [uiPopoverTrigger]="posContent"
+              [comPopoverTrigger]="posContent"
               [popoverPosition]="pos"
             >
               {{ pos }}
@@ -190,13 +190,13 @@ import { UiButton } from 'ngx-com/components/button';
   selector: 'app-example',
   imports: [PopoverTriggerDirective, PopoverCloseDirective, UiButton],
   template: \`
-    <button uiButton [uiPopoverTrigger]="helpContent">
+    <button comButton [comPopoverTrigger]="helpContent">
       Help
     </button>
 
     <ng-template #helpContent>
       <p>This is helpful information.</p>
-      <button uiButton size="sm" uiPopoverClose>Got it</button>
+      <button comButton size="sm" comPopoverClose>Got it</button>
     </ng-template>
   \`,
 })

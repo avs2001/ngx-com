@@ -12,10 +12,10 @@ import { CodeBlock } from '../../../shared/code-block';
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <button uiButton>Primary</button>
-          <button uiButton color="accent">Accent</button>
-          <button uiButton color="warn">Warn</button>
-          <button uiButton color="muted">Muted</button>
+          <button comButton>Primary</button>
+          <button comButton color="accent">Accent</button>
+          <button comButton color="warn">Warn</button>
+          <button comButton color="muted">Muted</button>
         </div>
       </div>
     </section>
@@ -111,10 +111,10 @@ import { UiButton } from 'ngx-com/components/button';
   selector: 'app-example',
   imports: [UiButton],
   template: \`
-    <button uiButton>Save</button>
-    <button uiButton variant="outline" color="accent">Cancel</button>
-    <button uiButton variant="ghost" color="warn">Delete</button>
-    <a uiButton variant="link" routerLink="/docs">Documentation</a>
+    <button comButton>Save</button>
+    <button comButton variant="outline" color="accent">Cancel</button>
+    <button comButton variant="ghost" color="warn">Delete</button>
+    <a comButton variant="link" routerLink="/docs">Documentation</a>
   \`,
 })
 export class Example {}`;

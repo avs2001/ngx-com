@@ -82,9 +82,9 @@ export class UserCardComponent {
         <div class="flex flex-wrap gap-4">
           @for (variant of variants; track variant) {
             <button
-              uiButton
+              comButton
               variant="outline"
-              [uiPopoverTrigger]="variantContent"
+              [comPopoverTrigger]="variantContent"
               [popoverVariant]="variant"
             >
               {{ variant | titlecase }}
@@ -115,10 +115,10 @@ export class UserCardComponent {
           @for (pos of positions; track pos) {
             @for (align of alignments; track align) {
               <button
-                uiButton
+                comButton
                 variant="ghost"
                 size="sm"
-                [uiPopoverTrigger]="posAlignContent"
+                [comPopoverTrigger]="posAlignContent"
                 [popoverPosition]="pos"
                 [popoverAlignment]="align"
               >
@@ -141,7 +141,7 @@ export class UserCardComponent {
         The arrow points toward the trigger. Hide it for menu-like popovers.
       </p>
       <div class="flex gap-4 rounded-xl border border-surface-200 bg-white p-8">
-        <button uiButton [uiPopoverTrigger]="arrowContent" [popoverShowArrow]="true">
+        <button comButton [comPopoverTrigger]="arrowContent" [popoverShowArrow]="true">
           With Arrow
         </button>
         <ng-template #arrowContent>
@@ -149,9 +149,9 @@ export class UserCardComponent {
         </ng-template>
 
         <button
-          uiButton
+          comButton
           variant="outline"
-          [uiPopoverTrigger]="noArrowContent"
+          [comPopoverTrigger]="noArrowContent"
           [popoverShowArrow]="false"
         >
           No Arrow
@@ -176,7 +176,7 @@ export class UserCardComponent {
             type="text"
             class="w-full max-w-xs rounded-md border border-input-border bg-input-background px-3 py-2 text-input-foreground placeholder:text-input-placeholder focus:outline-none focus:ring-2 focus:ring-ring"
             placeholder="Enter amount..."
-            [uiPopoverTrigger]="focusHelp"
+            [comPopoverTrigger]="focusHelp"
             popoverTriggerOn="focus"
             popoverPosition="right"
             popoverVariant="compact"
@@ -197,8 +197,8 @@ export class UserCardComponent {
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <button
-          uiButton
-          [uiPopoverTrigger]="UserCardComponent"
+          comButton
+          [comPopoverTrigger]="UserCardComponent"
           [popoverData]="userData"
           popoverVariant="wide"
         >
@@ -216,9 +216,9 @@ export class UserCardComponent {
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <button
-          uiButton
+          comButton
           variant="outline"
-          [uiPopoverTrigger]="contextContent"
+          [comPopoverTrigger]="contextContent"
           [popoverData]="{ title: 'Settings', count: 5 }"
         >
           With Context
@@ -244,7 +244,7 @@ export class UserCardComponent {
         Control backdrop behavior: transparent (default), dimmed, or none.
       </p>
       <div class="flex gap-4 rounded-xl border border-surface-200 bg-white p-8">
-        <button uiButton [uiPopoverTrigger]="transpContent" popoverBackdrop="transparent">
+        <button comButton [comPopoverTrigger]="transpContent" popoverBackdrop="transparent">
           Transparent
         </button>
         <ng-template #transpContent>
@@ -252,9 +252,9 @@ export class UserCardComponent {
         </ng-template>
 
         <button
-          uiButton
+          comButton
           variant="outline"
-          [uiPopoverTrigger]="dimmedContent"
+          [comPopoverTrigger]="dimmedContent"
           popoverBackdrop="dimmed"
         >
           Dimmed
@@ -264,9 +264,9 @@ export class UserCardComponent {
         </ng-template>
 
         <button
-          uiButton
+          comButton
           variant="ghost"
-          [uiPopoverTrigger]="noneContent"
+          [comPopoverTrigger]="noneContent"
           popoverBackdrop="none"
           [popoverCloseOnOutside]="false"
         >
@@ -274,7 +274,7 @@ export class UserCardComponent {
         </button>
         <ng-template #noneContent>
           <p class="text-sm">No backdrop. Click trigger or use close button.</p>
-          <button uiButton size="sm" class="mt-2 w-full" uiPopoverClose>Close</button>
+          <button comButton size="sm" class="mt-2 w-full" comPopoverClose>Close</button>
         </ng-template>
       </div>
       <int-code-block class="mt-4" language="html" [code]="backdropCode" />
@@ -288,8 +288,8 @@ export class UserCardComponent {
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <button
-          uiButton
-          [uiPopoverTrigger]="formContent"
+          comButton
+          [comPopoverTrigger]="formContent"
           [popoverTrapFocus]="true"
           popoverVariant="wide"
         >
@@ -313,8 +313,8 @@ export class UserCardComponent {
               />
             </div>
             <div class="flex justify-end gap-2 pt-1">
-              <button type="button" uiButton variant="ghost" size="sm" uiPopoverClose>Cancel</button>
-              <button type="submit" uiButton size="sm">Save</button>
+              <button type="button" comButton variant="ghost" size="sm" comPopoverClose>Cancel</button>
+              <button type="submit" comButton size="sm">Save</button>
             </div>
           </form>
         </ng-template>
@@ -330,9 +330,9 @@ export class UserCardComponent {
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <button
-          uiButton
+          comButton
           variant="outline"
-          [uiPopoverTrigger]="menuContent"
+          [comPopoverTrigger]="menuContent"
           [popoverShowArrow]="false"
           popoverVariant="flush"
           popoverPosition="below"
@@ -344,20 +344,20 @@ export class UserCardComponent {
           <div class="py-1">
             <button
               class="w-full px-4 py-2 text-left text-sm hover:bg-muted"
-              uiPopoverClose
+              comPopoverClose
             >
               Edit
             </button>
             <button
               class="w-full px-4 py-2 text-left text-sm hover:bg-muted"
-              uiPopoverClose
+              comPopoverClose
             >
               Duplicate
             </button>
             <hr class="my-1 border-border" />
             <button
               class="w-full px-4 py-2 text-left text-sm text-warn hover:bg-warn-subtle"
-              uiPopoverClose
+              comPopoverClose
             >
               Delete
             </button>
@@ -376,25 +376,25 @@ export class PopoverExamples {
   protected readonly positions: PopoverPosition[] = ['above', 'below', 'left', 'right'];
   protected readonly alignments: PopoverAlignment[] = ['start', 'center', 'end'];
 
-  protected readonly variantsCode = `<button [uiPopoverTrigger]="content" popoverVariant="default">Default</button>
-<button [uiPopoverTrigger]="content" popoverVariant="compact">Compact</button>
-<button [uiPopoverTrigger]="content" popoverVariant="wide">Wide</button>
-<button [uiPopoverTrigger]="content" popoverVariant="flush">Flush</button>`;
+  protected readonly variantsCode = `<button [comPopoverTrigger]="content" popoverVariant="default">Default</button>
+<button [comPopoverTrigger]="content" popoverVariant="compact">Compact</button>
+<button [comPopoverTrigger]="content" popoverVariant="wide">Wide</button>
+<button [comPopoverTrigger]="content" popoverVariant="flush">Flush</button>`;
 
   protected readonly positionsCode = `<button
-  [uiPopoverTrigger]="content"
+  [comPopoverTrigger]="content"
   popoverPosition="above"
   popoverAlignment="center"
 >
   Above Center
 </button>`;
 
-  protected readonly arrowCode = `<button [uiPopoverTrigger]="content" [popoverShowArrow]="true">With Arrow</button>
-<button [uiPopoverTrigger]="content" [popoverShowArrow]="false">No Arrow</button>`;
+  protected readonly arrowCode = `<button [comPopoverTrigger]="content" [popoverShowArrow]="true">With Arrow</button>
+<button [comPopoverTrigger]="content" [popoverShowArrow]="false">No Arrow</button>`;
 
   protected readonly focusCode = `<input
   type="text"
-  [uiPopoverTrigger]="helpContent"
+  [comPopoverTrigger]="helpContent"
   popoverTriggerOn="focus"
   popoverPosition="right"
   popoverVariant="compact"
@@ -418,14 +418,14 @@ export class UserCardComponent {
 
 // Use it
 <button
-  [uiPopoverTrigger]="UserCardComponent"
+  [comPopoverTrigger]="UserCardComponent"
   [popoverData]="{ name: 'Alice' }"
 >
   Show User
 </button>`;
 
   protected readonly contextCode = `<button
-  [uiPopoverTrigger]="content"
+  [comPopoverTrigger]="content"
   [popoverData]="{ title: 'Settings', count: 5 }"
 >
   Open
@@ -437,12 +437,12 @@ export class UserCardComponent {
   <button (click)="close()">Done</button>
 </ng-template>`;
 
-  protected readonly backdropCode = `<button [uiPopoverTrigger]="content" popoverBackdrop="transparent">Transparent</button>
-<button [uiPopoverTrigger]="content" popoverBackdrop="dimmed">Dimmed</button>
-<button [uiPopoverTrigger]="content" popoverBackdrop="none">None</button>`;
+  protected readonly backdropCode = `<button [comPopoverTrigger]="content" popoverBackdrop="transparent">Transparent</button>
+<button [comPopoverTrigger]="content" popoverBackdrop="dimmed">Dimmed</button>
+<button [comPopoverTrigger]="content" popoverBackdrop="none">None</button>`;
 
   protected readonly focusTrapCode = `<button
-  [uiPopoverTrigger]="formContent"
+  [comPopoverTrigger]="formContent"
   [popoverTrapFocus]="true"
 >
   Edit Form
@@ -456,7 +456,7 @@ export class UserCardComponent {
 </ng-template>`;
 
   protected readonly menuCode = `<button
-  [uiPopoverTrigger]="menuContent"
+  [comPopoverTrigger]="menuContent"
   [popoverShowArrow]="false"
   popoverVariant="flush"
   popoverPosition="below"
@@ -467,10 +467,10 @@ export class UserCardComponent {
 
 <ng-template #menuContent>
   <div class="py-1">
-    <button class="menu-item" uiPopoverClose>Edit</button>
-    <button class="menu-item" uiPopoverClose>Duplicate</button>
+    <button class="menu-item" comPopoverClose>Edit</button>
+    <button class="menu-item" comPopoverClose>Duplicate</button>
     <hr />
-    <button class="menu-item text-warn" uiPopoverClose>Delete</button>
+    <button class="menu-item text-warn" comPopoverClose>Delete</button>
   </div>
 </ng-template>`;
 }

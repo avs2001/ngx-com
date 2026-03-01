@@ -38,48 +38,48 @@ export interface TabChangeEvent {
  *
  * @example Basic usage
  * ```html
- * <ui-tab-group>
- *   <ui-tab label="Overview">
+ * <com-tab-group>
+ *   <com-tab label="Overview">
  *     <p>Overview content.</p>
- *   </ui-tab>
- *   <ui-tab label="Settings">
+ *   </com-tab>
+ *   <com-tab label="Settings">
  *     <p>Settings content.</p>
- *   </ui-tab>
- * </ui-tab-group>
+ *   </com-tab>
+ * </com-tab-group>
  * ```
  *
  * @example With variants
  * ```html
- * <ui-tab-group variant="pill" color="accent">
- *   <ui-tab label="Tab 1"><p>Pill style.</p></ui-tab>
- *   <ui-tab label="Tab 2"><p>Content.</p></ui-tab>
- * </ui-tab-group>
+ * <com-tab-group variant="pill" color="accent">
+ *   <com-tab label="Tab 1"><p>Pill style.</p></com-tab>
+ *   <com-tab label="Tab 2"><p>Content.</p></com-tab>
+ * </com-tab-group>
  * ```
  *
  * @example Two-way binding
  * ```html
- * <ui-tab-group [(selectedIndex)]="currentTab">
- *   <ui-tab label="One"><p>First.</p></ui-tab>
- *   <ui-tab label="Two"><p>Second.</p></ui-tab>
- * </ui-tab-group>
+ * <com-tab-group [(selectedIndex)]="currentTab">
+ *   <com-tab label="One"><p>First.</p></com-tab>
+ *   <com-tab label="Two"><p>Second.</p></com-tab>
+ * </com-tab-group>
  * ```
  *
  * @example Lazy loaded content
  * ```html
- * <ui-tab-group>
- *   <ui-tab label="Summary"><p>Loads immediately.</p></ui-tab>
- *   <ui-tab label="Analytics">
- *     <ng-template uiTabContent>
+ * <com-tab-group>
+ *   <com-tab label="Summary"><p>Loads immediately.</p></com-tab>
+ *   <com-tab label="Analytics">
+ *     <ng-template comTabContent>
  *       <app-analytics-dashboard />
  *     </ng-template>
- *   </ui-tab>
- * </ui-tab-group>
+ *   </com-tab>
+ * </com-tab-group>
  * ```
  */
 @Component({
-  selector: 'ui-tab-group',
+  selector: 'com-tab-group',
   template: `
-    <ui-tab-header
+    <com-tab-header
       [tabs]="tabs()"
       [selectedIndex]="selectedIndex()"
       [variant]="variant()"
@@ -132,7 +132,7 @@ export interface TabChangeEvent {
   imports: [TabHeaderComponent, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'ui-tab-group',
+    class: 'com-tab-group',
   },
 })
 export class TabGroupComponent {

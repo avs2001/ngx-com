@@ -5,12 +5,12 @@ import { Directive } from '@angular/core';
  *
  * @example
  * ```html
- * <p uiCardSubtitle>Last updated 2 hours ago</p>
+ * <p comCardSubtitle>Last updated 2 hours ago</p>
  * ```
  */
 @Directive({
-  selector: '[uiCardSubtitle]',
-  exportAs: 'uiCardSubtitle',
+  selector: '[comCardSubtitle]',
+  exportAs: 'comCardSubtitle',
   host: {
     class: 'text-sm text-muted-foreground',
   },

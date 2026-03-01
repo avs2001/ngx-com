@@ -15,35 +15,35 @@ import type { CardVariant, CardPadding, CardRadius } from './card.variants';
  * Card container component - a styled surface for content.
  *
  * The card is a pure container with no imposed structure.
- * Use card directives (uiCardHeader, uiCardContent, etc.) to compose layouts.
+ * Use card directives (comCardHeader, comCardContent, etc.) to compose layouts.
  *
  * @tokens `--color-popover`, `--color-popover-foreground`, `--color-muted`, `--color-muted-hover`,
  *         `--color-foreground`, `--color-border`, `--color-primary`, `--color-ring`
  *
  * @example Basic card
  * ```html
- * <ui-card>
- *   <div uiCardContent>Simple content</div>
- * </ui-card>
+ * <com-card>
+ *   <div comCardContent>Simple content</div>
+ * </com-card>
  * ```
  *
  * @example Interactive card
  * ```html
- * <ui-card [interactive]="true" (click)="onCardClick()">
- *   <div uiCardContent>Clickable card</div>
- * </ui-card>
+ * <com-card [interactive]="true" (click)="onCardClick()">
+ *   <div comCardContent>Clickable card</div>
+ * </com-card>
  * ```
  *
  * @example Outlined variant with custom padding
  * ```html
- * <ui-card variant="outlined" padding="md">
+ * <com-card variant="outlined" padding="md">
  *   <p>Outlined card with medium padding</p>
- * </ui-card>
+ * </com-card>
  * ```
  */
 @Component({
-  selector: 'ui-card',
-  exportAs: 'uiCard',
+  selector: 'com-card',
+  exportAs: 'comCard',
   template: `<ng-content />`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

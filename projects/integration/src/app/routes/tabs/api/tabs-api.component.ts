@@ -21,7 +21,7 @@ import { CodeBlock } from '../../../shared/code-block';
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-900">Selector</h3>
       <div class="rounded-lg border border-surface-200 bg-white p-4">
-        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">ui-tab-group</code>
+        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">com-tab-group</code>
       </div>
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-900">Inputs</h3>
@@ -122,7 +122,7 @@ import { CodeBlock } from '../../../shared/code-block';
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-900">Selector</h3>
       <div class="rounded-lg border border-surface-200 bg-white p-4">
-        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">ui-tab</code>
+        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">com-tab</code>
       </div>
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-900">Inputs</h3>
@@ -141,7 +141,7 @@ import { CodeBlock } from '../../../shared/code-block';
               <td class="px-4 py-3"><code class="rounded bg-surface-100 px-1.5 py-0.5 text-xs">label</code></td>
               <td class="px-4 py-3 text-surface-600"><code class="text-xs">string</code></td>
               <td class="px-4 py-3 text-surface-600"><code class="text-xs">''</code></td>
-              <td class="px-4 py-3 text-surface-600">Plain text label (ignored if [uiTabLabel] is used)</td>
+              <td class="px-4 py-3 text-surface-600">Plain text label (ignored if [comTabLabel] is used)</td>
             </tr>
             <tr>
               <td class="px-4 py-3"><code class="rounded bg-surface-100 px-1.5 py-0.5 text-xs">disabled</code></td>
@@ -189,8 +189,8 @@ import { CodeBlock } from '../../../shared/code-block';
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-900">Selector</h3>
       <div class="rounded-lg border border-surface-200 bg-white p-4">
-        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">ui-tab-nav-bar</code> or
-        <code class="ml-2 rounded bg-surface-100 px-2 py-1 font-mono text-sm">nav[ui-tab-nav-bar]</code>
+        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">com-tab-nav-bar</code> or
+        <code class="ml-2 rounded bg-surface-100 px-2 py-1 font-mono text-sm">nav[com-tab-nav-bar]</code>
       </div>
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-900">Inputs</h3>
@@ -238,13 +238,13 @@ import { CodeBlock } from '../../../shared/code-block';
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">TabLinkDirective</h2>
       <p class="mb-4 text-surface-600">
-        Applied to anchor or button elements inside ui-tab-nav-bar.
+        Applied to anchor or button elements inside com-tab-nav-bar.
       </p>
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-900">Selector</h3>
       <div class="rounded-lg border border-surface-200 bg-white p-4">
-        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">a[uiTabLink]</code> or
-        <code class="ml-2 rounded bg-surface-100 px-2 py-1 font-mono text-sm">button[uiTabLink]</code>
+        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">a[comTabLink]</code> or
+        <code class="ml-2 rounded bg-surface-100 px-2 py-1 font-mono text-sm">button[comTabLink]</code>
       </div>
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-900">Inputs</h3>
@@ -287,7 +287,7 @@ import { CodeBlock } from '../../../shared/code-block';
         <div class="rounded-lg border border-surface-200 bg-white p-6">
           <h3 class="mb-2 font-semibold text-surface-900">TabLabelDirective</h3>
           <p class="mb-3 text-surface-600">
-            Selector: <code class="rounded bg-surface-100 px-1.5 py-0.5 text-xs">ng-template[uiTabLabel]</code>
+            Selector: <code class="rounded bg-surface-100 px-1.5 py-0.5 text-xs">ng-template[comTabLabel]</code>
           </p>
           <p class="text-surface-600">Provide a custom label template with icons, badges, etc.</p>
         </div>
@@ -295,7 +295,7 @@ import { CodeBlock } from '../../../shared/code-block';
         <div class="rounded-lg border border-surface-200 bg-white p-6">
           <h3 class="mb-2 font-semibold text-surface-900">TabContentDirective</h3>
           <p class="mb-3 text-surface-600">
-            Selector: <code class="rounded bg-surface-100 px-1.5 py-0.5 text-xs">ng-template[uiTabContent]</code>
+            Selector: <code class="rounded bg-surface-100 px-1.5 py-0.5 text-xs">ng-template[comTabContent]</code>
           </p>
           <p class="text-surface-600">Mark content for lazy rendering. Only instantiated when tab is first activated.</p>
         </div>

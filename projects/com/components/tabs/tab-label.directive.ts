@@ -8,18 +8,18 @@ import { Directive, TemplateRef, inject } from '@angular/core';
  *
  * @example
  * ```html
- * <ui-tab>
- *   <ng-template uiTabLabel>
+ * <com-tab>
+ *   <ng-template comTabLabel>
  *     <svg class="w-4 h-4">...</svg>
  *     <span>Settings</span>
  *     <span class="bg-warn text-warn-foreground text-xs rounded-pill px-1.5">3</span>
  *   </ng-template>
  *   <p>Tab content here.</p>
- * </ui-tab>
+ * </com-tab>
  * ```
  */
 @Directive({
-  selector: 'ng-template[uiTabLabel]',
+  selector: 'ng-template[comTabLabel]',
 })
 export class TabLabelDirective {
   readonly templateRef: TemplateRef<void> = inject(TemplateRef);

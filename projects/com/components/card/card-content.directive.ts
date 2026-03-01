@@ -5,14 +5,14 @@ import { Directive } from '@angular/core';
  *
  * @example
  * ```html
- * <div uiCardContent>
+ * <div comCardContent>
  *   <p>Card body content goes here.</p>
  * </div>
  * ```
  */
 @Directive({
-  selector: '[uiCardContent]',
-  exportAs: 'uiCardContent',
+  selector: '[comCardContent]',
+  exportAs: 'comCardContent',
   host: {
     class: 'flex-1 px-5 py-4 text-sm',
   },

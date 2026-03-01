@@ -10,23 +10,23 @@ import { Directive, inject, TemplateRef } from '@angular/core';
  *
  * @example
  * ```html
- * <button [uiPopoverTrigger]="helpContent">Help</button>
- * <ng-template uiPopoverTemplate #helpContent>
+ * <button [comPopoverTrigger]="helpContent">Help</button>
+ * <ng-template comPopoverTemplate #helpContent>
  *   <p>This is help content.</p>
  * </ng-template>
  * ```
  *
  * Note: You can also pass a template reference directly without this directive:
  * ```html
- * <button [uiPopoverTrigger]="helpContent">Help</button>
+ * <button [comPopoverTrigger]="helpContent">Help</button>
  * <ng-template #helpContent>
  *   <p>This also works.</p>
  * </ng-template>
  * ```
  */
 @Directive({
-  selector: '[uiPopoverTemplate]',
-  exportAs: 'uiPopoverTemplate',
+  selector: '[comPopoverTemplate]',
+  exportAs: 'comPopoverTemplate',
 })
 export class PopoverTemplateDirective {
   /** Reference to the template for rendering. */

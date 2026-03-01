@@ -28,40 +28,40 @@ import { TabContentDirective } from './tab-content.directive';
  *
  * @example Basic usage
  * ```html
- * <ui-tab label="Overview">
+ * <com-tab label="Overview">
  *   <p>Overview content.</p>
- * </ui-tab>
+ * </com-tab>
  * ```
  *
  * @example Custom label with icon
  * ```html
- * <ui-tab>
- *   <ng-template uiTabLabel>
+ * <com-tab>
+ *   <ng-template comTabLabel>
  *     <svg class="w-4 h-4"><!-- icon --></svg>
  *     <span>Settings</span>
  *   </ng-template>
  *   <p>Settings content.</p>
- * </ui-tab>
+ * </com-tab>
  * ```
  *
  * @example Lazy loaded content
  * ```html
- * <ui-tab label="Analytics">
- *   <ng-template uiTabContent>
+ * <com-tab label="Analytics">
+ *   <ng-template comTabContent>
  *     <app-heavy-dashboard />
  *   </ng-template>
- * </ui-tab>
+ * </com-tab>
  * ```
  *
  * @example Closable tab
  * ```html
- * <ui-tab label="Document" [closable]="true" (closed)="onClose()">
+ * <com-tab label="Document" [closable]="true" (closed)="onClose()">
  *   <p>Document content.</p>
- * </ui-tab>
+ * </com-tab>
  * ```
  */
 @Component({
-  selector: 'ui-tab',
+  selector: 'com-tab',
   template: `
     <ng-template #implicitContent>
       <ng-content />
@@ -72,7 +72,7 @@ import { TabContentDirective } from './tab-content.directive';
 export class TabComponent {
   // ─── Inputs ───
 
-  /** Plain text label; ignored if `[uiTabLabel]` template is provided. */
+  /** Plain text label; ignored if `[comTabLabel]` template is provided. */
   readonly label: InputSignal<string> = input<string>('');
 
   /** Prevents selection when true. */

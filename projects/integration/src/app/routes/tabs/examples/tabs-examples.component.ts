@@ -37,19 +37,19 @@ import { CodeBlock } from '../../../shared/code-block';
         @for (variant of variants; track variant) {
           <div>
             <p class="mb-2 text-sm font-medium text-surface-500">{{ variant | titlecase }}</p>
-            <ui-tab-group [variant]="variant">
-              <ui-tab label="Tab 1">
+            <com-tab-group [variant]="variant">
+              <com-tab label="Tab 1">
                 <div class="py-3 text-surface-600">
                   Content for {{ variant }} variant.
                 </div>
-              </ui-tab>
-              <ui-tab label="Tab 2">
+              </com-tab>
+              <com-tab label="Tab 2">
                 <div class="py-3 text-surface-600">Second panel.</div>
-              </ui-tab>
-              <ui-tab label="Tab 3">
+              </com-tab>
+              <com-tab label="Tab 3">
                 <div class="py-3 text-surface-600">Third panel.</div>
-              </ui-tab>
-            </ui-tab-group>
+              </com-tab>
+            </com-tab-group>
           </div>
         }
       </div>
@@ -66,14 +66,14 @@ import { CodeBlock } from '../../../shared/code-block';
         @for (size of sizes; track size) {
           <div>
             <p class="mb-2 text-sm font-medium text-surface-500">{{ size | titlecase }}</p>
-            <ui-tab-group [size]="size">
-              <ui-tab label="Overview">
+            <com-tab-group [size]="size">
+              <com-tab label="Overview">
                 <div class="py-3 text-surface-600">Content.</div>
-              </ui-tab>
-              <ui-tab label="Details">
+              </com-tab>
+              <com-tab label="Details">
                 <div class="py-3 text-surface-600">Content.</div>
-              </ui-tab>
-            </ui-tab-group>
+              </com-tab>
+            </com-tab-group>
           </div>
         }
       </div>
@@ -90,14 +90,14 @@ import { CodeBlock } from '../../../shared/code-block';
         @for (color of colors; track color) {
           <div>
             <p class="mb-2 text-sm font-medium text-surface-500">{{ color | titlecase }}</p>
-            <ui-tab-group [color]="color" variant="pill">
-              <ui-tab label="Tab 1">
+            <com-tab-group [color]="color" variant="pill">
+              <com-tab label="Tab 1">
                 <div class="py-3 text-surface-600">Content.</div>
-              </ui-tab>
-              <ui-tab label="Tab 2">
+              </com-tab>
+              <com-tab label="Tab 2">
                 <div class="py-3 text-surface-600">Content.</div>
-              </ui-tab>
-            </ui-tab-group>
+              </com-tab>
+            </com-tab-group>
           </div>
         }
       </div>
@@ -113,25 +113,25 @@ import { CodeBlock } from '../../../shared/code-block';
       <div class="space-y-6 rounded-xl border border-surface-200 bg-white p-8">
         <div>
           <p class="mb-2 text-sm font-medium text-surface-500">Start (default)</p>
-          <ui-tab-group alignment="start">
-            <ui-tab label="Tab 1"><div class="py-3 text-surface-600">Content.</div></ui-tab>
-            <ui-tab label="Tab 2"><div class="py-3 text-surface-600">Content.</div></ui-tab>
-          </ui-tab-group>
+          <com-tab-group alignment="start">
+            <com-tab label="Tab 1"><div class="py-3 text-surface-600">Content.</div></com-tab>
+            <com-tab label="Tab 2"><div class="py-3 text-surface-600">Content.</div></com-tab>
+          </com-tab-group>
         </div>
         <div>
           <p class="mb-2 text-sm font-medium text-surface-500">Center</p>
-          <ui-tab-group alignment="center">
-            <ui-tab label="Tab 1"><div class="py-3 text-surface-600">Content.</div></ui-tab>
-            <ui-tab label="Tab 2"><div class="py-3 text-surface-600">Content.</div></ui-tab>
-          </ui-tab-group>
+          <com-tab-group alignment="center">
+            <com-tab label="Tab 1"><div class="py-3 text-surface-600">Content.</div></com-tab>
+            <com-tab label="Tab 2"><div class="py-3 text-surface-600">Content.</div></com-tab>
+          </com-tab-group>
         </div>
         <div>
           <p class="mb-2 text-sm font-medium text-surface-500">Stretch</p>
-          <ui-tab-group alignment="stretch">
-            <ui-tab label="Tab 1"><div class="py-3 text-surface-600">Content.</div></ui-tab>
-            <ui-tab label="Tab 2"><div class="py-3 text-surface-600">Content.</div></ui-tab>
-            <ui-tab label="Tab 3"><div class="py-3 text-surface-600">Content.</div></ui-tab>
-          </ui-tab-group>
+          <com-tab-group alignment="stretch">
+            <com-tab label="Tab 1"><div class="py-3 text-surface-600">Content.</div></com-tab>
+            <com-tab label="Tab 2"><div class="py-3 text-surface-600">Content.</div></com-tab>
+            <com-tab label="Tab 3"><div class="py-3 text-surface-600">Content.</div></com-tab>
+          </com-tab-group>
         </div>
       </div>
       <int-code-block class="mt-4" language="html" [code]="alignmentCode" />
@@ -144,17 +144,17 @@ import { CodeBlock } from '../../../shared/code-block';
         Individual tabs can be disabled.
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
-        <ui-tab-group>
-          <ui-tab label="Active">
+        <com-tab-group>
+          <com-tab label="Active">
             <div class="py-4 text-surface-600">This tab is selectable.</div>
-          </ui-tab>
-          <ui-tab label="Disabled" [disabled]="true">
+          </com-tab>
+          <com-tab label="Disabled" [disabled]="true">
             <div class="py-4 text-surface-600">You can't select this tab.</div>
-          </ui-tab>
-          <ui-tab label="Also Active">
+          </com-tab>
+          <com-tab label="Also Active">
             <div class="py-4 text-surface-600">This tab is selectable.</div>
-          </ui-tab>
-        </ui-tab-group>
+          </com-tab>
+        </com-tab-group>
       </div>
       <int-code-block class="mt-4" language="html" [code]="disabledCode" />
     </section>
@@ -174,16 +174,16 @@ import { CodeBlock } from '../../../shared/code-block';
             + Add Tab
           </button>
         </div>
-        <ui-tab-group>
-          <ui-tab label="Main">
+        <com-tab-group>
+          <com-tab label="Main">
             <div class="py-4 text-surface-600">This tab cannot be closed.</div>
-          </ui-tab>
+          </com-tab>
           @for (tab of dynamicTabs(); track tab.id) {
-            <ui-tab [label]="tab.name" [closable]="true" (closed)="removeTab(tab.id)">
+            <com-tab [label]="tab.name" [closable]="true" (closed)="removeTab(tab.id)">
               <div class="py-4 text-surface-600">{{ tab.content }}</div>
-            </ui-tab>
+            </com-tab>
           }
-        </ui-tab-group>
+        </com-tab-group>
       </div>
       <int-code-block class="mt-4" language="html" [code]="closableCode" />
     </section>
@@ -192,17 +192,17 @@ import { CodeBlock } from '../../../shared/code-block';
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Lazy Loading</h2>
       <p class="mb-4 text-surface-600">
-        Use [uiTabContent] to defer rendering until first activation.
+        Use [comTabContent] to defer rendering until first activation.
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
-        <ui-tab-group>
-          <ui-tab label="Eager Load">
+        <com-tab-group>
+          <com-tab label="Eager Load">
             <div class="py-4 text-surface-600">
               Rendered immediately. Timestamp: {{ eagerTimestamp }}
             </div>
-          </ui-tab>
-          <ui-tab label="Lazy Load">
-            <ng-template uiTabContent>
+          </com-tab>
+          <com-tab label="Lazy Load">
+            <ng-template comTabContent>
               <div class="py-4 text-surface-600">
                 <p class="mb-2">This was rendered on first activation.</p>
                 <div class="grid grid-cols-3 gap-4">
@@ -221,8 +221,8 @@ import { CodeBlock } from '../../../shared/code-block';
                 </div>
               </div>
             </ng-template>
-          </ui-tab>
-        </ui-tab-group>
+          </com-tab>
+        </com-tab-group>
       </div>
       <int-code-block class="mt-4" language="html" [code]="lazyCode" />
     </section>
@@ -234,8 +234,8 @@ import { CodeBlock } from '../../../shared/code-block';
         Keep tab content in DOM when switching tabs (useful for forms).
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
-        <ui-tab-group [preserveContent]="true">
-          <ui-tab label="Form A">
+        <com-tab-group [preserveContent]="true">
+          <com-tab label="Form A">
             <div class="space-y-3 py-4">
               <input
                 type="text"
@@ -246,8 +246,8 @@ import { CodeBlock } from '../../../shared/code-block';
                 Switch tabs and come back - your input will be preserved.
               </p>
             </div>
-          </ui-tab>
-          <ui-tab label="Form B">
+          </com-tab>
+          <com-tab label="Form B">
             <div class="space-y-3 py-4">
               <textarea
                 class="w-full rounded-md border border-input-border bg-input-background px-3 py-2 text-input-foreground placeholder:text-input-placeholder"
@@ -255,8 +255,8 @@ import { CodeBlock } from '../../../shared/code-block';
                 placeholder="Enter notes..."
               ></textarea>
             </div>
-          </ui-tab>
-        </ui-tab-group>
+          </com-tab>
+        </com-tab-group>
       </div>
       <int-code-block class="mt-4" language="html" [code]="preserveCode" />
     </section>
@@ -265,12 +265,12 @@ import { CodeBlock } from '../../../shared/code-block';
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Custom Labels</h2>
       <p class="mb-4 text-surface-600">
-        Use [uiTabLabel] for rich tab headers with icons and badges.
+        Use [comTabLabel] for rich tab headers with icons and badges.
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
-        <ui-tab-group>
-          <ui-tab>
-            <ng-template uiTabLabel>
+        <com-tab-group>
+          <com-tab>
+            <ng-template comTabLabel>
               <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
                 <line x1="16" y1="2" x2="16" y2="6" />
@@ -281,9 +281,9 @@ import { CodeBlock } from '../../../shared/code-block';
               <span class="rounded-pill bg-warn px-1.5 py-0.5 text-xs text-warn-foreground">3</span>
             </ng-template>
             <div class="py-4 text-surface-600">Upcoming events with notification badge.</div>
-          </ui-tab>
-          <ui-tab>
-            <ng-template uiTabLabel>
+          </com-tab>
+          <com-tab>
+            <ng-template comTabLabel>
               <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                 <circle cx="9" cy="7" r="4" />
@@ -293,9 +293,9 @@ import { CodeBlock } from '../../../shared/code-block';
               <span>Team</span>
             </ng-template>
             <div class="py-4 text-surface-600">Team members list.</div>
-          </ui-tab>
-          <ui-tab>
-            <ng-template uiTabLabel>
+          </com-tab>
+          <com-tab>
+            <ng-template comTabLabel>
               <span class="relative">
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
@@ -306,8 +306,8 @@ import { CodeBlock } from '../../../shared/code-block';
               <span>Notifications</span>
             </ng-template>
             <div class="py-4 text-surface-600">Recent notifications with status dot.</div>
-          </ui-tab>
-        </ui-tab-group>
+          </com-tab>
+        </com-tab-group>
       </div>
       <int-code-block class="mt-4" language="html" [code]="customLabelCode" />
     </section>
@@ -316,20 +316,20 @@ import { CodeBlock } from '../../../shared/code-block';
     <section>
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Nav Tabs (Route-Driven)</h2>
       <p class="mb-4 text-surface-600">
-        Use ui-tab-nav-bar with [uiTabLink] for router integration.
+        Use com-tab-nav-bar with [comTabLink] for router integration.
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
-        <nav ui-tab-nav-bar>
-          <a uiTabLink [active]="activeNavTab() === 'overview'" (click)="activeNavTab.set('overview')">
+        <nav com-tab-nav-bar>
+          <a comTabLink [active]="activeNavTab() === 'overview'" (click)="activeNavTab.set('overview')">
             Overview
           </a>
-          <a uiTabLink [active]="activeNavTab() === 'analytics'" (click)="activeNavTab.set('analytics')">
+          <a comTabLink [active]="activeNavTab() === 'analytics'" (click)="activeNavTab.set('analytics')">
             Analytics
           </a>
-          <a uiTabLink [active]="activeNavTab() === 'settings'" (click)="activeNavTab.set('settings')">
+          <a comTabLink [active]="activeNavTab() === 'settings'" (click)="activeNavTab.set('settings')">
             Settings
           </a>
-          <a uiTabLink [disabled]="true">
+          <a comTabLink [disabled]="true">
             Billing (soon)
           </a>
         </nav>
@@ -368,76 +368,76 @@ export class TabsExamples {
     this.dynamicTabs.update(tabs => tabs.filter(t => t.id !== id));
   }
 
-  protected readonly variantsCode = `<ui-tab-group variant="underline">...</ui-tab-group>
-<ui-tab-group variant="pill">...</ui-tab-group>
-<ui-tab-group variant="outline">...</ui-tab-group>
-<ui-tab-group variant="solid">...</ui-tab-group>`;
+  protected readonly variantsCode = `<com-tab-group variant="underline">...</com-tab-group>
+<com-tab-group variant="pill">...</com-tab-group>
+<com-tab-group variant="outline">...</com-tab-group>
+<com-tab-group variant="solid">...</com-tab-group>`;
 
-  protected readonly sizesCode = `<ui-tab-group size="sm">...</ui-tab-group>
-<ui-tab-group size="md">...</ui-tab-group>
-<ui-tab-group size="lg">...</ui-tab-group>`;
+  protected readonly sizesCode = `<com-tab-group size="sm">...</com-tab-group>
+<com-tab-group size="md">...</com-tab-group>
+<com-tab-group size="lg">...</com-tab-group>`;
 
-  protected readonly colorsCode = `<ui-tab-group color="primary">...</ui-tab-group>
-<ui-tab-group color="accent">...</ui-tab-group>
-<ui-tab-group color="muted">...</ui-tab-group>`;
+  protected readonly colorsCode = `<com-tab-group color="primary">...</com-tab-group>
+<com-tab-group color="accent">...</com-tab-group>
+<com-tab-group color="muted">...</com-tab-group>`;
 
-  protected readonly alignmentCode = `<ui-tab-group alignment="start">...</ui-tab-group>
-<ui-tab-group alignment="center">...</ui-tab-group>
-<ui-tab-group alignment="end">...</ui-tab-group>
-<ui-tab-group alignment="stretch">...</ui-tab-group>`;
+  protected readonly alignmentCode = `<com-tab-group alignment="start">...</com-tab-group>
+<com-tab-group alignment="center">...</com-tab-group>
+<com-tab-group alignment="end">...</com-tab-group>
+<com-tab-group alignment="stretch">...</com-tab-group>`;
 
-  protected readonly disabledCode = `<ui-tab-group>
-  <ui-tab label="Active">...</ui-tab>
-  <ui-tab label="Disabled" [disabled]="true">...</ui-tab>
-  <ui-tab label="Also Active">...</ui-tab>
-</ui-tab-group>`;
+  protected readonly disabledCode = `<com-tab-group>
+  <com-tab label="Active">...</com-tab>
+  <com-tab label="Disabled" [disabled]="true">...</com-tab>
+  <com-tab label="Also Active">...</com-tab>
+</com-tab-group>`;
 
-  protected readonly closableCode = `<ui-tab-group>
-  <ui-tab label="Main">...</ui-tab>
+  protected readonly closableCode = `<com-tab-group>
+  <com-tab label="Main">...</com-tab>
   @for (tab of tabs(); track tab.id) {
-    <ui-tab [label]="tab.name" [closable]="true" (closed)="removeTab(tab.id)">
+    <com-tab [label]="tab.name" [closable]="true" (closed)="removeTab(tab.id)">
       {{ tab.content }}
-    </ui-tab>
+    </com-tab>
   }
-</ui-tab-group>`;
+</com-tab-group>`;
 
-  protected readonly lazyCode = `<ui-tab-group>
-  <ui-tab label="Eager">
+  protected readonly lazyCode = `<com-tab-group>
+  <com-tab label="Eager">
     <p>Rendered immediately.</p>
-  </ui-tab>
-  <ui-tab label="Lazy">
-    <ng-template uiTabContent>
+  </com-tab>
+  <com-tab label="Lazy">
+    <ng-template comTabContent>
       <app-heavy-dashboard />
     </ng-template>
-  </ui-tab>
-</ui-tab-group>`;
+  </com-tab>
+</com-tab-group>`;
 
-  protected readonly preserveCode = `<ui-tab-group [preserveContent]="true">
-  <ui-tab label="Form A">
+  protected readonly preserveCode = `<com-tab-group [preserveContent]="true">
+  <com-tab label="Form A">
     <input type="text" />
-  </ui-tab>
-  <ui-tab label="Form B">
+  </com-tab>
+  <com-tab label="Form B">
     <textarea></textarea>
-  </ui-tab>
-</ui-tab-group>`;
+  </com-tab>
+</com-tab-group>`;
 
-  protected readonly customLabelCode = `<ui-tab>
-  <ng-template uiTabLabel>
+  protected readonly customLabelCode = `<com-tab>
+  <ng-template comTabLabel>
     <svg class="h-4 w-4">...</svg>
     <span>Events</span>
     <span class="badge">3</span>
   </ng-template>
   <p>Tab content</p>
-</ui-tab>`;
+</com-tab>`;
 
-  protected readonly navTabsCode = `<nav ui-tab-nav-bar>
-  <a uiTabLink routerLink="overview" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+  protected readonly navTabsCode = `<nav com-tab-nav-bar>
+  <a comTabLink routerLink="overview" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
     Overview
   </a>
-  <a uiTabLink routerLink="settings" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
+  <a comTabLink routerLink="settings" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
     Settings
   </a>
-  <a uiTabLink [disabled]="true">Coming Soon</a>
+  <a comTabLink [disabled]="true">Coming Soon</a>
 </nav>
 <router-outlet />`;
 }

@@ -15,7 +15,7 @@ import { mergeClasses } from './popover.utils';
  * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border`, `--shadow-lg`, `--radius-xl`, `--radius-lg`
  */
 @Component({
-  selector: 'ui-popover-content',
+  selector: 'com-popover-content',
   template: `
     <div
       class="relative"
@@ -23,7 +23,7 @@ import { mergeClasses } from './popover.utils';
       [attr.data-side]="activeSide()"
     >
       @if (showArrow()) {
-        <ui-popover-arrow [side]="activeSide()" [alignment]="activeAlignment()" />
+        <com-popover-arrow [side]="activeSide()" [alignment]="activeAlignment()" />
       }
       <div
         [class]="panelClasses()"

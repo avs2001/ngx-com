@@ -12,8 +12,8 @@ import { POPOVER_REF, type PopoverRef } from './popover-tokens';
  *   <div class="space-y-3">
  *     <p>Are you sure?</p>
  *     <div class="flex gap-2">
- *       <button uiButton variant="ghost" uiPopoverClose>Cancel</button>
- *       <button uiButton (click)="confirm()" uiPopoverClose>Confirm</button>
+ *       <button comButton variant="ghost" comPopoverClose>Cancel</button>
+ *       <button comButton (click)="confirm()" comPopoverClose>Confirm</button>
  *     </div>
  *   </div>
  * </ng-template>
@@ -21,13 +21,13 @@ import { POPOVER_REF, type PopoverRef } from './popover-tokens';
  *
  * @example With a result value
  * ```html
- * <button [uiPopoverClose]="'confirmed'" (click)="onConfirm()">Yes</button>
- * <button [uiPopoverClose]="'cancelled'">No</button>
+ * <button [comPopoverClose]="'confirmed'" (click)="onConfirm()">Yes</button>
+ * <button [comPopoverClose]="'cancelled'">No</button>
  * ```
  */
 @Directive({
-  selector: '[uiPopoverClose]',
-  exportAs: 'uiPopoverClose',
+  selector: '[comPopoverClose]',
+  exportAs: 'comPopoverClose',
   host: {
     '(click)': 'closePopover()',
     '[attr.type]': '"button"',
@@ -40,7 +40,7 @@ export class PopoverCloseDirective {
    * Optional result value to pass when closing.
    * This value is emitted via the trigger's close event.
    */
-  readonly uiPopoverClose: InputSignal<unknown> = input<unknown>(undefined);
+  readonly comPopoverClose: InputSignal<unknown> = input<unknown>(undefined);
 
   protected closePopover(): void {
     this.popoverRef?.close();

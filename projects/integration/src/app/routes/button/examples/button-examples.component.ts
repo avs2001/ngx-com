@@ -15,10 +15,10 @@ import { CodeBlock } from '../../../shared/code-block';
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <button uiButton>Solid</button>
-          <button uiButton variant="outline">Outline</button>
-          <button uiButton variant="ghost">Ghost</button>
-          <a uiButton variant="link" href="#">Link</a>
+          <button comButton>Solid</button>
+          <button comButton variant="outline">Outline</button>
+          <button comButton variant="ghost">Ghost</button>
+          <a comButton variant="link" href="#">Link</a>
         </div>
       </div>
       <int-code-block class="mt-4" language="html" [code]="variantsCode" />
@@ -34,17 +34,17 @@ import { CodeBlock } from '../../../shared/code-block';
         <div class="space-y-4">
           <!-- Solid row -->
           <div class="flex flex-wrap items-center justify-center gap-4">
-            <button uiButton color="primary">Primary</button>
-            <button uiButton color="accent">Accent</button>
-            <button uiButton color="warn">Warn</button>
-            <button uiButton color="muted">Muted</button>
+            <button comButton color="primary">Primary</button>
+            <button comButton color="accent">Accent</button>
+            <button comButton color="warn">Warn</button>
+            <button comButton color="muted">Muted</button>
           </div>
           <!-- Outline row -->
           <div class="flex flex-wrap items-center justify-center gap-4">
-            <button uiButton variant="outline" color="primary">Primary</button>
-            <button uiButton variant="outline" color="accent">Accent</button>
-            <button uiButton variant="outline" color="warn">Warn</button>
-            <button uiButton variant="outline" color="muted">Muted</button>
+            <button comButton variant="outline" color="primary">Primary</button>
+            <button comButton variant="outline" color="accent">Accent</button>
+            <button comButton variant="outline" color="warn">Warn</button>
+            <button comButton variant="outline" color="muted">Muted</button>
           </div>
         </div>
       </div>
@@ -59,10 +59,10 @@ import { CodeBlock } from '../../../shared/code-block';
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <button uiButton size="sm">Small</button>
-          <button uiButton size="md">Medium</button>
-          <button uiButton size="lg">Large</button>
-          <button uiButton size="icon" aria-label="Settings">
+          <button comButton size="sm">Small</button>
+          <button comButton size="md">Medium</button>
+          <button comButton size="lg">Large</button>
+          <button comButton size="icon" aria-label="Settings">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="3"/>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
@@ -81,26 +81,26 @@ import { CodeBlock } from '../../../shared/code-block';
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <button uiButton size="icon" aria-label="Edit">
+          <button comButton size="icon" aria-label="Edit">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
             </svg>
           </button>
-          <button uiButton variant="outline" size="icon" aria-label="Copy">
+          <button comButton variant="outline" size="icon" aria-label="Copy">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
               <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
             </svg>
           </button>
-          <button uiButton variant="ghost" size="icon" aria-label="More options">
+          <button comButton variant="ghost" size="icon" aria-label="More options">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="1"/>
               <circle cx="19" cy="12" r="1"/>
               <circle cx="5" cy="12" r="1"/>
             </svg>
           </button>
-          <button uiButton variant="ghost" color="warn" size="icon" aria-label="Delete">
+          <button comButton variant="ghost" color="warn" size="icon" aria-label="Delete">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 6 5 6 21 6"/>
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
@@ -119,7 +119,7 @@ import { CodeBlock } from '../../../shared/code-block';
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <button uiButton>
+          <button comButton>
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
               <polyline points="17 21 17 13 7 13 7 21"/>
@@ -127,7 +127,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </svg>
             Save
           </button>
-          <button uiButton variant="outline">
+          <button comButton variant="outline">
             Download
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -135,7 +135,7 @@ import { CodeBlock } from '../../../shared/code-block';
               <line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
           </button>
-          <button uiButton variant="ghost" color="accent">
+          <button comButton variant="ghost" color="accent">
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
             </svg>
@@ -157,10 +157,10 @@ import { CodeBlock } from '../../../shared/code-block';
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <a uiButton href="#">Button Link</a>
-          <a uiButton variant="outline" href="#">Outline Link</a>
-          <a uiButton variant="ghost" href="#">Ghost Link</a>
-          <a uiButton variant="link" href="#">Text Link</a>
+          <a comButton href="#">Button Link</a>
+          <a comButton variant="outline" href="#">Outline Link</a>
+          <a comButton variant="ghost" href="#">Ghost Link</a>
+          <a comButton variant="link" href="#">Text Link</a>
         </div>
       </div>
       <int-code-block class="mt-4" language="html" [code]="asLinksCode" />
@@ -174,8 +174,8 @@ import { CodeBlock } from '../../../shared/code-block';
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <div class="flex max-w-sm flex-col gap-4">
-          <button uiButton fullWidth>Submit Application</button>
-          <button uiButton variant="outline" fullWidth>Cancel</button>
+          <button comButton fullWidth>Submit Application</button>
+          <button comButton variant="outline" fullWidth>Cancel</button>
         </div>
       </div>
       <int-code-block class="mt-4" language="html" [code]="fullWidthCode" />
@@ -190,9 +190,9 @@ import { CodeBlock } from '../../../shared/code-block';
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <button uiButton disabled>Disabled Button</button>
-          <button uiButton variant="outline" disabled>Disabled Outline</button>
-          <a uiButton [disabled]="true" href="#">Disabled Link</a>
+          <button comButton disabled>Disabled Button</button>
+          <button comButton variant="outline" disabled>Disabled Outline</button>
+          <a comButton [disabled]="true" href="#">Disabled Link</a>
         </div>
       </div>
       <int-code-block class="mt-4" language="html" [code]="disabledCode" />
@@ -206,13 +206,13 @@ import { CodeBlock } from '../../../shared/code-block';
       </p>
       <div class="rounded-xl border border-surface-200 bg-white p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <button uiButton disabled>
+          <button comButton disabled>
             <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
             </svg>
             Processing...
           </button>
-          <button uiButton variant="outline" [disabled]="isLoading()" (click)="simulateLoading()">
+          <button comButton variant="outline" [disabled]="isLoading()" (click)="simulateLoading()">
             @if (isLoading()) {
               <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
@@ -236,8 +236,8 @@ import { CodeBlock } from '../../../shared/code-block';
           <div class="border-b border-surface-100 pb-6">
             <h3 class="mb-4 font-medium text-surface-900">Form Actions</h3>
             <div class="flex gap-3">
-              <button uiButton>Submit</button>
-              <button uiButton variant="outline" color="muted">Cancel</button>
+              <button comButton>Submit</button>
+              <button comButton variant="outline" color="muted">Cancel</button>
             </div>
           </div>
 
@@ -245,8 +245,8 @@ import { CodeBlock } from '../../../shared/code-block';
           <div class="border-b border-surface-100 pb-6">
             <h3 class="mb-4 font-medium text-surface-900">Destructive Action</h3>
             <div class="flex gap-3">
-              <button uiButton color="warn">Delete Account</button>
-              <button uiButton variant="ghost" color="muted">Cancel</button>
+              <button comButton color="warn">Delete Account</button>
+              <button comButton variant="ghost" color="muted">Cancel</button>
             </div>
           </div>
 
@@ -254,8 +254,8 @@ import { CodeBlock } from '../../../shared/code-block';
           <div class="border-b border-surface-100 pb-6">
             <h3 class="mb-4 font-medium text-surface-900">Card Footer</h3>
             <div class="flex justify-end gap-3">
-              <button uiButton variant="ghost" color="muted">Learn More</button>
-              <button uiButton>Get Started</button>
+              <button comButton variant="ghost" color="muted">Learn More</button>
+              <button comButton>Get Started</button>
             </div>
           </div>
 
@@ -263,20 +263,20 @@ import { CodeBlock } from '../../../shared/code-block';
           <div>
             <h3 class="mb-4 font-medium text-surface-900">Toolbar</h3>
             <div class="flex gap-1">
-              <button uiButton variant="ghost" size="icon" aria-label="Bold">
+              <button comButton variant="ghost" size="icon" aria-label="Bold">
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/>
                   <path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/>
                 </svg>
               </button>
-              <button uiButton variant="ghost" size="icon" aria-label="Italic">
+              <button comButton variant="ghost" size="icon" aria-label="Italic">
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="19" y1="4" x2="10" y2="4"/>
                   <line x1="14" y1="20" x2="5" y2="20"/>
                   <line x1="15" y1="4" x2="9" y2="20"/>
                 </svg>
               </button>
-              <button uiButton variant="ghost" size="icon" aria-label="Underline">
+              <button comButton variant="ghost" size="icon" aria-label="Underline">
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/>
                   <line x1="4" y1="21" x2="20" y2="21"/>
@@ -297,63 +297,63 @@ export class ButtonExamples {
     setTimeout(() => this.isLoading.set(false), 2000);
   }
 
-  protected readonly variantsCode = `<button uiButton>Solid</button>
-<button uiButton variant="outline">Outline</button>
-<button uiButton variant="ghost">Ghost</button>
-<a uiButton variant="link" href="#">Link</a>`;
+  protected readonly variantsCode = `<button comButton>Solid</button>
+<button comButton variant="outline">Outline</button>
+<button comButton variant="ghost">Ghost</button>
+<a comButton variant="link" href="#">Link</a>`;
 
   protected readonly colorsCode = `<!-- Solid -->
-<button uiButton color="primary">Primary</button>
-<button uiButton color="accent">Accent</button>
-<button uiButton color="warn">Warn</button>
-<button uiButton color="muted">Muted</button>
+<button comButton color="primary">Primary</button>
+<button comButton color="accent">Accent</button>
+<button comButton color="warn">Warn</button>
+<button comButton color="muted">Muted</button>
 
 <!-- Outline -->
-<button uiButton variant="outline" color="primary">Primary</button>
-<button uiButton variant="outline" color="accent">Accent</button>`;
+<button comButton variant="outline" color="primary">Primary</button>
+<button comButton variant="outline" color="accent">Accent</button>`;
 
-  protected readonly sizesCode = `<button uiButton size="sm">Small</button>
-<button uiButton size="md">Medium</button>
-<button uiButton size="lg">Large</button>
-<button uiButton size="icon" aria-label="Settings">
+  protected readonly sizesCode = `<button comButton size="sm">Small</button>
+<button comButton size="md">Medium</button>
+<button comButton size="lg">Large</button>
+<button comButton size="icon" aria-label="Settings">
   <svg>...</svg>
 </button>`;
 
-  protected readonly iconButtonsCode = `<button uiButton size="icon" aria-label="Edit">
+  protected readonly iconButtonsCode = `<button comButton size="icon" aria-label="Edit">
   <svg class="h-5 w-5">...</svg>
 </button>
-<button uiButton variant="outline" size="icon" aria-label="Copy">
+<button comButton variant="outline" size="icon" aria-label="Copy">
   <svg class="h-5 w-5">...</svg>
 </button>
-<button uiButton variant="ghost" size="icon" aria-label="More">
+<button comButton variant="ghost" size="icon" aria-label="More">
   <svg class="h-5 w-5">...</svg>
 </button>`;
 
-  protected readonly withIconsCode = `<button uiButton>
+  protected readonly withIconsCode = `<button comButton>
   <svg class="h-4 w-4">...</svg>
   Save
 </button>
-<button uiButton variant="outline">
+<button comButton variant="outline">
   Download
   <svg class="h-4 w-4">...</svg>
 </button>`;
 
-  protected readonly asLinksCode = `<a uiButton href="/dashboard">Dashboard</a>
-<a uiButton variant="outline" routerLink="/settings">Settings</a>
-<a uiButton variant="link" href="/docs" target="_blank">Docs</a>`;
+  protected readonly asLinksCode = `<a comButton href="/dashboard">Dashboard</a>
+<a comButton variant="outline" routerLink="/settings">Settings</a>
+<a comButton variant="link" href="/docs" target="_blank">Docs</a>`;
 
-  protected readonly fullWidthCode = `<button uiButton fullWidth>Submit Application</button>
-<button uiButton variant="outline" fullWidth>Cancel</button>`;
+  protected readonly fullWidthCode = `<button comButton fullWidth>Submit Application</button>
+<button comButton variant="outline" fullWidth>Cancel</button>`;
 
   protected readonly disabledCode = `<!-- Native disabled for buttons -->
-<button uiButton disabled>Disabled</button>
+<button comButton disabled>Disabled</button>
 
 <!-- Input binding for anchors -->
-<a uiButton [disabled]="true" href="#">Disabled Link</a>`;
+<a comButton [disabled]="true" href="#">Disabled Link</a>`;
 
   protected readonly loadingCode = `@Component({
   template: \`
-    <button uiButton [disabled]="isLoading()" (click)="save()">
+    <button comButton [disabled]="isLoading()" (click)="save()">
       @if (isLoading()) {
         <svg class="h-4 w-4 animate-spin">...</svg>
         Saving...

@@ -20,11 +20,11 @@ import { mergeClasses } from './tabs.utils';
  *
  * @example Basic usage with router
  * ```html
- * <nav ui-tab-nav-bar>
- *   <a uiTabLink routerLink="overview" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+ * <nav com-tab-nav-bar>
+ *   <a comTabLink routerLink="overview" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
  *     Overview
  *   </a>
- *   <a uiTabLink routerLink="settings" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
+ *   <a comTabLink routerLink="settings" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
  *     Settings
  *   </a>
  * </nav>
@@ -32,11 +32,11 @@ import { mergeClasses } from './tabs.utils';
  *
  * @example Disabled link
  * ```html
- * <a uiTabLink [disabled]="true">Coming Soon</a>
+ * <a comTabLink [disabled]="true">Coming Soon</a>
  * ```
  */
 @Directive({
-  selector: 'a[uiTabLink], button[uiTabLink]',
+  selector: 'a[comTabLink], button[comTabLink]',
   host: {
     role: 'tab',
     '[class]': 'computedClass()',

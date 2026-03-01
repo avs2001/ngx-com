@@ -20,31 +20,31 @@ import { buttonVariants, type ButtonVariant, type ButtonColor, type ButtonSize }
  *
  * @example Basic usage
  * ```html
- * <button uiButton>Save</button>
- * <button uiButton variant="outline" color="accent">Cancel</button>
+ * <button comButton>Save</button>
+ * <button comButton variant="outline" color="accent">Cancel</button>
  * ```
  *
  * @example Link button
  * ```html
- * <a uiButton variant="link" href="/docs">Documentation</a>
- * <a uiButton variant="outline" routerLink="/dashboard">Dashboard</a>
+ * <a comButton variant="link" href="/docs">Documentation</a>
+ * <a comButton variant="outline" routerLink="/dashboard">Dashboard</a>
  * ```
  *
  * @example Icon button
  * ```html
- * <button uiButton variant="ghost" size="icon" aria-label="Settings">
+ * <button comButton variant="ghost" size="icon" aria-label="Settings">
  *   <svg>...</svg>
  * </button>
  * ```
  *
  * @example Full width
  * ```html
- * <button uiButton fullWidth>Submit Application</button>
+ * <button comButton fullWidth>Submit Application</button>
  * ```
  */
 @Directive({
-  selector: 'button[uiButton], a[uiButton]',
-  exportAs: 'uiButton',
+  selector: 'button[comButton], a[comButton]',
+  exportAs: 'comButton',
   host: {
     '[class]': 'computedClass()',
     '[attr.aria-disabled]': 'ariaDisabled()',

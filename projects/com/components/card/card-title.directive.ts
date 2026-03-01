@@ -7,12 +7,12 @@ import { Directive } from '@angular/core';
  *
  * @example
  * ```html
- * <h3 uiCardTitle>Project Alpha</h3>
+ * <h3 comCardTitle>Project Alpha</h3>
  * ```
  */
 @Directive({
-  selector: '[uiCardTitle]',
-  exportAs: 'uiCardTitle',
+  selector: '[comCardTitle]',
+  exportAs: 'comCardTitle',
   host: {
     class: 'font-heading text-lg font-semibold tracking-tight text-foreground',
   },

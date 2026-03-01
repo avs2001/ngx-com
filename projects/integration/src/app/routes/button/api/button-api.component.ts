@@ -16,7 +16,7 @@ import { CodeBlock } from '../../../shared/code-block';
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Selector</h2>
       <div class="rounded-lg border border-surface-200 bg-white p-6">
-        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">button[uiButton], a[uiButton]</code>
+        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">button[comButton], a[comButton]</code>
         <p class="mt-3 text-surface-600">
           Attribute selector that applies to native button and anchor elements.
         </p>
@@ -27,7 +27,7 @@ import { CodeBlock } from '../../../shared/code-block';
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Export As</h2>
       <div class="rounded-lg border border-surface-200 bg-white p-6">
-        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">uiButton</code>
+        <code class="rounded bg-surface-100 px-2 py-1 font-mono text-sm">comButton</code>
         <p class="mt-3 text-surface-600">
           Template reference name for accessing the directive instance.
         </p>
@@ -196,7 +196,7 @@ export class ButtonApi {
 // Optional: Import types for TypeScript
 import type { ButtonVariant, ButtonColor, ButtonSize, ButtonVariants } from 'ngx-com/components/button';`;
 
-  protected readonly exportAsCode = `<button uiButton #myBtn="uiButton">
+  protected readonly exportAsCode = `<button comButton #myBtn="comButton">
   Variant: {{ myBtn.variant() }}
 </button>`;
 

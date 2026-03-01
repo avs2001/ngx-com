@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       </p>
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-800">Selector</h3>
-      <code class="rounded bg-muted px-2 py-1 text-sm">[uiPopoverTrigger]</code>
+      <code class="rounded bg-muted px-2 py-1 text-sm">[comPopoverTrigger]</code>
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-800">Inputs</h3>
       <div class="overflow-x-auto">
@@ -26,7 +26,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
           </thead>
           <tbody class="divide-y divide-surface-200">
             <tr>
-              <td class="px-4 py-3 font-mono text-xs">uiPopoverTrigger</td>
+              <td class="px-4 py-3 font-mono text-xs">comPopoverTrigger</td>
               <td class="px-4 py-3 text-surface-600">TemplateRef | Type</td>
               <td class="px-4 py-3 text-surface-500">required</td>
               <td class="px-4 py-3">Content to render — template or component class</td>
@@ -204,7 +204,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       </p>
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-800">Selector</h3>
-      <code class="rounded bg-muted px-2 py-1 text-sm">[uiPopoverClose]</code>
+      <code class="rounded bg-muted px-2 py-1 text-sm">[comPopoverClose]</code>
 
       <h3 class="mb-3 mt-6 text-lg font-semibold text-surface-800">Inputs</h3>
       <div class="overflow-x-auto">
@@ -218,7 +218,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
           </thead>
           <tbody>
             <tr>
-              <td class="px-4 py-3 font-mono text-xs">uiPopoverClose</td>
+              <td class="px-4 py-3 font-mono text-xs">comPopoverClose</td>
               <td class="px-4 py-3 text-surface-600">any</td>
               <td class="px-4 py-3">Optional result value (not currently emitted)</td>
             </tr>

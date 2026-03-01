@@ -38,65 +38,65 @@ import { CodeBlock } from '../../../shared/code-block';
       <div class="rounded-xl border border-surface-200 bg-surface-100 p-8">
         <div class="grid gap-6 md:grid-cols-2">
           <!-- Basic Card -->
-          <ui-card>
-            <div uiCardHeader>
+          <com-card>
+            <div comCardHeader>
               <div>
-                <h3 uiCardTitle>Project Alpha</h3>
-                <p uiCardSubtitle>Last updated 2 hours ago</p>
+                <h3 comCardTitle>Project Alpha</h3>
+                <p comCardSubtitle>Last updated 2 hours ago</p>
               </div>
             </div>
-            <div uiCardContent>
+            <div comCardContent>
               <p>A next-generation platform for building scalable applications with modern tooling.</p>
             </div>
-            <div uiCardActions>
-              <button uiButton variant="ghost" size="sm">Cancel</button>
-              <button uiButton size="sm">Save</button>
+            <div comCardActions>
+              <button comButton variant="ghost" size="sm">Cancel</button>
+              <button comButton size="sm">Save</button>
             </div>
-          </ui-card>
+          </com-card>
 
           <!-- Card with Badge -->
-          <ui-card>
-            <span uiCardBadge color="accent">NEW</span>
+          <com-card>
+            <span comCardBadge color="accent">NEW</span>
             <img
-              uiCardMedia
+              comCardMedia
               src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=200&fit=crop"
               alt="Code on screen"
             />
-            <div uiCardHeader>
+            <div comCardHeader>
               <div>
-                <h3 uiCardTitle>Featured Article</h3>
+                <h3 comCardTitle>Featured Article</h3>
               </div>
             </div>
-            <div uiCardContent>
+            <div comCardContent>
               <p>Learn how to build modern Angular applications with signals and standalone components.</p>
             </div>
-          </ui-card>
+          </com-card>
 
           <!-- Outlined Card with Accent -->
-          <ui-card variant="outlined">
-            <div uiCardAccent color="warn"></div>
-            <div uiCardHeader>
+          <com-card variant="outlined">
+            <div comCardAccent color="warn"></div>
+            <div comCardHeader>
               <div>
-                <h3 uiCardTitle>Server Health</h3>
-                <p uiCardSubtitle>Warning: High CPU usage</p>
+                <h3 comCardTitle>Server Health</h3>
+                <p comCardSubtitle>Warning: High CPU usage</p>
               </div>
             </div>
-            <div uiCardContent>
+            <div comCardContent>
               <p>CPU at 92% for the last 15 minutes. Consider scaling up resources.</p>
             </div>
-            <div uiCardFooter align="between">
+            <div comCardFooter align="between">
               <span class="text-sm text-muted-foreground">Updated 3m ago</span>
-              <button uiButton variant="link" size="sm">View Details</button>
+              <button comButton variant="link" size="sm">View Details</button>
             </div>
-          </ui-card>
+          </com-card>
 
           <!-- Interactive Card -->
-          <ui-card variant="filled" [interactive]="true">
-            <div uiCardContent>
-              <h3 uiCardTitle>Clickable Card</h3>
+          <com-card variant="filled" [interactive]="true">
+            <div comCardContent>
+              <h3 comCardTitle>Clickable Card</h3>
               <p class="mt-2">This entire card is interactive with hover and focus states.</p>
             </div>
-          </ui-card>
+          </com-card>
         </div>
       </div>
     </section>
@@ -163,23 +163,23 @@ import { CodeBlock } from '../../../shared/code-block';
         </p>
         <ul class="list-inside list-disc space-y-2 text-surface-600">
           <li>
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">ui-card</code> —
+            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">com-card</code> —
             Container with surface, border, shadow, shape
           </li>
           <li>
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[uiCardHeader]</code> —
+            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardHeader]</code> —
             Top section for title + actions row
           </li>
           <li>
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[uiCardContent]</code> —
+            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardContent]</code> —
             Main body with consistent padding
           </li>
           <li>
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[uiCardActions]</code> —
+            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardActions]</code> —
             Button row with alignment options
           </li>
           <li>
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[uiCardMedia]</code> —
+            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardMedia]</code> —
             Image/video slot with positioning
           </li>
         </ul>
@@ -215,21 +215,21 @@ import { UiButton } from 'ngx-com/components/button';
     UiButton,
   ],
   template: \`
-    <ui-card>
-      <div uiCardHeader>
+    <com-card>
+      <div comCardHeader>
         <div>
-          <h3 uiCardTitle>Card Title</h3>
-          <p uiCardSubtitle>Supporting text</p>
+          <h3 comCardTitle>Card Title</h3>
+          <p comCardSubtitle>Supporting text</p>
         </div>
       </div>
-      <div uiCardContent>
+      <div comCardContent>
         <p>Card body content goes here.</p>
       </div>
-      <div uiCardActions>
-        <button uiButton variant="ghost" size="sm">Cancel</button>
-        <button uiButton size="sm">Confirm</button>
+      <div comCardActions>
+        <button comButton variant="ghost" size="sm">Cancel</button>
+        <button comButton size="sm">Confirm</button>
       </div>
-    </ui-card>
+    </com-card>
   \`,
 })
 export class Example {}`;

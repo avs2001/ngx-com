@@ -8,15 +8,15 @@ import type { CardAlign } from './card.variants';
  *
  * @example Footer with alignment
  * ```html
- * <div uiCardFooter align="between">
+ * <div comCardFooter align="between">
  *   <span class="text-sm text-muted-foreground">Updated 3m ago</span>
- *   <a uiButton variant="link" size="sm">View details</a>
+ *   <a comButton variant="link" size="sm">View details</a>
  * </div>
  * ```
  */
 @Directive({
-  selector: '[uiCardFooter]',
-  exportAs: 'uiCardFooter',
+  selector: '[comCardFooter]',
+  exportAs: 'comCardFooter',
   host: {
     '[class]': 'computedClass()',
   },

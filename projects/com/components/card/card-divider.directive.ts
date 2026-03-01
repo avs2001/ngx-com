@@ -7,17 +7,17 @@ import { mergeClasses } from './card.utils';
  *
  * @example Standard divider (with side margins)
  * ```html
- * <hr uiCardDivider />
+ * <hr comCardDivider />
  * ```
  *
  * @example Full-width divider (edge to edge)
  * ```html
- * <hr uiCardDivider [inset]="true" />
+ * <hr comCardDivider [inset]="true" />
  * ```
  */
 @Directive({
-  selector: '[uiCardDivider]',
-  exportAs: 'uiCardDivider',
+  selector: '[comCardDivider]',
+  exportAs: 'comCardDivider',
   host: {
     '[class]': 'computedClass()',
   },

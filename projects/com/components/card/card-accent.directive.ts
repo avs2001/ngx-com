@@ -13,23 +13,23 @@ import type { CardAccentColor, CardAccentPosition } from './card.variants';
  *
  * @example Top accent strip
  * ```html
- * <ui-card>
- *   <div uiCardAccent color="warn"></div>
- *   <div uiCardContent>Warning content</div>
- * </ui-card>
+ * <com-card>
+ *   <div comCardAccent color="warn"></div>
+ *   <div comCardContent>Warning content</div>
+ * </com-card>
  * ```
  *
  * @example Left accent strip
  * ```html
- * <ui-card>
- *   <div uiCardAccent color="success" position="left"></div>
- *   <div uiCardContent class="pl-5">Content with left padding</div>
- * </ui-card>
+ * <com-card>
+ *   <div comCardAccent color="success" position="left"></div>
+ *   <div comCardContent class="pl-5">Content with left padding</div>
+ * </com-card>
  * ```
  */
 @Directive({
-  selector: '[uiCardAccent]',
-  exportAs: 'uiCardAccent',
+  selector: '[comCardAccent]',
+  exportAs: 'comCardAccent',
   host: {
     '[class]': 'computedClass()',
   },

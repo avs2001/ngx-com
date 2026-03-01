@@ -14,23 +14,23 @@ import type { CardBadgeColor, CardBadgePosition } from './card.variants';
  *
  * @example Badge in top-right corner
  * ```html
- * <ui-card>
- *   <span uiCardBadge>NEW</span>
- *   <img uiCardMedia src="/product.jpg" alt="Product" />
- * </ui-card>
+ * <com-card>
+ *   <span comCardBadge>NEW</span>
+ *   <img comCardMedia src="/product.jpg" alt="Product" />
+ * </com-card>
  * ```
  *
  * @example Badge with custom position and color
  * ```html
- * <ui-card>
- *   <span uiCardBadge position="top-left" color="warn">SALE</span>
- *   <div uiCardContent>Product details</div>
- * </ui-card>
+ * <com-card>
+ *   <span comCardBadge position="top-left" color="warn">SALE</span>
+ *   <div comCardContent>Product details</div>
+ * </com-card>
  * ```
  */
 @Directive({
-  selector: '[uiCardBadge]',
-  exportAs: 'uiCardBadge',
+  selector: '[comCardBadge]',
+  exportAs: 'comCardBadge',
   host: {
     '[class]': 'computedClass()',
   },
