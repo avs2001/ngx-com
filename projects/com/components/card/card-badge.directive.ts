@@ -35,7 +35,7 @@ import type { CardBadgeColor, CardBadgePosition } from './card.variants';
     '[class]': 'computedClass()',
   },
 })
-export class UiCardBadge {
+export class ComCardBadge {
   /** Badge position within the card. */
   readonly position: InputSignal<CardBadgePosition> = input<CardBadgePosition>('top-right');
 

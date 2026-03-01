@@ -51,7 +51,7 @@ import type { CardVariant, CardPadding, CardRadius } from './card.variants';
     '[class]': 'computedClass()',
   },
 })
-export class UiCard {
+export class ComCard {
   /** Visual treatment of the card surface. */
   readonly variant: InputSignal<CardVariant> = input<CardVariant>('elevated');
 

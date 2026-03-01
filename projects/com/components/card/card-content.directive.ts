@@ -17,4 +17,4 @@ import { Directive } from '@angular/core';
     class: 'flex-1 px-5 py-4 text-sm',
   },
 })
-export class UiCardContent {}
+export class ComCardContent {}

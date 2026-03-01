@@ -31,7 +31,7 @@ import type { CardAlign, CardActionsDirection } from './card.variants';
     '[class]': 'computedClass()',
   },
 })
-export class UiCardActions {
+export class ComCardActions {
   /** Horizontal alignment of actions. */
   readonly align: InputSignal<CardAlign> = input<CardAlign>('end');
 

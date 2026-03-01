@@ -1,19 +1,19 @@
 // Public API for the card component system
 
 // Main component
-export { UiCard } from './card.component';
+export { ComCard } from './card.component';
 
 // Directives
-export { UiCardHeader } from './card-header.directive';
-export { UiCardTitle } from './card-title.directive';
-export { UiCardSubtitle } from './card-subtitle.directive';
-export { UiCardContent } from './card-content.directive';
-export { UiCardFooter } from './card-footer.directive';
-export { UiCardActions } from './card-actions.directive';
-export { UiCardMedia } from './card-media.directive';
-export { UiCardDivider } from './card-divider.directive';
-export { UiCardAccent } from './card-accent.directive';
-export { UiCardBadge } from './card-badge.directive';
+export { ComCardHeader } from './card-header.directive';
+export { ComCardTitle } from './card-title.directive';
+export { ComCardSubtitle } from './card-subtitle.directive';
+export { ComCardContent } from './card-content.directive';
+export { ComCardFooter } from './card-footer.directive';
+export { ComCardActions } from './card-actions.directive';
+export { ComCardMedia } from './card-media.directive';
+export { ComCardDivider } from './card-divider.directive';
+export { ComCardAccent } from './card-accent.directive';
+export { ComCardBadge } from './card-badge.directive';
 
 // Variants (for advanced customization)
 export {

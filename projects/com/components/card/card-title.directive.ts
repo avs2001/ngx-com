@@ -17,4 +17,4 @@ import { Directive } from '@angular/core';
     class: 'font-heading text-lg font-semibold tracking-tight text-foreground',
   },
 })
-export class UiCardTitle {}
+export class ComCardTitle {}

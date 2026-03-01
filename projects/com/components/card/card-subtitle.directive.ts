@@ -15,4 +15,4 @@ import { Directive } from '@angular/core';
     class: 'text-sm text-muted-foreground',
   },
 })
-export class UiCardSubtitle {}
+export class ComCardSubtitle {}

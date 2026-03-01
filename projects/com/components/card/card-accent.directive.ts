@@ -34,7 +34,7 @@ import type { CardAccentColor, CardAccentPosition } from './card.variants';
     '[class]': 'computedClass()',
   },
 })
-export class UiCardAccent {
+export class ComCardAccent {
   /** Accent color. */
   readonly color: InputSignal<CardAccentColor> = input<CardAccentColor>('primary');
 

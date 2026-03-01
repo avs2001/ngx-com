@@ -31,4 +31,4 @@ import { Directive } from '@angular/core';
     class: 'flex items-start justify-between gap-3 px-5 pt-5 pb-0',
   },
 })
-export class UiCardHeader {}
+export class ComCardHeader {}

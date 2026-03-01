@@ -25,7 +25,7 @@ import type { CardMediaPosition } from './card.variants';
     '[class]': 'computedClass()',
   },
 })
-export class UiCardMedia {
+export class ComCardMedia {
   /** Media positioning within the card. */
   readonly position: InputSignal<CardMediaPosition> = input<CardMediaPosition>('top');
 

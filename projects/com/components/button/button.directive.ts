@@ -50,7 +50,7 @@ import { buttonVariants, type ButtonVariant, type ButtonColor, type ButtonSize }
     '[attr.aria-disabled]': 'ariaDisabled()',
   },
 })
-export class UiButton {
+export class ComButton {
   readonly variant: InputSignal<ButtonVariant> = input<ButtonVariant>('solid');
   readonly color: InputSignal<ButtonColor> = input<ButtonColor>('primary');
   readonly size: InputSignal<ButtonSize> = input<ButtonSize>('md');

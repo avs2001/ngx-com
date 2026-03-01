@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
-import { UiButton } from 'ngx-com/components/button';
+import { ComButton } from 'ngx-com/components/button';
 import {
   PopoverTriggerDirective,
   PopoverCloseDirective,
@@ -67,7 +67,7 @@ export class UserCardComponent {
   selector: 'int-popover-examples',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    UiButton,
+    ComButton,
     PopoverTriggerDirective,
     PopoverCloseDirective,
     CodeBlock,

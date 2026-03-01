@@ -1,34 +1,34 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
-  UiCard,
-  UiCardHeader,
-  UiCardTitle,
-  UiCardSubtitle,
-  UiCardContent,
-  UiCardFooter,
-  UiCardActions,
-  UiCardMedia,
-  UiCardAccent,
-  UiCardBadge,
+  ComCard,
+  ComCardHeader,
+  ComCardTitle,
+  ComCardSubtitle,
+  ComCardContent,
+  ComCardFooter,
+  ComCardActions,
+  ComCardMedia,
+  ComCardAccent,
+  ComCardBadge,
 } from 'ngx-com/components/card';
-import { UiButton } from 'ngx-com/components/button';
+import { ComButton } from 'ngx-com/components/button';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-card-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    UiCard,
-    UiCardHeader,
-    UiCardTitle,
-    UiCardSubtitle,
-    UiCardContent,
-    UiCardFooter,
-    UiCardActions,
-    UiCardMedia,
-    UiCardAccent,
-    UiCardBadge,
-    UiButton,
+    ComCard,
+    ComCardHeader,
+    ComCardTitle,
+    ComCardSubtitle,
+    ComCardContent,
+    ComCardFooter,
+    ComCardActions,
+    ComCardMedia,
+    ComCardAccent,
+    ComCardBadge,
+    ComButton,
     CodeBlock,
   ],
   template: `
@@ -194,25 +194,25 @@ import { CodeBlock } from '../../../shared/code-block';
 export class CardOverview {
   protected readonly basicUsageCode = `import { Component } from '@angular/core';
 import {
-  UiCard,
-  UiCardHeader,
-  UiCardTitle,
-  UiCardSubtitle,
-  UiCardContent,
-  UiCardActions,
+  ComCard,
+  ComCardHeader,
+  ComCardTitle,
+  ComCardSubtitle,
+  ComCardContent,
+  ComCardActions,
 } from 'ngx-com/components/card';
-import { UiButton } from 'ngx-com/components/button';
+import { ComButton } from 'ngx-com/components/button';
 
 @Component({
   selector: 'app-example',
   imports: [
-    UiCard,
-    UiCardHeader,
-    UiCardTitle,
-    UiCardSubtitle,
-    UiCardContent,
-    UiCardActions,
-    UiButton,
+    ComCard,
+    ComCardHeader,
+    ComCardTitle,
+    ComCardSubtitle,
+    ComCardContent,
+    ComCardActions,
+    ComButton,
   ],
   template: \`
     <com-card>

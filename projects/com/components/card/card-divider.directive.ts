@@ -22,7 +22,7 @@ import { mergeClasses } from './card.utils';
     '[class]': 'computedClass()',
   },
 })
-export class UiCardDivider {
+export class ComCardDivider {
   /** When true, divider spans full card width (no horizontal margin). */
   readonly inset: InputSignalWithTransform<boolean, unknown> = input(false, {
     transform: booleanAttribute,

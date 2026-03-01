@@ -1,4 +1,4 @@
-export { UiButton } from './button.directive';
+export { ComButton } from './button.directive';
 
 export { buttonVariants } from './button.variants';
 

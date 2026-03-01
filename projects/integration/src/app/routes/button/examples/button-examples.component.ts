@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { UiButton } from 'ngx-com/components/button';
+import { ComButton } from 'ngx-com/components/button';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-button-examples',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [UiButton, CodeBlock],
+  imports: [ComButton, CodeBlock],
   template: `
     <!-- Variants -->
     <section class="mb-12">

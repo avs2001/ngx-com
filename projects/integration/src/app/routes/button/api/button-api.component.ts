@@ -191,7 +191,7 @@ import { CodeBlock } from '../../../shared/code-block';
   `,
 })
 export class ButtonApi {
-  protected readonly importCode = `import { UiButton } from 'ngx-com/components/button';
+  protected readonly importCode = `import { ComButton } from 'ngx-com/components/button';
 
 // Optional: Import types for TypeScript
 import type { ButtonVariant, ButtonColor, ButtonSize, ButtonVariants } from 'ngx-com/components/button';`;

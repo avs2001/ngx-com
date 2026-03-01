@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { UiButton } from 'ngx-com/components/button';
+import { ComButton } from 'ngx-com/components/button';
 import {
   PopoverTriggerDirective,
   PopoverCloseDirective,
@@ -9,7 +9,7 @@ import { CodeBlock } from '../../../shared/code-block';
 @Component({
   selector: 'int-popover-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [UiButton, PopoverTriggerDirective, PopoverCloseDirective, CodeBlock],
+  imports: [ComButton, PopoverTriggerDirective, PopoverCloseDirective, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
@@ -184,11 +184,11 @@ import {
   PopoverTriggerDirective,
   PopoverCloseDirective,
 } from 'ngx-com/components/popover';
-import { UiButton } from 'ngx-com/components/button';
+import { ComButton } from 'ngx-com/components/button';
 
 @Component({
   selector: 'app-example',
-  imports: [PopoverTriggerDirective, PopoverCloseDirective, UiButton],
+  imports: [PopoverTriggerDirective, PopoverCloseDirective, ComButton],
   template: \`
     <button comButton [comPopoverTrigger]="helpContent">
       Help

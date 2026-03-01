@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { UiButton } from 'ngx-com/components/button';
+import { ComButton } from 'ngx-com/components/button';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-button-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [UiButton, CodeBlock],
+  imports: [ComButton, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
@@ -105,11 +105,11 @@ import { CodeBlock } from '../../../shared/code-block';
 })
 export class ButtonOverview {
   protected readonly basicUsageCode = `import { Component } from '@angular/core';
-import { UiButton } from 'ngx-com/components/button';
+import { ComButton } from 'ngx-com/components/button';
 
 @Component({
   selector: 'app-example',
-  imports: [UiButton],
+  imports: [ComButton],
   template: \`
     <button comButton>Save</button>
     <button comButton variant="outline" color="accent">Cancel</button>

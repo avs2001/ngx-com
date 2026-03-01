@@ -4,9 +4,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'int-card-api',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <!-- UiCard -->
+    <!-- ComCard -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">UiCard</h2>
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">ComCard</h2>
       <p class="mb-4 text-surface-600">
         Container component. Selector: <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">com-card</code>
       </p>
@@ -68,22 +68,22 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
             </thead>
             <tbody class="divide-y divide-surface-200 bg-white">
               <tr>
-                <td class="px-4 py-3 font-mono text-sm">UiCardHeader</td>
+                <td class="px-4 py-3 font-mono text-sm">ComCardHeader</td>
                 <td class="px-4 py-3 font-mono text-sm">[comCardHeader]</td>
                 <td class="px-4 py-3">Top section with flex layout for title + trailing actions</td>
               </tr>
               <tr>
-                <td class="px-4 py-3 font-mono text-sm">UiCardTitle</td>
+                <td class="px-4 py-3 font-mono text-sm">ComCardTitle</td>
                 <td class="px-4 py-3 font-mono text-sm">[comCardTitle]</td>
                 <td class="px-4 py-3">Heading text styling (apply to h2, h3, etc.)</td>
               </tr>
               <tr>
-                <td class="px-4 py-3 font-mono text-sm">UiCardSubtitle</td>
+                <td class="px-4 py-3 font-mono text-sm">ComCardSubtitle</td>
                 <td class="px-4 py-3 font-mono text-sm">[comCardSubtitle]</td>
                 <td class="px-4 py-3">Secondary text styling</td>
               </tr>
               <tr>
-                <td class="px-4 py-3 font-mono text-sm">UiCardContent</td>
+                <td class="px-4 py-3 font-mono text-sm">ComCardContent</td>
                 <td class="px-4 py-3 font-mono text-sm">[comCardContent]</td>
                 <td class="px-4 py-3">Main body area with consistent padding</td>
               </tr>
@@ -92,9 +92,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         </div>
       </div>
 
-      <!-- UiCardFooter -->
+      <!-- ComCardFooter -->
       <div class="mb-8">
-        <h3 class="mb-3 text-lg font-semibold text-surface-900">UiCardFooter</h3>
+        <h3 class="mb-3 text-lg font-semibold text-surface-900">ComCardFooter</h3>
         <p class="mb-3 text-surface-600">
           Selector: <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardFooter]</code>
         </p>
@@ -118,9 +118,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         </div>
       </div>
 
-      <!-- UiCardActions -->
+      <!-- ComCardActions -->
       <div class="mb-8">
-        <h3 class="mb-3 text-lg font-semibold text-surface-900">UiCardActions</h3>
+        <h3 class="mb-3 text-lg font-semibold text-surface-900">ComCardActions</h3>
         <p class="mb-3 text-surface-600">
           Selector: <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardActions]</code>
         </p>
@@ -149,9 +149,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         </div>
       </div>
 
-      <!-- UiCardMedia -->
+      <!-- ComCardMedia -->
       <div class="mb-8">
-        <h3 class="mb-3 text-lg font-semibold text-surface-900">UiCardMedia</h3>
+        <h3 class="mb-3 text-lg font-semibold text-surface-900">ComCardMedia</h3>
         <p class="mb-3 text-surface-600">
           Selector: <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardMedia]</code>
         </p>
@@ -175,9 +175,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         </div>
       </div>
 
-      <!-- UiCardDivider -->
+      <!-- ComCardDivider -->
       <div class="mb-8">
-        <h3 class="mb-3 text-lg font-semibold text-surface-900">UiCardDivider</h3>
+        <h3 class="mb-3 text-lg font-semibold text-surface-900">ComCardDivider</h3>
         <p class="mb-3 text-surface-600">
           Selector: <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardDivider]</code>
         </p>
@@ -201,9 +201,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         </div>
       </div>
 
-      <!-- UiCardAccent -->
+      <!-- ComCardAccent -->
       <div class="mb-8">
-        <h3 class="mb-3 text-lg font-semibold text-surface-900">UiCardAccent</h3>
+        <h3 class="mb-3 text-lg font-semibold text-surface-900">ComCardAccent</h3>
         <p class="mb-3 text-surface-600">
           Selector: <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardAccent]</code>
         </p>
@@ -232,9 +232,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         </div>
       </div>
 
-      <!-- UiCardBadge -->
+      <!-- ComCardBadge -->
       <div>
-        <h3 class="mb-3 text-lg font-semibold text-surface-900">UiCardBadge</h3>
+        <h3 class="mb-3 text-lg font-semibold text-surface-900">ComCardBadge</h3>
         <p class="mb-3 text-surface-600">
           Selector: <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardBadge]</code>
         </p>
@@ -269,17 +269,17 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Import</h2>
       <div class="rounded-lg border border-surface-200 bg-surface-900 p-4">
         <pre class="text-sm text-surface-100"><code>import &#123;
-  UiCard,
-  UiCardHeader,
-  UiCardTitle,
-  UiCardSubtitle,
-  UiCardContent,
-  UiCardFooter,
-  UiCardActions,
-  UiCardMedia,
-  UiCardDivider,
-  UiCardAccent,
-  UiCardBadge,
+  ComCard,
+  ComCardHeader,
+  ComCardTitle,
+  ComCardSubtitle,
+  ComCardContent,
+  ComCardFooter,
+  ComCardActions,
+  ComCardMedia,
+  ComCardDivider,
+  ComCardAccent,
+  ComCardBadge,
 &#125; from 'ngx-com/components/card';</code></pre>
       </div>
     </section>

@@ -21,7 +21,7 @@ import type { CardAlign } from './card.variants';
     '[class]': 'computedClass()',
   },
 })
-export class UiCardFooter {
+export class ComCardFooter {
   /** Horizontal alignment of footer content. */
   readonly align: InputSignal<CardAlign> = input<CardAlign>('end');
 
