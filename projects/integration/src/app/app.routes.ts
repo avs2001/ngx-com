@@ -51,6 +51,10 @@ export const routes: Routes = [
         loadChildren: () => import('./routes/dropdown/dropdown.routes').then(m => m.DROPDOWN_ROUTES),
       },
       {
+        path: 'components/menu',
+        loadChildren: () => import('./routes/menu/menu.routes').then(m => m.MENU_ROUTES),
+      },
+      {
         path: 'components/popover',
         loadChildren: () => import('./routes/popover/popover.routes').then(m => m.POPOVER_ROUTES),
       },

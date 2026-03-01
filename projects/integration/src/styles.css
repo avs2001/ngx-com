@@ -3,6 +3,15 @@
 @import 'tailwindcss';
 
 @theme {
+
+  /* ─── Border Radius ─── */
+  --radius-sm: 0.5rem;    /* 0.75rem - 4px ≈ 0.5rem */
+  --radius-md: 0.625rem;  /* 0.75rem - 2px ≈ 0.625rem */
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-pill: 9999px;
+
   /* ─── Colors ─── */
 
   /* Primary */
