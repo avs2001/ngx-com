@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
   input,
+  linkedSignal,
   output,
   signal,
   viewChildren,
@@ -268,17 +268,19 @@ export class ComCalendar<D> {
   /** Emitted when the active date changes */
   readonly activeDateChange: OutputEmitterRef<D> = output<D>();
 
-  /** Current view state */
-  readonly currentView: WritableSignal<CalendarView> = signal<CalendarView>('month');
+  /** Current view state (synced from startView input, writable for view switching) */
+  readonly currentView: WritableSignal<CalendarView> = linkedSignal(() => this.startView());
 
-  /** Internal active date signal */
-  readonly internalActiveDate: WritableSignal<D> = signal<D>(this.dateAdapter.today());
+  /** Internal active date (synced from activeDate input, writable for navigation) */
+  readonly internalActiveDate: WritableSignal<D> = linkedSignal(() =>
+    this.activeDate() ?? this.dateAdapter.today()
+  );
 
   /** Live announcement for screen readers */
   readonly liveAnnouncement: WritableSignal<string> = signal<string>('');
 
-  /** Internal selection state managed by strategy */
-  readonly internalSelection: WritableSignal<unknown> = signal<unknown>(null);
+  /** Internal selection state managed by strategy (synced from selected input) */
+  readonly internalSelection: WritableSignal<unknown> = linkedSignal(() => this.selected());
 
   /** Currently hovered/previewed date */
   readonly previewDate: WritableSignal<D | null> = signal<D | null>(null);
@@ -442,30 +444,6 @@ export class ComCalendar<D> {
       }
     }
   });
-
-  constructor() {
-    // Initialize currentView from startView input
-    effect(() => {
-      const startView = this.startView();
-      this.currentView.set(startView);
-    }, { allowSignalWrites: true });
-
-    // Sync activeDate input with internal state
-    effect(() => {
-      const inputDate = this.activeDate();
-      if (inputDate !== undefined) {
-        this.internalActiveDate.set(inputDate);
-      }
-    }, { allowSignalWrites: true });
-
-    // Sync external selected input with internal selection state (for strategy use)
-    effect(() => {
-      const external = this.selected();
-      if (external !== undefined) {
-        this.internalSelection.set(external);
-      }
-    }, { allowSignalWrites: true });
-  }
 
   /**
    * Handles previous button click.
