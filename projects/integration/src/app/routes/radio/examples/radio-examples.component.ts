@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import type { WritableSignal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ComCard } from 'ngx-com/components/card';
 import { ComRadio, ComRadioGroup } from 'ngx-com/components/radio';
 import { CodeBlock } from '../../../shared/code-block';
@@ -78,24 +78,6 @@ import { CodeBlock } from '../../../shared/code-block';
       <int-code-block language="html" [code]="disabledCode" />
     </section>
 
-    <!-- Error State -->
-    <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Error State</h2>
-      <com-card variant="outlined" class="p-8">
-        <com-radio-group
-          [(value)]="errorValue"
-          [error]="true"
-          errorMessage="Please select an option"
-          aria-label="Radio group with error"
-        >
-          <com-radio value="a">Option A</com-radio>
-          <com-radio value="b">Option B</com-radio>
-          <com-radio value="c">Option C</com-radio>
-        </com-radio-group>
-      </com-card>
-      <int-code-block language="html" [code]="errorCode" />
-    </section>
-
     <!-- Reactive Forms -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Reactive Forms</h2>
@@ -110,6 +92,45 @@ import { CodeBlock } from '../../../shared/code-block';
         </form>
       </com-card>
       <int-code-block language="typescript" [code]="reactiveFormsCode" />
+    </section>
+
+    <!-- Form Validation -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Form Validation</h2>
+      <com-card variant="outlined" class="p-8">
+        <form [formGroup]="validationForm" class="space-y-4">
+          <com-radio-group
+            formControlName="priority"
+            errorMessage="Please select a priority level"
+            aria-label="Select priority"
+          >
+            <com-radio value="low">Low</com-radio>
+            <com-radio value="medium">Medium</com-radio>
+            <com-radio value="high">High</com-radio>
+          </com-radio-group>
+          <div class="flex gap-2">
+            <button
+              type="button"
+              class="rounded bg-primary px-4 py-2 text-sm text-primary-foreground"
+              (click)="markAsTouched()"
+            >
+              Mark as Touched
+            </button>
+            <button
+              type="button"
+              class="rounded bg-muted px-4 py-2 text-sm text-muted-foreground"
+              (click)="resetValidationForm()"
+            >
+              Reset
+            </button>
+          </div>
+          <p class="text-sm text-surface-600">
+            Status: {{ validationForm.controls.priority.status }} |
+            Touched: {{ validationForm.controls.priority.touched }}
+          </p>
+        </form>
+      </com-card>
+      <int-code-block language="typescript" [code]="validationCode" />
     </section>
 
     <!-- Horizontal Layout -->
@@ -140,12 +161,23 @@ export class RadioExamples {
   protected readonly variantWarn: WritableSignal<string | null> = signal('a');
   protected readonly disabledGroup: WritableSignal<string | null> = signal('enabled1');
   protected readonly fullyDisabled: WritableSignal<string | null> = signal('a');
-  protected readonly errorValue: WritableSignal<string | null> = signal(null);
   protected readonly horizontalValue: WritableSignal<string | null> = signal('center');
 
   protected readonly form = new FormGroup({
     plan: new FormControl('pro'),
   });
+
+  protected readonly validationForm = new FormGroup({
+    priority: new FormControl<string | null>(null, Validators.required),
+  });
+
+  protected markAsTouched(): void {
+    this.validationForm.controls.priority.markAsTouched();
+  }
+
+  protected resetValidationForm(): void {
+    this.validationForm.reset();
+  }
 
   protected readonly sizesCode = `<com-radio-group size="sm">
   <com-radio value="a">Small A</com-radio>
@@ -173,15 +205,6 @@ export class RadioExamples {
   <com-radio value="b">All disabled</com-radio>
 </com-radio-group>`;
 
-  protected readonly errorCode = `<com-radio-group
-  [(value)]="selected"
-  [error]="true"
-  errorMessage="Please select an option"
->
-  <com-radio value="a">Option A</com-radio>
-  <com-radio value="b">Option B</com-radio>
-</com-radio-group>`;
-
   protected readonly reactiveFormsCode = `import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ComRadio, ComRadioGroup } from 'ngx-com/components/radio';
 
@@ -200,6 +223,30 @@ import { ComRadio, ComRadioGroup } from 'ngx-com/components/radio';
 export class Example {
   form = new FormGroup({
     plan: new FormControl('pro'),
+  });
+}`;
+
+  protected readonly validationCode = `import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ComRadio, ComRadioGroup } from 'ngx-com/components/radio';
+
+@Component({
+  imports: [ReactiveFormsModule, ComRadio, ComRadioGroup],
+  template: \`
+    <form [formGroup]="form">
+      <com-radio-group
+        formControlName="priority"
+        errorMessage="Please select a priority level"
+      >
+        <com-radio value="low">Low</com-radio>
+        <com-radio value="medium">Medium</com-radio>
+        <com-radio value="high">High</com-radio>
+      </com-radio-group>
+    </form>
+  \`,
+})
+export class Example {
+  form = new FormGroup({
+    priority: new FormControl<string | null>(null, Validators.required),
   });
 }`;
 

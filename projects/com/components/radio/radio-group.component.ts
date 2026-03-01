@@ -20,8 +20,9 @@ import type {
   Signal,
   WritableSignal,
 } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import type { ControlValueAccessor } from '@angular/forms';
+import { ErrorStateMatcher } from 'ngx-com/components/form-field';
 import { RADIO_GROUP_ORIENTATIONS } from './radio.variants';
 import type { RadioOrientation, RadioSize, RadioVariant } from './radio.variants';
 import { generateRadioGroupId } from './radio.utils';
@@ -116,11 +117,11 @@ export const COM_RADIO_GROUP: InjectionToken<ComRadioGroupContext> = new Injecti
       [attr.aria-labelledby]="ariaLabelledby()"
       [attr.aria-describedby]="computedAriaDescribedby()"
       [attr.aria-required]="required() || null"
-      [attr.aria-invalid]="hasError() || null"
+      [attr.aria-invalid]="errorState() || null"
     >
       <ng-content />
     </div>
-    @if (hasError() && errorMessage()) {
+    @if (errorState() && errorMessage()) {
       <div
         [id]="errorId"
         class="com-radio-group__error mt-1.5 text-sm text-warn"
@@ -144,12 +145,17 @@ export const COM_RADIO_GROUP: InjectionToken<ComRadioGroupContext> = new Injecti
   host: {
     class: 'com-radio-group block',
     '[class.com-radio-group--disabled]': 'disabled()',
-    '[class.com-radio-group--error]': 'hasError()',
+    '[class.com-radio-group--error]': 'errorState()',
   },
 })
 export class ComRadioGroup implements ControlValueAccessor {
   /** Optional NgControl for reactive forms integration. */
   readonly ngControl: NgControl | null = inject(NgControl, { optional: true, self: true });
+
+  /** Error state matcher for determining when to show validation errors. */
+  private readonly defaultErrorStateMatcher: ErrorStateMatcher = inject(ErrorStateMatcher);
+  private readonly parentForm: NgForm | null = inject(NgForm, { optional: true });
+  private readonly parentFormGroup: FormGroupDirective | null = inject(FormGroupDirective, { optional: true });
 
   /** Unique ID for this radio group instance. */
   private readonly uniqueId: string = generateRadioGroupId();
@@ -170,11 +176,11 @@ export class ComRadioGroup implements ControlValueAccessor {
   readonly orientation: InputSignal<RadioOrientation> = input<RadioOrientation>('vertical');
   readonly size: InputSignal<RadioSize> = input<RadioSize>('md');
   readonly variant: InputSignal<RadioVariant> = input<RadioVariant>('primary');
-  readonly hasError: InputSignalWithTransform<boolean, unknown> = input(false, {
-    transform: booleanAttribute,
-    alias: 'error',
-  });
   readonly errorMessage: InputSignal<string> = input<string>('');
+  readonly errorStateMatcher: InputSignal<ErrorStateMatcher | undefined> = input<ErrorStateMatcher>();
+
+  /** Internal signal to track when control is touched, used to trigger error state re-evaluation. */
+  private readonly _touched: WritableSignal<boolean> = signal(false);
   readonly ariaLabel: InputSignal<string | null> = input<string | null>(null, { alias: 'aria-label' });
   readonly ariaLabelledby: InputSignal<string | null> = input<string | null>(null, { alias: 'aria-labelledby' });
   readonly ariaDescribedby: InputSignal<string | null> = input<string | null>(null, { alias: 'aria-describedby' });
@@ -199,9 +205,21 @@ export class ComRadioGroup implements ControlValueAccessor {
   });
 
   // Computed
+  /**
+   * Computed error state derived from form validation.
+   * Shows errors when control is invalid and touched/submitted.
+   */
+  readonly errorState: Signal<boolean> = computed(() => {
+    // Read _touched to trigger re-evaluation when touched changes
+    this._touched();
+    const matcher = this.errorStateMatcher() ?? this.defaultErrorStateMatcher;
+    const form = this.parentFormGroup ?? this.parentForm;
+    return matcher.isErrorState(this.ngControl?.control ?? null, form);
+  });
+
   readonly computedAriaDescribedby: Signal<string | null> = computed(() => {
     const userDescribedby = this.ariaDescribedby();
-    if (this.hasError() && this.errorMessage()) {
+    if (this.errorState() && this.errorMessage()) {
       return userDescribedby ? `${userDescribedby} ${this.errorId}` : this.errorId;
     }
     return userDescribedby;
@@ -260,7 +278,10 @@ export class ComRadioGroup implements ControlValueAccessor {
   }
 
   registerOnTouched(fn: () => void): void {
-    this.onTouchedCallback = fn;
+    this.onTouchedCallback = () => {
+      this._touched.set(true);
+      fn();
+    };
   }
 
   setDisabledState(isDisabled: boolean): void {
