@@ -87,3 +87,39 @@ export {
   provideMultiSelectionStrategy,
   provideWeekSelectionStrategy,
 } from './providers';
+
+// Datepicker Components
+export {
+  ComDatepicker,
+  ComDateRangePicker,
+  createDateRangeValue,
+  generateDatepickerId,
+  datepickerTriggerVariants,
+  datepickerDisabledVariants,
+  datepickerInputVariants,
+  datepickerIconVariants,
+  datepickerClearVariants,
+  datepickerPanelVariants,
+  datepickerFooterVariants,
+  datepickerFooterButtonVariants,
+  datepickerRangeSeparatorVariants,
+} from './datepicker';
+
+export type {
+  DateFormatPreset,
+  DatepickerPanelWidth,
+  DatepickerSize,
+  DatepickerVariant,
+  DatepickerState,
+  DatepickerFooterConfig,
+  DateRangeValue,
+  DatepickerTriggerVariants,
+  DatepickerDisabledVariants,
+  DatepickerInputVariants,
+  DatepickerIconVariants,
+  DatepickerClearVariants,
+  DatepickerPanelVariants,
+  DatepickerFooterVariants,
+  DatepickerFooterButtonVariants,
+  DatepickerRangeSeparatorVariants,
+} from './datepicker';

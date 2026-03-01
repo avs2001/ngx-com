@@ -5,24 +5,27 @@ import { cva, type VariantProps } from 'class-variance-authority';
  *
  * @tokens `--color-background`, `--color-border-subtle`
  */
-export const calendarVariants: () => string = cva(
+export const calendarVariants: (props?: { bordered?: boolean }) => string = cva(
   [
     'com-calendar',
     'inline-block',
     'p-2',
     'bg-background',
-    'rounded-lg',
-    'shadow-sm',
-    'border',
-    'border-border-subtle',
   ],
   {
-    variants: {},
-    defaultVariants: {},
+    variants: {
+      bordered: {
+        true: ['rounded-lg', 'shadow-sm', 'border', 'border-border-subtle'],
+        false: [],
+      },
+    },
+    defaultVariants: {
+      bordered: true,
+    },
   }
 );
 
-export type CalendarVariants = Record<string, never>;
+export type CalendarVariants = VariantProps<typeof calendarVariants>;
 
 /**
  * CVA variants for the months container in month view.

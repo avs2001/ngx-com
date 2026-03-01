@@ -217,6 +217,9 @@ export class ComCalendar<D> {
   /** Custom function to add CSS classes to dates */
   readonly dateClass: InputSignal<DateClassFn<D> | null> = input<DateClassFn<D> | null>(null);
 
+  /** Whether to show the card border and shadow. Set to false when used inside datepicker panel. */
+  readonly bordered: InputSignal<boolean> = input<boolean>(true);
+
   /** Initial view to display */
   readonly startView: InputSignal<CalendarView> = input<CalendarView>('month');
 
@@ -290,7 +293,9 @@ export class ComCalendar<D> {
   });
 
   /** Calendar container classes */
-  readonly calendarClasses: Signal<string> = computed(() => calendarVariants());
+  readonly calendarClasses: Signal<string> = computed(() =>
+    calendarVariants({ bordered: this.bordered() })
+  );
 
   /** Months container classes for single/dual-month layout */
   readonly monthsContainerClasses: Signal<string> = computed(() =>

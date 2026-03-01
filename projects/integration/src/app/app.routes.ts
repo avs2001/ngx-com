@@ -43,6 +43,10 @@ export const routes: Routes = [
         loadChildren: () => import('./routes/collapsible/collapsible.routes').then(m => m.COLLAPSIBLE_ROUTES),
       },
       {
+        path: 'components/datepicker',
+        loadChildren: () => import('./routes/datepicker/datepicker.routes').then(m => m.DATEPICKER_ROUTES),
+      },
+      {
         path: 'components/dropdown',
         loadChildren: () => import('./routes/dropdown/dropdown.routes').then(m => m.DROPDOWN_ROUTES),
       },
