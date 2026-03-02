@@ -534,8 +534,8 @@ export class ComDropdown<T> implements ControlValueAccessor, FormFieldControl<T 
   /** Whether the dropdown is focused (trigger focused or panel open). Implements FormFieldControl. */
   readonly focused: Signal<boolean> = computed(() => this._triggerFocused() || this.isOpen());
 
-  /** Whether the label should float. Always true for dropdown - label floats above while dropdown shows its own placeholder. */
-  readonly shouldLabelFloat: Signal<boolean> = computed(() => true);
+  /** Whether the label should float. Label floats when focused or has a value. */
+  readonly shouldLabelFloat: Signal<boolean> = computed(() => this.focused() || this.hasValue());
 
   /** Whether the control is in an error state. Implements FormFieldControl. */
   readonly errorState: Signal<boolean> = computed(() => {

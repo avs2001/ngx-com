@@ -121,6 +121,11 @@ import { mergeClasses } from './form-field.utils';
       color: transparent;
     }
 
+    /* Hide dropdown placeholder when label exists and is not floating */
+    com-form-field.com-form-field--has-label:not(.com-form-field--floating) com-dropdown .text-placeholder {
+      display: none;
+    }
+
     /* Make dropdown fill available space inside form-field */
     com-form-field com-dropdown {
       display: block;

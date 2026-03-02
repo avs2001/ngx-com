@@ -136,9 +136,9 @@ export const formFieldLabelVariants: (props?: {
         fill: '',
       },
       floating: {
-        // Floating: absolute positioning relative to container
+        // Floating: absolute positioning at container border
         true: 'absolute',
-        // Not floating: static positioning in flex flow (after prefix)
+        // Not floating: relative positioning in flex flow (after prefix)
         false: 'relative flex-shrink-0 pl-3',
       },
       color: {
@@ -160,7 +160,7 @@ export const formFieldLabelVariants: (props?: {
       },
     },
     compoundVariants: [
-      // Outline floating (label above border)
+      // Outline floating (label above border with notch effect)
       {
         appearance: 'outline',
         floating: true,
