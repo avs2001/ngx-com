@@ -7,7 +7,13 @@
     "isolatedDeclarations": false,
     "types": [
       "vitest/globals"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "ngx-com": ["src/public-api.ts"],
+      "ngx-com/utils": ["utils/src/index.ts"],
+      "ngx-com/*": ["./*"]
+    }
   },
   "include": [
     "src/**/*.d.ts",
