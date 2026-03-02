@@ -300,8 +300,9 @@ function createTag(version) {
   exec(`git tag v${version}`);
 }
 
-function pushToOrigin() {
-  execLive('git push origin HEAD --follow-tags');
+function pushToOrigin(version) {
+  execLive('git push origin HEAD');
+  execLive(`git push origin v${version}`);
 }
 
 function createGitHubRelease(version, notes, isPrerelease) {
@@ -434,7 +435,7 @@ async function main() {
 
   // Push to origin
   console.log('🚀 Pushing to origin...');
-  pushToOrigin();
+  pushToOrigin(newVersion);
 
   // Create GitHub Release
   console.log('📢 Creating GitHub Release...');
