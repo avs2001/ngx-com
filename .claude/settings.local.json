@@ -67,7 +67,15 @@
       "Bash(grep:*)",
       "Bash(timeout 45 npx ng serve:*)",
       "Bash(xargs cat:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com remote -v)",
+      "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com branch:*)",
+      "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com tag --list)",
+      "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com log --oneline -20)",
+      "Bash(npm whoami:*)",
+      "Bash(node scripts/release.mjs:*)",
+      "Bash(node scripts/publish.mjs:*)",
+      "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com status --short)"
     ]
   },
   "enabledMcpjsonServers": [
