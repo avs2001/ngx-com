@@ -217,6 +217,15 @@
   --shadow-lg: 0 10px 15px oklch(0.14 0.004 280 / 0.1), 0 4px 6px oklch(0.14 0.004 280 / 0.05);
   --shadow-xl: 0 20px 25px oklch(0.14 0.004 280 / 0.1), 0 8px 10px oklch(0.14 0.004 280 / 0.04);
 
+  /* ─── Icon Sizes ─── */
+  /* Used by com-icon CVA size variant. Values = Lucide's size prop (px). */
+  --size-icon-xs: 0.75rem;   /* 12px — inline micro icons */
+  --size-icon-sm: 1rem;      /* 16px — inline with text-sm */
+  --size-icon-md: 1.25rem;   /* 20px — inline with text-base */
+  --size-icon-lg: 1.5rem;    /* 24px — default standalone, Lucide default */
+  --size-icon-xl: 2rem;      /* 32px — emphasis / hero */
+  --size-icon-2xl: 2.5rem;   /* 40px — large feature icons */
+
   /* ─── Transitions ─── */
 
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);

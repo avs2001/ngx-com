@@ -34,6 +34,11 @@ export interface CalendarCellKeyNavEvent<D> {
  *   (selected)="onSelect($event)"
  * />
  * ```
+ *
+ * @tokens `--color-ring`, `--color-foreground`, `--color-muted`, `--color-muted-foreground`,
+ *         `--color-primary`, `--color-primary-foreground`, `--color-primary-hover`,
+ *         `--color-primary-subtle`, `--color-primary-subtle-foreground`,
+ *         `--color-disabled-foreground`, `--radius-calendar-cell`
  */
 @Component({
   selector: 'com-calendar-cell',
@@ -73,7 +78,7 @@ export interface CalendarCellKeyNavEvent<D> {
 })
 export class ComCalendarCell<D> {
   /** Reference to the button element for focus management */
-  private readonly buttonRef = viewChild<ElementRef<HTMLButtonElement>>('cellButton');
+  private readonly buttonRef: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>('cellButton');
 
   /** The cell data to render */
   readonly cell: InputSignal<CalendarCell<D>> = input.required<CalendarCell<D>>();

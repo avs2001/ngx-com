@@ -14,6 +14,8 @@ import { mergeClasses } from './card.utils';
  * ```html
  * <hr comCardDivider [inset]="true" />
  * ```
+ *
+ * @tokens `--color-border`
  */
 @Directive({
   selector: '[comCardDivider]',

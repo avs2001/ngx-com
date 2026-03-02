@@ -6,6 +6,8 @@ import type { SortDirection } from './sort.variants';
 /**
  * Internal animated SVG arrow indicator for sort headers.
  * Not exported — used only inside SortHeaderComponent.
+ *
+ * @tokens `--color-foreground`, `--color-muted-foreground`
  */
 @Component({
   selector: 'com-sort-icon',

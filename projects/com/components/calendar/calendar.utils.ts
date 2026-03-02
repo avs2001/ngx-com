@@ -196,3 +196,15 @@ export function isYearDisabled<D>(
 export function getMultiYearStartingYear(activeYear: number, yearsPerPage: number = 24): number {
   return Math.floor(activeYear / yearsPerPage) * yearsPerPage;
 }
+
+/**
+ * Joins CSS class strings, filtering out null/undefined values.
+ * Unlike `mergeClasses` from utils, this does NOT resolve Tailwind conflicts -
+ * it simply concatenates class strings. Use when classes are guaranteed not to conflict.
+ *
+ * @param classes - Class strings (may include null/undefined)
+ * @returns Space-separated class string
+ */
+export function joinClasses(...classes: (string | undefined | null)[]): string {
+  return classes.filter(Boolean).join(' ');
+}

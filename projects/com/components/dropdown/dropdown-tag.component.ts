@@ -24,6 +24,10 @@ import { mergeClasses } from './dropdown.utils';
  *   (remove)="onRemove(user)"
  * />
  * ```
+ *
+ * @tokens `--color-muted`, `--color-muted-foreground`, `--color-muted-hover`,
+ *         `--color-primary-subtle`, `--color-primary-subtle-foreground`,
+ *         `--color-ring`, `--radius-tag`, `--radius-interactive-sm`
  */
 @Component({
   selector: 'com-dropdown-tag',

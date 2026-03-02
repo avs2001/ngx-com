@@ -41,6 +41,7 @@ import {
   SingleSelectionStrategy,
 } from '../selection';
 import type { CalendarView, DateFilterFn, DateRange } from '../calendar.types';
+import { joinClasses } from '../calendar.utils';
 import {
   datepickerTriggerVariants,
   datepickerDisabledVariants,
@@ -287,7 +288,7 @@ export class ComDatepicker<D> implements ControlValueAccessor, Validator, OnDest
   private overlayRef: OverlayRef | null = null;
 
   /** Unique ID for the datepicker. */
-  private readonly datepickerId = generateDatepickerId();
+  private readonly datepickerId: string = generateDatepickerId();
 
   // ============ INPUTS ============
 
@@ -419,7 +420,7 @@ export class ComDatepicker<D> implements ControlValueAccessor, Validator, OnDest
 
     const disabledClasses = this.disabled() ? datepickerDisabledVariants() : '';
 
-    return this.mergeClasses(baseClasses, disabledClasses, this.userClass());
+    return joinClasses(baseClasses, disabledClasses, this.userClass());
   });
 
   /** Computed input classes. */
@@ -440,7 +441,7 @@ export class ComDatepicker<D> implements ControlValueAccessor, Validator, OnDest
   /** Computed panel classes. */
   readonly panelClasses: Signal<string> = computed(() => {
     const baseClasses = datepickerPanelVariants({ size: this.size() });
-    return this.mergeClasses(baseClasses, this.panelClass());
+    return joinClasses(baseClasses, this.panelClass());
   });
 
   /** Computed footer classes. */
@@ -787,9 +788,5 @@ export class ComDatepicker<D> implements ControlValueAccessor, Validator, OnDest
 
   private announce(message: string): void {
     this.liveAnnouncement.set(message);
-  }
-
-  private mergeClasses(...classes: (string | undefined | null)[]): string {
-    return classes.filter(Boolean).join(' ');
   }
 }

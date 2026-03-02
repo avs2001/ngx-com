@@ -8,7 +8,7 @@ import type { NameStyle } from '../calendar.types';
  */
 @Injectable()
 export class NativeDateAdapter extends DateAdapter<Date> {
-  private readonly localeId = inject(LOCALE_ID);
+  private readonly localeId: string = inject(LOCALE_ID);
 
   constructor() {
     super();

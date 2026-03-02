@@ -17,6 +17,8 @@ import type { CardMediaPosition } from './card.variants';
  * ```html
  * <img comCardMedia position="inset" src="/preview.jpg" alt="Preview" />
  * ```
+ *
+ * @tokens None - uses only layout utilities
  */
 @Directive({
   selector: '[comCardMedia]',

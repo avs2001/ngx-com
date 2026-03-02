@@ -28,6 +28,9 @@ import { mergeClasses } from './dropdown.utils';
  *   (select)="onSelect(user)"
  * />
  * ```
+ *
+ * @tokens `--color-popover-foreground`, `--color-muted`, `--color-primary-subtle`,
+ *         `--color-primary-subtle-foreground`, `--color-disabled-foreground`
  */
 @Component({
   selector: 'com-dropdown-option',

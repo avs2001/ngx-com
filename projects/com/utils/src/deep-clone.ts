@@ -36,13 +36,10 @@ export function deepClone<T>(value: T): T {
     return value.map(item => deepClone(item)) as T;
   }
 
-  if (typeof value === 'object') {
-    const result: Record<string, unknown> = {};
-    for (const key of Object.keys(value)) {
-      result[key] = deepClone((value as Record<string, unknown>)[key]);
-    }
-    return result as T;
+  // At this point, value is guaranteed to be a plain object
+  const result: Record<string, unknown> = {};
+  for (const key of Object.keys(value)) {
+    result[key] = deepClone((value as Record<string, unknown>)[key]);
   }
-
-  return value;
+  return result as T;
 }

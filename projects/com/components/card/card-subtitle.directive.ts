@@ -7,6 +7,8 @@ import { Directive } from '@angular/core';
  * ```html
  * <p comCardSubtitle>Last updated 2 hours ago</p>
  * ```
+ *
+ * @tokens `--color-muted-foreground`
  */
 @Directive({
   selector: '[comCardSubtitle]',

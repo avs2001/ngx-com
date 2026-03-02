@@ -50,7 +50,7 @@ import { mergeClasses } from './tabs.utils';
   },
 })
 export class TabLinkDirective {
-  private readonly routerLinkActive = inject(RouterLinkActive, { optional: true, self: true });
+  private readonly routerLinkActive: RouterLinkActive | null = inject(RouterLinkActive, { optional: true, self: true });
   private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
   // ─── Inputs ───

@@ -25,6 +25,8 @@ import { DateAdapter, DATE_ADAPTER } from '../date-adapter';
 /**
  * Abstract base class for calendar view components.
  * Provides shared inputs, outputs, and utility methods for month, year, and multi-year views.
+ *
+ * @tokens None - abstract base class, tokens are defined in concrete view components
  */
 @Directive()
 export abstract class CalendarViewBase<D> {

@@ -30,6 +30,9 @@ import { mergeClasses } from './dropdown.utils';
  *   <ng-content />
  * </com-dropdown-panel>
  * ```
+ *
+ * @tokens `--color-popover`, `--color-popover-foreground`, `--color-border-subtle`,
+ *         `--color-muted-foreground`, `--radius-overlay`
  */
 @Component({
   selector: 'com-dropdown-panel',

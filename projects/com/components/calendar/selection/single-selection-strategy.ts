@@ -28,7 +28,7 @@ import { CalendarSelectionStrategy, type SelectionResult } from './selection-str
  */
 @Injectable()
 export class SingleSelectionStrategy<D> extends CalendarSelectionStrategy<D, D | null> {
-  private readonly dateAdapter = inject(DATE_ADAPTER) as DateAdapter<D>;
+  private readonly dateAdapter: DateAdapter<D> = inject(DATE_ADAPTER) as DateAdapter<D>;
 
   select(date: D, _currentSelection: D | null): SelectionResult<D, D | null> {
     return {

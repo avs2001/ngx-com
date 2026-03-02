@@ -1,3 +1,5 @@
+import { isPlainObject } from './is-plain-object';
+
 /**
  * Performs a deep equality comparison between two values.
  * Handles primitives, objects, arrays, Date, and RegExp.
@@ -75,8 +77,4 @@ export function deepEqual<T>(a: T, b: T): boolean {
   }
 
   return false;
-}
-
-function isPlainObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }

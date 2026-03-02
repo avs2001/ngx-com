@@ -23,6 +23,8 @@ import { Directive } from '@angular/core';
  *   <button comButton variant="ghost" size="icon" aria-label="More">...</button>
  * </div>
  * ```
+ *
+ * @tokens None - uses only layout utilities
  */
 @Directive({
   selector: '[comCardHeader]',

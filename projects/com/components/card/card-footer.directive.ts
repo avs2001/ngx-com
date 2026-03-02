@@ -13,6 +13,8 @@ import type { CardAlign } from './card.variants';
  *   <a comButton variant="link" size="sm">View details</a>
  * </div>
  * ```
+ *
+ * @tokens None - uses only layout utilities
  */
 @Directive({
   selector: '[comCardFooter]',

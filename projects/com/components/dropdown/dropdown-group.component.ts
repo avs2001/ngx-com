@@ -21,6 +21,8 @@ import { mergeClasses } from './dropdown.utils';
  *   [count]="5"
  * />
  * ```
+ *
+ * @tokens `--color-muted-foreground`
  */
 @Component({
   selector: 'com-dropdown-group',

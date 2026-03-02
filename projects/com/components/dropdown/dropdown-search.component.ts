@@ -30,6 +30,9 @@ import { mergeClasses } from './dropdown.utils';
  *   (searchChange)="onSearch($event)"
  * />
  * ```
+ *
+ * @tokens `--color-border-subtle`, `--color-input-placeholder`, `--color-disabled-foreground`,
+ *         `--color-ring`, `--radius-interactive-sm`
  */
 @Component({
   selector: 'com-dropdown-search',

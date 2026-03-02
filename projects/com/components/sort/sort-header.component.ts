@@ -73,8 +73,8 @@ import type { SortDirection } from './sort.variants';
   },
 })
 export class SortHeaderComponent implements OnInit {
-  private readonly sort = inject(SortDirective, { optional: true });
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly sort: SortDirective | null = inject(SortDirective, { optional: true });
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   // ─── Inputs ───
 

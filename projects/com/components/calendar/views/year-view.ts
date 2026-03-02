@@ -26,6 +26,8 @@ const MONTHS_PER_YEAR = 12;
  *   (activeDateChange)="onActiveMonthChange($event)"
  * />
  * ```
+ *
+ * @tokens None - uses ComCalendarCell which provides all token styling
  */
 @Component({
   selector: 'com-calendar-year-view',

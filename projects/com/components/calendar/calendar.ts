@@ -197,7 +197,7 @@ export class ComCalendar<D> {
   }) as CalendarSelectionStrategy<D, unknown> | null;
 
   /** Query for month views for cross-grid focus management */
-  private readonly monthViews = viewChildren(ComCalendarMonthView<D>);
+  private readonly monthViews: Signal<readonly ComCalendarMonthView<D>[]> = viewChildren(ComCalendarMonthView<D>);
 
   /** The date to display and navigate from */
   readonly activeDate: InputSignal<D | undefined> = input<D>();

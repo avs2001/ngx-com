@@ -31,7 +31,7 @@ import { CalendarSelectionStrategy, type SelectionResult } from './selection-str
  */
 @Injectable()
 export class MultiSelectionStrategy<D> extends CalendarSelectionStrategy<D, D[]> {
-  private readonly dateAdapter = inject(DATE_ADAPTER) as DateAdapter<D>;
+  private readonly dateAdapter: DateAdapter<D> = inject(DATE_ADAPTER) as DateAdapter<D>;
 
   select(date: D, currentSelection: D[]): SelectionResult<D, D[]> {
     const existing = currentSelection ?? [];

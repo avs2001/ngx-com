@@ -30,6 +30,9 @@ import {
  *   (periodClicked)="onPeriodClick()"
  * />
  * ```
+ *
+ * @tokens `--color-foreground`, `--color-ring`, `--color-muted`,
+ *         `--color-disabled-foreground`, `--radius-calendar-cell`
  */
 @Component({
   selector: 'com-calendar-header',

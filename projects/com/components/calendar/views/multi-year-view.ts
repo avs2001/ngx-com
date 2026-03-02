@@ -24,6 +24,8 @@ import { CalendarViewBase } from './calendar-view-base';
  *   (activeDateChange)="onActiveYearChange($event)"
  * />
  * ```
+ *
+ * @tokens None - uses ComCalendarCell which provides all token styling
  */
 @Component({
   selector: 'com-calendar-multi-year-view',

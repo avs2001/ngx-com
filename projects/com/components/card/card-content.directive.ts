@@ -9,6 +9,8 @@ import { Directive } from '@angular/core';
  *   <p>Card body content goes here.</p>
  * </div>
  * ```
+ *
+ * @tokens None - uses only layout utilities
  */
 @Directive({
   selector: '[comCardContent]',

@@ -16,6 +16,7 @@ export { omit } from './omit';
 export { deepClone } from './deep-clone';
 export { deepMerge } from './deep-merge';
 export { deepEqual } from './deep-equal';
+export { isPlainObject } from './is-plain-object';
 export { resolvePath, type ResolvePath } from './resolve-path';
 
 // Array utilities

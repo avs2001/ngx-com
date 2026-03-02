@@ -116,7 +116,7 @@ interface NavSection {
 })
 export class Sidebar {
   private readonly router = inject(Router);
-  private readonly expandedSections = signal<Set<string>>(new Set(['components/badge', 'components/button', 'components/calendar', 'components/card', 'components/checkbox', 'components/collapsible', 'components/datepicker', 'components/dropdown', 'components/form-field', 'components/menu', 'components/popover', 'components/radio', 'components/sort', 'components/tabs']));
+  private readonly expandedSections = signal<Set<string>>(new Set(['components/badge', 'components/button', 'components/calendar', 'components/card', 'components/checkbox', 'components/collapsible', 'components/datepicker', 'components/dropdown', 'components/form-field', 'components/icon', 'components/menu', 'components/popover', 'components/radio', 'components/sort', 'components/tabs']));
 
   private readonly navigationEnd = toSignal(
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
@@ -213,6 +213,15 @@ export class Sidebar {
             { label: 'Overview', path: '/components/form-field/overview' },
             { label: 'Examples', path: '/components/form-field/examples' },
             { label: 'API', path: '/components/form-field/api' },
+          ],
+        },
+        {
+          label: 'Icon',
+          path: 'components/icon',
+          children: [
+            { label: 'Overview', path: '/components/icon/overview' },
+            { label: 'Examples', path: '/components/icon/examples' },
+            { label: 'API', path: '/components/icon/api' },
           ],
         },
         {

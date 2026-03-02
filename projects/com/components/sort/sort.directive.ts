@@ -69,7 +69,7 @@ export class SortDirective {
 
   // ─── Registration ───
 
-  private readonly headers = new Map<string, SortHeaderComponent>();
+  private readonly headers: Map<string, SortHeaderComponent> = new Map<string, SortHeaderComponent>();
 
   /** Register a sort header with this parent */
   register(header: SortHeaderComponent): void {

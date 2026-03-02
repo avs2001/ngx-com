@@ -23,6 +23,8 @@ import type { CardAlign, CardActionsDirection } from './card.variants';
  *   <button comButton variant="outline" fullWidth>Secondary</button>
  * </div>
  * ```
+ *
+ * @tokens None - uses only layout utilities
  */
 @Directive({
   selector: '[comCardActions]',

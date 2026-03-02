@@ -20,6 +20,8 @@ export abstract class MenuGroupRef {
  *   <button comMenuItemRadio value="date">Date</button>
  * </div>
  * ```
+ *
+ * @tokens None - uses only ARIA attributes
  */
 @Directive({
   selector: '[comMenuGroup]',

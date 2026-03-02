@@ -29,7 +29,7 @@ import { CalendarSelectionStrategy, type SelectionResult } from './selection-str
  */
 @Injectable()
 export class WeekSelectionStrategy<D> extends CalendarSelectionStrategy<D, DateRange<D> | null> {
-  private readonly dateAdapter = inject(DATE_ADAPTER) as DateAdapter<D>;
+  private readonly dateAdapter: DateAdapter<D> = inject(DATE_ADAPTER) as DateAdapter<D>;
 
   select(date: D, _currentSelection: DateRange<D> | null): SelectionResult<D, DateRange<D> | null> {
     const weekRange = this.getWeekRange(date);

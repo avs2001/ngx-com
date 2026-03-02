@@ -9,6 +9,8 @@ import { Directive } from '@angular/core';
  * ```html
  * <h3 comCardTitle>Project Alpha</h3>
  * ```
+ *
+ * @tokens `--color-foreground`
  */
 @Directive({
   selector: '[comCardTitle]',

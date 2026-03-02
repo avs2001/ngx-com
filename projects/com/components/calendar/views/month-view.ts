@@ -32,6 +32,8 @@ const TOTAL_CELLS = DAYS_PER_WEEK * WEEKS_PER_MONTH;
  *   (activeDateChange)="onActiveDateChange($event)"
  * />
  * ```
+ *
+ * @tokens `--color-muted-foreground`
  */
 @Component({
   selector: 'com-calendar-month-view',

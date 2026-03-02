@@ -3,4 +3,4 @@
  * Injection token exports for ngx-com library
  */
 
-export const TOKENS_PLACEHOLDER = true;
+export const TOKENS_PLACEHOLDER: boolean = true;

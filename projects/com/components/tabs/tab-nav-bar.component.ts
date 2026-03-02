@@ -141,7 +141,7 @@ interface NavTabItem {
   },
 })
 export class TabNavBarComponent {
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   /** Unique ID for this nav bar instance. */
   readonly baseId: string = generateTabId();

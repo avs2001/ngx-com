@@ -178,7 +178,7 @@ interface TabItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabHeaderComponent {
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   // ─── Inputs ───
 

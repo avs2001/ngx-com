@@ -123,7 +123,7 @@ export class MenuComponent implements MenuRef {
   readonly animationState: WritableSignal<'open' | 'closed'> = signal<'open' | 'closed'>('open');
 
   /** Query all focusable items in the menu. */
-  private readonly items = contentChildren(MenuItemBase);
+  private readonly items: Signal<readonly MenuItemBase[]> = contentChildren(MenuItemBase);
 
   // ─── Computed ───
 
