@@ -5,6 +5,7 @@ import {
   contentChild,
   DestroyRef,
   ElementRef,
+  forwardRef,
   inject,
   input,
   linkedSignal,
@@ -24,8 +25,9 @@ import type {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgTemplateOutlet } from '@angular/common';
-import { NgControl } from '@angular/forms';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import type { ControlValueAccessor } from '@angular/forms';
+import { FormFieldControl, ErrorStateMatcher, type FormFieldAppearance } from 'ngx-com/components/form-field';
 import {
   Overlay,
   OverlayRef,
@@ -130,12 +132,15 @@ const VIRTUAL_SCROLL_THRESHOLD = 50;
       [attr.aria-haspopup]="'listbox'"
       [attr.aria-activedescendant]="activeDescendant()"
       [attr.aria-required]="required() || null"
-      [attr.aria-invalid]="state() === 'error' || null"
+      [attr.aria-invalid]="effectiveState() === 'error' || null"
+      [attr.aria-describedby]="ariaDescribedBy()"
       [attr.aria-disabled]="disabled() || null"
       [attr.tabindex]="disabled() ? -1 : 0"
       [disabled]="disabled()"
       (click)="toggle()"
       (keydown)="onTriggerKeydown($event)"
+      (focus)="onTriggerFocus()"
+      (blur)="onTriggerBlur()"
     >
       <!-- Selected value display -->
       <span class="flex-1 truncate text-left">
@@ -331,6 +336,7 @@ const VIRTUAL_SCROLL_THRESHOLD = 50;
     ComDropdownTag,
     ComDropdownGroup,
   ],
+  providers: [{ provide: FormFieldControl, useExisting: forwardRef(() => ComDropdown) }],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'com-dropdown-host inline-block',
@@ -338,16 +344,19 @@ const VIRTUAL_SCROLL_THRESHOLD = 50;
     '[class.com-dropdown-open]': 'isOpen()',
   },
 })
-export class ComDropdown<T> implements ControlValueAccessor, OnInit {
+export class ComDropdown<T> implements ControlValueAccessor, FormFieldControl<T | T[] | null>, OnInit {
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
   private readonly overlay = inject(Overlay);
   private readonly viewContainerRef = inject(ViewContainerRef);
   private readonly liveAnnouncer = inject(LiveAnnouncer);
   private readonly document = inject(DOCUMENT);
+  private readonly defaultErrorStateMatcher = inject(ErrorStateMatcher);
+  private readonly parentForm = inject(NgForm, { optional: true });
+  private readonly parentFormGroup = inject(FormGroupDirective, { optional: true });
 
-  /** Optional NgControl for form integration. */
-  private readonly ngControl = inject(NgControl, { optional: true, self: true });
+  /** NgControl bound to this dropdown (if using reactive forms). */
+  readonly ngControl: NgControl | null = inject(NgControl, { optional: true, self: true });
 
   /** Reference to the trigger button element. */
   private readonly triggerRef: Signal<ElementRef<HTMLButtonElement>> =
@@ -455,6 +464,9 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
   /** Maximum number of tags to display in multi-select mode. Set to null for no limit. */
   readonly maxVisibleTags: InputSignal<number | null> = input<number | null>(2);
 
+  /** Custom error state matcher for determining when to show errors. */
+  readonly errorStateMatcher: InputSignal<ErrorStateMatcher | undefined> = input<ErrorStateMatcher>();
+
   // ============ OUTPUTS ============
 
   /** Emitted when the value changes. */
@@ -474,6 +486,9 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
   /** Whether the panel is open. */
   readonly isOpen: WritableSignal<boolean> = signal(false);
 
+  /** Whether the trigger button is focused. */
+  private readonly _triggerFocused: WritableSignal<boolean> = signal(false);
+
   /** Current search query. */
   readonly searchQuery: WritableSignal<string> = signal('');
 
@@ -485,6 +500,12 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
 
   /** Live announcements for screen readers. */
   readonly liveAnnouncement: WritableSignal<string> = signal('');
+
+  /** IDs for aria-describedby (set by form-field). */
+  private readonly _describedByIds: WritableSignal<string> = signal('');
+
+  /** Form field appearance (set by form-field). */
+  private readonly _appearance: WritableSignal<FormFieldAppearance> = signal<FormFieldAppearance>('outline');
 
   // ============ COMPUTED STATE ============
 
@@ -507,6 +528,40 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
     }
     return val !== null && val !== undefined;
   });
+
+  // ============ FormFieldControl SIGNALS ============
+
+  /** Whether the dropdown is focused (trigger focused or panel open). Implements FormFieldControl. */
+  readonly focused: Signal<boolean> = computed(() => this._triggerFocused() || this.isOpen());
+
+  /** Whether the label should float. Always true for dropdown - label floats above while dropdown shows its own placeholder. */
+  readonly shouldLabelFloat: Signal<boolean> = computed(() => true);
+
+  /** Whether the control is in an error state. Implements FormFieldControl. */
+  readonly errorState: Signal<boolean> = computed(() => {
+    // Read reactive dependencies to trigger re-evaluation
+    this.isOpen();
+    this.hasValue();
+    const matcher = this.errorStateMatcher() ?? this.defaultErrorStateMatcher;
+    const form = this.parentFormGroup ?? this.parentForm;
+    return matcher.isErrorState(this.ngControl?.control ?? null, form);
+  });
+
+  /** Unique ID for the control. Implements FormFieldControl. */
+  readonly id: Signal<string> = this.triggerId;
+
+  /**
+   * Effective state combining manual state with automatic error detection.
+   * Manual state takes precedence over auto-detected error state.
+   */
+  readonly effectiveState: Signal<DropdownState> = computed(() => {
+    const manualState = this.state();
+    if (manualState !== 'default') return manualState;
+    return this.errorState() ? 'error' : 'default';
+  });
+
+  /** Combined aria-describedby from form-field. */
+  readonly ariaDescribedBy: Signal<string | null> = computed(() => this._describedByIds() || null);
 
   /** Selected value (single mode). */
   readonly selectedValue: Signal<T | null> = computed(() => {
@@ -624,10 +679,17 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
     const baseClasses = dropdownTriggerVariants({
       variant: this.variant(),
       size: this.size(),
-      state: this.state(),
+      state: this.effectiveState(),
       open: this.isOpen(),
     });
-    return mergeClasses(baseClasses, this.userClass());
+
+    // For naked variant, add padding based on form-field appearance
+    let paddingClasses = '';
+    if (this.variant() === 'naked') {
+      paddingClasses = this._appearance() === 'fill' ? 'pt-5 pb-1.5 px-3' : 'py-2.5 px-3';
+    }
+
+    return mergeClasses(baseClasses, paddingClasses, this.userClass());
   });
 
   /** Computed panel classes. */
@@ -689,6 +751,36 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
   setDisabledState(isDisabled: boolean): void {
     // Disabled state is handled via the disabled input
     // When using forms, the form control's disabled state takes precedence
+  }
+
+  // ============ FormFieldControl IMPLEMENTATION ============
+
+  /**
+   * Called when the form field container is clicked.
+   * Implements FormFieldControl.
+   */
+  onContainerClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    // Only toggle if click was outside the trigger button (not on it or inside it)
+    if (!this.disabled() && !this.triggerRef().nativeElement.contains(target)) {
+      this.toggle();
+    }
+  }
+
+  /**
+   * Sets the describedBy IDs from the form field.
+   * Called by the parent form field component.
+   */
+  setDescribedByIds(ids: string): void {
+    this._describedByIds.set(ids);
+  }
+
+  /**
+   * Sets the appearance for styling.
+   * Called by the parent form field component.
+   */
+  setAppearance(appearance: FormFieldAppearance): void {
+    this._appearance.set(appearance);
   }
 
   // ============ PUBLIC METHODS ============
@@ -892,6 +984,14 @@ export class ComDropdown<T> implements ControlValueAccessor, OnInit {
   protected onSearchKeyNav(event: KeyboardEvent): void {
     // Delegate to panel keydown handler
     this.onPanelKeydown(event);
+  }
+
+  protected onTriggerFocus(): void {
+    this._triggerFocused.set(true);
+  }
+
+  protected onTriggerBlur(): void {
+    this._triggerFocused.set(false);
   }
 
   protected onOptionHover(optionId: string): void {

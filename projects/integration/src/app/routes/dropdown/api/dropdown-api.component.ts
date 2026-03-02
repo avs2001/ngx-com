@@ -132,6 +132,43 @@ interface ApiProperty {
       </div>
     </section>
 
+    <!-- Form Field Integration -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Form Field Integration</h2>
+      <p class="mb-4 text-surface-600">
+        ComDropdown implements the <code class="rounded bg-surface-100 px-1.5 py-0.5 font-mono text-xs">FormFieldControl</code>
+        interface, allowing it to integrate seamlessly with <code class="rounded bg-surface-100 px-1.5 py-0.5 font-mono text-xs">com-form-field</code>.
+      </p>
+      <div class="space-y-4">
+        <div class="rounded-lg border border-surface-200 bg-white p-4">
+          <h3 class="mb-2 font-semibold text-surface-900">Naked Variant</h3>
+          <p class="mb-3 text-sm text-surface-600">
+            Use <code class="rounded bg-surface-100 px-1.5 py-0.5 font-mono text-xs">variant="naked"</code>
+            when placing a dropdown inside a form field. This removes the dropdown's own border, background,
+            and focus ring so the form field can provide consistent container styling.
+          </p>
+          <int-code-block language="html" [code]="formFieldUsageCode" />
+        </div>
+        <div class="rounded-lg border border-surface-200 bg-white p-4">
+          <h3 class="mb-2 font-semibold text-surface-900">Automatic Error State</h3>
+          <p class="mb-3 text-sm text-surface-600">
+            When used with reactive forms, the dropdown automatically detects error state based on
+            the control's validity and touched state. Manual <code class="rounded bg-surface-100 px-1.5 py-0.5 font-mono text-xs">state</code>
+            input takes precedence over automatic detection.
+          </p>
+          <int-code-block language="html" [code]="autoErrorCode" />
+        </div>
+        <div class="rounded-lg border border-surface-200 bg-white p-4">
+          <h3 class="mb-2 font-semibold text-surface-900">Custom Error State Matcher</h3>
+          <p class="mb-3 text-sm text-surface-600">
+            Provide a custom <code class="rounded bg-surface-100 px-1.5 py-0.5 font-mono text-xs">ErrorStateMatcher</code>
+            to control when errors are displayed.
+          </p>
+          <int-code-block language="typescript" [code]="errorMatcherCode" />
+        </div>
+      </div>
+    </section>
+
     <!-- Helper Functions -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Helper Functions</h2>
@@ -244,9 +281,9 @@ export class DropdownApi {
     },
     {
       name: 'variant',
-      type: "'default' | 'filled'",
+      type: "'default' | 'outline' | 'ghost' | 'filled' | 'naked'",
       default: "'default'",
-      description: 'Visual variant for the trigger button.',
+      description: 'Visual variant for the trigger button. Use "naked" inside com-form-field.',
     },
     {
       name: 'size',
@@ -258,7 +295,13 @@ export class DropdownApi {
       name: 'state',
       type: "'default' | 'error' | 'success'",
       default: "'default'",
-      description: 'Validation state styling.',
+      description: 'Manual validation state styling. Auto-detected when using reactive forms.',
+    },
+    {
+      name: 'errorStateMatcher',
+      type: 'ErrorStateMatcher',
+      default: 'DefaultErrorStateMatcher',
+      description: 'Custom strategy for determining when to show error state.',
     },
     {
       name: 'maxHeight',
@@ -368,6 +411,49 @@ export class DropdownApi {
     { name: 'isSelected(value: T)', description: 'Returns true if the value is selected.' },
   ];
 
+  protected readonly formFieldUsageCode = `<com-form-field>
+  <label comLabel>Category</label>
+  <com-dropdown
+    variant="naked"
+    [options]="categories()"
+    formControlName="category"
+    placeholder="Select..."
+  />
+  <span comHint>Choose a category</span>
+  <span comError match="required">Required</span>
+</com-form-field>`;
+
+  protected readonly autoErrorCode = `<!-- Error styling applies automatically when touched + invalid -->
+<com-dropdown
+  [options]="options()"
+  formControlName="myControl"
+  placeholder="Select..."
+/>
+
+<!-- Manual state overrides automatic detection -->
+<com-dropdown
+  [options]="options()"
+  [state]="'error'"
+  formControlName="myControl"
+/>`;
+
+  protected readonly errorMatcherCode = `import { ErrorStateMatcher } from 'ngx-com/components/form-field';
+
+// Show errors immediately (without waiting for touch)
+@Injectable()
+export class EagerErrorStateMatcher extends ErrorStateMatcher {
+  override isErrorState(control, form) {
+    return !!(control?.invalid && control.dirty);
+  }
+}
+
+// Usage
+<com-dropdown
+  [options]="options()"
+  [errorStateMatcher]="eagerMatcher"
+  formControlName="myControl"
+/>`;
+
   protected readonly helperCode = `import {
   defaultCompareWith,
   defaultDisplayWith,
@@ -394,9 +480,12 @@ type ComDropdownPosition = 'bottom' | 'top';
 type ComDropdownPanelWidth = 'trigger' | 'auto' | string;
 
 // Visual variants
-type ComDropdownVariant = 'default' | 'filled';
+type ComDropdownVariant = 'default' | 'outline' | 'ghost' | 'filled' | 'naked';
 type ComDropdownSize = 'sm' | 'default' | 'lg';
 type ComDropdownState = 'default' | 'error' | 'success';
+
+// FormFieldControl integration
+// ComDropdown implements FormFieldControl for use inside com-form-field
 
 // Processed option (internal)
 interface ComDropdownProcessedOption<T> {

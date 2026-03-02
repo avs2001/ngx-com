@@ -120,6 +120,12 @@ import { mergeClasses } from './form-field.utils';
     com-form-field.com-form-field--has-label:not(.com-form-field--floating) textarea::placeholder {
       color: transparent;
     }
+
+    /* Make dropdown fill available space inside form-field */
+    com-form-field com-dropdown {
+      display: block;
+      width: 100%;
+    }
   `,
   host: {
     '[class]': 'hostClasses()',
@@ -220,20 +226,20 @@ export class ComFormField {
 
     // Wire up aria-describedby on the control
     effect(() => {
-      const inputEl = this.inputDirective();
-      if (!inputEl) return;
+      const ctrl = this.control();
+      if (!ctrl || !('setDescribedByIds' in ctrl)) return;
 
       const ids = this.showErrors()
         ? this.errorChildren().filter((e) => e.shouldShow()).map((e) => e.id)
         : this.hintChildren().map((h) => h.id);
-      inputEl.setDescribedByIds(ids.join(' '));
+      (ctrl as { setDescribedByIds: (ids: string) => void }).setDescribedByIds(ids.join(' '));
     });
 
-    // Wire up appearance to input for proper styling
+    // Wire up appearance to control for proper styling
     effect(() => {
-      const inputEl = this.inputDirective();
-      if (inputEl) {
-        inputEl.setAppearance(this.appearance());
+      const ctrl = this.control();
+      if (ctrl && 'setAppearance' in ctrl) {
+        (ctrl as { setAppearance: (appearance: FormFieldAppearance) => void }).setAppearance(this.appearance());
       }
     });
 
@@ -241,8 +247,9 @@ export class ComFormField {
     effect(() => {
       // Read hasError to trigger re-evaluation when validation state changes
       this.hasError();
-      const control = this.inputDirective()?.ngControl?.control ?? null;
-      this.errorChildren().forEach((error) => error.setControl(control));
+      const ctrl = this.control();
+      const ngControl = ctrl?.ngControl?.control ?? null;
+      this.errorChildren().forEach((error) => error.setControl(ngControl));
     });
   }
 

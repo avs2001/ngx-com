@@ -4,7 +4,7 @@ import type { VariantProps } from 'class-variance-authority';
 /**
  * Variant type for dropdown trigger appearance.
  */
-export type DropdownVariant = 'default' | 'outline' | 'ghost' | 'filled';
+export type DropdownVariant = 'default' | 'outline' | 'ghost' | 'filled' | 'naked';
 
 /**
  * Size type for dropdown components.
@@ -83,6 +83,14 @@ export const dropdownTriggerVariants: (props?: {
           'bg-muted',
           'hover:bg-muted-hover',
         ],
+        naked: [
+          'border-transparent',
+          'bg-transparent',
+          'shadow-none',
+          'focus:ring-0',
+          'focus:ring-offset-0',
+          'rounded-none',
+        ],
       },
       size: {
         sm: ['h-8', 'px-2', 'text-xs', 'gap-1'],
@@ -115,6 +123,24 @@ export const dropdownTriggerVariants: (props?: {
         open: true,
         variant: 'outline',
         class: ['border-primary'],
+      },
+      // Naked variant should not show ring when open (form-field provides focus styling)
+      {
+        open: true,
+        variant: 'naked',
+        class: ['ring-0', 'border-transparent'],
+      },
+      // Naked variant should not show error border (form-field provides error styling)
+      {
+        state: 'error',
+        variant: 'naked',
+        class: ['border-transparent', 'focus:ring-0'],
+      },
+      // Naked variant should not show success border (form-field provides styling)
+      {
+        state: 'success',
+        variant: 'naked',
+        class: ['border-transparent', 'focus:ring-0'],
       },
     ],
     defaultVariants: {
