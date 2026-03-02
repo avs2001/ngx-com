@@ -75,7 +75,11 @@
       "Bash(npm whoami:*)",
       "Bash(node scripts/release.mjs:*)",
       "Bash(node scripts/publish.mjs:*)",
-      "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com status --short)"
+      "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com status --short)",
+      "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com log --oneline -5)",
+      "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com status)",
+      "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com ls-remote:*)",
+      "Bash(node:*)"
     ]
   },
   "enabledMcpjsonServers": [

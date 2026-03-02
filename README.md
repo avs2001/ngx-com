@@ -89,7 +89,7 @@ ngx-com/
 
 ## Releasing
 
-Releases are automated via GitHub Actions. When you push a version tag, the workflow builds, tests, and publishes to npm.
+Releases are fully automated. One command does everything: version bump, changelog, commit, tag, push, GitHub Release, and npm publish.
 
 ### Cutting a Release
 
@@ -102,70 +102,70 @@ Releases are automated via GitHub Actions. When you push a version tag, the work
 
 2. **Run the release script:**
    ```bash
-   # Patch release (0.0.1 -> 0.0.2)
+   # Patch release (0.0.2 -> 0.0.3)
    npm run release:patch
 
-   # Minor release (0.0.1 -> 0.1.0)
+   # Minor release (0.0.2 -> 0.1.0)
    npm run release:minor
 
-   # Major release (0.0.1 -> 1.0.0)
+   # Major release (0.0.2 -> 1.0.0)
    npm run release:major
 
-   # Prerelease (0.0.1 -> 0.0.2-alpha.0)
+   # Prerelease (0.0.2 -> 0.0.3-alpha.0)
    npm run release:pre
    ```
 
-   The script will:
-   - Bump the version in `projects/com/package.json`
-   - Update `CHANGELOG.md` with commits since last tag
-   - Create a commit: `chore(release): vX.Y.Z`
-   - Create a tag: `vX.Y.Z`
+3. **The script automatically:**
+   - Bumps version in `projects/com/package.json`
+   - Updates `CHANGELOG.md` with commits since last tag
+   - Creates commit: `chore(release): vX.Y.Z`
+   - Creates tag: `vX.Y.Z`
+   - Pushes to GitHub
+   - Creates GitHub Release
 
-3. **Review and push:**
-   ```bash
-   # Review the commit
-   git show HEAD
+4. **GitHub Actions then:**
+   - Runs tests
+   - Builds the library
+   - Publishes to npm with provenance
 
-   # Push to trigger the release workflow
-   git push && git push --tags
-   ```
+### Dry Run
 
-4. **GitHub Actions will:**
-   - Run tests
-   - Build the library
-   - Publish to npm with provenance
-   - Create a GitHub Release with auto-generated notes
-
-### Local Publish (for testing)
-
-Before pushing a release, you can verify locally:
+Preview what would happen without making changes:
 
 ```bash
-# Dry run - shows what would be published
-npm run publish:dry
+npm run release:patch -- --dry-run
+```
 
-# Actually publish (requires npm auth)
-npm run publish:lib
+### Local-Only Release
 
-# Publish a prerelease to "next" tag
-npm run publish:lib -- --tag=next
+Create commit and tag locally without pushing (for review):
+
+```bash
+npm run release:patch -- --no-push
+# Then manually: git push origin HEAD --follow-tags
 ```
 
 ### Prerelease Versions
 
-For alpha/beta releases:
+```bash
+# Create alpha prerelease
+node scripts/release.mjs premajor --preid=alpha
+# Results in: 1.0.0-alpha.0
+
+# Create beta prerelease
+node scripts/release.mjs preminor --preid=beta
+# Results in: 0.1.0-beta.0
+
+# Bump prerelease number
+node scripts/release.mjs prerelease
+# Results in: 0.1.0-beta.1
+```
+
+### Local Testing Before Release
 
 ```bash
-# Create a prerelease
-node scripts/release.mjs premajor --preid=beta
-# Results in: 1.0.0-beta.0
-
-# Bump the prerelease number
-node scripts/release.mjs prerelease
-# Results in: 1.0.0-beta.1
-
-# Publish to "next" tag (not "latest")
-npm run publish:lib -- --tag=next
+# Build and see what would be published
+npm run publish:dry
 ```
 
 ## CI/CD
