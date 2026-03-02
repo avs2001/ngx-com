@@ -116,7 +116,7 @@ interface NavSection {
 })
 export class Sidebar {
   private readonly router = inject(Router);
-  private readonly expandedSections = signal<Set<string>>(new Set(['components/badge', 'components/button', 'components/calendar', 'components/card', 'components/checkbox', 'components/collapsible', 'components/datepicker', 'components/dropdown', 'components/form-field', 'components/icon', 'components/menu', 'components/popover', 'components/radio', 'components/sort', 'components/tabs']));
+  private readonly expandedSections = signal<Set<string>>(new Set(['components/badge', 'components/button', 'components/calendar', 'components/card', 'components/checkbox', 'components/collapsible', 'components/datepicker', 'components/dropdown', 'components/form-field', 'components/icon', 'components/menu', 'components/popover', 'components/radio', 'components/segmented-control', 'components/sort', 'components/spinner', 'components/tabs', 'components/tooltip']));
 
   private readonly navigationEnd = toSignal(
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
@@ -252,6 +252,15 @@ export class Sidebar {
           ],
         },
         {
+          label: 'Segmented Control',
+          path: 'components/segmented-control',
+          children: [
+            { label: 'Overview', path: '/components/segmented-control/overview' },
+            { label: 'Examples', path: '/components/segmented-control/examples' },
+            { label: 'API', path: '/components/segmented-control/api' },
+          ],
+        },
+        {
           label: 'Sort',
           path: 'components/sort',
           children: [
@@ -261,12 +270,30 @@ export class Sidebar {
           ],
         },
         {
+          label: 'Spinner',
+          path: 'components/spinner',
+          children: [
+            { label: 'Overview', path: '/components/spinner/overview' },
+            { label: 'Examples', path: '/components/spinner/examples' },
+            { label: 'API', path: '/components/spinner/api' },
+          ],
+        },
+        {
           label: 'Tabs',
           path: 'components/tabs',
           children: [
             { label: 'Overview', path: '/components/tabs/overview' },
             { label: 'Examples', path: '/components/tabs/examples' },
             { label: 'API', path: '/components/tabs/api' },
+          ],
+        },
+        {
+          label: 'Tooltip',
+          path: 'components/tooltip',
+          children: [
+            { label: 'Overview', path: '/components/tooltip/overview' },
+            { label: 'Examples', path: '/components/tooltip/examples' },
+            { label: 'API', path: '/components/tooltip/api' },
           ],
         },
       ],

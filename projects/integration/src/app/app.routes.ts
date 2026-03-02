@@ -71,12 +71,24 @@ export const routes: Routes = [
         loadChildren: () => import('./routes/radio/radio.routes').then(m => m.RADIO_ROUTES),
       },
       {
+        path: 'components/segmented-control',
+        loadChildren: () => import('./routes/segmented-control/segmented-control.routes').then(m => m.SEGMENTED_CONTROL_ROUTES),
+      },
+      {
         path: 'components/sort',
         loadChildren: () => import('./routes/sort/sort.routes').then(m => m.SORT_ROUTES),
       },
       {
+        path: 'components/spinner',
+        loadChildren: () => import('./routes/spinner/spinner.routes').then(m => m.SPINNER_ROUTES),
+      },
+      {
         path: 'components/tabs',
         loadChildren: () => import('./routes/tabs/tabs.routes').then(m => m.TABS_ROUTES),
+      },
+      {
+        path: 'components/tooltip',
+        loadChildren: () => import('./routes/tooltip/tooltip.routes').then(m => m.TOOLTIP_ROUTES),
       },
     ],
   },
