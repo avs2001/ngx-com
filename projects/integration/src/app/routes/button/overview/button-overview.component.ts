@@ -1,16 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComButton } from 'ngx-com/components/button';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-button-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComButton, ComCard, CodeBlock],
+  imports: [ComButton, ComCard, ComItem, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Interactive button variants and colors"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <button comButton>Primary</button>
@@ -23,7 +30,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and use the directive in your templates"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block
         language="typescript"
         [code]="basicUsageCode"
@@ -32,72 +45,79 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">4 Variants</h3>
-          <p class="text-sm text-surface-600">
-            Solid, outline, ghost, and link variants for different visual treatments.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">4 Colors</h3>
-          <p class="text-sm text-surface-600">
-            Primary, accent, warn, and muted colors using semantic tokens.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">4 Sizes</h3>
-          <p class="text-sm text-surface-600">
-            Small, medium, large, and icon sizes with proportional spacing.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Native Elements</h3>
-          <p class="text-sm text-surface-600">
-            Works on both button and anchor elements preserving native behavior.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Full Width</h3>
-          <p class="text-sm text-surface-600">
-            Optional full-width mode for block-level buttons.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Theme Aware</h3>
-          <p class="text-sm text-surface-600">
-            Uses semantic tokens for automatic dark mode and theme support.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes comButton powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="4 Variants"
+            description="Solid, outline, ghost, and link variants for different visual treatments"
+            icon="layers"
+          />
+          <com-item
+            title="4 Colors"
+            description="Primary, accent, warn, and muted colors using semantic tokens"
+            icon="palette"
+            iconColor="accent"
+          />
+          <com-item
+            title="4 Sizes"
+            description="Small, medium, large, and icon sizes with proportional spacing"
+            icon="maximize"
+          />
+          <com-item
+            title="Native Elements"
+            description="Works on both button and anchor elements preserving native behavior"
+            icon="box"
+          />
+          <com-item
+            title="Full Width"
+            description="Optional full-width mode for block-level buttons"
+            icon="move-horizontal"
+          />
+          <com-item
+            title="Theme Aware"
+            description="Uses semantic tokens for automatic dark mode and theme support"
+            icon="sun-moon"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- Directive vs Component -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Why a Directive?</h2>
+      <com-item
+        title="Why a Directive?"
+        description="Benefits of the directive approach"
+        icon="info"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-6">
-        <p class="mb-4 text-surface-600">
-          Button is implemented as a directive rather than a component for several reasons:
-        </p>
-        <ul class="list-inside list-disc space-y-2 text-surface-600">
+        <ul class="list-inside list-disc space-y-2 text-foreground">
           <li>
-            <strong class="text-surface-900">Native Control:</strong> Full control over native attributes
-            (<code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">type="submit"</code>,
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">routerLink</code>,
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">download</code>, etc.)
+            <strong>Native Control:</strong> Full control over native attributes
+            (<code class="rounded bg-muted px-1.5 py-0.5 text-sm">type="submit"</code>,
+            <code class="rounded bg-muted px-1.5 py-0.5 text-sm">routerLink</code>,
+            <code class="rounded bg-muted px-1.5 py-0.5 text-sm">download</code>, etc.)
           </li>
           <li>
-            <strong class="text-surface-900">Accessibility:</strong> Native
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">&lt;button&gt;</code> and
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">&lt;a&gt;</code> elements have
+            <strong>Accessibility:</strong> Native
+            <code class="rounded bg-muted px-1.5 py-0.5 text-sm">&lt;button&gt;</code> and
+            <code class="rounded bg-muted px-1.5 py-0.5 text-sm">&lt;a&gt;</code> elements have
             correct roles, keyboard handling, and focus behavior built-in
           </li>
           <li>
-            <strong class="text-surface-900">No Wrapper:</strong> No extra DOM wrapper element needed
+            <strong>No Wrapper:</strong> No extra DOM wrapper element needed
           </li>
           <li>
-            <strong class="text-surface-900">Content Freedom:</strong> Put anything inside — text, icons, spinners — without projection APIs
+            <strong>Content Freedom:</strong> Put anything inside — text, icons, spinners — without projection APIs
           </li>
         </ul>
       </com-card>

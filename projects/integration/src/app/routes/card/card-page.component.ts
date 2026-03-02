@@ -1,17 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TabNavBarComponent, TabLinkDirective } from 'ngx-com/components/tabs';
+import { ComItem } from 'ngx-com/components/item';
 
 @Component({
   selector: 'int-card-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective, ComItem],
   template: `
     <div class="mx-auto max-w-4xl px-6 py-12">
-      <h1 class="mb-4 text-4xl font-bold text-surface-900">Card</h1>
-      <p class="mb-8 text-lg text-surface-600">
-        A composable card system with flexible primitives for headers, content, actions, media, and more.
-      </p>
+      <com-item
+        title="Card"
+        description="A composable card system with flexible primitives for headers, content, actions, media, and more."
+        icon="square"
+        size="lg"
+        class="mb-8"
+      />
 
       <nav com-tab-nav-bar class="mb-8" aria-label="Card documentation tabs">
         <a comTabLink routerLink="overview" routerLinkActive>Overview</a>

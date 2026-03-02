@@ -1,10 +1,10 @@
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import type { TooltipColor, TooltipSize, TooltipSide } from './tooltip.models';
 
 /**
  * CVA variants for the tooltip panel wrapper.
  *
- * @tokens `--color-surface-900`, `--color-surface-50`, `--color-primary`, `--color-primary-foreground`,
+ * @tokens `--color-tooltip`, `--color-tooltip-foreground`, `--color-primary`, `--color-primary-foreground`,
  *         `--color-accent`, `--color-accent-foreground`, `--color-warn`, `--color-warn-foreground`,
  *         `--color-popover`, `--color-popover-foreground`, `--color-border`
  */
@@ -22,7 +22,7 @@ export const tooltipPanelVariants: (props?: {
   {
     variants: {
       color: {
-        default: 'bg-surface-900 text-surface-50',
+        default: 'bg-tooltip text-tooltip-foreground',
         primary: 'bg-primary text-primary-foreground',
         accent: 'bg-accent text-accent-foreground',
         warn: 'bg-warn text-warn-foreground',
@@ -41,13 +41,11 @@ export const tooltipPanelVariants: (props?: {
   },
 );
 
-export type TooltipPanelVariants = VariantProps<typeof tooltipPanelVariants>;
-
 /**
  * CVA variants for the tooltip arrow element.
  * The arrow points toward the trigger element.
  *
- * @tokens `--color-surface-900`, `--color-primary`, `--color-accent`, `--color-warn`,
+ * @tokens `--color-tooltip`, `--color-primary`, `--color-accent`, `--color-warn`,
  *         `--color-popover`, `--color-border`
  */
 export const tooltipArrowVariants: (props?: {
@@ -56,7 +54,7 @@ export const tooltipArrowVariants: (props?: {
 }) => string = cva('absolute size-2 rotate-45', {
   variants: {
     color: {
-      default: 'bg-surface-900',
+      default: 'bg-tooltip',
       primary: 'bg-primary',
       accent: 'bg-accent',
       warn: 'bg-warn',
@@ -85,5 +83,3 @@ export const tooltipArrowVariants: (props?: {
     side: 'top',
   },
 });
-
-export type TooltipArrowVariants = VariantProps<typeof tooltipArrowVariants>;

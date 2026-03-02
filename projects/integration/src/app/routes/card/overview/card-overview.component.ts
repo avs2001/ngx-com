@@ -12,6 +12,7 @@ import {
   ComCardBadge,
 } from 'ngx-com/components/card';
 import { ComButton } from 'ngx-com/components/button';
+import { ComItem } from 'ngx-com/components/item';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
@@ -29,13 +30,20 @@ import { CodeBlock } from '../../../shared/code-block';
     ComCardAccent,
     ComCardBadge,
     ComButton,
+    ComItem,
     CodeBlock,
   ],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
-      <div class="rounded-xl border border-surface-200 bg-surface-100 p-8">
+      <com-item
+        title="Demo"
+        description="Card variants and compositions in action"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
+      <div class="rounded-xl border border-border bg-muted p-8">
         <div class="grid gap-6 md:grid-cols-2">
           <!-- Basic Card -->
           <com-card>
@@ -103,7 +111,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and compose card primitives"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block
         language="typescript"
         [code]="basicUsageCode"
@@ -112,82 +126,89 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">4 Variants</h3>
-          <p class="text-sm text-surface-600">
-            Elevated, outlined, filled, and ghost variants with semantic styling.
-          </p>
+      <com-item
+        title="Features"
+        description="What makes com-card powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="4 Variants"
+            description="Elevated, outlined, filled, and ghost variants with semantic styling"
+            icon="layers"
+          />
+          <com-item
+            title="Composable Primitives"
+            description="11 directives that can be mixed and matched freely for any layout"
+            icon="puzzle"
+            iconColor="accent"
+          />
+          <com-item
+            title="Interactive Mode"
+            description="Optional hover/focus states for clickable cards with proper accessibility"
+            icon="mouse-pointer-click"
+          />
+          <com-item
+            title="Media Support"
+            description="Full-bleed or inset media with automatic aspect ratio handling"
+            icon="image"
+            iconColor="accent"
+          />
+          <com-item
+            title="Accent Strips"
+            description="Top or left accent strips for status indication with 5 color options"
+            icon="minus"
+          />
+          <com-item
+            title="Badge Overlays"
+            description="Positioned badges in any corner for labels, tags, or status indicators"
+            icon="tag"
+            iconColor="accent"
+          />
         </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Composable Primitives</h3>
-          <p class="text-sm text-surface-600">
-            11 directives that can be mixed and matched freely for any layout.
-          </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Interactive Mode</h3>
-          <p class="text-sm text-surface-600">
-            Optional hover/focus states for clickable cards with proper accessibility.
-          </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Media Support</h3>
-          <p class="text-sm text-surface-600">
-            Full-bleed or inset media with automatic aspect ratio handling.
-          </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Accent Strips</h3>
-          <p class="text-sm text-surface-600">
-            Top or left accent strips for status indication with 5 color options.
-          </p>
-        </div>
-        <div class="rounded-lg border border-surface-200 bg-white p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Badge Overlays</h3>
-          <p class="text-sm text-surface-600">
-            Positioned badges in any corner for labels, tags, or status indicators.
-          </p>
-        </div>
-      </div>
+      </com-card>
     </section>
 
     <!-- Compound Component Pattern -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Compound Component Pattern</h2>
-      <div class="rounded-lg border border-surface-200 bg-white p-6">
-        <p class="mb-4 text-surface-600">
-          The card system uses the compound component pattern — a family of related primitives that work
-          together but are each independently useful:
-        </p>
-        <ul class="list-inside list-disc space-y-2 text-surface-600">
+      <com-item
+        title="Compound Component Pattern"
+        description="A family of related primitives that work together"
+        icon="info"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-6">
+        <ul class="list-inside list-disc space-y-2 text-foreground">
           <li>
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">com-card</code> —
+            <code class="rounded bg-muted px-1.5 py-0.5 text-sm">com-card</code> —
             Container with surface, border, shadow, shape
           </li>
           <li>
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardHeader]</code> —
+            <code class="rounded bg-muted px-1.5 py-0.5 text-sm">[comCardHeader]</code> —
             Top section for title + actions row
           </li>
           <li>
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardContent]</code> —
+            <code class="rounded bg-muted px-1.5 py-0.5 text-sm">[comCardContent]</code> —
             Main body with consistent padding
           </li>
           <li>
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardActions]</code> —
+            <code class="rounded bg-muted px-1.5 py-0.5 text-sm">[comCardActions]</code> —
             Button row with alignment options
           </li>
           <li>
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[comCardMedia]</code> —
+            <code class="rounded bg-muted px-1.5 py-0.5 text-sm">[comCardMedia]</code> —
             Image/video slot with positioning
           </li>
         </ul>
-        <p class="mt-4 text-surface-600">
+        <p class="mt-4 text-foreground">
           Sub-parts are directives applied to native elements, preserving semantic HTML and full control
           over heading levels, attributes, and accessibility.
         </p>
-      </div>
+      </com-card>
     </section>
   `,
 })

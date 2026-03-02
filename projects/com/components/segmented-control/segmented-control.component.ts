@@ -5,19 +5,14 @@ import {
   computed,
   contentChild,
   ElementRef,
-  inject,
   input,
   model,
+  viewChildren,
   ViewEncapsulation,
 } from '@angular/core';
-import type {
-  InputSignal,
-  InputSignalWithTransform,
-  ModelSignal,
-  Signal,
-} from '@angular/core';
+import type { InputSignal, InputSignalWithTransform, ModelSignal, Signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { mergeClasses } from './segmented-control.utils';
+import { mergeClasses } from 'ngx-com/utils';
 import { ComSegmentDef, type SegmentTemplateContext } from './segment-def.directive';
 import {
   segmentedControlContainerVariants,
@@ -41,9 +36,6 @@ export interface SegmentOption<T = unknown> {
   /** Whether this option is disabled. */
   disabled?: boolean | undefined;
 }
-
-/** Unique ID counter for generating segment IDs. */
-let segmentIdCounter = 0;
 
 /**
  * Segmented control component — a horizontal group of mutually exclusive options
@@ -159,6 +151,7 @@ let segmentIdCounter = 0;
     >
       @for (option of options(); track option.value; let i = $index) {
         <button
+          #segmentButton
           type="button"
           role="radio"
           [attr.aria-checked]="isActive(option)"
@@ -199,10 +192,11 @@ let segmentIdCounter = 0;
   },
 })
 export class ComSegmentedControl<T = unknown> {
-  private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+  // ─── View Children ───
 
-  /** Unique ID for this segmented control instance. */
-  private readonly uniqueId: string = `com-segmented-control-${++segmentIdCounter}`;
+  /** References to all segment buttons for focus management. */
+  private readonly segmentButtons: Signal<readonly ElementRef<HTMLButtonElement>[]> =
+    viewChildren<ElementRef<HTMLButtonElement>>('segmentButton');
 
   // ─── Inputs ───
 
@@ -413,11 +407,9 @@ export class ComSegmentedControl<T = unknown> {
    * Focuses the segment button at the given index.
    */
   private focusSegmentAt(index: number): void {
-    const hostEl = this.elementRef.nativeElement;
-    const buttons = hostEl.querySelectorAll<HTMLButtonElement>('button[role="radio"]');
-    const button = buttons[index];
+    const button = this.segmentButtons()[index];
     if (button) {
-      button.focus();
+      button.nativeElement.focus();
     }
   }
 }

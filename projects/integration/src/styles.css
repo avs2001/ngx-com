@@ -119,6 +119,10 @@
   --color-popover: var(--color-surface-50);
   --color-popover-foreground: var(--color-surface-900);
 
+  /* ─── Tooltip (dark bg, light text) ─── */
+  --color-tooltip: var(--color-surface-900);
+  --color-tooltip-foreground: var(--color-surface-50);
+
   /* ─── Input ─── */
   --color-input-border: var(--color-surface-300);
   --color-input-background: var(--color-surface-50);
@@ -399,6 +403,9 @@
   --color-popover: var(--color-surface-100);
   --color-popover-foreground: var(--color-surface-900);
 
+  --color-tooltip: var(--color-surface-900);
+  --color-tooltip-foreground: var(--color-surface-50);
+
   --color-input-border: var(--color-surface-300);
   --color-input-background: var(--color-surface-100);
   --color-input-foreground: var(--color-surface-900);
@@ -507,6 +514,9 @@
 
   --color-popover: var(--color-surface-50);
   --color-popover-foreground: var(--color-surface-900);
+
+  --color-tooltip: var(--color-surface-900);
+  --color-tooltip-foreground: var(--color-surface-50);
 
   --color-input-border: var(--color-surface-300);
   --color-input-background: var(--color-surface-50);
@@ -617,6 +627,9 @@
   --color-popover: var(--color-surface-50);
   --color-popover-foreground: var(--color-surface-900);
 
+  --color-tooltip: var(--color-surface-900);
+  --color-tooltip-foreground: var(--color-surface-50);
+
   --color-input-border: var(--color-surface-300);
   --color-input-background: var(--color-surface-50);
   --color-input-foreground: var(--color-surface-900);
@@ -725,6 +738,9 @@
 
   --color-popover: var(--color-surface-50);
   --color-popover-foreground: var(--color-surface-900);
+
+  --color-tooltip: var(--color-surface-900);
+  --color-tooltip-foreground: var(--color-surface-50);
 
   --color-input-border: var(--color-surface-300);
   --color-input-background: var(--color-surface-50);

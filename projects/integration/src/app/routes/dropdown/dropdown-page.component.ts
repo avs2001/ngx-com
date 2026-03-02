@@ -1,17 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TabNavBarComponent, TabLinkDirective } from 'ngx-com/components/tabs';
+import { ComItem } from 'ngx-com/components/item';
 
 @Component({
   selector: 'int-dropdown-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective, ComItem],
   template: `
     <div class="mx-auto max-w-4xl px-6 py-12">
-      <h1 class="mb-4 text-4xl font-bold text-surface-900">Dropdown</h1>
-      <p class="mb-8 text-lg text-surface-600">
-        A flexible, accessible dropdown/select component with search, multi-select, grouping, and custom templates.
-      </p>
+      <com-item
+        title="Dropdown"
+        description="A flexible, accessible dropdown/select component with search, multi-select, grouping, and custom templates."
+        icon="chevron-down"
+        size="lg"
+        class="mb-8"
+      />
 
       <nav com-tab-nav-bar class="mb-8" aria-label="Dropdown documentation tabs">
         <a comTabLink routerLink="overview" routerLinkActive>Overview</a>

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComButton } from 'ngx-com/components/button';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import {
   MenuTriggerDirective,
   MenuComponent,
@@ -15,6 +16,7 @@ import { CodeBlock } from '../../../shared/code-block';
   imports: [
     ComButton,
     ComCard,
+    ComItem,
     MenuTriggerDirective,
     MenuComponent,
     MenuItemDirective,
@@ -23,20 +25,30 @@ import { CodeBlock } from '../../../shared/code-block';
   ],
   template: `
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Introduction</h2>
-      <p class="mb-4 text-surface-600">
-        The Menu component provides a dropdown menu system with full keyboard navigation, nested
-        submenus, and various item types. It builds on top of the CDK overlay and FocusKeyManager
-        for accessibility.
-      </p>
+      <com-item
+        title="Introduction"
+        description="A dropdown menu system with full accessibility support"
+        icon="info"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-6">
+        <p class="text-foreground">
+          The Menu component provides a dropdown menu system with full keyboard navigation, nested
+          submenus, and various item types. It builds on top of the CDK overlay and FocusKeyManager
+          for accessibility.
+        </p>
+      </com-card>
     </section>
 
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
-      <p class="mb-4 text-surface-600">
-        Apply the <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">comMenuTrigger</code>
-        directive to a button and provide a template containing the menu.
-      </p>
+      <com-item
+        title="Basic Usage"
+        description="Apply comMenuTrigger to a button and provide a menu template"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="flex gap-4 p-8">
         <button comButton variant="outline" [comMenuTrigger]="basicMenu">Options</button>
         <ng-template #basicMenu>
@@ -53,21 +65,71 @@ import { CodeBlock } from '../../../shared/code-block';
     </section>
 
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <ul class="list-inside list-disc space-y-2 text-surface-600">
-        <li>Full keyboard navigation (Arrow keys, Home, End, type-ahead search)</li>
-        <li>Nested submenus with hover and keyboard support</li>
-        <li>Checkbox and radio menu items with two-way binding</li>
-        <li>Section labels and dividers</li>
-        <li>Destructive item styling</li>
-        <li>Keyboard shortcut hints</li>
-        <li>WAI-ARIA compliant roles and attributes</li>
-        <li>Three size variants (sm, md, lg)</li>
-      </ul>
+      <com-item
+        title="Features"
+        description="What makes com-menu powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="Full Keyboard Navigation"
+            description="Arrow keys, Home, End, type-ahead search"
+            icon="keyboard"
+          />
+          <com-item
+            title="Nested Submenus"
+            description="Hover and keyboard support for nested menus"
+            icon="git-branch"
+            iconColor="accent"
+          />
+          <com-item
+            title="Checkbox & Radio Items"
+            description="Two-way binding for checkbox and radio menu items"
+            icon="check-square"
+          />
+          <com-item
+            title="Section Labels & Dividers"
+            description="Organize menu items with labels and visual separators"
+            icon="layout"
+            iconColor="accent"
+          />
+          <com-item
+            title="Destructive Styling"
+            description="Special styling for dangerous actions like delete"
+            icon="alert-triangle"
+            iconColor="warn"
+          />
+          <com-item
+            title="Keyboard Shortcuts"
+            description="Display keyboard shortcut hints in menu items"
+            icon="command"
+          />
+          <com-item
+            title="WAI-ARIA Compliant"
+            description="Proper roles and attributes for accessibility"
+            icon="accessibility"
+            iconColor="accent"
+          />
+          <com-item
+            title="3 Size Variants"
+            description="Small, medium, and large sizes for different contexts"
+            icon="maximize"
+          />
+        </div>
+      </com-card>
     </section>
 
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Import</h2>
+      <com-item
+        title="Import"
+        description="How to import menu components"
+        icon="package"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block language="typescript" [code]="importCode" />
     </section>
   `,

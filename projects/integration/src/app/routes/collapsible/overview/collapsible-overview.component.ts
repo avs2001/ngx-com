@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComButton } from 'ngx-com/components/button';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import {
   ComCollapsible,
   ComCollapsibleTrigger,
@@ -18,13 +19,20 @@ import { CodeBlock } from '../../../shared/code-block';
     ComCollapsibleContent,
     ComCollapsibleIconTpl,
     ComCard,
+    ComItem,
     ComButton,
     CodeBlock,
   ],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Collapsible variants and trigger styles"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="space-y-4 p-8">
         <!-- Card variant -->
         <div comCollapsible variant="card" [(open)]="cardOpen">
@@ -32,7 +40,7 @@ import { CodeBlock } from '../../../shared/code-block';
             Card Variant
           </button>
           <com-collapsible-content>
-            <div class="border-t border-border p-4 text-surface-600">
+            <div class="border-t border-border p-4 text-foreground">
               This is a card-styled collapsible section. Click the trigger to toggle.
             </div>
           </com-collapsible-content>
@@ -44,7 +52,7 @@ import { CodeBlock } from '../../../shared/code-block';
             Bordered Variant with Filled Trigger
           </button>
           <com-collapsible-content>
-            <div class="border-t border-border p-4 text-surface-600">
+            <div class="border-t border-border p-4 text-foreground">
               This uses the bordered shell with a filled trigger style.
             </div>
           </com-collapsible-content>
@@ -56,7 +64,7 @@ import { CodeBlock } from '../../../shared/code-block';
             What is a Collapsible component?
           </button>
           <com-collapsible-content>
-            <p class="pb-4 text-surface-600">
+            <p class="pb-4 text-foreground">
               A Collapsible is an interactive container that can be expanded or collapsed to show or hide its content.
               It's commonly used for FAQs, settings panels, and progressive disclosure patterns.
             </p>
@@ -67,7 +75,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and compose collapsible components"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block
         language="typescript"
         [code]="basicUsageCode"
@@ -76,50 +90,61 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">5 Shell Variants</h3>
-          <p class="text-sm text-surface-600">
-            Card, bordered, flush, ghost, and unstyled variants for different use cases.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">4 Trigger Variants</h3>
-          <p class="text-sm text-surface-600">
-            Ghost, filled, header, and unstyled trigger styles with 3 size options.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">CSS Grid Animation</h3>
-          <p class="text-sm text-surface-600">
-            Smooth height animation using CSS grid technique — no JavaScript measurement needed.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Template Overrides</h3>
-          <p class="text-sm text-surface-600">
-            Override trigger layout, content chrome, or just the icon with template directives.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Lazy Content</h3>
-          <p class="text-sm text-surface-600">
-            Content can be lazily rendered on first expand for better performance.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Full Accessibility</h3>
-          <p class="text-sm text-surface-600">
-            WAI-ARIA disclosure pattern with proper roles, states, and keyboard support.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes com-collapsible powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="5 Shell Variants"
+            description="Card, bordered, flush, ghost, and unstyled variants for different use cases"
+            icon="layers"
+          />
+          <com-item
+            title="4 Trigger Variants"
+            description="Ghost, filled, header, and unstyled trigger styles with 3 size options"
+            icon="mouse-pointer-click"
+            iconColor="accent"
+          />
+          <com-item
+            title="CSS Grid Animation"
+            description="Smooth height animation using CSS grid technique — no JavaScript measurement needed"
+            icon="move"
+          />
+          <com-item
+            title="Template Overrides"
+            description="Override trigger layout, content chrome, or just the icon with template directives"
+            icon="layout"
+            iconColor="accent"
+          />
+          <com-item
+            title="Lazy Content"
+            description="Content can be lazily rendered on first expand for better performance"
+            icon="zap"
+          />
+          <com-item
+            title="Full Accessibility"
+            description="WAI-ARIA disclosure pattern with proper roles, states, and keyboard support"
+            icon="accessibility"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- Two-way Binding Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">External Control</h2>
+      <com-item
+        title="External Control"
+        description="Programmatic control via template reference or two-way binding"
+        icon="settings"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="mb-4 flex gap-2">
           <button comButton size="sm" (click)="controlledSection.toggle()">
@@ -131,14 +156,14 @@ import { CodeBlock } from '../../../shared/code-block';
           <button comButton variant="outline" color="muted" size="sm" (click)="controlledSection.collapse()">
             Collapse
           </button>
-          <span class="ml-4 flex items-center text-sm text-surface-600">
+          <span class="ml-4 flex items-center text-sm text-muted-foreground">
             State: {{ controlledSection.isOpen() ? 'Open' : 'Closed' }}
           </span>
         </div>
         <div comCollapsible variant="bordered" #controlledSection="comCollapsible">
           <button comCollapsibleTrigger>Externally Controlled Section</button>
           <com-collapsible-content>
-            <div class="border-t border-border p-4 text-surface-600">
+            <div class="border-t border-border p-4 text-foreground">
               This section can be controlled via template reference or two-way binding.
             </div>
           </com-collapsible-content>
@@ -148,7 +173,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Custom Icon Demo -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Custom Icon</h2>
+      <com-item
+        title="Custom Icon"
+        description="Replace the default chevron with custom content"
+        icon="sparkles"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div comCollapsible variant="card">
           <button comCollapsibleTrigger>
@@ -158,7 +189,7 @@ import { CodeBlock } from '../../../shared/code-block';
             </ng-template>
           </button>
           <com-collapsible-content>
-            <div class="border-t border-border p-4 text-surface-600">
+            <div class="border-t border-border p-4 text-foreground">
               The default chevron icon is replaced with a plus/minus symbol.
             </div>
           </com-collapsible-content>

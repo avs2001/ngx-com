@@ -20,7 +20,7 @@ import type {
   TemplateRef,
   WritableSignal,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import type { ConnectedPosition, ConnectedOverlayPositionChange, ConnectionPositionPair, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
@@ -105,7 +105,7 @@ function deriveSideFromPosition(pair: ConnectionPositionPair): TooltipSide {
  * is rendered via CDK Overlay when triggered by mouse hover, keyboard focus,
  * or programmatically.
  *
- * @tokens `--color-surface-900`, `--color-surface-50`, `--color-primary`, `--color-primary-foreground`,
+ * @tokens `--color-tooltip`, `--color-tooltip-foreground`, `--color-primary`, `--color-primary-foreground`,
  *         `--color-accent`, `--color-accent-foreground`, `--color-warn`, `--color-warn-foreground`,
  *         `--color-popover`, `--color-popover-foreground`, `--color-border`
  *
@@ -183,6 +183,7 @@ export class ComTooltip {
   private readonly destroyRef = inject(DestroyRef);
   private readonly renderer = inject(Renderer2);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly document = inject(DOCUMENT);
 
   private overlayRef: OverlayRef | null = null;
   private panelInstance: TooltipPanelComponent | null = null;
@@ -317,29 +318,29 @@ export class ComTooltip {
       const touchEndHandler = (e: Event): void => {
         const touch = (e as TouchEvent).changedTouches?.[0];
         if (touch) {
-          const target = document.elementFromPoint(touch.clientX, touch.clientY);
+          const target = this.document.elementFromPoint(touch.clientX, touch.clientY);
           if (!this.overlayRef?.overlayElement.contains(target)) {
             this.hide();
           }
         }
-        document.removeEventListener('touchend', touchEndHandler);
+        this.document.removeEventListener('touchend', touchEndHandler);
       };
-      document.addEventListener('touchend', touchEndHandler);
+      this.document.addEventListener('touchend', touchEndHandler);
     }, 500);
 
     // Cancel long-press if finger moves
     const touchMoveHandler = (): void => {
       this.clearTouchTimeout();
-      document.removeEventListener('touchmove', touchMoveHandler);
+      this.document.removeEventListener('touchmove', touchMoveHandler);
     };
-    document.addEventListener('touchmove', touchMoveHandler);
+    this.document.addEventListener('touchmove', touchMoveHandler);
 
     // Cancel long-press if finger lifts before timeout
     const touchEndCancelHandler = (): void => {
       this.clearTouchTimeout();
-      document.removeEventListener('touchend', touchEndCancelHandler);
+      this.document.removeEventListener('touchend', touchEndCancelHandler);
     };
-    document.addEventListener('touchend', touchEndCancelHandler);
+    this.document.addEventListener('touchend', touchEndCancelHandler);
   }
 
   // ─── Panel Mouse Events ───

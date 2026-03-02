@@ -116,7 +116,7 @@ interface NavSection {
 })
 export class Sidebar {
   private readonly router = inject(Router);
-  private readonly expandedSections = signal<Set<string>>(new Set(['components/badge', 'components/button', 'components/calendar', 'components/card', 'components/checkbox', 'components/collapsible', 'components/datepicker', 'components/dropdown', 'components/form-field', 'components/icon', 'components/menu', 'components/popover', 'components/radio', 'components/segmented-control', 'components/sort', 'components/spinner', 'components/tabs', 'components/tooltip']));
+  private readonly expandedSections = signal<Set<string>>(new Set(['components/avatar', 'components/badge', 'components/button', 'components/calendar', 'components/card', 'components/checkbox', 'components/collapsible', 'components/datepicker', 'components/dropdown', 'components/empty-state', 'components/form-field', 'components/icon', 'components/item', 'components/menu', 'components/popover', 'components/radio', 'components/segmented-control', 'components/sort', 'components/spinner', 'components/tabs', 'components/tooltip']));
 
   private readonly navigationEnd = toSignal(
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
@@ -134,6 +134,15 @@ export class Sidebar {
     {
       title: 'Components',
       items: [
+        {
+          label: 'Avatar',
+          path: 'components/avatar',
+          children: [
+            { label: 'Overview', path: '/components/avatar/overview' },
+            { label: 'Examples', path: '/components/avatar/examples' },
+            { label: 'API', path: '/components/avatar/api' },
+          ],
+        },
         {
           label: 'Badge',
           path: 'components/badge',
@@ -207,6 +216,15 @@ export class Sidebar {
           ],
         },
         {
+          label: 'Empty State',
+          path: 'components/empty-state',
+          children: [
+            { label: 'Overview', path: '/components/empty-state/overview' },
+            { label: 'Examples', path: '/components/empty-state/examples' },
+            { label: 'API', path: '/components/empty-state/api' },
+          ],
+        },
+        {
           label: 'Form Field',
           path: 'components/form-field',
           children: [
@@ -222,6 +240,15 @@ export class Sidebar {
             { label: 'Overview', path: '/components/icon/overview' },
             { label: 'Examples', path: '/components/icon/examples' },
             { label: 'API', path: '/components/icon/api' },
+          ],
+        },
+        {
+          label: 'Item',
+          path: 'components/item',
+          children: [
+            { label: 'Overview', path: '/components/item/overview' },
+            { label: 'Examples', path: '/components/item/examples' },
+            { label: 'API', path: '/components/item/api' },
           ],
         },
         {

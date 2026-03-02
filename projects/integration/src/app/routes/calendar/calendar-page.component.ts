@@ -1,17 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TabNavBarComponent, TabLinkDirective } from 'ngx-com/components/tabs';
+import { ComItem } from 'ngx-com/components/item';
 
 @Component({
   selector: 'int-calendar-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective, ComItem],
   template: `
     <div class="mx-auto max-w-4xl px-6 py-12">
-      <h1 class="mb-4 text-4xl font-bold text-surface-900">Calendar</h1>
-      <p class="mb-8 text-lg text-surface-600">
-        A full-featured, accessible calendar component with multiple views, selection strategies, and date constraints.
-      </p>
+      <com-item
+        title="Calendar"
+        description="A full-featured, accessible calendar component with multiple views, selection strategies, and date constraints."
+        icon="calendar"
+        size="lg"
+        class="mb-8"
+      />
 
       <nav com-tab-nav-bar class="mb-8" aria-label="Calendar documentation tabs">
         <a comTabLink routerLink="overview" routerLinkActive>Overview</a>

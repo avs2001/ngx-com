@@ -14,8 +14,3 @@ export type {
 
 // Variants (for advanced customization)
 export { tooltipPanelVariants, tooltipArrowVariants } from './tooltip.variants';
-
-export type {
-  TooltipPanelVariants,
-  TooltipArrowVariants,
-} from './tooltip.variants';

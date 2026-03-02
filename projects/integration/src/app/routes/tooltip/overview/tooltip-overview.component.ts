@@ -2,16 +2,23 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComTooltip } from 'ngx-com/components/tooltip';
 import { ComButton } from 'ngx-com/components/button';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-tooltip-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComTooltip, ComButton, ComCard, CodeBlock],
+  imports: [ComTooltip, ComButton, ComCard, ComItem, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Interactive tooltips with different positions and colors"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-6">
           <button comButton comTooltip="Save your changes">Save</button>
@@ -23,7 +30,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and apply the directive to elements"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block
         language="typescript"
         [code]="basicUsageCode"
@@ -32,55 +45,66 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">5 Color Variants</h3>
-          <p class="text-sm text-surface-600">
-            Default (dark), primary, accent, warn, and invert variants for different contexts.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">4 Positions</h3>
-          <p class="text-sm text-surface-600">
-            Top, bottom, left, and right with automatic viewport flipping.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">3 Sizes</h3>
-          <p class="text-sm text-surface-600">
-            Small, medium, and large sizes for different content needs.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Custom Templates</h3>
-          <p class="text-sm text-surface-600">
-            Rich content support via ng-template for complex tooltips.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Accessible</h3>
-          <p class="text-sm text-surface-600">
-            Full keyboard support with focus triggers and Escape to dismiss.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Configurable Delays</h3>
-          <p class="text-sm text-surface-600">
-            Customizable show/hide delays to prevent flicker and improve UX.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes comTooltip powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="5 Color Variants"
+            description="Default (dark), primary, accent, warn, and invert variants for different contexts"
+            icon="palette"
+          />
+          <com-item
+            title="4 Positions"
+            description="Top, bottom, left, and right with automatic viewport flipping"
+            icon="move"
+            iconColor="accent"
+          />
+          <com-item
+            title="3 Sizes"
+            description="Small, medium, and large sizes for different content needs"
+            icon="maximize"
+          />
+          <com-item
+            title="Custom Templates"
+            description="Rich content support via ng-template for complex tooltips"
+            icon="layout"
+            iconColor="accent"
+          />
+          <com-item
+            title="Accessible"
+            description="Full keyboard support with focus triggers and Escape to dismiss"
+            icon="accessibility"
+          />
+          <com-item
+            title="Configurable Delays"
+            description="Customizable show/hide delays to prevent flicker and improve UX"
+            icon="clock"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- When to Use -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">When to Use</h2>
+      <com-item
+        title="When to Use"
+        description="Guidelines for effective tooltip usage"
+        icon="info"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-6">
         <div class="space-y-4">
           <div>
-            <h3 class="mb-2 font-semibold text-surface-900">Use tooltips for:</h3>
-            <ul class="list-inside list-disc space-y-1 text-surface-600">
+            <h3 class="mb-2 font-semibold text-foreground">Use tooltips for:</h3>
+            <ul class="list-inside list-disc space-y-1 text-foreground">
               <li>Supplementary information that isn't essential</li>
               <li>Icon-only buttons that need labels</li>
               <li>Abbreviations or technical terms</li>
@@ -88,8 +112,8 @@ import { CodeBlock } from '../../../shared/code-block';
             </ul>
           </div>
           <div>
-            <h3 class="mb-2 font-semibold text-surface-900">Avoid tooltips for:</h3>
-            <ul class="list-inside list-disc space-y-1 text-surface-600">
+            <h3 class="mb-2 font-semibold text-foreground">Avoid tooltips for:</h3>
+            <ul class="list-inside list-disc space-y-1 text-foreground">
               <li>Critical information users must see</li>
               <li>Interactive content (use Popover instead)</li>
               <li>Long-form content or instructions</li>

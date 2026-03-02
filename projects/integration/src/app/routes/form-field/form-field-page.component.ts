@@ -1,18 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TabNavBarComponent, TabLinkDirective } from 'ngx-com/components/tabs';
+import { ComItem } from 'ngx-com/components/item';
 
 @Component({
   selector: 'int-form-field-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective, ComItem],
   template: `
     <div class="mx-auto max-w-4xl px-6 py-12">
-      <h1 class="mb-4 text-4xl font-bold text-surface-900">Form Field</h1>
-      <p class="mb-8 text-lg text-surface-600">
-        A visual wrapper for form inputs providing floating labels, hints, errors, and prefix/suffix slots
-        with automatic ARIA wiring.
-      </p>
+      <com-item
+        title="Form Field"
+        description="A visual wrapper for form inputs providing floating labels, hints, errors, and prefix/suffix slots with automatic ARIA wiring."
+        icon="text-cursor-input"
+        size="lg"
+        class="mb-8"
+      />
 
       <nav com-tab-nav-bar class="mb-8" aria-label="Form Field documentation tabs">
         <a comTabLink routerLink="overview" routerLinkActive>Overview</a>

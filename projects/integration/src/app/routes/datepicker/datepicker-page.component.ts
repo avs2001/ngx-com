@@ -1,17 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TabNavBarComponent, TabLinkDirective } from 'ngx-com/components/tabs';
+import { ComItem } from 'ngx-com/components/item';
 
 @Component({
   selector: 'int-datepicker-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective, ComItem],
   template: `
     <div class="mx-auto max-w-4xl px-6 py-12">
-      <h1 class="mb-4 text-4xl font-bold text-surface-900">Datepicker</h1>
-      <p class="mb-8 text-lg text-surface-600">
-        Form-integrated date input with calendar popup, supporting single and range selection with full accessibility.
-      </p>
+      <com-item
+        title="Datepicker"
+        description="Form-integrated date input with calendar popup, supporting single and range selection with full accessibility."
+        icon="calendar-days"
+        size="lg"
+        class="mb-8"
+      />
 
       <nav com-tab-nav-bar class="mb-8" aria-label="Datepicker documentation tabs">
         <a comTabLink routerLink="overview" routerLinkActive>Overview</a>

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import {
   ComFormField,
   ComInput,
@@ -25,12 +26,19 @@ import { CodeBlock } from '../../../shared/code-block';
     ComPrefix,
     ComSuffix,
     ComCard,
+    ComItem,
     CodeBlock,
   ],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Form fields with floating labels, hints, and validation"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="mx-auto max-w-md space-y-6">
           <com-form-field>
@@ -59,7 +67,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and compose form field primitives"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block
         language="typescript"
         [code]="basicUsageCode"
@@ -68,65 +82,73 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Floating Labels</h3>
-          <p class="text-sm text-surface-600">
-            Labels float above the input when focused or filled, with smooth CSS transitions.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">2 Appearances</h3>
-          <p class="text-sm text-surface-600">
-            Outline (default) and fill appearances for different design contexts.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Hints & Errors</h3>
-          <p class="text-sm text-surface-600">
-            Subscript area shows hints or errors with automatic aria-describedby wiring.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Prefix & Suffix</h3>
-          <p class="text-sm text-surface-600">
-            Content slots for icons, currency symbols, or action buttons.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Reactive Forms</h3>
-          <p class="text-sm text-surface-600">
-            Works with Angular reactive forms via the comInput directive.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Accessible</h3>
-          <p class="text-sm text-surface-600">
-            Automatic ARIA attributes, label association, and screen reader support.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes com-form-field powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="Floating Labels"
+            description="Labels float above the input when focused or filled, with smooth CSS transitions"
+            icon="type"
+          />
+          <com-item
+            title="2 Appearances"
+            description="Outline (default) and fill appearances for different design contexts"
+            icon="layers"
+            iconColor="accent"
+          />
+          <com-item
+            title="Hints & Errors"
+            description="Subscript area shows hints or errors with automatic aria-describedby wiring"
+            icon="info"
+          />
+          <com-item
+            title="Prefix & Suffix"
+            description="Content slots for icons, currency symbols, or action buttons"
+            icon="between-horizontal-start"
+            iconColor="accent"
+          />
+          <com-item
+            title="Reactive Forms"
+            description="Works with Angular reactive forms via the comInput directive"
+            icon="file-code"
+          />
+          <com-item
+            title="Accessible"
+            description="Automatic ARIA attributes, label association, and screen reader support"
+            icon="accessibility"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- Architecture -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Two-Primitive Architecture</h2>
+      <com-item
+        title="Two-Primitive Architecture"
+        description="How form field and input work together"
+        icon="info"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-6">
-        <p class="mb-4 text-surface-600">
-          The form field system uses two distinct primitives that compose together:
-        </p>
-        <ul class="list-inside list-disc space-y-2 text-surface-600">
+        <ul class="list-inside list-disc space-y-2 text-foreground">
           <li>
-            <strong class="text-surface-900">com-form-field:</strong> Visual wrapper providing label, border,
+            <strong>com-form-field:</strong> Visual wrapper providing label, border,
             hints/errors, and prefix/suffix slots
           </li>
           <li>
-            <strong class="text-surface-900">comInput:</strong> Behavioral directive on native input/textarea
+            <strong>comInput:</strong> Behavioral directive on native input/textarea
             that reports state to the form field
           </li>
         </ul>
-        <p class="mt-4 text-surface-600">
+        <p class="mt-4 text-foreground">
           The form field does NOT collect data. The input does NOT render UI.
           Together they form one cohesive unit.
         </p>

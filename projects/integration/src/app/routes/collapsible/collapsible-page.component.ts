@@ -1,17 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TabNavBarComponent, TabLinkDirective } from 'ngx-com/components/tabs';
+import { ComItem } from 'ngx-com/components/item';
 
 @Component({
   selector: 'int-collapsible-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective, ComItem],
   template: `
     <div class="mx-auto max-w-4xl px-6 py-12">
-      <h1 class="mb-4 text-4xl font-bold text-surface-900">Collapsible</h1>
-      <p class="mb-8 text-lg text-surface-600">
-        An accessible expand/collapse container with smooth CSS animations and flexible customization.
-      </p>
+      <com-item
+        title="Collapsible"
+        description="An accessible expand/collapse container with smooth CSS animations and flexible customization."
+        icon="chevrons-up-down"
+        size="lg"
+        class="mb-8"
+      />
 
       <nav com-tab-nav-bar class="mb-8" aria-label="Collapsible documentation tabs">
         <a comTabLink routerLink="overview" routerLinkActive>Overview</a>

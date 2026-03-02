@@ -1,16 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComBadge } from 'ngx-com/components/badge';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-badge-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComBadge, ComCard, CodeBlock],
+  imports: [ComBadge, ComCard, ComItem, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Badge variants and styles in action"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-4">
           <span comBadge>Primary</span>
@@ -25,7 +32,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and use the directive in your templates"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block
         language="typescript"
         [code]="basicUsageCode"
@@ -34,66 +47,74 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">6 Variants</h3>
-          <p class="text-sm text-surface-600">
-            Primary, accent, warn, success, muted, and outline variants with semantic color tokens.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">3 Sizes</h3>
-          <p class="text-sm text-surface-600">
-            Small, default, and large sizes with proportional spacing and typography.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Pill Shape</h3>
-          <p class="text-sm text-surface-600">
-            Optional fully-rounded pill shape for a softer appearance.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Icon Support</h3>
-          <p class="text-sm text-surface-600">
-            SVG icons are automatically sized based on the badge size.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Link Support</h3>
-          <p class="text-sm text-surface-600">
-            Works on anchor elements with automatic hover states.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Theme Aware</h3>
-          <p class="text-sm text-surface-600">
-            Uses semantic tokens for automatic dark mode and theme support.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes comBadge powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="6 Variants"
+            description="Primary, accent, warn, success, muted, and outline variants with semantic color tokens"
+            icon="layers"
+          />
+          <com-item
+            title="3 Sizes"
+            description="Small, default, and large sizes with proportional spacing and typography"
+            icon="maximize"
+            iconColor="accent"
+          />
+          <com-item
+            title="Pill Shape"
+            description="Optional fully-rounded pill shape for a softer appearance"
+            icon="circle"
+          />
+          <com-item
+            title="Icon Support"
+            description="SVG icons are automatically sized based on the badge size"
+            icon="sparkles"
+            iconColor="accent"
+          />
+          <com-item
+            title="Link Support"
+            description="Works on anchor elements with automatic hover states"
+            icon="link"
+          />
+          <com-item
+            title="Theme Aware"
+            description="Uses semantic tokens for automatic dark mode and theme support"
+            icon="sun-moon"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- Directive vs Component -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Why a Directive?</h2>
+      <com-item
+        title="Why a Directive?"
+        description="Benefits of the directive approach"
+        icon="info"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-6">
-        <p class="mb-4 text-surface-600">
-          Badge is implemented as a directive rather than a component for several reasons:
-        </p>
-        <ul class="list-inside list-disc space-y-2 text-surface-600">
+        <ul class="list-inside list-disc space-y-2 text-foreground">
           <li>
-            <strong class="text-surface-900">Flexibility:</strong> Apply badge styling to any element
-            (<code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">span</code>,
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">a</code>,
-            <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">button</code>, etc.)
+            <strong>Flexibility:</strong> Apply badge styling to any element
+            (<code class="rounded bg-muted px-1.5 py-0.5 text-sm">span</code>,
+            <code class="rounded bg-muted px-1.5 py-0.5 text-sm">a</code>,
+            <code class="rounded bg-muted px-1.5 py-0.5 text-sm">button</code>, etc.)
           </li>
           <li>
-            <strong class="text-surface-900">Lightweight:</strong> No extra DOM wrapper element needed
+            <strong>Lightweight:</strong> No extra DOM wrapper element needed
           </li>
           <li>
-            <strong class="text-surface-900">Semantic HTML:</strong> Use the appropriate element for the context
+            <strong>Semantic HTML:</strong> Use the appropriate element for the context
             (links for navigation, spans for labels)
           </li>
         </ul>

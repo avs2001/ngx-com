@@ -1,16 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComIcon } from 'ngx-com/components/icon';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-icon-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComIcon, ComCard, CodeBlock],
+  imports: [ComIcon, ComCard, ComItem, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Icon colors and variants in action"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-center justify-center gap-6">
           <com-icon name="star" />
@@ -25,59 +32,76 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and register icons in your application"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block language="typescript" [code]="basicUsageCode" />
     </section>
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">7 Color Variants</h3>
-          <p class="text-sm text-surface-600">
-            Current (inherit), primary, accent, warn, success, muted, and disabled with semantic tokens.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">6 Sizes</h3>
-          <p class="text-sm text-surface-600">
-            xs (12px), sm (16px), md (20px), lg (24px), xl (32px), and 2xl (40px).
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">1500+ Icons</h3>
-          <p class="text-sm text-surface-600">
-            Powered by Lucide — a beautiful, open-source icon library with consistent design.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Tree-Shakeable</h3>
-          <p class="text-sm text-surface-600">
-            Only bundle the icons you use via the provideComIcons() function.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Accessible</h3>
-          <p class="text-sm text-surface-600">
-            Decorative icons are hidden from screen readers; use ariaLabel for meaningful icons.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Theme Aware</h3>
-          <p class="text-sm text-surface-600">
-            Uses semantic color tokens for automatic dark mode and theme support.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes com-icon powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="7 Color Variants"
+            description="Current (inherit), primary, accent, warn, success, muted, and disabled with semantic tokens"
+            icon="palette"
+          />
+          <com-item
+            title="6 Sizes"
+            description="xs (12px), sm (16px), md (20px), lg (24px), xl (32px), and 2xl (40px)"
+            icon="maximize"
+            iconColor="accent"
+          />
+          <com-item
+            title="1500+ Icons"
+            description="Powered by Lucide — a beautiful, open-source icon library with consistent design"
+            icon="sparkles"
+            iconColor="accent"
+          />
+          <com-item
+            title="Tree-Shakeable"
+            description="Only bundle the icons you use via the provideComIcons() function"
+            icon="tree-deciduous"
+          />
+          <com-item
+            title="Accessible"
+            description="Decorative icons are hidden from screen readers; use ariaLabel for meaningful icons"
+            icon="accessibility"
+          />
+          <com-item
+            title="Theme Aware"
+            description="Uses semantic color tokens for automatic dark mode and theme support"
+            icon="sun-moon"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- Color Inheritance -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Color Inheritance</h2>
+      <com-item
+        title="Color Inheritance"
+        description="How icons inherit text color from parents"
+        icon="info"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-6">
-        <p class="mb-4 text-surface-600">
-          By default, icons inherit the parent's text color via <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">currentColor</code>.
+        <p class="mb-4 text-foreground">
+          By default, icons inherit the parent's text color via <code class="rounded bg-muted px-1.5 py-0.5 text-sm">currentColor</code>.
           This makes them perfect for inline use with text:
         </p>
         <div class="mb-4 flex flex-wrap items-center gap-6">

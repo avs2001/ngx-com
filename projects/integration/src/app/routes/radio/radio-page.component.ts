@@ -1,18 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TabNavBarComponent, TabLinkDirective } from 'ngx-com/components/tabs';
+import { ComItem } from 'ngx-com/components/item';
 
 @Component({
   selector: 'int-radio-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TabNavBarComponent, TabLinkDirective, ComItem],
   template: `
     <div class="mx-auto max-w-4xl px-6 py-12">
-      <h1 class="mb-4 text-4xl font-bold text-surface-900">Radio</h1>
-      <p class="mb-8 text-lg text-surface-600">
-        A production-grade radio component with full accessibility support, reactive forms integration,
-        and roving tabindex keyboard navigation.
-      </p>
+      <com-item
+        title="Radio"
+        description="A production-grade radio component with full accessibility support, reactive forms integration, and roving tabindex keyboard navigation."
+        icon="circle-dot"
+        size="lg"
+        class="mb-8"
+      />
 
       <nav com-tab-nav-bar class="mb-8" aria-label="Radio documentation tabs">
         <a comTabLink routerLink="overview" routerLinkActive>Overview</a>

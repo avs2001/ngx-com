@@ -1,17 +1,24 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import type { WritableSignal } from '@angular/core';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import { ComRadio, ComRadioGroup } from 'ngx-com/components/radio';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-radio-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComRadio, ComRadioGroup, ComCard, CodeBlock],
+  imports: [ComRadio, ComRadioGroup, ComCard, ComItem, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Radio groups with different variants and colors"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-start justify-center gap-12">
           <com-radio-group [(value)]="selectedFruit" aria-label="Select a fruit">
@@ -37,7 +44,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and use radio components in your templates"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block
         language="typescript"
         [code]="basicUsageCode"
@@ -46,50 +59,61 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">3 Variants</h3>
-          <p class="text-sm text-surface-600">
-            Primary, accent, and warn variants with semantic color tokens.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">3 Sizes</h3>
-          <p class="text-sm text-surface-600">
-            Small, medium, and large sizes with proportional spacing and typography.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Roving Tabindex</h3>
-          <p class="text-sm text-surface-600">
-            Arrow key navigation between options with cyclic wrapping.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Reactive Forms</h3>
-          <p class="text-sm text-surface-600">
-            Full ControlValueAccessor support with NgControl injection pattern.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Orientation</h3>
-          <p class="text-sm text-surface-600">
-            Vertical or horizontal layout with appropriate arrow key behavior.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Accessible</h3>
-          <p class="text-sm text-surface-600">
-            Native radio with role="radiogroup" and proper ARIA attributes.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes com-radio powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="3 Variants"
+            description="Primary, accent, and warn variants with semantic color tokens"
+            icon="layers"
+          />
+          <com-item
+            title="3 Sizes"
+            description="Small, medium, and large sizes with proportional spacing and typography"
+            icon="maximize"
+            iconColor="accent"
+          />
+          <com-item
+            title="Roving Tabindex"
+            description="Arrow key navigation between options with cyclic wrapping"
+            icon="keyboard"
+          />
+          <com-item
+            title="Reactive Forms"
+            description="Full ControlValueAccessor support with NgControl injection pattern"
+            icon="file-code"
+            iconColor="accent"
+          />
+          <com-item
+            title="Orientation"
+            description="Vertical or horizontal layout with appropriate arrow key behavior"
+            icon="move"
+          />
+          <com-item
+            title="Accessible"
+            description="Native radio with role='radiogroup' and proper ARIA attributes"
+            icon="accessibility"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- Horizontal -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Horizontal Orientation</h2>
+      <com-item
+        title="Horizontal Orientation"
+        description="Inline layout for compact spaces"
+        icon="layout"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <com-radio-group [(value)]="selectedSize" orientation="horizontal" aria-label="Select size">
           <com-radio value="sm">Small</com-radio>
@@ -102,27 +126,29 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Native Input -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Why Native Input?</h2>
+      <com-item
+        title="Why Native Input?"
+        description="Benefits of using native radio elements"
+        icon="info"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-6">
-        <p class="mb-4 text-surface-600">
-          This radio uses a native <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">&lt;input type="radio"&gt;</code>
-          wrapped in a label for several benefits:
-        </p>
-        <ul class="list-inside list-disc space-y-2 text-surface-600">
+        <ul class="list-inside list-disc space-y-2 text-foreground">
           <li>
-            <strong class="text-surface-900">Mutual exclusion:</strong> Native radios with same name automatically
+            <strong>Mutual exclusion:</strong> Native radios with same name automatically
             deselect siblings
           </li>
           <li>
-            <strong class="text-surface-900">CSS-driven states:</strong> :checked pseudo-class enables pure CSS
+            <strong>CSS-driven states:</strong> :checked pseudo-class enables pure CSS
             styling via peer selectors
           </li>
           <li>
-            <strong class="text-surface-900">Screen reader support:</strong> Native semantics with role="radiogroup"
+            <strong>Screen reader support:</strong> Native semantics with role="radiogroup"
             container
           </li>
           <li>
-            <strong class="text-surface-900">Click area:</strong> Wrapping label makes entire area clickable
+            <strong>Click area:</strong> Wrapping label makes entire area clickable
           </li>
         </ul>
       </com-card>

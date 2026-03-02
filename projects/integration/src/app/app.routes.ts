@@ -19,6 +19,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/theming').then(m => m.Theming),
       },
       {
+        path: 'components/avatar',
+        loadChildren: () => import('./routes/avatar/avatar.routes').then(m => m.AVATAR_ROUTES),
+      },
+      {
         path: 'components/badge',
         loadChildren: () => import('./routes/badge/badge.routes').then(m => m.BADGE_ROUTES),
       },
@@ -51,12 +55,20 @@ export const routes: Routes = [
         loadChildren: () => import('./routes/dropdown/dropdown.routes').then(m => m.DROPDOWN_ROUTES),
       },
       {
+        path: 'components/empty-state',
+        loadChildren: () => import('./routes/empty-state/empty-state.routes').then(m => m.EMPTY_STATE_ROUTES),
+      },
+      {
         path: 'components/form-field',
         loadChildren: () => import('./routes/form-field/form-field.routes').then(m => m.FORM_FIELD_ROUTES),
       },
       {
         path: 'components/icon',
         loadChildren: () => import('./routes/icon/icon.routes').then(m => m.ICON_ROUTES),
+      },
+      {
+        path: 'components/item',
+        loadChildren: () => import('./routes/item/item.routes').then(m => m.ITEM_ROUTES),
       },
       {
         path: 'components/menu',

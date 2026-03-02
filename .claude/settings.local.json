@@ -80,7 +80,10 @@
       "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com status)",
       "Bash(git -C /Users/ciprianiuga/dev/sandbox/ngx-com ls-remote:*)",
       "Bash(node:*)",
-      "Bash(gh release create:*)"
+      "Bash(gh release create:*)",
+      "Bash(for:*)",
+      "Bash(do basename \"$dir\")",
+      "Bash(done)"
     ]
   },
   "enabledMcpjsonServers": [

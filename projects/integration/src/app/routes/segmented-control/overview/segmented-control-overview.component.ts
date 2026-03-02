@@ -2,16 +2,23 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComSegmentedControl } from 'ngx-com/components/segmented-control';
 import type { SegmentOption } from 'ngx-com/components/segmented-control';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-segmented-control-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComSegmentedControl, ComCard, CodeBlock],
+  imports: [ComSegmentedControl, ComCard, ComItem, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Interactive segmented control with two-way binding"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="flex flex-col items-center gap-6">
           <com-segmented-control
@@ -19,8 +26,8 @@ import { CodeBlock } from '../../../shared/code-block';
             [(value)]="selectedRole"
             aria-label="Select role"
           />
-          <p class="text-sm text-surface-600">
-            Selected: <strong class="text-surface-900">{{ selectedRole() }}</strong>
+          <p class="text-sm text-muted-foreground">
+            Selected: <strong class="text-foreground">{{ selectedRole() }}</strong>
           </p>
         </div>
       </com-card>
@@ -28,7 +35,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and use the component in your templates"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block
         language="typescript"
         [code]="basicUsageCode"
@@ -37,71 +50,82 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Two Rendering Modes</h3>
-          <p class="text-sm text-surface-600">
-            Simple label mode or custom templates for icons, badges, and rich content.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Two-Way Binding</h3>
-          <p class="text-sm text-surface-600">
-            Use <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">[(value)]</code> for reactive state.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Keyboard Navigation</h3>
-          <p class="text-sm text-surface-600">
-            Arrow keys, Home/End with roving tabindex for accessibility.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Disabled Options</h3>
-          <p class="text-sm text-surface-600">
-            Individual options can be disabled and are skipped during navigation.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">3 Sizes</h3>
-          <p class="text-sm text-surface-600">
-            Small, medium, and large with proportional spacing.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Theme Aware</h3>
-          <p class="text-sm text-surface-600">
-            Uses semantic tokens for automatic dark mode and theme support.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes com-segmented-control powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="Two Rendering Modes"
+            description="Simple label mode or custom templates for icons, badges, and rich content"
+            icon="layout"
+          />
+          <com-item
+            title="Two-Way Binding"
+            description="Use [(value)] for reactive state management"
+            icon="refresh-cw"
+            iconColor="accent"
+          />
+          <com-item
+            title="Keyboard Navigation"
+            description="Arrow keys, Home/End with roving tabindex for accessibility"
+            icon="keyboard"
+          />
+          <com-item
+            title="Disabled Options"
+            description="Individual options can be disabled and are skipped during navigation"
+            icon="ban"
+            iconColor="accent"
+          />
+          <com-item
+            title="3 Sizes"
+            description="Small, medium, and large with proportional spacing"
+            icon="maximize"
+          />
+          <com-item
+            title="Theme Aware"
+            description="Uses semantic tokens for automatic dark mode and theme support"
+            icon="sun-moon"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- When to Use -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">When to Use</h2>
+      <com-item
+        title="When to Use"
+        description="Guidelines for effective segmented control usage"
+        icon="info"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-6">
-        <p class="mb-4 text-surface-600">
+        <p class="mb-4 text-foreground">
           Segmented controls are ideal for:
         </p>
-        <ul class="list-inside list-disc space-y-2 text-surface-600">
+        <ul class="list-inside list-disc space-y-2 text-foreground">
           <li>
-            <strong class="text-surface-900">View switching:</strong> Toggle between grid/list views,
+            <strong>View switching:</strong> Toggle between grid/list views,
             daily/weekly/monthly calendars
           </li>
           <li>
-            <strong class="text-surface-900">Filtering:</strong> Open/closed tickets, all/active/completed tasks
+            <strong>Filtering:</strong> Open/closed tickets, all/active/completed tasks
           </li>
           <li>
-            <strong class="text-surface-900">Settings:</strong> Light/dark/system theme, role selection
+            <strong>Settings:</strong> Light/dark/system theme, role selection
           </li>
           <li>
-            <strong class="text-surface-900">Data scope:</strong> Today/week/month/year ranges
+            <strong>Data scope:</strong> Today/week/month/year ranges
           </li>
         </ul>
-        <p class="mt-4 text-surface-600">
-          <strong class="text-surface-900">Not for:</strong> Tabs with associated content panels (use Tabs),
+        <p class="mt-4 text-foreground">
+          <strong>Not for:</strong> Tabs with associated content panels (use Tabs),
           multi-select (use checkboxes), long option lists (use dropdown/select).
         </p>
       </com-card>

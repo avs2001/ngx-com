@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComButton } from 'ngx-com/components/button';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import {
   PopoverTriggerDirective,
   PopoverCloseDirective,
@@ -10,11 +11,17 @@ import { CodeBlock } from '../../../shared/code-block';
 @Component({
   selector: 'int-popover-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComButton, ComCard, PopoverTriggerDirective, PopoverCloseDirective, CodeBlock],
+  imports: [ComButton, ComCard, ComItem, PopoverTriggerDirective, PopoverCloseDirective, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Interactive popovers with different positions and content"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="space-y-6 p-8">
         <!-- Basic popover -->
         <div class="flex flex-wrap gap-4">
@@ -49,7 +56,7 @@ import { CodeBlock } from '../../../shared/code-block';
 
         <!-- With close button -->
         <div>
-          <p class="mb-3 text-sm font-medium text-surface-600">With close button</p>
+          <p class="mb-3 text-sm font-medium text-muted-foreground">With close button</p>
           <button comButton color="accent" [comPopoverTrigger]="closeContent">
             Confirmation
           </button>
@@ -69,59 +76,73 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and use the popover directive"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block language="typescript" [code]="basicUsageCode" />
     </section>
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Smart Positioning</h3>
-          <p class="text-sm text-surface-600">
-            Automatically flips and repositions when hitting viewport edges using CDK Overlay.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Template or Component</h3>
-          <p class="text-sm text-surface-600">
-            Render content from ng-template or pass a Component class directly.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Optional Arrow</h3>
-          <p class="text-sm text-surface-600">
-            Connecting arrow that tracks the popover position automatically.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Focus Management</h3>
-          <p class="text-sm text-surface-600">
-            Optional focus trapping and automatic focus restoration on close.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Trigger Modes</h3>
-          <p class="text-sm text-surface-600">
-            Open on click, focus, or control programmatically with manual mode.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Full Accessibility</h3>
-          <p class="text-sm text-surface-600">
-            ARIA attributes, keyboard navigation, and screen reader support.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes comPopover powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="Smart Positioning"
+            description="Automatically flips and repositions when hitting viewport edges using CDK Overlay"
+            icon="move"
+          />
+          <com-item
+            title="Template or Component"
+            description="Render content from ng-template or pass a Component class directly"
+            icon="layout"
+            iconColor="accent"
+          />
+          <com-item
+            title="Optional Arrow"
+            description="Connecting arrow that tracks the popover position automatically"
+            icon="chevron-up"
+          />
+          <com-item
+            title="Focus Management"
+            description="Optional focus trapping and automatic focus restoration on close"
+            icon="focus"
+            iconColor="accent"
+          />
+          <com-item
+            title="Trigger Modes"
+            description="Open on click, focus, or control programmatically with manual mode"
+            icon="mouse-pointer-click"
+          />
+          <com-item
+            title="Full Accessibility"
+            description="ARIA attributes, keyboard navigation, and screen reader support"
+            icon="accessibility"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- External Control Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">External Control</h2>
-      <p class="mb-4 text-surface-600">
-        Use two-way binding with [(popoverOpen)] for programmatic control.
-      </p>
+      <com-item
+        title="External Control"
+        description="Programmatic control with two-way binding"
+        icon="settings"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="mb-4 flex items-center gap-4">
           <button
@@ -131,7 +152,7 @@ import { CodeBlock } from '../../../shared/code-block';
           >
             Toggle Externally
           </button>
-          <span class="text-sm text-surface-600">
+          <span class="text-sm text-muted-foreground">
             State: {{ isControlledOpen() ? 'Open' : 'Closed' }}
           </span>
         </div>
@@ -151,10 +172,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Positions Demo -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Positioning</h2>
-      <p class="mb-4 text-surface-600">
-        Control position with the popoverPosition and popoverAlignment inputs.
-      </p>
+      <com-item
+        title="Positioning"
+        description="Control position with popoverPosition and popoverAlignment inputs"
+        icon="layout"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
           @for (pos of positions; track pos) {

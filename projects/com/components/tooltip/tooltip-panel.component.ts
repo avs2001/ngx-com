@@ -11,7 +11,7 @@ import { mergeClasses } from './tooltip.utils';
  *
  * @internal Not exported in public API
  *
- * @tokens `--color-surface-900`, `--color-surface-50`, `--color-primary`, `--color-primary-foreground`,
+ * @tokens `--color-tooltip`, `--color-tooltip-foreground`, `--color-primary`, `--color-primary-foreground`,
  *         `--color-accent`, `--color-accent-foreground`, `--color-warn`, `--color-warn-foreground`,
  *         `--color-popover`, `--color-popover-foreground`, `--color-border`
  */

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComButton } from 'ngx-com/components/button';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import {
   TabGroupComponent,
   TabComponent,
@@ -18,30 +19,37 @@ import { CodeBlock } from '../../../shared/code-block';
     TabLabelDirective,
     TabContentDirective,
     ComCard,
+    ComItem,
     ComButton,
     CodeBlock,
   ],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Tab variants and styles in action"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="space-y-6 p-8">
         <!-- Underline variant (default) -->
         <div>
-          <p class="mb-3 text-sm font-medium text-surface-600">Underline (default)</p>
+          <p class="mb-3 text-sm font-medium text-muted-foreground">Underline (default)</p>
           <com-tab-group>
             <com-tab label="Overview">
-              <div class="py-4 text-surface-600">
+              <div class="py-4 text-foreground">
                 This is the overview panel. Click other tabs to switch content.
               </div>
             </com-tab>
             <com-tab label="Settings">
-              <div class="py-4 text-surface-600">
+              <div class="py-4 text-foreground">
                 Settings panel content goes here.
               </div>
             </com-tab>
             <com-tab label="Analytics">
-              <div class="py-4 text-surface-600">
+              <div class="py-4 text-foreground">
                 Analytics dashboard would appear here.
               </div>
             </com-tab>
@@ -50,32 +58,32 @@ import { CodeBlock } from '../../../shared/code-block';
 
         <!-- Pill variant -->
         <div>
-          <p class="mb-3 text-sm font-medium text-surface-600">Pill variant</p>
+          <p class="mb-3 text-sm font-medium text-muted-foreground">Pill variant</p>
           <com-tab-group variant="pill" color="accent">
             <com-tab label="All">
-              <div class="py-4 text-surface-600">All items displayed.</div>
+              <div class="py-4 text-foreground">All items displayed.</div>
             </com-tab>
             <com-tab label="Active">
-              <div class="py-4 text-surface-600">Only active items.</div>
+              <div class="py-4 text-foreground">Only active items.</div>
             </com-tab>
             <com-tab label="Archived">
-              <div class="py-4 text-surface-600">Archived items.</div>
+              <div class="py-4 text-foreground">Archived items.</div>
             </com-tab>
           </com-tab-group>
         </div>
 
         <!-- Solid variant -->
         <div>
-          <p class="mb-3 text-sm font-medium text-surface-600">Solid variant</p>
+          <p class="mb-3 text-sm font-medium text-muted-foreground">Solid variant</p>
           <com-tab-group variant="solid">
             <com-tab label="Day">
-              <div class="py-4 text-surface-600">Daily view.</div>
+              <div class="py-4 text-foreground">Daily view.</div>
             </com-tab>
             <com-tab label="Week">
-              <div class="py-4 text-surface-600">Weekly view.</div>
+              <div class="py-4 text-foreground">Weekly view.</div>
             </com-tab>
             <com-tab label="Month">
-              <div class="py-4 text-surface-600">Monthly view.</div>
+              <div class="py-4 text-foreground">Monthly view.</div>
             </com-tab>
           </com-tab-group>
         </div>
@@ -84,7 +92,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and compose tab components"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block
         language="typescript"
         [code]="basicUsageCode"
@@ -93,53 +107,61 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">4 Visual Variants</h3>
-          <p class="text-sm text-surface-600">
-            Underline, pill, outline, and solid variants for different contexts.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Two Modes</h3>
-          <p class="text-sm text-surface-600">
-            Content tabs with panel management or nav tabs for router integration.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Lazy Loading</h3>
-          <p class="text-sm text-surface-600">
-            Defer tab content rendering until first activation with [comTabContent].
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Overflow Scrolling</h3>
-          <p class="text-sm text-surface-600">
-            Automatic scroll buttons when tabs overflow the container.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Full Keyboard Support</h3>
-          <p class="text-sm text-surface-600">
-            Arrow keys, Home/End, Enter/Space following WAI-ARIA tabs pattern.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Closable Tabs</h3>
-          <p class="text-sm text-surface-600">
-            Optional close buttons on tabs with (closed) event handling.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes com-tab-group powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="4 Visual Variants"
+            description="Underline, pill, outline, and solid variants for different contexts"
+            icon="layers"
+          />
+          <com-item
+            title="Two Modes"
+            description="Content tabs with panel management or nav tabs for router integration"
+            icon="layout"
+            iconColor="accent"
+          />
+          <com-item
+            title="Lazy Loading"
+            description="Defer tab content rendering until first activation with [comTabContent]"
+            icon="zap"
+          />
+          <com-item
+            title="Overflow Scrolling"
+            description="Automatic scroll buttons when tabs overflow the container"
+            icon="move-horizontal"
+            iconColor="accent"
+          />
+          <com-item
+            title="Full Keyboard Support"
+            description="Arrow keys, Home/End, Enter/Space following WAI-ARIA tabs pattern"
+            icon="keyboard"
+          />
+          <com-item
+            title="Closable Tabs"
+            description="Optional close buttons on tabs with (closed) event handling"
+            icon="x"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- Custom Labels Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Custom Labels</h2>
-      <p class="mb-4 text-surface-600">
-        Use [comTabLabel] directive for rich tab headers with icons and badges.
-      </p>
+      <com-item
+        title="Custom Labels"
+        description="Rich tab headers with icons and badges"
+        icon="sparkles"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <com-tab-group>
           <com-tab>
@@ -150,7 +172,7 @@ import { CodeBlock } from '../../../shared/code-block';
               </svg>
               <span>Home</span>
             </ng-template>
-            <div class="py-4 text-surface-600">Home dashboard content.</div>
+            <div class="py-4 text-foreground">Home dashboard content.</div>
           </com-tab>
           <com-tab>
             <ng-template comTabLabel>
@@ -162,7 +184,7 @@ import { CodeBlock } from '../../../shared/code-block';
               <span>Projects</span>
               <span class="rounded-pill bg-primary px-1.5 py-0.5 text-xs text-primary-foreground">5</span>
             </ng-template>
-            <div class="py-4 text-surface-600">Active projects list.</div>
+            <div class="py-4 text-foreground">Active projects list.</div>
           </com-tab>
           <com-tab>
             <ng-template comTabLabel>
@@ -172,7 +194,7 @@ import { CodeBlock } from '../../../shared/code-block';
               </svg>
               <span>Settings</span>
             </ng-template>
-            <div class="py-4 text-surface-600">Application settings.</div>
+            <div class="py-4 text-foreground">Application settings.</div>
           </com-tab>
         </com-tab-group>
       </com-card>
@@ -180,7 +202,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Two-way Binding Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">External Control</h2>
+      <com-item
+        title="External Control"
+        description="Programmatic control via selectedIndex binding"
+        icon="settings"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="mb-4 flex gap-2">
           <button comButton size="sm" (click)="currentTab.set(0)">
@@ -192,19 +220,19 @@ import { CodeBlock } from '../../../shared/code-block';
           <button comButton variant="outline" color="muted" size="sm" (click)="currentTab.set(2)">
             Go to Tab 3
           </button>
-          <span class="ml-4 flex items-center text-sm text-surface-600">
+          <span class="ml-4 flex items-center text-sm text-muted-foreground">
             Selected: Tab {{ currentTab() + 1 }}
           </span>
         </div>
         <com-tab-group [(selectedIndex)]="currentTab">
           <com-tab label="First">
-            <div class="py-4 text-surface-600">First tab content.</div>
+            <div class="py-4 text-foreground">First tab content.</div>
           </com-tab>
           <com-tab label="Second">
-            <div class="py-4 text-surface-600">Second tab content.</div>
+            <div class="py-4 text-foreground">Second tab content.</div>
           </com-tab>
           <com-tab label="Third">
-            <div class="py-4 text-surface-600">Third tab content.</div>
+            <div class="py-4 text-foreground">Third tab content.</div>
           </com-tab>
         </com-tab-group>
       </com-card>
@@ -212,20 +240,23 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Lazy Loading Demo -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Lazy Loading</h2>
-      <p class="mb-4 text-surface-600">
-        Content inside [comTabContent] is only rendered when the tab is first activated.
-      </p>
+      <com-item
+        title="Lazy Loading"
+        description="Defer rendering until tab is first activated"
+        icon="zap"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <com-tab-group>
           <com-tab label="Eager">
-            <div class="py-4 text-surface-600">
+            <div class="py-4 text-foreground">
               This content loads immediately. Timestamp: {{ eagerTimestamp }}
             </div>
           </com-tab>
           <com-tab label="Lazy">
             <ng-template comTabContent>
-              <div class="py-4 text-surface-600">
+              <div class="py-4 text-foreground">
                 This content was lazily rendered on first activation.
                 Timestamp: {{ lazyTimestamp }}
               </div>

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComCard } from 'ngx-com/components/card';
 import { ComDropdown } from 'ngx-com/components/dropdown';
+import { ComItem } from 'ngx-com/components/item';
 import { CodeBlock } from '../../../shared/code-block';
 
 interface User {
@@ -11,11 +12,17 @@ interface User {
 @Component({
   selector: 'int-dropdown-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComDropdown, ComCard, CodeBlock],
+  imports: [ComDropdown, ComCard, ComItem, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Interactive dropdown with search and selection"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="flex flex-col items-center gap-6">
           <com-dropdown
@@ -28,8 +35,8 @@ interface User {
             (valueChange)="onUserSelected($event)"
           />
           @if (selectedUser()) {
-            <p class="text-surface-600">
-              Selected: <span class="font-medium text-surface-900">{{ selectedUser()!.name }}</span>
+            <p class="text-muted-foreground">
+              Selected: <span class="font-medium text-foreground">{{ selectedUser()!.name }}</span>
             </p>
           }
         </div>
@@ -38,7 +45,13 @@ interface User {
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and use the component in your templates"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block
         language="typescript"
         [code]="basicUsageCode"
@@ -47,82 +60,92 @@ interface User {
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Search & Filter</h3>
-          <p class="text-sm text-surface-600">
-            Built-in search input with customizable filtering and debounce support.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Multi-Select</h3>
-          <p class="text-sm text-surface-600">
-            Select multiple values with tag display and individual removal.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Grouping</h3>
-          <p class="text-sm text-surface-600">
-            Group options with custom groupBy function and collapsible headers.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Custom Templates</h3>
-          <p class="text-sm text-surface-600">
-            Full control over option, selected, empty, group, and tag rendering.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Forms Integration</h3>
-          <p class="text-sm text-surface-600">
-            ControlValueAccessor implementation for seamless Reactive Forms support.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Accessibility</h3>
-          <p class="text-sm text-surface-600">
-            WCAG AA compliant with full keyboard navigation and ARIA support.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes com-dropdown powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="Search & Filter"
+            description="Built-in search input with customizable filtering and debounce support"
+            icon="search"
+          />
+          <com-item
+            title="Multi-Select"
+            description="Select multiple values with tag display and individual removal"
+            icon="list-checks"
+            iconColor="accent"
+          />
+          <com-item
+            title="Grouping"
+            description="Group options with custom groupBy function and collapsible headers"
+            icon="folder"
+          />
+          <com-item
+            title="Custom Templates"
+            description="Full control over option, selected, empty, group, and tag rendering"
+            icon="layout"
+            iconColor="accent"
+          />
+          <com-item
+            title="Forms Integration"
+            description="ControlValueAccessor implementation for seamless Reactive Forms support"
+            icon="file-code"
+          />
+          <com-item
+            title="Accessibility"
+            description="WCAG AA compliant with full keyboard navigation and ARIA support"
+            icon="accessibility"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- Accessibility -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Accessibility</h2>
+      <com-item
+        title="Keyboard Navigation"
+        description="Full keyboard support for accessible interaction"
+        icon="keyboard"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-6">
-        <h3 class="mb-3 font-semibold text-surface-900">Keyboard Navigation</h3>
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-surface-200 text-left">
-              <th class="pb-2 font-medium text-surface-700">Key</th>
-              <th class="pb-2 font-medium text-surface-700">Action</th>
+            <tr class="border-b border-border text-left">
+              <th class="pb-2 font-medium text-muted-foreground">Key</th>
+              <th class="pb-2 font-medium text-muted-foreground">Action</th>
             </tr>
           </thead>
-          <tbody class="text-surface-600">
-            <tr class="border-b border-surface-100">
-              <td class="py-2"><kbd class="rounded bg-surface-100 px-2 py-0.5 font-mono text-xs">↑</kbd> <kbd class="rounded bg-surface-100 px-2 py-0.5 font-mono text-xs">↓</kbd></td>
+          <tbody class="text-foreground">
+            <tr class="border-b border-border">
+              <td class="py-2"><kbd class="rounded bg-muted px-2 py-0.5 font-mono text-xs">↑</kbd> <kbd class="rounded bg-muted px-2 py-0.5 font-mono text-xs">↓</kbd></td>
               <td class="py-2">Navigate options / Open dropdown</td>
             </tr>
-            <tr class="border-b border-surface-100">
-              <td class="py-2"><kbd class="rounded bg-surface-100 px-2 py-0.5 font-mono text-xs">Enter</kbd> <kbd class="rounded bg-surface-100 px-2 py-0.5 font-mono text-xs">Space</kbd></td>
+            <tr class="border-b border-border">
+              <td class="py-2"><kbd class="rounded bg-muted px-2 py-0.5 font-mono text-xs">Enter</kbd> <kbd class="rounded bg-muted px-2 py-0.5 font-mono text-xs">Space</kbd></td>
               <td class="py-2">Select option / Toggle dropdown</td>
             </tr>
-            <tr class="border-b border-surface-100">
-              <td class="py-2"><kbd class="rounded bg-surface-100 px-2 py-0.5 font-mono text-xs">Escape</kbd></td>
+            <tr class="border-b border-border">
+              <td class="py-2"><kbd class="rounded bg-muted px-2 py-0.5 font-mono text-xs">Escape</kbd></td>
               <td class="py-2">Close dropdown</td>
             </tr>
-            <tr class="border-b border-surface-100">
-              <td class="py-2"><kbd class="rounded bg-surface-100 px-2 py-0.5 font-mono text-xs">Home</kbd></td>
+            <tr class="border-b border-border">
+              <td class="py-2"><kbd class="rounded bg-muted px-2 py-0.5 font-mono text-xs">Home</kbd></td>
               <td class="py-2">Jump to first option</td>
             </tr>
-            <tr class="border-b border-surface-100">
-              <td class="py-2"><kbd class="rounded bg-surface-100 px-2 py-0.5 font-mono text-xs">End</kbd></td>
+            <tr class="border-b border-border">
+              <td class="py-2"><kbd class="rounded bg-muted px-2 py-0.5 font-mono text-xs">End</kbd></td>
               <td class="py-2">Jump to last option</td>
             </tr>
             <tr>
-              <td class="py-2"><kbd class="rounded bg-surface-100 px-2 py-0.5 font-mono text-xs">A-Z</kbd></td>
+              <td class="py-2"><kbd class="rounded bg-muted px-2 py-0.5 font-mono text-xs">A-Z</kbd></td>
               <td class="py-2">Type-ahead search</td>
             </tr>
           </tbody>

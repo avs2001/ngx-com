@@ -362,11 +362,11 @@ describe('ComSegmentedControl', () => {
 
     it('should apply disabled classes', () => {
       const buttons = getDisabledButtons();
+      expect(buttons[2]?.classList.contains('bg-disabled')).toBe(true);
       expect(buttons[2]?.classList.contains('text-disabled-foreground')).toBe(
         true
       );
       expect(buttons[2]?.classList.contains('cursor-not-allowed')).toBe(true);
-      expect(buttons[2]?.classList.contains('opacity-50')).toBe(true);
     });
 
     it('should not select disabled option on click', () => {

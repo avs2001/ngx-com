@@ -161,7 +161,7 @@ export const segmentedControlSegmentVariants: (props?: {
  * Separate from CVA to avoid complex variant combinations.
  */
 export const SEGMENT_DISABLED_CLASSES =
-  'text-disabled-foreground cursor-not-allowed opacity-50 hover:bg-transparent';
+  'bg-disabled text-disabled-foreground cursor-not-allowed hover:bg-disabled';
 
 // ─── Variant Types ───
 

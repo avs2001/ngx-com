@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { ComCard } from 'ngx-com/components/card';
+import { ComItem } from 'ngx-com/components/item';
 import { SortDirective, SortHeaderComponent, type SortEvent } from 'ngx-com/components/sort';
 import { CodeBlock } from '../../../shared/code-block';
 
@@ -14,17 +15,23 @@ interface User {
 @Component({
   selector: 'int-sort-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SortDirective, SortHeaderComponent, ComCard, CodeBlock],
+  imports: [SortDirective, SortHeaderComponent, ComCard, ComItem, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Sortable table with clickable column headers"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
-        <div class="mb-4 text-sm text-surface-600">
+        <div class="mb-4 text-sm text-muted-foreground">
           Click on column headers to sort. Click again to reverse. Click a third time to clear.
         </div>
 
-        <div class="overflow-hidden rounded-lg border border-surface-200">
+        <div class="overflow-hidden rounded-lg border border-border">
           <table class="w-full text-sm">
             <thead>
               <tr
@@ -32,28 +39,28 @@ interface User {
                 [(sortActive)]="sortActive"
                 [(sortDirection)]="sortDirection"
                 (sortChange)="onSortChange($event)"
-                class="border-b border-surface-200 bg-surface-50"
+                class="border-b border-border bg-muted"
               >
-                <th comSortHeader="name" class="px-4 py-3 text-left font-semibold text-surface-900">
+                <th comSortHeader="name" class="px-4 py-3 text-left font-semibold text-foreground">
                   Name
                 </th>
-                <th comSortHeader="email" class="px-4 py-3 text-left font-semibold text-surface-900">
+                <th comSortHeader="email" class="px-4 py-3 text-left font-semibold text-foreground">
                   Email
                 </th>
-                <th comSortHeader="age" class="px-4 py-3 text-left font-semibold text-surface-900">
+                <th comSortHeader="age" class="px-4 py-3 text-left font-semibold text-foreground">
                   Age
                 </th>
-                <th comSortHeader="role" class="px-4 py-3 text-left font-semibold text-surface-900">
+                <th comSortHeader="role" class="px-4 py-3 text-left font-semibold text-foreground">
                   Role
                 </th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-surface-100">
+            <tbody class="divide-y divide-border">
               @for (user of sortedUsers(); track user.id) {
-                <tr class="hover:bg-surface-50">
-                  <td class="px-4 py-3 text-surface-900">{{ user.name }}</td>
-                  <td class="px-4 py-3 text-surface-600">{{ user.email }}</td>
-                  <td class="px-4 py-3 text-surface-600">{{ user.age }}</td>
+                <tr class="hover:bg-muted/50">
+                  <td class="px-4 py-3 text-foreground">{{ user.name }}</td>
+                  <td class="px-4 py-3 text-muted-foreground">{{ user.email }}</td>
+                  <td class="px-4 py-3 text-muted-foreground">{{ user.age }}</td>
                   <td class="px-4 py-3">
                     <span
                       class="rounded-full px-2 py-0.5 text-xs font-medium"
@@ -68,7 +75,7 @@ interface User {
           </table>
         </div>
 
-        <div class="mt-4 text-sm text-surface-500">
+        <div class="mt-4 text-sm text-muted-foreground">
           Current: {{ sortActive() || 'none' }} ({{ sortDirection() || 'unsorted' }})
         </div>
       </com-card>
@@ -76,85 +83,99 @@ interface User {
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and apply sort directives to any container"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block language="typescript" [code]="basicUsageCode" />
     </section>
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Three-State Cycle</h3>
-          <p class="text-sm text-surface-600">
-            Click cycles through ascending, descending, and unsorted states.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Two-Way Binding</h3>
-          <p class="text-sm text-surface-600">
-            Use [(sortActive)] and [(sortDirection)] for external state control.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Customizable Cycle</h3>
-          <p class="text-sm text-surface-600">
-            Configure [sortCycle] to skip unsorted state or change order.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Keyboard Navigation</h3>
-          <p class="text-sm text-surface-600">
-            Full accessibility with Enter/Space activation and proper ARIA.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Disabled Support</h3>
-          <p class="text-sm text-surface-600">
-            Disable all sorting or individual columns with boolean inputs.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Visual Indicators</h3>
-          <p class="text-sm text-surface-600">
-            Animated arrow icons show sort direction with smooth transitions.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes comSort powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="Three-State Cycle"
+            description="Click cycles through ascending, descending, and unsorted states"
+            icon="refresh-cw"
+          />
+          <com-item
+            title="Two-Way Binding"
+            description="Use [(sortActive)] and [(sortDirection)] for external state control"
+            icon="link"
+            iconColor="accent"
+          />
+          <com-item
+            title="Customizable Cycle"
+            description="Configure [sortCycle] to skip unsorted state or change order"
+            icon="settings"
+          />
+          <com-item
+            title="Keyboard Navigation"
+            description="Full accessibility with Enter/Space activation and proper ARIA"
+            icon="keyboard"
+            iconColor="accent"
+          />
+          <com-item
+            title="Disabled Support"
+            description="Disable all sorting or individual columns with boolean inputs"
+            icon="ban"
+          />
+          <com-item
+            title="Visual Indicators"
+            description="Animated arrow icons show sort direction with smooth transitions"
+            icon="arrow-up-down"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- Show Indicator Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Show Indicators</h2>
-      <p class="mb-4 text-surface-600">
-        Use [sortShowIndicator]="true" to show muted arrows on unsorted columns.
-      </p>
+      <com-item
+        title="Show Indicators"
+        description="Display muted arrows on unsorted columns"
+        icon="eye"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
-        <div class="overflow-hidden rounded-lg border border-surface-200">
+        <div class="overflow-hidden rounded-lg border border-border">
           <table class="w-full text-sm">
             <thead>
-              <tr comSort [sortShowIndicator]="true" class="border-b border-surface-200 bg-surface-50">
-                <th comSortHeader="name" class="px-4 py-3 text-left font-semibold text-surface-900">
+              <tr comSort [sortShowIndicator]="true" class="border-b border-border bg-muted">
+                <th comSortHeader="name" class="px-4 py-3 text-left font-semibold text-foreground">
                   Name
                 </th>
-                <th comSortHeader="status" class="px-4 py-3 text-left font-semibold text-surface-900">
+                <th comSortHeader="status" class="px-4 py-3 text-left font-semibold text-foreground">
                   Status
                 </th>
-                <th comSortHeader="date" class="px-4 py-3 text-left font-semibold text-surface-900">
+                <th comSortHeader="date" class="px-4 py-3 text-left font-semibold text-foreground">
                   Date
                 </th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-surface-100">
-              <tr class="hover:bg-surface-50">
-                <td class="px-4 py-3 text-surface-900">Project Alpha</td>
-                <td class="px-4 py-3 text-surface-600">Active</td>
-                <td class="px-4 py-3 text-surface-600">2024-01-15</td>
+            <tbody class="divide-y divide-border">
+              <tr class="hover:bg-muted/50">
+                <td class="px-4 py-3 text-foreground">Project Alpha</td>
+                <td class="px-4 py-3 text-muted-foreground">Active</td>
+                <td class="px-4 py-3 text-muted-foreground">2024-01-15</td>
               </tr>
-              <tr class="hover:bg-surface-50">
-                <td class="px-4 py-3 text-surface-900">Project Beta</td>
-                <td class="px-4 py-3 text-surface-600">Pending</td>
-                <td class="px-4 py-3 text-surface-600">2024-02-20</td>
+              <tr class="hover:bg-muted/50">
+                <td class="px-4 py-3 text-foreground">Project Beta</td>
+                <td class="px-4 py-3 text-muted-foreground">Pending</td>
+                <td class="px-4 py-3 text-muted-foreground">2024-02-20</td>
               </tr>
             </tbody>
           </table>
@@ -164,32 +185,35 @@ interface User {
 
     <!-- Non-Table Usage -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Non-Table Usage</h2>
-      <p class="mb-4 text-surface-600">
-        The sort directive works with any container, not just tables.
-      </p>
+      <com-item
+        title="Non-Table Usage"
+        description="Sort directive works with any container, not just tables"
+        icon="layout"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div comSort class="mb-4 flex gap-2">
           <button
             comSortHeader="name"
-            class="rounded-md border border-surface-200 bg-surface-50 px-4 py-2 text-sm font-medium"
+            class="rounded-md border border-border bg-muted px-4 py-2 text-sm font-medium"
           >
             Name
           </button>
           <button
             comSortHeader="date"
-            class="rounded-md border border-surface-200 bg-surface-50 px-4 py-2 text-sm font-medium"
+            class="rounded-md border border-border bg-muted px-4 py-2 text-sm font-medium"
           >
             Date
           </button>
           <button
             comSortHeader="size"
-            class="rounded-md border border-surface-200 bg-surface-50 px-4 py-2 text-sm font-medium"
+            class="rounded-md border border-border bg-muted px-4 py-2 text-sm font-medium"
           >
             Size
           </button>
         </div>
-        <p class="text-sm text-surface-500">Click buttons above to sort.</p>
+        <p class="text-sm text-muted-foreground">Click buttons above to sort.</p>
       </com-card>
     </section>
   `,

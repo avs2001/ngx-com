@@ -1,16 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComCard } from 'ngx-com/components/card';
 import { ComCheckbox } from 'ngx-com/components/checkbox';
+import { ComItem } from 'ngx-com/components/item';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-checkbox-overview',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComCheckbox, ComCard, CodeBlock],
+  imports: [ComCheckbox, ComCard, ComItem, CodeBlock],
   template: `
     <!-- Demo -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Demo</h2>
+      <com-item
+        title="Demo"
+        description="Checkbox variants and states in action"
+        icon="play"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-8">
         <div class="flex flex-wrap items-start justify-center gap-6">
           <com-checkbox>Default</com-checkbox>
@@ -24,7 +31,13 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Basic Usage -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Basic Usage</h2>
+      <com-item
+        title="Basic Usage"
+        description="Import and use the component in your templates"
+        icon="code"
+        size="lg"
+        class="mb-4"
+      />
       <int-code-block
         language="typescript"
         [code]="basicUsageCode"
@@ -33,69 +46,76 @@ import { CodeBlock } from '../../../shared/code-block';
 
     <!-- Features -->
     <section class="mb-12">
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Features</h2>
-      <div class="grid gap-4 md:grid-cols-2">
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">3 Variants</h3>
-          <p class="text-sm text-surface-600">
-            Primary, accent, and warn variants with semantic color tokens.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">3 Sizes</h3>
-          <p class="text-sm text-surface-600">
-            Small, medium, and large sizes with proportional spacing and typography.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Indeterminate State</h3>
-          <p class="text-sm text-surface-600">
-            Built-in indeterminate state for "select all" patterns, clears on user click.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Reactive Forms</h3>
-          <p class="text-sm text-surface-600">
-            Full ControlValueAccessor support with NgControl injection pattern.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Two-way Binding</h3>
-          <p class="text-sm text-surface-600">
-            Signal-based models for checked, indeterminate, and disabled states.
-          </p>
-        </com-card>
-        <com-card variant="outlined" class="p-4">
-          <h3 class="mb-2 font-semibold text-surface-900">Accessible</h3>
-          <p class="text-sm text-surface-600">
-            Native checkbox with proper ARIA attributes and keyboard navigation.
-          </p>
-        </com-card>
-      </div>
+      <com-item
+        title="Features"
+        description="What makes com-checkbox powerful"
+        icon="star"
+        size="lg"
+        class="mb-4"
+      />
+      <com-card variant="outlined" class="p-3">
+        <div class="space-y-1">
+          <com-item
+            title="3 Variants"
+            description="Primary, accent, and warn variants with semantic color tokens"
+            icon="layers"
+          />
+          <com-item
+            title="3 Sizes"
+            description="Small, medium, and large sizes with proportional spacing and typography"
+            icon="maximize"
+            iconColor="accent"
+          />
+          <com-item
+            title="Indeterminate State"
+            description="Built-in indeterminate state for 'select all' patterns, clears on user click"
+            icon="minus-square"
+          />
+          <com-item
+            title="Reactive Forms"
+            description="Full ControlValueAccessor support with NgControl injection pattern"
+            icon="file-code"
+            iconColor="accent"
+          />
+          <com-item
+            title="Two-way Binding"
+            description="Signal-based models for checked, indeterminate, and disabled states"
+            icon="refresh-cw"
+          />
+          <com-item
+            title="Accessible"
+            description="Native checkbox with proper ARIA attributes and keyboard navigation"
+            icon="accessibility"
+            iconColor="accent"
+          />
+        </div>
+      </com-card>
     </section>
 
     <!-- Native Input -->
     <section>
-      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Why Native Input?</h2>
+      <com-item
+        title="Why Native Input?"
+        description="Benefits of using native checkbox elements"
+        icon="info"
+        size="lg"
+        class="mb-4"
+      />
       <com-card variant="outlined" class="p-6">
-        <p class="mb-4 text-surface-600">
-          This checkbox uses a native <code class="rounded bg-surface-100 px-1.5 py-0.5 text-sm">&lt;input type="checkbox"&gt;</code>
-          wrapped in a label for several benefits:
-        </p>
-        <ul class="list-inside list-disc space-y-2 text-surface-600">
+        <ul class="list-inside list-disc space-y-2 text-foreground">
           <li>
-            <strong class="text-surface-900">Keyboard handling:</strong> Space toggles without JavaScript
+            <strong>Keyboard handling:</strong> Space toggles without JavaScript
           </li>
           <li>
-            <strong class="text-surface-900">CSS-driven states:</strong> :checked and :indeterminate pseudo-classes
+            <strong>CSS-driven states:</strong> :checked and :indeterminate pseudo-classes
             enable pure CSS styling via peer selectors
           </li>
           <li>
-            <strong class="text-surface-900">Screen reader support:</strong> Native semantics without manual
+            <strong>Screen reader support:</strong> Native semantics without manual
             role/aria-checked attributes
           </li>
           <li>
-            <strong class="text-surface-900">Click area:</strong> Wrapping label makes entire area clickable
+            <strong>Click area:</strong> Wrapping label makes entire area clickable
           </li>
         </ul>
       </com-card>
