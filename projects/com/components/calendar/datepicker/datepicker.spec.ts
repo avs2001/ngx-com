@@ -3,11 +3,16 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { ArrowRight, Calendar, X } from 'lucide-angular';
 
 import { ComDatepicker } from './datepicker.component';
 import { ComDateRangePicker } from './date-range-picker.component';
 import { provideNativeDateAdapter } from '../providers';
+import { provideComIcons } from 'ngx-com/components/icon';
 import type { DateRangeValue } from './datepicker.types';
+
+/** Icons used by datepicker components. */
+const DATEPICKER_TEST_ICONS = { ArrowRight, Calendar, X };
 
 describe('ComDatepicker', () => {
   describe('Basic functionality', () => {
@@ -20,7 +25,7 @@ describe('ComDatepicker', () => {
         />
       `,
       imports: [ComDatepicker],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class BasicDatepickerComponent {
       selectedDate = signal<Date | null>(null);
@@ -87,7 +92,7 @@ describe('ComDatepicker', () => {
         <com-datepicker [disabled]="disabled()" />
       `,
       imports: [ComDatepicker],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class DisabledDatepickerComponent {
       disabled = signal(true);
@@ -141,7 +146,7 @@ describe('ComDatepicker', () => {
         </form>
       `,
       imports: [ComDatepicker, ReactiveFormsModule],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class ReactiveFormDatepickerComponent {
       form = new FormGroup({
@@ -182,7 +187,7 @@ describe('ComDatepicker', () => {
         />
       `,
       imports: [ComDatepicker],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class ClearButtonDatepickerComponent {
       selectedDate = signal<Date | null>(new Date(2024, 0, 15));
@@ -234,7 +239,7 @@ describe('ComDatepicker', () => {
         <com-datepicker [size]="size()" />
       `,
       imports: [ComDatepicker],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class SizedDatepickerComponent {
       size = signal<'sm' | 'default' | 'lg'>('default');
@@ -286,7 +291,7 @@ describe('ComDatepicker', () => {
         <span id="help-text">Enter your birth date</span>
       `,
       imports: [ComDatepicker],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class AccessibleDatepickerComponent {}
 
@@ -357,7 +362,7 @@ describe('ComDateRangePicker', () => {
         />
       `,
       imports: [ComDateRangePicker],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class BasicDateRangePickerComponent {
       selectedRange = signal<DateRangeValue<Date> | null>(null);
@@ -435,7 +440,7 @@ describe('ComDateRangePicker', () => {
         </form>
       `,
       imports: [ComDateRangePicker, ReactiveFormsModule],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class ReactiveFormDateRangePickerComponent {
       form = new FormGroup({
@@ -480,7 +485,7 @@ describe('ComDateRangePicker', () => {
         />
       `,
       imports: [ComDateRangePicker],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class ClearButtonDateRangePickerComponent {
       selectedRange = signal<DateRangeValue<Date> | null>({
@@ -527,7 +532,7 @@ describe('ComDateRangePicker', () => {
         <com-date-range-picker [disabled]="disabled()" />
       `,
       imports: [ComDateRangePicker],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class DisabledDateRangePickerComponent {
       disabled = signal(true);
@@ -577,7 +582,7 @@ describe('ComDateRangePicker', () => {
         />
       `,
       imports: [ComDateRangePicker],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class AccessibleDateRangePickerComponent {}
 
@@ -614,7 +619,7 @@ describe('ComDateRangePicker', () => {
         <com-date-range-picker [size]="size()" />
       `,
       imports: [ComDateRangePicker],
-      providers: [provideNativeDateAdapter()],
+      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
     })
     class SizedDateRangePickerComponent {
       size = signal<'sm' | 'default' | 'lg'>('default');

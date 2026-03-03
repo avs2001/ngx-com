@@ -36,6 +36,8 @@ import { A11yModule } from '@angular/cdk/a11y';
 
 import { ComCalendar } from '../calendar';
 import { DateAdapter, DATE_ADAPTER } from '../date-adapter';
+import { ComIcon } from 'ngx-com/components/icon';
+import type { IconSize } from 'ngx-com/components/icon';
 import {
   CALENDAR_SELECTION_STRATEGY,
   RangeSelectionStrategy,
@@ -134,18 +136,7 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = [
 
       <!-- Range separator -->
       <span [class]="separatorClasses()">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="h-4 w-4"
-        >
-          <line x1="5" y1="12" x2="19" y2="12" />
-          <polyline points="12 5 19 12 12 19" />
-        </svg>
+        <com-icon name="arrow-right" [size]="iconSize()" />
       </span>
 
       <!-- End date input -->
@@ -174,18 +165,7 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = [
           [attr.aria-label]="'Clear date range'"
           (click)="clear($event)"
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="h-full w-full"
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          <com-icon name="x" [size]="iconSize()" />
         </button>
       }
 
@@ -197,20 +177,7 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = [
         [disabled]="disabled()"
         tabindex="-1"
       >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="h-full w-full"
-        >
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-          <line x1="16" y1="2" x2="16" y2="6" />
-          <line x1="8" y1="2" x2="8" y2="6" />
-          <line x1="3" y1="10" x2="21" y2="10" />
-        </svg>
+        <com-icon name="calendar" [size]="iconSize()" />
       </button>
     </div>
 
@@ -287,6 +254,7 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = [
     OverlayModule,
     A11yModule,
     ComCalendar,
+    ComIcon,
   ],
   providers: [
     RangeSelectionStrategy,
@@ -454,6 +422,16 @@ export class ComDateRangePicker<D> implements ControlValueAccessor, Validator, O
   readonly hasValue: Signal<boolean> = computed(() => {
     const value = this.internalValue();
     return value !== null && (value.start !== null || value.end !== null);
+  });
+
+  /** Icon size based on datepicker size. */
+  readonly iconSize: Signal<IconSize> = computed(() => {
+    const sizeMap: Record<DatepickerSize, IconSize> = {
+      sm: 'sm',
+      default: 'md',
+      lg: 'lg',
+    };
+    return sizeMap[this.size()];
   });
 
   /** Calendar selection (converts DateRangeValue to DateRange for calendar). */
