@@ -13,11 +13,9 @@ import {
   signal,
   viewChild,
   ViewContainerRef,
-  DOCUMENT,
 } from '@angular/core';
 import type {
   InputSignal,
-  OnInit,
   OutputEmitterRef,
   Signal,
   TemplateRef,
@@ -344,13 +342,12 @@ const VIRTUAL_SCROLL_THRESHOLD = 50;
     '[class.com-dropdown-open]': 'isOpen()',
   },
 })
-export class ComDropdown<T> implements ControlValueAccessor, FormFieldControl<T | T[] | null>, OnInit {
+export class ComDropdown<T> implements ControlValueAccessor, FormFieldControl<T | T[] | null> {
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
   private readonly overlay = inject(Overlay);
   private readonly viewContainerRef = inject(ViewContainerRef);
   private readonly liveAnnouncer = inject(LiveAnnouncer);
-  private readonly document = inject(DOCUMENT);
   private readonly defaultErrorStateMatcher = inject(ErrorStateMatcher);
   private readonly parentForm = inject(NgForm, { optional: true });
   private readonly parentFormGroup = inject(FormGroupDirective, { optional: true });
@@ -724,14 +721,9 @@ export class ComDropdown<T> implements ControlValueAccessor, FormFieldControl<T 
   private onTouched: () => void = () => {};
 
   constructor() {
-    // Wire up NgControl if present
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
-  }
-
-  ngOnInit(): void {
-    // Nothing special needed here since we use effects
   }
 
   // ============ CVA IMPLEMENTATION ============

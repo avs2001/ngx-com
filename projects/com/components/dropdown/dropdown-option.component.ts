@@ -2,13 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  ElementRef,
-  inject,
   input,
   output,
   viewChild,
 } from '@angular/core';
-import type { Signal, InputSignal, OutputEmitterRef, TemplateRef } from '@angular/core';
+import type { Signal, InputSignal, OutputEmitterRef, TemplateRef, ElementRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { dropdownOptionVariants } from './dropdown.variants';
 import type { DropdownSize } from './dropdown.variants';
@@ -79,8 +77,6 @@ import { mergeClasses } from './dropdown.utils';
   },
 })
 export class ComDropdownOption<T> {
-  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-
   /** Reference to the option element for focus management. */
   private readonly optionRef = viewChild<ElementRef<HTMLElement>>('optionElement');
 
@@ -162,11 +158,6 @@ export class ComDropdownOption<T> {
     if (!this.disabled()) {
       this.hover.emit(this.value());
     }
-  }
-
-  /** Gets the host element. */
-  getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 
   /** Scrolls this option into view. */

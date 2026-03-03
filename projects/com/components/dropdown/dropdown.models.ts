@@ -117,21 +117,6 @@ export interface ComDropdownPosition {
 export type ComDropdownPanelWidth = 'trigger' | 'auto' | string;
 
 /**
- * Variant types for the dropdown trigger.
- */
-export type ComDropdownVariant = 'default' | 'outline' | 'ghost' | 'filled';
-
-/**
- * Size types for the dropdown.
- */
-export type ComDropdownSize = 'sm' | 'default' | 'lg';
-
-/**
- * State types for the dropdown (validation states).
- */
-export type ComDropdownState = 'default' | 'error' | 'success';
-
-/**
  * Default compare function for primitive values.
  * @param a First value.
  * @param b Second value.

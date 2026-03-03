@@ -2,13 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  ElementRef,
-  inject,
   input,
   output,
   viewChild,
 } from '@angular/core';
-import type { Signal, InputSignal, OutputEmitterRef, TemplateRef } from '@angular/core';
+import type { Signal, InputSignal, OutputEmitterRef, TemplateRef, ElementRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import { dropdownPanelVariants, dropdownEmptyVariants } from './dropdown.variants';
@@ -108,8 +106,6 @@ import { mergeClasses } from './dropdown.utils';
   },
 })
 export class ComDropdownPanel<T> {
-  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-
   /** Reference to the panel element. */
   private readonly panelRef = viewChild<ElementRef<HTMLElement>>('panelElement');
 
@@ -179,11 +175,6 @@ export class ComDropdownPanel<T> {
   /** Track function for options. */
   protected trackByFn(_index: number, option: ComDropdownProcessedOption<T>): string {
     return option.id;
-  }
-
-  /** Gets the host element. */
-  getHostElement(): HTMLElement {
-    return this.elementRef.nativeElement;
   }
 
   /** Scrolls to a specific index. */

@@ -28,9 +28,6 @@ export type {
   ComDropdownProcessedOption,
   ComDropdownPosition,
   ComDropdownPanelWidth,
-  ComDropdownVariant,
-  ComDropdownSize,
-  ComDropdownState,
 } from './dropdown.models';
 
 export {
