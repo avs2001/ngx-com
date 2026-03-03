@@ -47,6 +47,10 @@ export const routes: Routes = [
         loadChildren: () => import('./routes/collapsible/collapsible.routes').then(m => m.COLLAPSIBLE_ROUTES),
       },
       {
+        path: 'components/confirm',
+        loadChildren: () => import('./routes/confirm/confirm.routes').then(m => m.CONFIRM_ROUTES),
+      },
+      {
         path: 'components/datepicker',
         loadChildren: () => import('./routes/datepicker/datepicker.routes').then(m => m.DATEPICKER_ROUTES),
       },
@@ -73,6 +77,10 @@ export const routes: Routes = [
       {
         path: 'components/menu',
         loadChildren: () => import('./routes/menu/menu.routes').then(m => m.MENU_ROUTES),
+      },
+      {
+        path: 'components/paginator',
+        loadChildren: () => import('./routes/paginator/paginator.routes').then(m => m.PAGINATOR_ROUTES),
       },
       {
         path: 'components/popover',

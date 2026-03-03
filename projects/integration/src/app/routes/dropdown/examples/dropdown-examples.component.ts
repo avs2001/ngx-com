@@ -332,6 +332,44 @@ interface User {
             </com-form-field>
           </div>
 
+          <!-- Multi-select in form field -->
+          <div class="flex flex-col gap-2 w-full max-w-sm">
+            <span class="text-xs font-medium text-surface-500">Multi-Select</span>
+            <com-form-field>
+              <label comLabel>Team Members</label>
+              <com-dropdown
+                variant="naked"
+                [options]="users()"
+                [displayWith]="displayUser"
+                [compareWith]="compareUsers"
+                [multiple]="true"
+                [searchable]="true"
+                [clearable]="true"
+                formControlName="teamMembers"
+                placeholder="Select team members..."
+              />
+              <span comHint>Assign one or more team members</span>
+              <span comError match="required">At least one team member is required.</span>
+            </com-form-field>
+          </div>
+
+          <!-- Multi-select with fill appearance -->
+          <div class="flex flex-col gap-2 w-full max-w-sm">
+            <span class="text-xs font-medium text-surface-500">Multi-Select (Fill)</span>
+            <com-form-field appearance="fill">
+              <label comLabel>Tags</label>
+              <com-dropdown
+                variant="naked"
+                [options]="tags()"
+                [multiple]="true"
+                [clearable]="true"
+                formControlName="tags"
+                placeholder="Add tags..."
+              />
+              <span comHint>Optional categorization tags</span>
+            </com-form-field>
+          </div>
+
           <div class="flex gap-4">
             <button
               type="button"
@@ -479,6 +517,9 @@ export class DropdownExamples {
   // Currencies for form field example
   protected readonly currencies = signal(['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'AUD']);
 
+  // Tags for form field multi-select example
+  protected readonly tags = signal(['Frontend', 'Backend', 'DevOps', 'Design', 'Testing', 'Documentation']);
+
   // Priorities for validation example
   protected readonly priorities = signal(['Low', 'Medium', 'High', 'Critical']);
 
@@ -489,6 +530,8 @@ export class DropdownExamples {
     assignee: new FormControl<User | null>(null),
     country: new FormControl<string | null>(null),
     currency: new FormControl<string | null>(null),
+    teamMembers: new FormControl<User[]>([], Validators.required),
+    tags: new FormControl<string[]>([]),
   });
 
   // Reactive forms validation form
@@ -752,14 +795,52 @@ import {
       <com-dropdown variant="naked" [options]="currencies()" />
       <span comSuffix>.00</span>
     </com-form-field>
+
+    <!-- Multi-select in form field -->
+    <com-form-field>
+      <label comLabel>Team Members</label>
+      <com-dropdown
+        variant="naked"
+        [options]="users()"
+        [displayWith]="displayUser"
+        [multiple]="true"
+        [searchable]="true"
+        [clearable]="true"
+        formControlName="teamMembers"
+        placeholder="Select team members..."
+      />
+      <span comHint>Assign one or more team members</span>
+      <span comError match="required">Required</span>
+    </com-form-field>
+
+    <!-- Multi-select with fill appearance -->
+    <com-form-field appearance="fill">
+      <label comLabel>Tags</label>
+      <com-dropdown
+        variant="naked"
+        [options]="tags()"
+        [multiple]="true"
+        [clearable]="true"
+        formControlName="tags"
+        placeholder="Add tags..."
+      />
+    </com-form-field>
   \`,
 })
 export class FormFieldExample {
   categories = signal(['Electronics', 'Clothing']);
   statuses = signal(['Draft', 'Active']);
-  users = signal(['alice', 'bob']);
+  users = signal([{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }]);
+  tags = signal(['Frontend', 'Backend', 'DevOps']);
   countries = signal(['USA', 'Canada']);
   currencies = signal(['USD', 'EUR']);
+  displayUser = (user) => user.name;
+
+  form = new FormGroup({
+    // ... other controls
+    teamMembers: new FormControl<User[]>([], Validators.required),
+    tags: new FormControl<string[]>([]),
+  });
 }`;
 
   protected readonly validationCode = `import { Component, signal } from '@angular/core';

@@ -116,7 +116,7 @@ interface NavSection {
 })
 export class Sidebar {
   private readonly router = inject(Router);
-  private readonly expandedSections = signal<Set<string>>(new Set(['components/avatar', 'components/badge', 'components/button', 'components/calendar', 'components/card', 'components/checkbox', 'components/collapsible', 'components/datepicker', 'components/dropdown', 'components/empty-state', 'components/form-field', 'components/icon', 'components/item', 'components/menu', 'components/popover', 'components/radio', 'components/segmented-control', 'components/sort', 'components/spinner', 'components/tabs', 'components/tooltip']));
+  private readonly expandedSections = signal<Set<string>>(new Set(['components/avatar', 'components/badge', 'components/button', 'components/calendar', 'components/card', 'components/checkbox', 'components/collapsible', 'components/confirm', 'components/datepicker', 'components/dropdown', 'components/empty-state', 'components/form-field', 'components/icon', 'components/item', 'components/menu', 'components/paginator', 'components/popover', 'components/radio', 'components/segmented-control', 'components/sort', 'components/spinner', 'components/tabs', 'components/tooltip']));
 
   private readonly navigationEnd = toSignal(
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
@@ -198,6 +198,15 @@ export class Sidebar {
           ],
         },
         {
+          label: 'Confirm',
+          path: 'components/confirm',
+          children: [
+            { label: 'Overview', path: '/components/confirm/overview' },
+            { label: 'Examples', path: '/components/confirm/examples' },
+            { label: 'API', path: '/components/confirm/api' },
+          ],
+        },
+        {
           label: 'Datepicker',
           path: 'components/datepicker',
           children: [
@@ -258,6 +267,15 @@ export class Sidebar {
             { label: 'Overview', path: '/components/menu/overview' },
             { label: 'Examples', path: '/components/menu/examples' },
             { label: 'API', path: '/components/menu/api' },
+          ],
+        },
+        {
+          label: 'Paginator',
+          path: 'components/paginator',
+          children: [
+            { label: 'Overview', path: '/components/paginator/overview' },
+            { label: 'Examples', path: '/components/paginator/examples' },
+            { label: 'API', path: '/components/paginator/api' },
           ],
         },
         {

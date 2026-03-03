@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ComAvatar } from 'ngx-com/components/avatar';
 import { ComBadge, type BadgeVariant } from 'ngx-com/components/badge';
 import { ComButton, type ButtonColor } from 'ngx-com/components/button';
 import { ComCard } from 'ngx-com/components/card';
@@ -9,7 +10,7 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
 @Component({
   selector: 'int-badge-examples',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComBadge, ComButton, ComCard, CodeBlock],
+  imports: [ComAvatar, ComBadge, ComButton, ComCard, CodeBlock],
   template: `
     <!-- Variants -->
     <section class="mb-12">
@@ -61,6 +62,42 @@ type Status = 'active' | 'pending' | 'error' | 'inactive';
         </div>
       </com-card>
       <int-code-block class="mt-4" language="html" [code]="pillCode" />
+    </section>
+
+    <!-- With Avatars -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">With Avatars</h2>
+      <p class="mb-4 text-surface-600">
+        Combine badges with avatars to create user chips, assignee tags, and team member indicators.
+      </p>
+      <com-card variant="outlined" class="p-8">
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <!-- Simple user chip -->
+          <span comBadge variant="muted" pill class="gap-1.5 pl-0.5">
+            <com-avatar name="Jane Doe" size="xs" />
+            Jane Doe
+          </span>
+
+          <!-- Assignee badge -->
+          <span comBadge variant="outline" pill class="gap-1.5 pl-0.5">
+            <com-avatar src="https://i.pravatar.cc/150?img=5" name="John Smith" size="xs" />
+            Assigned
+          </span>
+
+          <!-- Active user -->
+          <span comBadge variant="success" pill class="gap-1.5 pl-0.5">
+            <com-avatar name="Alice" size="xs" color="primary" variant="filled" />
+            Online
+          </span>
+
+          <!-- Team member -->
+          <span comBadge variant="accent" pill class="gap-1.5 pl-0.5">
+            <com-avatar name="Bob Wilson" size="xs" />
+            Reviewer
+          </span>
+        </div>
+      </com-card>
+      <int-code-block class="mt-4" language="html" [code]="avatarBadgesCode" />
     </section>
 
     <!-- With Icons -->
@@ -246,6 +283,24 @@ export class BadgeExamples {
 <span comBadge variant="success" pill>Online</span>
 <span comBadge variant="warn" pill>3</span>
 <span comBadge variant="accent" pill>Beta</span>`;
+
+  protected readonly avatarBadgesCode = `<!-- User chip -->
+<span comBadge variant="muted" pill class="gap-1.5 pl-0.5">
+  <com-avatar name="Jane Doe" size="xs" />
+  Jane Doe
+</span>
+
+<!-- Assignee badge with image -->
+<span comBadge variant="outline" pill class="gap-1.5 pl-0.5">
+  <com-avatar src="/photos/john.jpg" name="John Smith" size="xs" />
+  Assigned
+</span>
+
+<!-- Active user indicator -->
+<span comBadge variant="success" pill class="gap-1.5 pl-0.5">
+  <com-avatar name="Alice" size="xs" color="primary" variant="filled" />
+  Online
+</span>`;
 
   protected readonly iconsCode = `<span comBadge variant="success">
   <svg><!-- check icon --></svg>

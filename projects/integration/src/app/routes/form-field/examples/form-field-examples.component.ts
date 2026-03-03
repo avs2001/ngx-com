@@ -9,6 +9,8 @@ import {
   ComPrefix,
   ComSuffix,
 } from 'ngx-com/components/form-field';
+import { ComIcon } from 'ngx-com/components/icon';
+import { Search, X } from 'lucide-angular';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
@@ -23,6 +25,7 @@ import { CodeBlock } from '../../../shared/code-block';
     ComError,
     ComPrefix,
     ComSuffix,
+    ComIcon,
     CodeBlock,
   ],
   template: `
@@ -120,15 +123,10 @@ import { CodeBlock } from '../../../shared/code-block';
           </com-form-field>
 
           <com-form-field>
-            <svg comPrefix class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="m21 21-4.35-4.35"/>
-            </svg>
-            <input comInput placeholder="Search..." />
-            <button comSuffix type="button" class="text-surface-400 hover:text-surface-600">
-              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 6 6 18M6 6l12 12"/>
-              </svg>
+            <com-icon comPrefix [img]="SearchIcon" size="sm" />
+            <input comInput [formControl]="searchControl" placeholder="Search..." />
+            <button comSuffix type="button" class="text-surface-400 hover:text-surface-600" (click)="onClearSearch($event)">
+              <com-icon [img]="XIcon" size="sm" />
             </button>
           </com-form-field>
         </div>
@@ -305,6 +303,10 @@ import { CodeBlock } from '../../../shared/code-block';
   `,
 })
 export class FormFieldExamples {
+  // Icons
+  protected readonly SearchIcon = Search;
+  protected readonly XIcon = X;
+
   // Signals for hints
   protected readonly bioLength = signal(0);
 
@@ -312,6 +314,7 @@ export class FormFieldExamples {
   protected readonly emailControl = new FormControl('', [Validators.required, Validators.email]);
   protected readonly passwordControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
   protected readonly disabledControl = new FormControl({ value: 'Read only value', disabled: true });
+  protected readonly searchControl = new FormControl('');
 
   // Reactive form
   protected readonly form = new FormGroup({
@@ -319,6 +322,11 @@ export class FormFieldExamples {
     lastName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
+
+  protected onClearSearch(event: MouseEvent): void {
+    event.stopPropagation();
+    this.searchControl.reset();
+  }
 
   // Code examples
   protected readonly labelModesCode = `<!-- Floating label: label acts as placeholder, floats up on focus/fill -->
@@ -370,12 +378,22 @@ export class FormFieldExamples {
   <input comInput placeholder="example.com" />
 </com-form-field>
 
+<!-- Search with clickable clear button -->
 <com-form-field>
-  <label comLabel>Search</label>
-  <svg comPrefix><!-- search icon --></svg>
-  <input comInput />
-  <button comSuffix><!-- clear button --></button>
-</com-form-field>`;
+  <com-icon comPrefix [img]="SearchIcon" size="sm" />
+  <input comInput [formControl]="searchControl" placeholder="Search..." />
+  <button comSuffix type="button" (click)="onClear($event)">
+    <com-icon [img]="XIcon" size="sm" />
+  </button>
+</com-form-field>
+
+// Use stopPropagation to prevent container click from focusing input
+searchControl = new FormControl('');
+
+onClear(event: MouseEvent): void {
+  event.stopPropagation();
+  this.searchControl.reset();
+}`;
 
   protected readonly hintsCode = `<com-form-field>
   <label comLabel>Username</label>
