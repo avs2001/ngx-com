@@ -31,7 +31,7 @@ import {
   formFieldLabelVariants,
   formFieldSubscriptVariants,
 } from './form-field.variants';
-import { mergeClasses } from './form-field.utils';
+import { mergeClasses } from 'ngx-com/utils';
 
 /**
  * Form field wrapper providing visual structure for form inputs.
@@ -113,7 +113,6 @@ import { mergeClasses } from './form-field.utils';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [],
   styles: `
     /* Hide placeholder when label exists and is not floating (label acts as placeholder) */
     com-form-field.com-form-field--has-label:not(.com-form-field--floating) input::placeholder,

@@ -1,7 +1,7 @@
 import { computed, Directive, input } from '@angular/core';
 import type { InputSignal, Signal } from '@angular/core';
 import { hintVariants } from './form-field.variants';
-import { mergeClasses } from './form-field.utils';
+import { mergeClasses } from 'ngx-com/utils';
 
 /** Alignment of hint text in the subscript area. */
 export type HintAlign = 'start' | 'end';
