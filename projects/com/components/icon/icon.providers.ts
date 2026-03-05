@@ -1,4 +1,5 @@
-import type { Provider } from '@angular/core';
+import { makeEnvironmentProviders } from '@angular/core';
+import type { EnvironmentProviders } from '@angular/core';
 import { LUCIDE_ICONS, LucideIconProvider } from 'lucide-angular';
 import type { LucideIcons } from 'lucide-angular';
 
@@ -20,6 +21,12 @@ import type { LucideIcons } from 'lucide-angular';
  * };
  * ```
  */
-export function provideComIcons(icons: LucideIcons): Provider {
-  return { provide: LUCIDE_ICONS, useValue: new LucideIconProvider(icons) };
+export function provideComIcons(icons: LucideIcons): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    {
+      provide: LUCIDE_ICONS,
+      useValue: new LucideIconProvider(icons),
+      multi: true,
+    },
+  ]);
 }
