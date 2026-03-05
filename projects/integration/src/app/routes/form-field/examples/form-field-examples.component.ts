@@ -9,9 +9,32 @@ import {
   ComPrefix,
   ComSuffix,
 } from 'ngx-com/components/form-field';
+import { ComDropdown } from 'ngx-com/components/dropdown';
+import { ComCheckbox } from 'ngx-com/components/checkbox';
+import { ComRadioGroup, ComRadio } from 'ngx-com/components/radio';
 import { ComIcon } from 'ngx-com/components/icon';
-import { Search, X } from 'lucide-angular';
+import { Search, Shuffle, X, Save, RotateCcw } from 'lucide-angular';
 import { CodeBlock } from '../../../shared/code-block';
+
+/** User profile interface for the edit form example */
+interface UserProfile {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  bio: string;
+  department: string;
+  role: string;
+  notifications: boolean;
+  newsletter: boolean;
+}
+
+/** Department option interface */
+interface DepartmentOption {
+  id: string;
+  name: string;
+  description: string;
+}
 
 @Component({
   selector: 'int-form-field-examples',
@@ -25,6 +48,10 @@ import { CodeBlock } from '../../../shared/code-block';
     ComError,
     ComPrefix,
     ComSuffix,
+    ComDropdown,
+    ComCheckbox,
+    ComRadioGroup,
+    ComRadio,
     ComIcon,
     CodeBlock,
   ],
@@ -128,6 +155,15 @@ import { CodeBlock } from '../../../shared/code-block';
             <button comSuffix type="button" class="text-surface-400 hover:text-surface-600" (click)="onClearSearch($event)">
               <com-icon [img]="XIcon" size="sm" />
             </button>
+          </com-form-field>
+
+          <com-form-field>
+            <label comLabel>Token</label>
+            <input comInput [formControl]="tokenControl" />
+            <button comSuffix type="button" class="text-surface-400 hover:text-surface-600" (click)="onGenerateToken($event)">
+              <com-icon [img]="ShuffleIcon" size="sm" />
+            </button>
+            <span comHint>Click shuffle to generate a random token.</span>
           </com-form-field>
         </div>
       </div>
@@ -283,6 +319,160 @@ import { CodeBlock } from '../../../shared/code-block';
       <int-code-block class="mt-4" language="typescript" [code]="reactiveFormsCode" />
     </section>
 
+    <!-- Complete Edit Form -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Complete Edit Form</h2>
+      <p class="mb-4 text-surface-600">
+        A comprehensive reactive form demonstrating edit capabilities with all supported form controls:
+        inputs, textarea, dropdown, checkbox, and radio buttons.
+      </p>
+      <div class="rounded-xl border border-surface-200 bg-white p-8">
+        <form [formGroup]="editForm" (ngSubmit)="onEditFormSubmit()" class="mx-auto max-w-2xl space-y-6">
+          <!-- Personal Information Section -->
+          <fieldset class="space-y-4">
+            <legend class="mb-4 text-lg font-medium text-surface-800">Personal Information</legend>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <com-form-field>
+                <label comLabel>First Name</label>
+                <input comInput formControlName="firstName" />
+                <span comHint>Your given name.</span>
+                <span comError match="required">First name is required.</span>
+                <span comError match="minlength">At least 2 characters.</span>
+              </com-form-field>
+
+              <com-form-field>
+                <label comLabel>Last Name</label>
+                <input comInput formControlName="lastName" />
+                <span comHint>Your family name.</span>
+                <span comError match="required">Last name is required.</span>
+                <span comError match="minlength">At least 2 characters.</span>
+              </com-form-field>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <com-form-field>
+                <label comLabel>Email</label>
+                <input comInput formControlName="email" type="email" />
+                <span comHint>We'll never share your email.</span>
+                <span comError match="required">Email is required.</span>
+                <span comError match="email">Please enter a valid email.</span>
+              </com-form-field>
+
+              <com-form-field>
+                <label comLabel>Phone</label>
+                <span comPrefix>+1</span>
+                <input comInput formControlName="phone" type="tel" />
+                <span comHint>Optional contact number.</span>
+                <span comError match="pattern">Enter a valid phone number.</span>
+              </com-form-field>
+            </div>
+
+            <com-form-field>
+              <label comLabel>Bio</label>
+              <textarea comInput formControlName="bio" rows="3" (input)="onBioInput($event)"></textarea>
+              <span comHint>Tell us about yourself.</span>
+              <span comHint align="end">{{ editFormBioLength() }}/500</span>
+              <span comError match="maxlength">Bio must be under 500 characters.</span>
+            </com-form-field>
+          </fieldset>
+
+          <!-- Work Information Section -->
+          <fieldset class="space-y-4">
+            <legend class="mb-4 text-lg font-medium text-surface-800">Work Information</legend>
+
+            <com-form-field>
+              <label comLabel>Department</label>
+              <com-dropdown
+                formControlName="department"
+                [options]="departments"
+                [displayWith]="displayDepartment"
+                [compareWith]="compareDepartment"
+                placeholder="Select department..."
+                [searchable]="true"
+                searchPlaceholder="Search departments..."
+                [clearable]="true"
+                variant="naked"
+              />
+              <span comHint>Select your primary department.</span>
+              <span comError match="required">Please select a department.</span>
+            </com-form-field>
+
+            <div class="space-y-2">
+              <label class="block text-sm font-medium text-surface-700">Role</label>
+              <com-radio-group
+                formControlName="role"
+                orientation="horizontal"
+                aria-label="Select your role"
+              >
+                <com-radio value="individual">Individual Contributor</com-radio>
+                <com-radio value="lead">Team Lead</com-radio>
+                <com-radio value="manager">Manager</com-radio>
+                <com-radio value="director">Director</com-radio>
+              </com-radio-group>
+              @if (editForm.get('role')?.invalid && editForm.get('role')?.touched) {
+                <p class="text-sm text-warn">Please select a role.</p>
+              }
+            </div>
+          </fieldset>
+
+          <!-- Preferences Section -->
+          <fieldset class="space-y-4">
+            <legend class="mb-4 text-lg font-medium text-surface-800">Preferences</legend>
+
+            <div class="flex flex-col gap-3">
+              <com-checkbox formControlName="notifications">
+                Enable push notifications
+              </com-checkbox>
+              <com-checkbox formControlName="newsletter">
+                Subscribe to newsletter
+              </com-checkbox>
+            </div>
+          </fieldset>
+
+          <!-- Form Actions -->
+          <div class="flex items-center gap-4 border-t border-surface-200 pt-6">
+            <button
+              type="submit"
+              class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:bg-disabled disabled:text-disabled-foreground"
+              [disabled]="editForm.invalid || !editForm.dirty"
+            >
+              <com-icon [img]="SaveIcon" size="sm" />
+              Save Changes
+            </button>
+            <button
+              type="button"
+              class="inline-flex items-center gap-2 rounded-lg border border-surface-300 bg-white px-4 py-2 text-sm font-medium text-surface-700 transition hover:bg-surface-50 disabled:cursor-not-allowed disabled:bg-disabled disabled:text-disabled-foreground"
+              [disabled]="!editForm.dirty"
+              (click)="onResetEditForm()"
+            >
+              <com-icon [img]="ResetIcon" size="sm" />
+              Reset
+            </button>
+            <span class="ml-auto text-sm text-surface-500">
+              @if (editForm.dirty) {
+                <span class="text-warn">Unsaved changes</span>
+              } @else {
+                No changes
+              }
+            </span>
+          </div>
+
+          <!-- Form Debug Info -->
+          <div class="rounded-lg bg-surface-50 p-4 text-sm">
+            <p class="font-medium text-surface-700">Form State:</p>
+            <div class="mt-2 grid grid-cols-2 gap-2 text-surface-600 sm:grid-cols-4">
+              <span>Valid: {{ editForm.valid }}</span>
+              <span>Dirty: {{ editForm.dirty }}</span>
+              <span>Touched: {{ editForm.touched }}</span>
+              <span>Pending: {{ editForm.pending }}</span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <int-code-block class="mt-4" language="typescript" [code]="completeEditFormCode" />
+    </section>
+
     <!-- Disabled State -->
     <section>
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Disabled State</h2>
@@ -305,7 +495,10 @@ import { CodeBlock } from '../../../shared/code-block';
 export class FormFieldExamples {
   // Icons
   protected readonly SearchIcon = Search;
+  protected readonly ShuffleIcon = Shuffle;
   protected readonly XIcon = X;
+  protected readonly SaveIcon = Save;
+  protected readonly ResetIcon = RotateCcw;
 
   // Signals for hints
   protected readonly bioLength = signal(0);
@@ -315,6 +508,7 @@ export class FormFieldExamples {
   protected readonly passwordControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
   protected readonly disabledControl = new FormControl({ value: 'Read only value', disabled: true });
   protected readonly searchControl = new FormControl('');
+  protected readonly tokenControl = new FormControl('');
 
   // Reactive form
   protected readonly form = new FormGroup({
@@ -323,9 +517,112 @@ export class FormFieldExamples {
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
+  // Department options for dropdown
+  protected readonly departments: DepartmentOption[] = [
+    { id: 'eng', name: 'Engineering', description: 'Software development and infrastructure' },
+    { id: 'design', name: 'Design', description: 'Product and visual design' },
+    { id: 'product', name: 'Product', description: 'Product management and strategy' },
+    { id: 'marketing', name: 'Marketing', description: 'Marketing and communications' },
+    { id: 'sales', name: 'Sales', description: 'Sales and business development' },
+    { id: 'hr', name: 'Human Resources', description: 'People operations and culture' },
+    { id: 'finance', name: 'Finance', description: 'Financial planning and accounting' },
+    { id: 'legal', name: 'Legal', description: 'Legal and compliance' },
+  ];
+
+  // Initial data for edit form (simulating existing user profile)
+  private readonly initialProfileData: UserProfile = {
+    firstName: 'Jane',
+    lastName: 'Smith',
+    email: 'jane.smith@example.com',
+    phone: '555-123-4567',
+    bio: 'Senior software engineer with 8 years of experience in full-stack development. Passionate about clean code and user experience.',
+    department: 'eng',
+    role: 'lead',
+    notifications: true,
+    newsletter: false,
+  };
+
+  // Complete edit form with all field types
+  protected readonly editForm = new FormGroup({
+    firstName: new FormControl(this.initialProfileData.firstName, [
+      Validators.required,
+      Validators.minLength(2),
+    ]),
+    lastName: new FormControl(this.initialProfileData.lastName, [
+      Validators.required,
+      Validators.minLength(2),
+    ]),
+    email: new FormControl(this.initialProfileData.email, [
+      Validators.required,
+      Validators.email,
+    ]),
+    phone: new FormControl(this.initialProfileData.phone, [
+      Validators.pattern(/^\d{3}-?\d{3}-?\d{4}$/),
+    ]),
+    bio: new FormControl(this.initialProfileData.bio, [
+      Validators.maxLength(500),
+    ]),
+    department: new FormControl<DepartmentOption | null>(
+      this.departments.find(d => d.id === this.initialProfileData.department) ?? null,
+      [Validators.required]
+    ),
+    role: new FormControl(this.initialProfileData.role, [Validators.required]),
+    notifications: new FormControl(this.initialProfileData.notifications),
+    newsletter: new FormControl(this.initialProfileData.newsletter),
+  });
+
+  // Bio character count for edit form
+  protected readonly editFormBioLength = signal(this.initialProfileData.bio.length);
+
+  // Display function for department dropdown
+  protected readonly displayDepartment = (dept: DepartmentOption): string => dept?.name ?? '';
+
+  // Compare function for department dropdown
+  protected readonly compareDepartment = (a: DepartmentOption, b: DepartmentOption): boolean =>
+    a?.id === b?.id;
+
   protected onClearSearch(event: MouseEvent): void {
     event.stopPropagation();
     this.searchControl.reset();
+  }
+
+  protected onGenerateToken(event: MouseEvent): void {
+    event.stopPropagation();
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let token = '';
+    for (let i = 0; i < 16; i++) {
+      token += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    this.tokenControl.setValue(token);
+  }
+
+  protected onEditFormSubmit(): void {
+    if (this.editForm.valid) {
+      console.log('Form submitted:', this.editForm.value);
+      // Mark form as pristine after successful save
+      this.editForm.markAsPristine();
+    }
+  }
+
+  protected onResetEditForm(): void {
+    const dept = this.departments.find(d => d.id === this.initialProfileData.department) ?? null;
+    this.editForm.reset({
+      firstName: this.initialProfileData.firstName,
+      lastName: this.initialProfileData.lastName,
+      email: this.initialProfileData.email,
+      phone: this.initialProfileData.phone,
+      bio: this.initialProfileData.bio,
+      department: dept,
+      role: this.initialProfileData.role,
+      notifications: this.initialProfileData.notifications,
+      newsletter: this.initialProfileData.newsletter,
+    });
+    this.editFormBioLength.set(this.initialProfileData.bio.length);
+  }
+
+  protected onBioInput(event: Event): void {
+    const target = event.target as HTMLTextAreaElement;
+    this.editFormBioLength.set(target.value.length);
   }
 
   // Code examples
@@ -387,12 +684,26 @@ export class FormFieldExamples {
   </button>
 </com-form-field>
 
-// Use stopPropagation to prevent container click from focusing input
-searchControl = new FormControl('');
+// Shuffle button to generate random token
+<com-form-field>
+  <label comLabel>Token</label>
+  <input comInput [formControl]="tokenControl" />
+  <button comSuffix type="button" (click)="onGenerateToken($event)">
+    <com-icon [img]="ShuffleIcon" size="sm" />
+  </button>
+  <span comHint>Click shuffle to generate a random token.</span>
+</com-form-field>
 
-onClear(event: MouseEvent): void {
+tokenControl = new FormControl('');
+
+onGenerateToken(event: MouseEvent): void {
   event.stopPropagation();
-  this.searchControl.reset();
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let token = '';
+  for (let i = 0; i < 16; i++) {
+    token += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  this.tokenControl.setValue(token);
 }`;
 
   protected readonly hintsCode = `<com-form-field>
@@ -471,4 +782,101 @@ disabledControl = new FormControl({ value: 'Read only', disabled: true });
   <label comLabel>Disabled Field</label>
   <input comInput [formControl]="disabledControl" />
 </com-form-field>`;
+
+  protected readonly completeEditFormCode = `import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ComDropdown } from 'ngx-com/components/dropdown';
+import { ComCheckbox } from 'ngx-com/components/checkbox';
+import { ComRadioGroup, ComRadio } from 'ngx-com/components/radio';
+
+interface DepartmentOption {
+  id: string;
+  name: string;
+  description: string;
+}
+
+// Department options
+departments: DepartmentOption[] = [
+  { id: 'eng', name: 'Engineering', description: 'Software development' },
+  { id: 'design', name: 'Design', description: 'Product design' },
+  { id: 'product', name: 'Product', description: 'Product management' },
+];
+
+// Initial data for editing
+initialData = {
+  firstName: 'Jane',
+  lastName: 'Smith',
+  email: 'jane@example.com',
+  department: 'eng',
+  role: 'lead',
+  notifications: true,
+};
+
+// Form with all control types
+editForm = new FormGroup({
+  firstName: new FormControl(this.initialData.firstName, [
+    Validators.required,
+    Validators.minLength(2),
+  ]),
+  lastName: new FormControl(this.initialData.lastName, [
+    Validators.required,
+    Validators.minLength(2),
+  ]),
+  email: new FormControl(this.initialData.email, [
+    Validators.required,
+    Validators.email,
+  ]),
+  department: new FormControl<DepartmentOption | null>(
+    this.departments.find(d => d.id === this.initialData.department) ?? null,
+    [Validators.required]
+  ),
+  role: new FormControl(this.initialData.role, [Validators.required]),
+  notifications: new FormControl(this.initialData.notifications),
+});
+
+displayDepartment = (dept: DepartmentOption): string => dept?.name ?? '';
+compareDepartment = (a: DepartmentOption, b: DepartmentOption): boolean =>
+  a?.id === b?.id;
+
+// Template:
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  <!-- Input fields -->
+  <com-form-field>
+    <label comLabel>First Name</label>
+    <input comInput formControlName="firstName" />
+    <span comError match="required">Required.</span>
+    <span comError match="minlength">At least 2 characters.</span>
+  </com-form-field>
+
+  <!-- Dropdown with objects (naked variant for form-field integration) -->
+  <com-form-field>
+    <label comLabel>Department</label>
+    <com-dropdown
+      formControlName="department"
+      [options]="departments"
+      [displayWith]="displayDepartment"
+      [compareWith]="compareDepartment"
+      placeholder="Select department..."
+      [searchable]="true"
+      [clearable]="true"
+      variant="naked"
+    />
+    <span comError match="required">Please select a department.</span>
+  </com-form-field>
+
+  <!-- Radio group (outside form-field) -->
+  <com-radio-group formControlName="role" orientation="horizontal">
+    <com-radio value="individual">Individual</com-radio>
+    <com-radio value="lead">Lead</com-radio>
+    <com-radio value="manager">Manager</com-radio>
+  </com-radio-group>
+
+  <!-- Checkbox -->
+  <com-checkbox formControlName="notifications">
+    Enable notifications
+  </com-checkbox>
+
+  <button type="submit" [disabled]="editForm.invalid || !editForm.dirty">
+    Save Changes
+  </button>
+</form>`;
 }

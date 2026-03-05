@@ -11,7 +11,7 @@ export type ItemDensity = 'compact' | 'default' | 'comfortable';
 /**
  * CVA variants for the item container (host element).
  *
- * @tokens `--color-primary-subtle`, `--color-muted`, `--color-ring`
+ * @tokens `--color-primary-subtle`, `--color-muted`, `--color-muted-hover`, `--color-ring`, `--color-disabled-foreground`
  */
 export const itemVariants: (props?: {
   size?: ItemSize;
@@ -36,7 +36,7 @@ export const itemVariants: (props?: {
         'cursor-pointer',
         'rounded-lg',
         'px-3',
-        'hover:bg-muted/50',
+        'hover:bg-muted-hover',
         'active:bg-muted',
         'transition-colors duration-150',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
@@ -48,7 +48,7 @@ export const itemVariants: (props?: {
       false: '',
     },
     disabled: {
-      true: 'opacity-60 pointer-events-none',
+      true: 'text-disabled-foreground pointer-events-none',
       false: '',
     },
   },

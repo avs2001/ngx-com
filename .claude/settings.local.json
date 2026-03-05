@@ -83,7 +83,9 @@
       "Bash(gh release create:*)",
       "Bash(for:*)",
       "Bash(do basename \"$dir\")",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(xargs:*)",
+      "Bash(npx ng:*)"
     ]
   },
   "enabledMcpjsonServers": [

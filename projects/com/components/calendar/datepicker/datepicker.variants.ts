@@ -195,7 +195,7 @@ export type DatepickerIconVariants = VariantProps<typeof datepickerIconVariants>
 /**
  * CVA variants for the clear button.
  *
- * @tokens `--color-ring`, `--color-muted-foreground`, `--radius-interactive-sm`
+ * @tokens `--color-ring`, `--color-muted-foreground`, `--color-foreground`, `--radius-interactive-sm`
  */
 export const datepickerClearVariants: (props?: {
   size?: DatepickerSize;
@@ -205,9 +205,9 @@ export const datepickerClearVariants: (props?: {
     'items-center',
     'justify-center',
     'rounded-interactive-sm',
-    'opacity-50',
-    'transition-opacity',
-    'hover:opacity-100',
+    'text-muted-foreground',
+    'transition-colors',
+    'hover:text-foreground',
     'focus:outline-none',
     'focus:ring-1',
     'focus:ring-ring',

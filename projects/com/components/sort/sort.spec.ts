@@ -452,7 +452,7 @@ describe('Sort', () => {
       const header = fixture.debugElement.query(By.css('[data-testid="header-name"]'));
       const icon = header.query(By.css('com-sort-icon span'));
 
-      expect(icon.nativeElement.classList.contains('opacity-0')).toBe(true);
+      expect(icon.nativeElement.classList.contains('invisible')).toBe(true);
     });
 
     it('should show muted icon when sortShowIndicator is true', () => {
@@ -462,7 +462,7 @@ describe('Sort', () => {
       const header = fixture.debugElement.query(By.css('[data-testid="header-name"]'));
       const icon = header.query(By.css('com-sort-icon span'));
 
-      expect(icon.nativeElement.classList.contains('opacity-40')).toBe(true);
+      expect(icon.nativeElement.classList.contains('text-muted-foreground')).toBe(true);
     });
 
     it('should override parent setting with header-level sortHeaderShowIndicator', () => {
@@ -476,8 +476,8 @@ describe('Sort', () => {
       const nameIcon = nameHeader.query(By.css('com-sort-icon span'));
       const ageIcon = ageHeader.query(By.css('com-sort-icon span'));
 
-      expect(nameIcon.nativeElement.classList.contains('opacity-0')).toBe(true);
-      expect(ageIcon.nativeElement.classList.contains('opacity-40')).toBe(true);
+      expect(nameIcon.nativeElement.classList.contains('invisible')).toBe(true);
+      expect(ageIcon.nativeElement.classList.contains('text-muted-foreground')).toBe(true);
     });
 
     it('should show full opacity icon when sorted', () => {
@@ -486,7 +486,7 @@ describe('Sort', () => {
       fixture.detectChanges();
 
       const icon = header.query(By.css('com-sort-icon span'));
-      expect(icon.nativeElement.classList.contains('opacity-100')).toBe(true);
+      expect(icon.nativeElement.classList.contains('text-foreground')).toBe(true);
     });
   });
 
@@ -591,7 +591,7 @@ describe('Sort', () => {
       const header = fixture.debugElement.query(By.css('[data-testid="header-name"]'));
       const icon = header.query(By.css('com-sort-icon span'));
 
-      expect(icon.nativeElement.classList.contains('opacity-40')).toBe(true);
+      expect(icon.nativeElement.classList.contains('text-muted-foreground')).toBe(true);
       expect(icon.nativeElement.classList.contains('rotate-0')).toBe(true);
     });
 
@@ -601,7 +601,7 @@ describe('Sort', () => {
       fixture.detectChanges();
 
       const icon = header.query(By.css('com-sort-icon span'));
-      expect(icon.nativeElement.classList.contains('opacity-100')).toBe(true);
+      expect(icon.nativeElement.classList.contains('text-foreground')).toBe(true);
       expect(icon.nativeElement.classList.contains('rotate-0')).toBe(true);
     });
 
@@ -613,7 +613,7 @@ describe('Sort', () => {
       fixture.detectChanges();
 
       const icon = header.query(By.css('com-sort-icon span'));
-      expect(icon.nativeElement.classList.contains('opacity-100')).toBe(true);
+      expect(icon.nativeElement.classList.contains('text-foreground')).toBe(true);
       expect(icon.nativeElement.classList.contains('rotate-180')).toBe(true);
     });
   });

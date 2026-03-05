@@ -224,13 +224,16 @@ export type TabScrollButtonVariants = VariantProps<typeof tabScrollButtonVariant
 
 // ─── Close Button on Closable Tabs ───
 
+/**
+ * @tokens `--color-muted-foreground`, `--color-foreground`, `--color-ring`, `--radius-interactive-sm`
+ */
 export const tabCloseButtonVariants: (props?: {
   size?: TabSize;
 }) => string = cva(
   [
     'inline-flex items-center justify-center rounded-interactive-sm',
-    'text-current opacity-60 hover:opacity-100',
-    'transition-opacity duration-100',
+    'text-muted-foreground hover:text-foreground',
+    'transition-colors duration-100',
     'focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring',
   ],
   {

@@ -57,6 +57,7 @@ export const formFieldContainerVariants: (props?: {
         outline: [
           'border border-input-border',
           'bg-transparent',
+          'mt-2.5', // Reserve space for floating label to prevent height jump
         ],
         fill: [
           'rounded-b-none',

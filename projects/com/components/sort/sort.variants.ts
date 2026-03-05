@@ -68,10 +68,10 @@ export const sortIconVariants: (props?: {
         lg: 'size-4',
       },
       state: {
-        asc: 'opacity-100 rotate-0',
-        desc: 'opacity-100 rotate-180',
-        unsorted: 'opacity-40 rotate-0',
-        hidden: 'opacity-0 scale-75',
+        asc: 'text-foreground rotate-0',
+        desc: 'text-foreground rotate-180',
+        unsorted: 'text-muted-foreground rotate-0',
+        hidden: 'invisible scale-75',
       },
     },
     defaultVariants: {

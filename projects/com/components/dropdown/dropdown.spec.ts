@@ -508,7 +508,7 @@ describe('ComDropdown', () => {
       const options = overlayContainerElement.querySelectorAll('[role="option"]');
       expect(options.length).toBe(0);
 
-      const emptyState = overlayContainerElement.querySelector('.text-muted-foreground');
+      const emptyState = overlayContainerElement.querySelector('div.py-6.text-muted-foreground');
       expect(emptyState?.textContent).toContain('No results for "xyz"');
       vi.useRealTimers();
     });

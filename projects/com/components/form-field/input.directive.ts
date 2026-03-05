@@ -9,7 +9,7 @@ import {
   input,
   signal,
 } from '@angular/core';
-import type { InputSignal, InputSignalWithTransform, OnInit, Signal, WritableSignal } from '@angular/core';
+import type { DoCheck, InputSignal, InputSignalWithTransform, OnInit, Signal, WritableSignal } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { FormFieldControl } from './form-field-control';
@@ -73,8 +73,8 @@ let nextId = 0;
     '(input)': 'onInput()',
   },
 })
-export class ComInput implements FormFieldControl<string>, OnInit {
-  private readonly elementRef = inject<ElementRef<HTMLInputElement | HTMLTextAreaElement>>(ElementRef);
+export class ComInput implements FormFieldControl<string>, OnInit, DoCheck {
+  private readonly elementRef: ElementRef<HTMLInputElement | HTMLTextAreaElement> = inject(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
   private readonly autofillMonitor = inject(AutofillMonitor);
   private readonly defaultErrorStateMatcher = inject(ErrorStateMatcher);
@@ -103,6 +103,7 @@ export class ComInput implements FormFieldControl<string>, OnInit {
   private readonly _empty = signal(true);
   private readonly _uniqueId: string = `com-input-${nextId++}`;
   private readonly _appearance: WritableSignal<FormFieldAppearance> = signal<FormFieldAppearance>('outline');
+  private _previousNativeValue: string = '';
 
   // Public signals implementing FormFieldControl
   readonly focused: Signal<boolean> = this._focused.asReadonly();
@@ -156,6 +157,7 @@ export class ComInput implements FormFieldControl<string>, OnInit {
   });
 
   ngOnInit(): void {
+    this._previousNativeValue = this.elementRef.nativeElement.value;
     this.updateEmpty();
 
     const autofillSub = this.autofillMonitor.monitor(this.elementRef).subscribe((event) => {
@@ -166,6 +168,18 @@ export class ComInput implements FormFieldControl<string>, OnInit {
       autofillSub.unsubscribe();
       this.autofillMonitor.stopMonitoring(this.elementRef);
     });
+  }
+
+  ngDoCheck(): void {
+    this.dirtyCheckNativeValue();
+  }
+
+  private dirtyCheckNativeValue(): void {
+    const newValue = this.elementRef.nativeElement.value;
+    if (this._previousNativeValue !== newValue) {
+      this._previousNativeValue = newValue;
+      this.updateEmpty();
+    }
   }
 
   protected onFocus(): void {

@@ -123,7 +123,7 @@ export const calendarCellVariants: (props?: {
       {
         state: 'disabled',
         outside: true,
-        class: ['text-disabled-foreground', 'opacity-50'],
+        class: ['text-disabled-foreground'],
       },
       {
         state: 'selected',

@@ -2,14 +2,80 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import type { WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ComCard } from 'ngx-com/components/card';
+import { ComIcon } from 'ngx-com/components/icon';
 import { ComRadio, ComRadioGroup } from 'ngx-com/components/radio';
 import { CodeBlock } from '../../../shared/code-block';
 
 @Component({
   selector: 'int-radio-examples',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ComRadio, ComRadioGroup, ComCard, CodeBlock, ReactiveFormsModule],
+  imports: [ComRadio, ComRadioGroup, ComCard, ComIcon, CodeBlock, ReactiveFormsModule],
+  styles: `
+    .com-radio-card-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  `,
   template: `
+    <!-- Card Style -->
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold text-surface-900">Card Style</h2>
+      <com-card variant="outlined" class="p-8">
+        <com-radio-group
+          [(value)]="cardValue"
+          orientation="horizontal"
+          aria-label="Select user role"
+        >
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            @for (option of roleOptions; track option.value) {
+              <label
+                class="relative cursor-pointer rounded-xl border-2 p-6 text-center transition-colors"
+                [class.border-primary]="cardValue() === option.value"
+                [class.ring-2]="cardValue() === option.value"
+                [class.ring-ring]="cardValue() === option.value"
+                [class.border-border]="cardValue() !== option.value"
+                [class.hover\:border-primary-hover]="cardValue() !== option.value"
+                [class.has-\[\:focus-visible\]\:outline-2]="true"
+                [class.has-\[\:focus-visible\]\:outline-offset-2]="true"
+                [class.has-\[\:focus-visible\]\:outline-ring]="true"
+              >
+                <div class="flex flex-col items-center gap-3">
+                  <div
+                    class="inline-flex size-12 items-center justify-center rounded-full bg-muted"
+                  >
+                    <com-icon [name]="option.icon" size="lg" color="muted" />
+                  </div>
+                  <div>
+                    <p class="text-sm font-semibold text-foreground">
+                      {{ option.label }}
+                    </p>
+                    <p class="mt-1 text-xs text-muted-foreground">
+                      {{ option.description }}
+                    </p>
+                  </div>
+                </div>
+                <com-radio
+                  [value]="option.value"
+                  class="com-radio-card-hidden"
+                />
+              </label>
+            }
+          </div>
+        </com-radio-group>
+        <p class="mt-4 text-sm text-muted-foreground">
+          Selected role: <span class="font-medium text-foreground">{{ cardValue() }}</span>
+        </p>
+      </com-card>
+      <int-code-block language="html" [code]="cardStyleCode" />
+    </section>
+
     <!-- Sizes -->
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold text-surface-900">Sizes</h2>
@@ -153,6 +219,29 @@ import { CodeBlock } from '../../../shared/code-block';
   `,
 })
 export class RadioExamples {
+  protected readonly cardValue: WritableSignal<string | null> = signal('standard');
+
+  protected readonly roleOptions: { value: string; label: string; description: string; icon: string }[] = [
+    {
+      value: 'admin',
+      label: 'Admin User',
+      description: 'Full access to manage the organization',
+      icon: 'shield',
+    },
+    {
+      value: 'standard',
+      label: 'Standard User',
+      description: 'End-user who views their devices and data',
+      icon: 'user',
+    },
+    {
+      value: 'viewer',
+      label: 'Data Viewer',
+      description: 'Read-only access to anonymized data',
+      icon: 'eye',
+    },
+  ];
+
   protected readonly sizeSmall: WritableSignal<string | null> = signal('a');
   protected readonly sizeMedium: WritableSignal<string | null> = signal('a');
   protected readonly sizeLarge: WritableSignal<string | null> = signal('a');
@@ -254,5 +343,30 @@ export class Example {
   <com-radio value="left">Left</com-radio>
   <com-radio value="center">Center</com-radio>
   <com-radio value="right">Right</com-radio>
+</com-radio-group>`;
+
+  protected readonly cardStyleCode = `<com-radio-group [(value)]="cardValue" orientation="horizontal" aria-label="Select user role">
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+    @for (option of roleOptions; track option.value) {
+      <label
+        class="relative cursor-pointer rounded-xl border-2 p-6 text-center transition-colors"
+        [class.border-primary]="cardValue() === option.value"
+        [class.ring-2]="cardValue() === option.value"
+        [class.ring-ring]="cardValue() === option.value"
+        [class.border-border]="cardValue() !== option.value"
+      >
+        <div class="flex flex-col items-center gap-3">
+          <div class="inline-flex size-12 items-center justify-center rounded-full bg-muted">
+            <com-icon [name]="option.icon" size="lg" color="muted" />
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-foreground">{{ option.label }}</p>
+            <p class="mt-1 text-xs text-muted-foreground">{{ option.description }}</p>
+          </div>
+        </div>
+        <com-radio [value]="option.value" class="sr-only" />
+      </label>
+    }
+  </div>
 </com-radio-group>`;
 }

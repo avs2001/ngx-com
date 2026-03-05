@@ -341,7 +341,7 @@ export type DropdownTagVariants = VariantProps<typeof dropdownTagVariants>;
 /**
  * CVA variants for the tag remove button.
  *
- * @tokens `--color-ring`, `--radius-interactive-sm`
+ * @tokens `--color-ring`, `--radius-interactive-sm`, `--color-muted-foreground`, `--color-foreground`
  */
 export const dropdownTagRemoveVariants: (props?: {
   size?: DropdownSize;
@@ -351,9 +351,9 @@ export const dropdownTagRemoveVariants: (props?: {
     'items-center',
     'justify-center',
     'rounded-interactive-sm',
-    'opacity-70',
-    'transition-opacity',
-    'hover:opacity-100',
+    'text-muted-foreground',
+    'transition-colors',
+    'hover:text-foreground',
     'focus:outline-none',
     'focus:ring-1',
     'focus:ring-ring',
@@ -477,7 +477,7 @@ export type DropdownEmptyVariants = VariantProps<typeof dropdownEmptyVariants>;
 /**
  * CVA variants for the clear button.
  *
- * @tokens `--color-ring`, `--radius-interactive-sm`
+ * @tokens `--color-ring`, `--radius-interactive-sm`, `--color-muted-foreground`, `--color-foreground`
  */
 export const dropdownClearVariants: (props?: {
   size?: DropdownSize;
@@ -487,9 +487,9 @@ export const dropdownClearVariants: (props?: {
     'items-center',
     'justify-center',
     'rounded-interactive-sm',
-    'opacity-50',
-    'transition-opacity',
-    'hover:opacity-100',
+    'text-muted-foreground',
+    'transition-colors',
+    'hover:text-foreground',
     'focus:outline-none',
     'focus:ring-1',
     'focus:ring-ring',
@@ -512,6 +512,8 @@ export type DropdownClearVariants = VariantProps<typeof dropdownClearVariants>;
 
 /**
  * CVA variants for the chevron icon.
+ *
+ * @tokens `--color-muted-foreground`
  */
 export const dropdownChevronVariants: (props?: {
   size?: DropdownSize;
@@ -519,7 +521,7 @@ export const dropdownChevronVariants: (props?: {
 }) => string = cva(
   [
     'shrink-0',
-    'opacity-50',
+    'text-muted-foreground',
     'transition-transform',
     'duration-200',
   ],

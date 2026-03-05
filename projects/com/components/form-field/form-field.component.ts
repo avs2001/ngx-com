@@ -144,13 +144,13 @@ export class ComFormField {
   private readonly defaults = inject(FORM_FIELD_DEFAULTS, { optional: true });
 
   // Content children
-  readonly control: Signal<FormFieldControl | undefined> = contentChild(FormFieldControl);
-  readonly inputDirective: Signal<ComInput | undefined> = contentChild(ComInput);
-  readonly labelChild: Signal<ComLabel | undefined> = contentChild(ComLabel);
-  readonly hintChildren: Signal<readonly ComHint[]> = contentChildren(ComHint);
-  readonly errorChildren: Signal<readonly ComError[]> = contentChildren(ComError);
-  readonly prefixChild: Signal<ComPrefix | undefined> = contentChild(ComPrefix);
-  readonly suffixChild: Signal<ComSuffix | undefined> = contentChild(ComSuffix);
+  readonly control: Signal<FormFieldControl | undefined> = contentChild<FormFieldControl>(FormFieldControl);
+  readonly inputDirective: Signal<ComInput | undefined> = contentChild<ComInput>(ComInput);
+  readonly labelChild: Signal<ComLabel | undefined> = contentChild<ComLabel>(ComLabel);
+  readonly hintChildren: Signal<readonly ComHint[]> = contentChildren<ComHint>(ComHint);
+  readonly errorChildren: Signal<readonly ComError[]> = contentChildren<ComError>(ComError);
+  readonly prefixChild: Signal<ComPrefix | undefined> = contentChild<ComPrefix>(ComPrefix);
+  readonly suffixChild: Signal<ComSuffix | undefined> = contentChild<ComSuffix>(ComSuffix);
 
   // Inputs with defaults fallback
   readonly appearance: InputSignal<FormFieldAppearance> = input<FormFieldAppearance>(

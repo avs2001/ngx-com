@@ -73,7 +73,7 @@ import { mergeClasses } from './dropdown.utils';
       @if (showClear()) {
         <button
           type="button"
-          class="absolute right-3 flex h-4 w-4 items-center justify-center rounded-interactive-sm text-placeholder opacity-70 hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-ring"
+          class="absolute right-3 flex h-4 w-4 items-center justify-center rounded-interactive-sm text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-1 focus:ring-ring"
           [attr.aria-label]="'Clear search'"
           (click)="clearSearch()"
         >
