@@ -21,5 +21,5 @@ import type { LucideIcons } from 'lucide-angular';
  * ```
  */
 export function provideComIcons(icons: LucideIcons): Provider {
-  return { provide: LUCIDE_ICONS, multi: true, useValue: new LucideIconProvider(icons) };
+  return { provide: LUCIDE_ICONS, useValue: new LucideIconProvider(icons) };
 }
