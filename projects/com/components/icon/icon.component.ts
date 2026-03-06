@@ -9,6 +9,7 @@ import {
 import type { InputSignal, Signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import type { LucideIconData } from 'lucide-angular';
+import { COM_ICON_REGISTRAR } from './icon.providers';
 import { ComIconRegistry } from './icon.registry';
 import { iconVariants, ICON_SIZE_PX, type IconColor, type IconSize } from './icon.variants';
 
@@ -83,6 +84,7 @@ function toPascalCase(str: string): string {
 })
 export class ComIcon {
   private readonly registry = inject(ComIconRegistry);
+  private readonly _registrar = inject(COM_ICON_REGISTRAR, { optional: true });
 
   /** Icon name in kebab-case (e.g. 'chevron-right'). Requires provideComIcons registration. */
   readonly name: InputSignal<string | undefined> = input<string>();

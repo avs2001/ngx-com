@@ -451,6 +451,26 @@ describe('ComIcon', () => {
       fixture.detectChanges();
       expect(iconEl.querySelector('lucide-icon')).toBeTruthy();
     });
+
+    it('should work with component-level providers', async () => {
+      @Component({
+        imports: [ComIcon],
+        providers: [provideComIcons({ Star })],
+        template: `<com-icon data-testid="icon-cmp" name="star" />`,
+      })
+      class ComponentLevelProviderTest {}
+
+      TestBed.resetTestingModule();
+      await TestBed.configureTestingModule({
+        imports: [ComponentLevelProviderTest],
+      }).compileComponents();
+
+      const cmpFixture = TestBed.createComponent(ComponentLevelProviderTest);
+      cmpFixture.detectChanges();
+
+      const lucideIcon = cmpFixture.nativeElement.querySelector('[data-testid="icon-cmp"] lucide-icon');
+      expect(lucideIcon).toBeTruthy();
+    });
   });
 
   describe('registry merging', () => {

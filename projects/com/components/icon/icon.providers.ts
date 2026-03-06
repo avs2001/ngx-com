@@ -1,17 +1,26 @@
-import { ENVIRONMENT_INITIALIZER, inject, makeEnvironmentProviders } from '@angular/core';
-import type { EnvironmentProviders } from '@angular/core';
+import { inject, InjectionToken } from '@angular/core';
+import type { Provider } from '@angular/core';
 import type { LucideIcons } from 'lucide-angular';
 import { ComIconRegistry } from './icon.registry';
 
 /**
+ * Token injected by `ComIcon` to trigger icon registration factories.
+ *
+ * Each `provideComIcons()` call adds a `multi` provider whose factory
+ * registers icons into the singleton `ComIconRegistry`. The token itself
+ * is never read — its purpose is to force Angular's DI to run the factories.
+ */
+export const COM_ICON_REGISTRAR = new InjectionToken<void[]>('ComIconRegistrar');
+
+/**
  * Provides Lucide icons for use with `com-icon`.
  *
- * Icons are merged into a root-level registry, so multiple calls
- * (e.g. at root and in lazy routes) accumulate rather than shadow.
+ * Works at **all** injector levels: app root, lazy route, and component.
+ * Icons are merged into the root-level `ComIconRegistry`, so multiple calls
+ * accumulate rather than shadow.
  *
- * @example
+ * @example Root-level (app.config.ts)
  * ```ts
- * // app.config.ts
  * import { provideComIcons } from 'ngx-com/components/icon';
  * import { ChevronRight, Star, Check, AlertTriangle } from 'lucide-angular';
  *
@@ -31,13 +40,18 @@ import { ComIconRegistry } from './icon.registry';
  *   component: FeatureComponent,
  * }];
  * ```
+ *
+ * @example Component-level registration for tree-shaking
+ * ```ts
+ * @Component({
+ *   providers: [provideComIcons({ Trash2, Edit })],
+ * })
+ * ```
  */
-export function provideComIcons(icons: LucideIcons): EnvironmentProviders {
-  return makeEnvironmentProviders([
-    {
-      provide: ENVIRONMENT_INITIALIZER,
-      multi: true,
-      useValue: () => inject(ComIconRegistry).register(icons),
-    },
-  ]);
+export function provideComIcons(icons: LucideIcons): Provider {
+  return {
+    provide: COM_ICON_REGISTRAR,
+    multi: true,
+    useFactory: () => inject(ComIconRegistry).register(icons),
+  };
 }
