@@ -5,6 +5,15 @@
   <title>ngx-com | Angular Component Library</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var p = params.get('p');
+      if (p) {
+        window.history.replaceState(null, '', decodeURIComponent(p));
+      }
+    })();
+  </script>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>

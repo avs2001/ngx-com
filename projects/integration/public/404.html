@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting&hellip;</title>
+    <script>
+      (function () {
+        var basePath = '/ngx-com/';
+        var fullPath =
+          window.location.pathname +
+          window.location.search +
+          window.location.hash;
+        window.location.replace(
+          window.location.origin +
+            basePath +
+            '?p=' +
+            encodeURIComponent(fullPath),
+        );
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
