@@ -2,13 +2,26 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   ViewEncapsulation,
 } from '@angular/core';
 import type { InputSignal, Signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import type { LucideIconData } from 'lucide-angular';
+import { ComIconRegistry } from './icon.registry';
 import { iconVariants, ICON_SIZE_PX, type IconColor, type IconSize } from './icon.variants';
+
+/**
+ * Converts a kebab-case or space-separated icon name to PascalCase.
+ *
+ * Uses the same regex as lucide-angular for consistency.
+ */
+function toPascalCase(str: string): string {
+  return str.replace(/(\w)([a-z0-9]*)(_|-|\s*)/g, (_g0, g1: string, g2: string) =>
+    g1.toUpperCase() + g2.toLowerCase()
+  );
+}
 
 /**
  * Icon component — renders Lucide icons with CVA-powered color and size variants.
@@ -49,19 +62,9 @@ import { iconVariants, ICON_SIZE_PX, type IconColor, type IconSize } from './ico
 @Component({
   selector: 'com-icon',
   template: `
-    @if (img(); as imgData) {
+    @if (resolvedIcon(); as iconData) {
       <lucide-icon
-        [img]="imgData"
-        [size]="sizeInPx()"
-        [strokeWidth]="strokeWidth()"
-        [absoluteStrokeWidth]="absoluteStrokeWidth()"
-        color="currentColor"
-        [attr.aria-label]="ariaLabel() ?? null"
-        [attr.aria-hidden]="ariaLabel() ? null : 'true'"
-      />
-    } @else if (name(); as iconName) {
-      <lucide-icon
-        [name]="iconName"
+        [img]="iconData"
         [size]="sizeInPx()"
         [strokeWidth]="strokeWidth()"
         [absoluteStrokeWidth]="absoluteStrokeWidth()"
@@ -79,6 +82,8 @@ import { iconVariants, ICON_SIZE_PX, type IconColor, type IconSize } from './ico
   encapsulation: ViewEncapsulation.None,
 })
 export class ComIcon {
+  private readonly registry = inject(ComIconRegistry);
+
   /** Icon name in kebab-case (e.g. 'chevron-right'). Requires provideComIcons registration. */
   readonly name: InputSignal<string | undefined> = input<string>();
 
@@ -99,6 +104,17 @@ export class ComIcon {
 
   /** Applies aria-label and removes aria-hidden. Use for meaningful icons. */
   readonly ariaLabel: InputSignal<string | undefined> = input<string>();
+
+  /** Resolves icon data from either `img` (direct ref) or `name` (registry lookup). */
+  protected readonly resolvedIcon: Signal<LucideIconData | undefined> = computed(() => {
+    const imgData = this.img();
+    if (imgData) return imgData;
+
+    const iconName = this.name();
+    if (iconName) return this.registry.get(toPascalCase(iconName)) ?? undefined;
+
+    return undefined;
+  });
 
   protected readonly sizeInPx: Signal<number> = computed(() => ICON_SIZE_PX[this.size()]);
   protected readonly hostClasses: Signal<string> = computed(() =>

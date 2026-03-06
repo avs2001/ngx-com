@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ComIcon } from './icon.component';
+import { ComIconRegistry } from './icon.registry';
 import { provideComIcons } from './icon.providers';
 import { ICON_SIZE_PX, type IconColor, type IconSize } from './icon.variants';
 import { Star, Check, AlertTriangle } from 'lucide-angular';
@@ -449,6 +450,59 @@ describe('ComIcon', () => {
       host.name.set('alert-triangle');
       fixture.detectChanges();
       expect(iconEl.querySelector('lucide-icon')).toBeTruthy();
+    });
+  });
+
+  describe('registry merging', () => {
+    it('should merge icons from multiple provideComIcons calls', async () => {
+      TestBed.resetTestingModule();
+      await TestBed.configureTestingModule({
+        imports: [TestHostComponent],
+        providers: [
+          provideComIcons({ Star }),
+          provideComIcons({ Check }),
+        ],
+      }).compileComponents();
+
+      const mergeFixture = TestBed.createComponent(TestHostComponent);
+      const mergeHost = mergeFixture.componentInstance;
+
+      mergeHost.name.set('star');
+      mergeFixture.detectChanges();
+      expect(mergeFixture.nativeElement.querySelector('lucide-icon')).toBeTruthy();
+
+      mergeHost.name.set('check');
+      mergeFixture.detectChanges();
+      expect(mergeFixture.nativeElement.querySelector('lucide-icon')).toBeTruthy();
+    });
+
+    it('should store all registered icons in the singleton registry', async () => {
+      TestBed.resetTestingModule();
+      await TestBed.configureTestingModule({
+        imports: [TestHostComponent],
+        providers: [
+          provideComIcons({ Star }),
+          provideComIcons({ Check, AlertTriangle }),
+        ],
+      }).compileComponents();
+
+      // Force initializers to run
+      TestBed.createComponent(TestHostComponent);
+
+      const registry = TestBed.inject(ComIconRegistry);
+      expect(registry.get('Star')).toBeTruthy();
+      expect(registry.get('Check')).toBeTruthy();
+      expect(registry.get('AlertTriangle')).toBeTruthy();
+    });
+  });
+
+  describe('unknown icon', () => {
+    it('should render nothing for an unregistered icon name', () => {
+      host.name.set('nonexistent-icon');
+      fixture.detectChanges();
+
+      const lucideIcon = iconEl.querySelector('lucide-icon');
+      expect(lucideIcon).toBeFalsy();
     });
   });
 });

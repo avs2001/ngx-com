@@ -25,7 +25,7 @@ describe('ComDatepicker', () => {
         />
       `,
       imports: [ComDatepicker],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class BasicDatepickerComponent {
       selectedDate = signal<Date | null>(null);
@@ -45,6 +45,7 @@ describe('ComDatepicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [BasicDatepickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(BasicDatepickerComponent);
@@ -92,7 +93,7 @@ describe('ComDatepicker', () => {
         <com-datepicker [disabled]="disabled()" />
       `,
       imports: [ComDatepicker],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class DisabledDatepickerComponent {
       disabled = signal(true);
@@ -105,6 +106,7 @@ describe('ComDatepicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [DisabledDatepickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(DisabledDatepickerComponent);
@@ -146,7 +148,7 @@ describe('ComDatepicker', () => {
         </form>
       `,
       imports: [ComDatepicker, ReactiveFormsModule],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class ReactiveFormDatepickerComponent {
       form = new FormGroup({
@@ -160,6 +162,7 @@ describe('ComDatepicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [ReactiveFormDatepickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ReactiveFormDatepickerComponent);
@@ -187,7 +190,7 @@ describe('ComDatepicker', () => {
         />
       `,
       imports: [ComDatepicker],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class ClearButtonDatepickerComponent {
       selectedDate = signal<Date | null>(new Date(2024, 0, 15));
@@ -204,6 +207,7 @@ describe('ComDatepicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [ClearButtonDatepickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ClearButtonDatepickerComponent);
@@ -239,7 +243,7 @@ describe('ComDatepicker', () => {
         <com-datepicker [size]="size()" />
       `,
       imports: [ComDatepicker],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class SizedDatepickerComponent {
       size = signal<'sm' | 'default' | 'lg'>('default');
@@ -251,6 +255,7 @@ describe('ComDatepicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [SizedDatepickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(SizedDatepickerComponent);
@@ -291,7 +296,7 @@ describe('ComDatepicker', () => {
         <span id="help-text">Enter your birth date</span>
       `,
       imports: [ComDatepicker],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class AccessibleDatepickerComponent {}
 
@@ -302,6 +307,7 @@ describe('ComDatepicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [AccessibleDatepickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(AccessibleDatepickerComponent);
@@ -362,7 +368,7 @@ describe('ComDateRangePicker', () => {
         />
       `,
       imports: [ComDateRangePicker],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class BasicDateRangePickerComponent {
       selectedRange = signal<DateRangeValue<Date> | null>(null);
@@ -381,6 +387,7 @@ describe('ComDateRangePicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [BasicDateRangePickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(BasicDateRangePickerComponent);
@@ -440,7 +447,7 @@ describe('ComDateRangePicker', () => {
         </form>
       `,
       imports: [ComDateRangePicker, ReactiveFormsModule],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class ReactiveFormDateRangePickerComponent {
       form = new FormGroup({
@@ -454,6 +461,7 @@ describe('ComDateRangePicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [ReactiveFormDateRangePickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ReactiveFormDateRangePickerComponent);
@@ -485,7 +493,7 @@ describe('ComDateRangePicker', () => {
         />
       `,
       imports: [ComDateRangePicker],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class ClearButtonDateRangePickerComponent {
       selectedRange = signal<DateRangeValue<Date> | null>({
@@ -505,6 +513,7 @@ describe('ComDateRangePicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [ClearButtonDateRangePickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ClearButtonDateRangePickerComponent);
@@ -532,7 +541,7 @@ describe('ComDateRangePicker', () => {
         <com-date-range-picker [disabled]="disabled()" />
       `,
       imports: [ComDateRangePicker],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class DisabledDateRangePickerComponent {
       disabled = signal(true);
@@ -545,6 +554,7 @@ describe('ComDateRangePicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [DisabledDateRangePickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(DisabledDateRangePickerComponent);
@@ -582,7 +592,7 @@ describe('ComDateRangePicker', () => {
         />
       `,
       imports: [ComDateRangePicker],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class AccessibleDateRangePickerComponent {}
 
@@ -591,6 +601,7 @@ describe('ComDateRangePicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [AccessibleDateRangePickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(AccessibleDateRangePickerComponent);
@@ -619,7 +630,7 @@ describe('ComDateRangePicker', () => {
         <com-date-range-picker [size]="size()" />
       `,
       imports: [ComDateRangePicker],
-      providers: [provideNativeDateAdapter(), provideComIcons(DATEPICKER_TEST_ICONS)],
+      providers: [provideNativeDateAdapter()],
     })
     class SizedDateRangePickerComponent {
       size = signal<'sm' | 'default' | 'lg'>('default');
@@ -631,6 +642,7 @@ describe('ComDateRangePicker', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [SizedDateRangePickerComponent],
+        providers: [provideComIcons(DATEPICKER_TEST_ICONS)],
       }).compileComponents();
 
       fixture = TestBed.createComponent(SizedDateRangePickerComponent);
