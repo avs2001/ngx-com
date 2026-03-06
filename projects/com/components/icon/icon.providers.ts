@@ -10,7 +10,7 @@ import { ComIconRegistry } from './icon.registry';
  * registers icons into the singleton `ComIconRegistry`. The token itself
  * is never read — its purpose is to force Angular's DI to run the factories.
  */
-export const COM_ICON_REGISTRAR = new InjectionToken<void[]>('ComIconRegistrar');
+export const COM_ICON_REGISTRAR: InjectionToken<void[]> = new InjectionToken<void[]>('ComIconRegistrar');
 
 /**
  * Provides Lucide icons for use with `com-icon`.
