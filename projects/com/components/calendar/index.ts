@@ -123,3 +123,34 @@ export type {
   DatepickerFooterButtonVariants,
   DatepickerRangeSeparatorVariants,
 } from './datepicker';
+
+// Timepicker
+export {
+  ComTimePicker,
+  createTimeValue,
+  compareTime,
+  generateTimePickerId,
+  timepickerContainerVariants,
+  timepickerDisabledVariants,
+  timepickerSegmentVariants,
+  timepickerSeparatorVariants,
+  timepickerPeriodVariants,
+  timepickerSectionVariants,
+  timepickerLabelVariants,
+} from './timepicker';
+
+export type {
+  ComTimeValue,
+  TimePickerSize,
+  TimePickerVariant,
+  TimePickerState,
+  TimePeriod,
+  TimeSegment,
+  TimepickerContainerVariants,
+  TimepickerDisabledVariants,
+  TimepickerSegmentVariants,
+  TimepickerSeparatorVariants,
+  TimepickerPeriodVariants,
+  TimepickerSectionVariants,
+  TimepickerLabelVariants,
+} from './timepicker';
