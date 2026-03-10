@@ -96,6 +96,28 @@ export abstract class DateAdapter<D> {
     return compareToStart >= 0 && compareToEnd <= 0;
   }
 
+  /** Gets the hour component of the given date (0-23) */
+  abstract getHours(date: D): number;
+
+  /** Gets the minute component of the given date (0-59) */
+  abstract getMinutes(date: D): number;
+
+  /** Gets the second component of the given date (0-59) */
+  abstract getSeconds(date: D): number;
+
+  /** Returns a new date with the given hour, minute, second set */
+  abstract setTime(date: D, hours: number, minutes: number, seconds: number): D;
+
+  /** Creates a date with the given year, month (0-indexed), day, hours, minutes, seconds */
+  abstract createDateTime(
+    year: number,
+    month: number,
+    day: number,
+    hours: number,
+    minutes: number,
+    seconds: number,
+  ): D;
+
   /**
    * Gets a unique identifier for the date (useful for trackBy)
    */

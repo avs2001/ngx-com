@@ -3,7 +3,10 @@
  */
 
 /** Date format preset names */
-export type DateFormatPreset = 'short' | 'medium' | 'long' | 'full';
+export type DateFormatPreset =
+  | 'short' | 'medium' | 'long' | 'full'
+  | 'time' | 'timeWithSeconds'
+  | 'dateTimeShort' | 'dateTimeMedium' | 'dateTimeLong';
 
 /** Panel width configuration */
 export type DatepickerPanelWidth = 'auto' | 'trigger' | `${number}px` | `${number}rem`;

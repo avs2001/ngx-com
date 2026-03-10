@@ -183,6 +183,49 @@ export class NativeDateAdapter extends DateAdapter<Date> {
     return 0;
   }
 
+  override getHours(date: Date): number {
+    return date.getHours();
+  }
+
+  override getMinutes(date: Date): number {
+    return date.getMinutes();
+  }
+
+  override getSeconds(date: Date): number {
+    return date.getSeconds();
+  }
+
+  override setTime(date: Date, hours: number, minutes: number, seconds: number): Date {
+    const result = new Date(date);
+    result.setHours(hours, minutes, seconds, 0);
+    return result;
+  }
+
+  override createDateTime(
+    year: number,
+    month: number,
+    day: number,
+    hours: number,
+    minutes: number,
+    seconds: number,
+  ): Date {
+    if (month < 0 || month > 11) {
+      throw new Error(`Invalid month index "${month}". Month index must be between 0 and 11.`);
+    }
+
+    if (day < 1) {
+      throw new Error(`Invalid date "${day}". Date must be greater than 0.`);
+    }
+
+    const result = new Date(year, month, day, hours, minutes, seconds);
+
+    if (result.getMonth() !== month) {
+      throw new Error(`Invalid date "${day}" for month index "${month}".`);
+    }
+
+    return result;
+  }
+
   override clampDate(date: Date, min: Date | null, max: Date | null): Date {
     if (min && this.compareDate(date, min) < 0) {
       return min;
@@ -222,6 +265,11 @@ export class NativeDateAdapter extends DateAdapter<Date> {
       monthYearShort: { year: 'numeric', month: 'short' },
       dayMonth: { day: 'numeric', month: 'long' },
       dayMonthYear: { day: 'numeric', month: 'long', year: 'numeric' },
+      time: { hour: 'numeric', minute: '2-digit' },
+      timeWithSeconds: { hour: 'numeric', minute: '2-digit', second: '2-digit' },
+      dateTimeShort: { dateStyle: 'short', timeStyle: 'short' },
+      dateTimeMedium: { dateStyle: 'medium', timeStyle: 'short' },
+      dateTimeLong: { dateStyle: 'long', timeStyle: 'medium' },
     };
 
     return formatMap[format] ?? { dateStyle: 'medium' };
