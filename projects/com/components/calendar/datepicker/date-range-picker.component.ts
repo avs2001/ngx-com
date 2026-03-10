@@ -44,6 +44,13 @@ import {
 } from '../selection';
 import type { CalendarView, DateFilterFn, DateRange } from '../calendar.types';
 import { joinClasses } from '../calendar.utils';
+import { ComTimePicker } from '../timepicker/timepicker.component';
+import {
+  timepickerSectionVariants,
+  timepickerLabelVariants,
+} from '../timepicker/timepicker.variants';
+import type { ComTimeValue } from '../timepicker/timepicker.types';
+import { createTimeValue } from '../timepicker/timepicker.types';
 import {
   datepickerTriggerVariants,
   datepickerDisabledVariants,
@@ -207,7 +214,45 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = [
           (activeDateChange)="onActiveDateChange($event)"
         />
 
-        @if (showTodayButton() || showFooterClearButton()) {
+        @if (showTimePicker()) {
+          <div [class]="timeSectionClasses()">
+            <div class="flex items-center gap-3">
+              <div class="flex flex-col gap-1">
+                <span [class]="timeLabelClasses()">Start time</span>
+                <com-time-picker
+                  variant="embedded"
+                  [size]="size()"
+                  [value]="startTimeValue()"
+                  [use12HourFormat]="use12HourFormat()"
+                  [showSeconds]="showSeconds()"
+                  [minuteStep]="minuteStep()"
+                  [disabled]="disabled()"
+                  ariaLabel="Start time"
+                  (timeChange)="onStartTimeChange($event)"
+                />
+              </div>
+              <span class="text-muted-foreground mt-5">
+                <com-icon name="arrow-right" [size]="iconSize()" />
+              </span>
+              <div class="flex flex-col gap-1">
+                <span [class]="timeLabelClasses()">End time</span>
+                <com-time-picker
+                  variant="embedded"
+                  [size]="size()"
+                  [value]="endTimeValue()"
+                  [use12HourFormat]="use12HourFormat()"
+                  [showSeconds]="showSeconds()"
+                  [minuteStep]="minuteStep()"
+                  [disabled]="disabled()"
+                  ariaLabel="End time"
+                  (timeChange)="onEndTimeChange($event)"
+                />
+              </div>
+            </div>
+          </div>
+        }
+
+        @if (showTodayButton() || showFooterClearButton() || showTimePicker()) {
           <div [class]="footerClasses()">
             @if (showTodayButton()) {
               <button
@@ -225,6 +270,15 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = [
                 (click)="clear($event)"
               >
                 Clear
+              </button>
+            }
+            @if (showTimePicker()) {
+              <button
+                type="button"
+                [class]="todayButtonClasses()"
+                (click)="close()"
+              >
+                Done
               </button>
             }
           </div>
@@ -255,6 +309,7 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = [
     A11yModule,
     ComCalendar,
     ComIcon,
+    ComTimePicker,
   ],
   providers: [
     RangeSelectionStrategy,
@@ -377,6 +432,18 @@ export class ComDateRangePicker<D> implements ControlValueAccessor, Validator, O
   /** Accessible label for the end input. */
   readonly endAriaLabel: InputSignal<string | null> = input<string | null>(null);
 
+  /** Whether to show time pickers below the calendar. */
+  readonly showTimePicker: InputSignal<boolean> = input<boolean>(false);
+
+  /** 12h vs 24h format for the time pickers. `null` = auto-detect. */
+  readonly use12HourFormat: InputSignal<boolean | null> = input<boolean | null>(null);
+
+  /** Whether the time pickers show seconds. */
+  readonly showSeconds: InputSignal<boolean> = input<boolean>(false);
+
+  /** Step interval for minutes in the time pickers. */
+  readonly minuteStep: InputSignal<number> = input<number>(1);
+
   // ============ OUTPUTS ============
 
   /** Emitted when a complete range is selected. */
@@ -445,14 +512,14 @@ export class ComDateRangePicker<D> implements ControlValueAccessor, Validator, O
   readonly startDisplayValue: Signal<string> = computed(() => {
     const value = this.internalValue();
     if (!value?.start) return '';
-    return this.dateAdapter.format(value.start, this.dateFormat());
+    return this.dateAdapter.format(value.start, this.effectiveDateFormat());
   });
 
   /** Formatted end display value. */
   readonly endDisplayValue: Signal<string> = computed(() => {
     const value = this.internalValue();
     if (!value?.end) return '';
-    return this.dateAdapter.format(value.end, this.dateFormat());
+    return this.dateAdapter.format(value.end, this.effectiveDateFormat());
   });
 
   /** Computed trigger classes. */
@@ -508,6 +575,51 @@ export class ComDateRangePicker<D> implements ControlValueAccessor, Validator, O
   /** Computed clear button classes (footer). */
   readonly clearButtonClasses: Signal<string> = computed(() => {
     return datepickerFooterButtonVariants({ size: this.size(), variant: 'secondary' });
+  });
+
+  /** Time section divider classes. */
+  readonly timeSectionClasses: Signal<string> = computed(() => {
+    return timepickerSectionVariants({ size: this.size() });
+  });
+
+  /** Time label classes. */
+  readonly timeLabelClasses: Signal<string> = computed(() => {
+    return timepickerLabelVariants({ size: this.size() });
+  });
+
+  /** Start time value derived from the start date. */
+  readonly startTimeValue: Signal<ComTimeValue | null> = computed(() => {
+    const value = this.internalValue();
+    if (!value?.start) return null;
+    return createTimeValue(
+      this.dateAdapter.getHours(value.start),
+      this.dateAdapter.getMinutes(value.start),
+      this.dateAdapter.getSeconds(value.start),
+    );
+  });
+
+  /** End time value derived from the end date. */
+  readonly endTimeValue: Signal<ComTimeValue | null> = computed(() => {
+    const value = this.internalValue();
+    if (!value?.end) return null;
+    return createTimeValue(
+      this.dateAdapter.getHours(value.end),
+      this.dateAdapter.getMinutes(value.end),
+      this.dateAdapter.getSeconds(value.end),
+    );
+  });
+
+  /** Effective display format — switches to dateTime when time picker is shown. */
+  readonly effectiveDateFormat: Signal<DateFormatPreset> = computed(() => {
+    if (this.showTimePicker()) {
+      return this.showSeconds() ? 'dateTimeLong' : 'dateTimeMedium';
+    }
+    return this.dateFormat();
+  });
+
+  /** Whether the panel should stay open (keepOpen or time picker shown). */
+  readonly effectiveKeepOpen: Signal<boolean> = computed(() => {
+    return this.keepOpen() || this.showTimePicker();
   });
 
   // ============ CVA CALLBACKS ============
@@ -674,7 +786,7 @@ export class ComDateRangePicker<D> implements ControlValueAccessor, Validator, O
         : createDateRangeValue(currentValue.start, today);
       this.updateValue(newRange);
 
-      if (!this.keepOpen()) {
+      if (!this.effectiveKeepOpen()) {
         this.close();
       }
     }
@@ -783,7 +895,7 @@ export class ComDateRangePicker<D> implements ControlValueAccessor, Validator, O
         // Complete range selected
         this.announce(`Range selected: ${this.formatDate(range.start)} to ${this.formatDate(range.end)}`);
 
-        if (!this.keepOpen()) {
+        if (!this.effectiveKeepOpen()) {
           this.close();
         }
       } else if (range.start) {
@@ -794,6 +906,22 @@ export class ComDateRangePicker<D> implements ControlValueAccessor, Validator, O
 
   protected onActiveDateChange(date: D): void {
     this.calendarActiveDate.set(date);
+  }
+
+  protected onStartTimeChange(time: ComTimeValue | null): void {
+    if (!time) return;
+    const value = this.internalValue();
+    const startDate = value?.start ?? this.dateAdapter.today();
+    const updated = this.dateAdapter.setTime(startDate, time.hours, time.minutes, time.seconds);
+    this.updateValue(createDateRangeValue(updated, value?.end ?? null));
+  }
+
+  protected onEndTimeChange(time: ComTimeValue | null): void {
+    if (!time) return;
+    const value = this.internalValue();
+    const endDate = value?.end ?? this.dateAdapter.today();
+    const updated = this.dateAdapter.setTime(endDate, time.hours, time.minutes, time.seconds);
+    this.updateValue(createDateRangeValue(value?.start ?? null, updated));
   }
 
   // ============ PRIVATE METHODS ============
@@ -860,7 +988,7 @@ export class ComDateRangePicker<D> implements ControlValueAccessor, Validator, O
       return;
     }
 
-    const parsed = this.dateAdapter.parse(inputValue, this.dateFormat());
+    const parsed = this.dateAdapter.parse(inputValue, this.effectiveDateFormat());
     if (parsed && this.dateAdapter.isValid(parsed) && this.isDateValid(parsed)) {
       // Ensure start <= end
       if (currentValue?.end && this.dateAdapter.compareDate(parsed, currentValue.end) > 0) {
@@ -886,7 +1014,7 @@ export class ComDateRangePicker<D> implements ControlValueAccessor, Validator, O
       return;
     }
 
-    const parsed = this.dateAdapter.parse(inputValue, this.dateFormat());
+    const parsed = this.dateAdapter.parse(inputValue, this.effectiveDateFormat());
     if (parsed && this.dateAdapter.isValid(parsed) && this.isDateValid(parsed)) {
       // Ensure start <= end
       if (currentValue?.start && this.dateAdapter.compareDate(parsed, currentValue.start) < 0) {

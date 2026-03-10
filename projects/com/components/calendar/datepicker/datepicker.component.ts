@@ -44,6 +44,10 @@ import {
 } from '../selection';
 import type { CalendarView, DateFilterFn, DateRange } from '../calendar.types';
 import { joinClasses } from '../calendar.utils';
+import { ComTimePicker } from '../timepicker/timepicker.component';
+import { timepickerSectionVariants } from '../timepicker/timepicker.variants';
+import type { ComTimeValue } from '../timepicker/timepicker.types';
+import { createTimeValue } from '../timepicker/timepicker.types';
 import {
   datepickerTriggerVariants,
   datepickerDisabledVariants,
@@ -180,7 +184,22 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = [
           (activeDateChange)="onActiveDateChange($event)"
         />
 
-        @if (showTodayButton() || showFooterClearButton()) {
+        @if (showTimePicker()) {
+          <div [class]="timeSectionClasses()">
+            <com-time-picker
+              variant="embedded"
+              [size]="size()"
+              [value]="timeValue()"
+              [use12HourFormat]="use12HourFormat()"
+              [showSeconds]="showSeconds()"
+              [minuteStep]="minuteStep()"
+              [disabled]="disabled()"
+              (timeChange)="onTimeChange($event)"
+            />
+          </div>
+        }
+
+        @if (showTodayButton() || showFooterClearButton() || showTimePicker()) {
           <div [class]="footerClasses()">
             @if (showTodayButton()) {
               <button
@@ -198,6 +217,15 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = [
                 (click)="clear($event)"
               >
                 Clear
+              </button>
+            }
+            @if (showTimePicker()) {
+              <button
+                type="button"
+                [class]="todayButtonClasses()"
+                (click)="close()"
+              >
+                Done
               </button>
             }
           </div>
@@ -228,6 +256,7 @@ const DEFAULT_POSITIONS: ConnectedPosition[] = [
     A11yModule,
     ComCalendar,
     ComIcon,
+    ComTimePicker,
   ],
   providers: [
     SingleSelectionStrategy,
@@ -343,6 +372,18 @@ export class ComDatepicker<D> implements ControlValueAccessor, Validator, OnDest
   /** ID of element describing the input. */
   readonly ariaDescribedBy: InputSignal<string | null> = input<string | null>(null);
 
+  /** Whether to show the time picker below the calendar. */
+  readonly showTimePicker: InputSignal<boolean> = input<boolean>(false);
+
+  /** 12h vs 24h format for the time picker. `null` = auto-detect. */
+  readonly use12HourFormat: InputSignal<boolean | null> = input<boolean | null>(null);
+
+  /** Whether the time picker shows seconds. */
+  readonly showSeconds: InputSignal<boolean> = input<boolean>(false);
+
+  /** Step interval for minutes in the time picker. */
+  readonly minuteStep: InputSignal<number> = input<number>(1);
+
   // ============ OUTPUTS ============
 
   /** Emitted when a date is selected. */
@@ -395,7 +436,7 @@ export class ComDatepicker<D> implements ControlValueAccessor, Validator, OnDest
   readonly displayValue: Signal<string> = computed(() => {
     const value = this.internalValue();
     if (!value) return '';
-    return this.dateAdapter.format(value, this.dateFormat());
+    return this.dateAdapter.format(value, this.effectiveDateFormat());
   });
 
   /** Computed trigger classes. */
@@ -446,6 +487,35 @@ export class ComDatepicker<D> implements ControlValueAccessor, Validator, OnDest
   /** Computed clear button classes (footer). */
   readonly clearButtonClasses: Signal<string> = computed(() => {
     return datepickerFooterButtonVariants({ size: this.size(), variant: 'secondary' });
+  });
+
+  /** Time section divider classes. */
+  readonly timeSectionClasses: Signal<string> = computed(() => {
+    return timepickerSectionVariants({ size: this.size() });
+  });
+
+  /** Time value derived from the current date value. */
+  readonly timeValue: Signal<ComTimeValue | null> = computed(() => {
+    const date = this.internalValue();
+    if (!date) return null;
+    return createTimeValue(
+      this.dateAdapter.getHours(date),
+      this.dateAdapter.getMinutes(date),
+      this.dateAdapter.getSeconds(date),
+    );
+  });
+
+  /** Effective display format — switches to dateTime when time picker is shown. */
+  readonly effectiveDateFormat: Signal<DateFormatPreset> = computed(() => {
+    if (this.showTimePicker()) {
+      return this.showSeconds() ? 'dateTimeLong' : 'dateTimeMedium';
+    }
+    return this.dateFormat();
+  });
+
+  /** Whether the panel should stay open (keepOpen or time picker shown). */
+  readonly effectiveKeepOpen: Signal<boolean> = computed(() => {
+    return this.keepOpen() || this.showTimePicker();
   });
 
   // ============ CVA CALLBACKS ============
@@ -586,7 +656,7 @@ export class ComDatepicker<D> implements ControlValueAccessor, Validator, OnDest
     const today = this.dateAdapter.today();
     this.updateValue(today);
 
-    if (!this.keepOpen()) {
+    if (!this.effectiveKeepOpen()) {
       this.close();
     }
   }
@@ -668,13 +738,36 @@ export class ComDatepicker<D> implements ControlValueAccessor, Validator, OnDest
   }
 
   protected onDateSelected(date: D): void {
-    this.updateValue(date);
+    // Preserve time when selecting a new date if time picker is shown
+    if (this.showTimePicker()) {
+      const currentValue = this.internalValue();
+      if (currentValue) {
+        const withTime = this.dateAdapter.setTime(
+          date,
+          this.dateAdapter.getHours(currentValue),
+          this.dateAdapter.getMinutes(currentValue),
+          this.dateAdapter.getSeconds(currentValue),
+        );
+        this.updateValue(withTime);
+      } else {
+        this.updateValue(date);
+      }
+    } else {
+      this.updateValue(date);
+    }
 
-    if (!this.keepOpen()) {
+    if (!this.effectiveKeepOpen()) {
       this.close();
     }
 
     this.announce(`Selected ${this.dateAdapter.format(date, 'long')}`);
+  }
+
+  protected onTimeChange(time: ComTimeValue | null): void {
+    if (!time) return;
+    const current = this.internalValue() ?? this.dateAdapter.today();
+    const updated = this.dateAdapter.setTime(current, time.hours, time.minutes, time.seconds);
+    this.updateValue(updated);
   }
 
   protected onActiveDateChange(date: D): void {
@@ -743,7 +836,7 @@ export class ComDatepicker<D> implements ControlValueAccessor, Validator, OnDest
       return;
     }
 
-    const parsed = this.dateAdapter.parse(inputValue, this.dateFormat());
+    const parsed = this.dateAdapter.parse(inputValue, this.effectiveDateFormat());
     if (parsed && this.dateAdapter.isValid(parsed)) {
       // Validate against min/max/filter
       if (this.isDateValid(parsed)) {
